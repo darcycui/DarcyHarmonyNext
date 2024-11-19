@@ -1,0 +1,12 @@
+{
+  "string": [
+    {
+      "name": "shared_library_context_name",
+      "value": "Shared library context name"
+    },
+    {
+      "name": "shared_desc",
+      "value": "shared library desc"
+    }
+  ]
+}

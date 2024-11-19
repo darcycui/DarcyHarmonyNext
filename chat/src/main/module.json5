@@ -1,0 +1,28 @@
+{
+  "module": {
+    "name": "chat",
+    "type": "feature",
+    "description": "$string:module_desc",
+    "mainElement": "ChatAbility",
+    "deviceTypes": [
+      "phone",
+      "tablet",
+      "2in1"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+    "abilities": [
+      {
+        "name": "ChatAbility",
+        "srcEntry": "./ets/chatability/ChatAbility.ets",
+        "description": "$string:ChatAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:ChatAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true
+      }
+    ]
+  }
+}

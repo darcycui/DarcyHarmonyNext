@@ -1,0 +1,12 @@
+{
+  "string": [
+    {
+      "name": "page_show",
+      "value": "page from package"
+    },
+    {
+      "name": "CAMERA",
+      "value": "相关权限需要使用相机"
+    }
+  ]
+}

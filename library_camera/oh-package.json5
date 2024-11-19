@@ -1,0 +1,11 @@
+{
+  "name": "library_camera",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "Index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "liblibrary_camera.so": "file:./src/main/cpp/types/liblibrary_camera"
+  }
+}

@@ -1,0 +1,11 @@
+// 应用级别配置信息
+{
+  "app": {
+    "bundleName": "com.darcy.harmonys",
+    "vendor": "example",
+    "versionCode": 1000000,
+    "versionName": "1.0.0",
+    "icon": "$media:app_icon2",
+    "label": "$string:app_name"
+  }
+}

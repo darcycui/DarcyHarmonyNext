@@ -1,0 +1,132 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "HarmonyNextMain"
+    },
+    {
+      "name": "Left",
+      "value": "Left"
+    },
+    {
+      "name": "Next",
+      "value": "Next"
+    },
+    {
+      "name": "Back",
+      "value": "Back"
+    },
+    {
+      "name": "HomeAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "HomeAbility_label",
+      "value": "HomeAbility"
+    },
+    {
+      "name": "LoginFeatureAbility",
+      "value": "LoginFeatureAbility"
+    },
+    {
+      "name": "HomePage",
+      "value": "HomePage"
+    },
+    {
+      "name": "Terminate",
+      "value": "Terminate"
+    },
+    {
+      "name": "HomeAbility",
+      "value": "HomeAblity"
+    },
+    {
+      "name": "RelativePage",
+      "value": "RelativePage"
+    },
+    {
+      "name": "InputPage",
+      "value": "InputPage"
+    },
+    {
+      "name": "ColumnPage",
+      "value": "ColumnPage"
+    },
+    {
+      "name": "ImagePage",
+      "value": "ImagePage"
+    },
+    {
+      "name": "TakeImage",
+      "value": "TakeImage"
+    },
+    {
+      "name": "StaticLibraryPage",
+      "value": "StaticLibraryPage"
+    },
+    {
+      "name": "StaticLibraryPageTest",
+      "value": "This is a static library page"
+    },
+    {
+      "name": "SharedLibraryPageTest",
+      "value": "Thi is Shared library test page"
+    },
+    {
+      "name": "SharedLibraryPage",
+      "value": "SharedLibraryPage"
+    },
+    {
+      "name": "StaticLibraryCommonFunc",
+      "value": "StaticLibraryCommonFunc"
+    },
+    {
+      "name": "TestEventHub",
+      "value": "TestEventHub"
+    },
+    {
+      "name": "CameraPage",
+      "value": "CameraPage"
+    },
+    {
+      "name": "TestCallFunction",
+      "value": "TestCallFunction"
+    },
+    {
+      "name": "HttpTest",
+      "value": "httpTest"
+    },
+    {
+      "name": "TestHttpsCertPin",
+      "value": "TestHttpsCertPin"
+    },
+    {
+      "name": "TestHttps",
+      "value": "TestHttps"
+    },
+    {
+      "name": "WebsocketConnect",
+      "value": "Connect"
+    },
+    {
+      "name": "WebsocketDisconnect",
+      "value": "Disconnect"
+    },
+    {
+      "name": "TestWebsockets",
+      "value": "TestWebsockets"
+    },
+    {
+      "name": "WebsocketSend",
+      "value": "Send"
+    }
+  ]
+}

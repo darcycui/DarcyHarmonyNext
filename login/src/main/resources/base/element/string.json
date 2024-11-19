@@ -1,0 +1,40 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "LoginAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "LoginAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "user_name_tip",
+      "value": "UserName"
+    },
+    {
+      "name": "password_tip",
+      "value": "Password"
+    },
+    {
+      "name": "user_name_placeholder",
+      "value": "请输入用户名"
+    },
+    {
+      "name": "HomePage",
+      "value": "Home"
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "label"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "HarmonyNextZh"
+    },
+    {
+      "name": "Left",
+      "value": "左"
+    },
+    {
+      "name": "Next",
+      "value": "下一页"
+    },
+    {
+      "name": "Back",
+      "value": "上一页"
+    },
+    {
+      "name": "HomeAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "HomeAbility_label",
+      "value": "HomeAbility"
+    },
+    {
+      "name": "LoginFeatureAbility",
+      "value": "LoginFeatureAbility"
+    },
+    {
+      "name": "HomePage",
+      "value": "Home"
+    },
+    {
+      "name": "Terminate",
+      "value": "Terminate"
+    },
+    {
+      "name": "HomeAbility",
+      "value": "HomeAblity"
+    },
+    {
+      "name": "RelativePage",
+      "value": "RelativePage"
+    },
+    {
+      "name": "InputPage",
+      "value": "InputPage"
+    },
+    {
+      "name": "ColumnPage",
+      "value": "ColumnPage"
+    },
+    {
+      "name": "ImagePage",
+      "value": "ImagePage"
+    },
+    {
+      "name": "TakeImage",
+      "value": "TakeImage"
+    },
+    {
+      "name": "StaticLibraryPage",
+      "value": "StaticLibraryPage"
+    },
+    {
+      "name": "StaticLibraryPageTest",
+      "value": "This is a static library page"
+    },
+    {
+      "name": "SharedLibraryPageTest",
+      "value": "Thi is Shared library test page"
+    },
+    {
+      "name": "SharedLibraryPage",
+      "value": "SharedLibraryPage"
+    },
+    {
+      "name": "StaticLibraryCommonFunc",
+      "value": "StaticLibraryCommonFunc"
+    },
+    {
+      "name": "TestEventHub",
+      "value": "TestEventHub"
+    },
+    {
+      "name": "CameraPage",
+      "value": "CameraPage"
+    },
+    {
+      "name": "TestCallFunction",
+      "value": "TestCallFunction"
+    },
+    {
+      "name": "TestHttps",
+      "value": "TestHttps"
+    },
+    {
+      "name": "WebsocketConnect",
+      "value": "Connect"
+    },
+    {
+      "name": "WebsocketDisconnect",
+      "value": "Disconnect"
+    },
+    {
+      "name": "TestWebsockets",
+      "value": "TestWebsockets"
+    },
+    {
+      "name": "WebsocketSend",
+      "value": "Send"
+    }
+  ]
+}

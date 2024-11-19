@@ -1,0 +1,6 @@
+{
+  "src": [
+    "pages/login/LoginIndex",
+    "pages/login/TestPage"
+  ]
+}

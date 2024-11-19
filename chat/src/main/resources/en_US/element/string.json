@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "ChatAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "ChatAbility_label",
+      "value": "label"
+    }
+  ]
+}

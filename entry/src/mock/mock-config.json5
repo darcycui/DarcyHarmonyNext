@@ -1,0 +1,6 @@
+//Imports of unmocked HSP modules are not allowed in pages or components. (no-page-import-unmocked-hsp)
+{
+  "library": {
+    "source": "src/mock/shared_context_hsp.mock.ets"
+  }
+}

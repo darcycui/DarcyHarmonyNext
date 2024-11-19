@@ -1,0 +1,32 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    //    "harmony-library": "^1.0.0",
+    //    "module1": "file:../login"
+
+    // 1.本地源码依赖
+    // 引用本地静态库源码
+    // 修改oh-package.json5 注意:key不可以重复; 执行 ohpm install命令
+    "static_common": "file:../static_library_common",
+    // 引用本地动态库源码
+    "shared_context": "file:../shared_library_context",
+    // 引用camera库
+//    "library_camera_shared": "file:../library_camera_shared",
+    "library_camera_static": "file:../library_camera"
+//
+//    // 2.本地文件依赖
+//    // 引用本地静态库文件
+//    "static_common": "file:src/main/libs/static_library_common.har",
+//    // 引用本地动态库文件
+//    "shared_context": "file:src/main/libs/shared_library_context-default.tgz",
+
+//    // 3.远程依赖
+//    "static_library_common": "^1.0.0"
+  }
+}
+

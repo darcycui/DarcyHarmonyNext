@@ -1,0 +1,99 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "build",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\lenovo\\.ohos\\config\\build_HarmonyNextDemo_g1WkcAKMyUSYqXQ5ulJwAR5Z5PjKDVmoqfh3-PswIXc=.cer",
+          "storePassword": "0000001B2B83789DA4D1A45BED7736517066380B1E62B85039A47C681CAF8DD8366CE3178BB4814C797C7D",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B781CF3E7E472EF5F6B45E0512DB6513957560F40C99C5FFF1C92DF5001955139939967766ACB4D",
+          "profile": "C:\\Users\\lenovo\\.ohos\\config\\build_HarmonyNextDemo_g1WkcAKMyUSYqXQ5ulJwAR5Z5PjKDVmoqfh3-PswIXc=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\lenovo\\.ohos\\config\\build_HarmonyNextDemo_g1WkcAKMyUSYqXQ5ulJwAR5Z5PjKDVmoqfh3-PswIXc=.p12"
+        }
+      }
+    ],
+    "products": [
+      //      {
+      //        "name": "default",
+      //        "signingConfig": "default",
+      //        "compatibleSdkVersion": "5.0.0(12)",
+      //        "runtimeOS": "HarmonyOS",
+      //      },
+      {
+        "name": "default",
+        "signingConfig": "build",
+        "compatibleSdkVersion": "5.0.0(12)",
+        "runtimeOS": "HarmonyOS",
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "login",
+      "srcPath": "./login",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "static_library_common",
+      "srcPath": "./static_library_common",
+    },
+    {
+      "name": "shared_library_context",
+      "srcPath": "./shared_library_context",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "chat",
+      "srcPath": "./chat",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "library_camera",
+      "srcPath": "./library_camera",
+    }
+  ]
+}

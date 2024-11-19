@@ -1,0 +1,9 @@
+{
+  "name": "static_library_common",
+  "version": "1.0.1",
+  "description": "鸿蒙Next静态库(HAR)学习模板,导出自定义组件,页面,类和函数.",
+  "main": "Index.ets",
+  "author": "darcy",
+  "license": "Apache-2.0",
+  "dependencies": {}
+}
