@@ -1,6 +1,7 @@
 import {
   PAGE_CAMERA_STATIC,
   PAGE_COLUMN,
+  PAGE_FILE,
   PAGE_HTTPS,
   PAGE_HTTPS_CERT_PIN,
   PAGE_IMAGE,
@@ -123,6 +124,13 @@ struct StartPage {
         .fontWeight(FontWeight.Bold)
         .onClick(()=>{
           startPage(PAGE_WEBSOCKETS, { 'keyHello': 'Hello World' })
+        })
+      Button($r('app.string.TestFile'))
+        .id('TestFile')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(()=>{
+          startPage(PAGE_FILE, { 'keyHello': 'Hello World' })
         })
     }
     .width('100%')

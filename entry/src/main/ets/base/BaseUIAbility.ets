@@ -78,7 +78,7 @@ export abstract class BaseUIAbility extends UIAbility {
   }
 
   onWindowStageWillDestroy(windowStage: window.WindowStage): void {
-    this.onWindowStageWillDestroy(windowStage)
+    super.onWindowStageWillDestroy(windowStage)
     HiLog.info(this.TAG + 'Ability onWindowStageWillDestroy')
   }
 

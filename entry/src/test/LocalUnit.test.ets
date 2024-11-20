@@ -257,6 +257,7 @@ export default function localUnitTest() {
 
     //TODO 学习笔记 函数
     it("learnFunction", 0, () => {
+      Log.setShowLog(true)
       // 普通函数
       let sum = add(1, 2);
       Log.log("sum=" + sum);
@@ -290,7 +291,7 @@ export default function localUnitTest() {
       Log.log(`result2=${result2}`); //result=2
       Log.log(`result3=${result3}`); //result=3
 
-      // 重载
+      // 函数重载
       foo();
       foo(101);
       foo("Tom")
@@ -326,27 +327,25 @@ export default function localUnitTest() {
       // 调用父类方法
       tom.showInfo()
 
-      // 创建类的实例 TODO:使用对象字面量{}
-      // FIXME: Object literal must correspond to some explicitly declared class or interface (arkts-no-untyped-obj-literals)
-      // let tom2: Person = {
-      //   name: "Tom",
-      //   supername: "etc",
-      //   fullName(): string {
-      //     return ""
-      //   }
-      // }
-      // tom2.fullName()
-
+      // 定义简单实体类(1.属性都是public 2.不包含方法)
       class Point {
         x: number = 0
         y: number = 0
       }
 
-      // 创建类的实例 TODO:使用对象字面量(表达式) 类似kotlin的解构声明
+      // 创建类的实例 TODO:简单实体类可以使用对象字面量(表达式)创建实例 类似kotlin的解构声明
       let point: Point = {
         x: 1, y: 1,
       };
       Log.log("point x=" + point.x + " y=" + point.y)
+
+      // 创建类的实例 TODO:复杂类不能使用对象字面量创建实例
+      // FIXME: Object literal must correspond to some explicitly declared class or interface (arkts-no-untyped-obj-literals)
+      // let tom2: Person = {
+      //   name: "Tom",
+      //   supername: "etc",
+      // }
+      // tom2.getName()
 
       // Record(map) 使用对象字面量初始化
       let map: Record<string, number> = {
