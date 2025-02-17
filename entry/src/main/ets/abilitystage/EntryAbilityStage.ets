@@ -2,7 +2,7 @@ import { AbilityConstant, AbilityStage, Configuration, Want } from '@kit.Ability
 import { InitCommon, Log } from 'static_common'
 import { AppInfo } from '../utils/AppInfo'
 
-export default class MyAbilityStage extends AbilityStage {
+export default class EntryAbilityStage extends AbilityStage {
   // 获取类名
   TAG: string = this.constructor.name
 
@@ -22,16 +22,16 @@ export default class MyAbilityStage extends AbilityStage {
   }
 
   onNewProcessRequest(want: Want): string {
-    Log.log(`${this.TAG} MyAbilityStage onNewProcessRequest want=$\{JSON.stringify(want)}`)
+    Log.log(`${this.TAG} onNewProcessRequest want=$\{JSON.stringify(want)}`)
     return ""
   }
 
   onConfigurationUpdate(newConfig: Configuration): void {
-    Log.warn(`${this.TAG} MyAbilityStage onConfigurationUpdate ${JSON.stringify(newConfig)}`)
+    Log.warn(`${this.TAG} onConfigurationUpdate ${JSON.stringify(newConfig)}`)
   }
 
   onMemoryLevel(level: AbilityConstant.MemoryLevel): void {
-    Log.warn(`${this.TAG} MyAbilityStage onMemoryLevel ${level}`)
+    Log.warn(`${this.TAG} onMemoryLevel ${level}`)
   }
 
   onDestroy(): void {

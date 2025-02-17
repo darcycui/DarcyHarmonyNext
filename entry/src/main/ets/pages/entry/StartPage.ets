@@ -9,6 +9,7 @@ import {
   PAGE_RELATIVE,
   PAGE_SHARED_INNER,
   PAGE_SHARED_LIBRARY,
+  PAGE_SP,
   PAGE_STATIC_INNER,
   PAGE_STATIC_LIBRARY,
   PAGE_WEBSOCKETS
@@ -131,6 +132,13 @@ struct StartPage {
         .fontWeight(FontWeight.Bold)
         .onClick(()=>{
           startPage(PAGE_FILE, { 'keyHello': 'Hello World' })
+        })
+      Button($r('app.string.TestSP'))
+        .id('TestSP')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(()=>{
+          startPage(PAGE_SP, { 'keyHello': 'Hello World' })
         })
     }
     .width('100%')

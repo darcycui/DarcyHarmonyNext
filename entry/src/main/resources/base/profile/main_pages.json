@@ -10,6 +10,7 @@
     "pages/entry/HttpsCertPinPage",
     "pages/entry/HttpsPage",
     "pages/entry/WebsocketsPage",
-    "pages/entry/FilePage"
+    "pages/entry/FilePage",
+    "pages/entry/SPPage"
   ]
 }

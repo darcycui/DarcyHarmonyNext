@@ -2,7 +2,7 @@
   "module": {
     "name": "entry",
     "type": "entry",
-    "srcEntry": "./ets/abilitystage/MyAbilityStage.ets",
+    "srcEntry": "./ets/abilitystage/EntryAbilityStage.ets",
     "description": "$string:module_desc",
     "mainElement": "EntryAbility",
     "deviceTypes": [

@@ -139,6 +139,18 @@
     {
       "name": "TestFile",
       "value": "TestFile"
+    },
+    {
+      "name": "TestSP",
+      "value": "TestSP"
+    },
+    {
+      "name": "TextSP",
+      "value": "TextSP"
+    },
+    {
+      "name": "AnotherSP",
+      "value": "AnotherSP"
     }
   ]
 }

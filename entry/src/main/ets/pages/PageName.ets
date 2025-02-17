@@ -7,6 +7,7 @@ export let PAGE_HTTPS_CERT_PIN = "pages/entry/HttpsCertPinPage";
 export let PAGE_HTTPS = "pages/entry/HttpsPage";
 export let PAGE_WEBSOCKETS = "pages/entry/WebsocketsPage";
 export let PAGE_FILE = "pages/entry/FilePage";
+export let PAGE_SP = "pages/entry/SPPage";
 
 export let PAGE_STATIC_LIBRARY = "pages/entry/StaticLibraryPage";
 export let PAGE_STATIC_INNER = "pages/static/common/StaticInnerPage";
