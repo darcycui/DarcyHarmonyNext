@@ -19,8 +19,7 @@ export function saveByteArrayToFile(value: Uint8Array, filePath: string) {
 export function checkFileExists(filePath: string): boolean {
   try {
     // 使用fileIo.accessSync方法检查文件是否存在
-    fileIo.accessSync(filePath, fileIo.AccessModeType.EXIST);
-    return true;
+    return fileIo.accessSync(filePath, fileIo.AccessModeType.EXIST);
   } catch (error) {
     return false;
   }

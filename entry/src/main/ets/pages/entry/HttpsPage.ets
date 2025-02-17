@@ -15,6 +15,7 @@ struct HttpsPage {
   private context = getContext(this) as common.UIAbilityContext;
   //   private certFileName = "test.crt"
   private certFileName = "test2.crt"
+  // private certFileName = "test2.pem"
   private filePath = this.context.filesDir + "/" + this.certFileName;
 
   // 生命周期回调:页面即将显示 所有组件

@@ -11,6 +11,7 @@
     "pages/entry/HttpsPage",
     "pages/entry/WebsocketsPage",
     "pages/entry/FilePage",
-    "pages/entry/SPPage"
+    "pages/entry/SPPage",
+    "pages/entry/PromiseAsyncWaitPage"
   ]
 }

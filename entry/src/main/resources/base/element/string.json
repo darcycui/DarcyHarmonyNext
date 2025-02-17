@@ -151,6 +151,10 @@
     {
       "name": "AnotherSP",
       "value": "AnotherSP"
+    },
+    {
+      "name": "TestPromiseSyncWait",
+      "value": "TestPromiseSyncWait"
     }
   ]
 }

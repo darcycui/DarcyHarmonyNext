@@ -6,6 +6,7 @@ import {
   PAGE_HTTPS_CERT_PIN,
   PAGE_IMAGE,
   PAGE_INPUT,
+  PAGE_PROMISE_ASYNC_WAIT,
   PAGE_RELATIVE,
   PAGE_SHARED_INNER,
   PAGE_SHARED_LIBRARY,
@@ -139,6 +140,13 @@ struct StartPage {
         .fontWeight(FontWeight.Bold)
         .onClick(()=>{
           startPage(PAGE_SP, { 'keyHello': 'Hello World' })
+        })
+      Button($r('app.string.TestPromiseSyncWait'))
+        .id('TestPromiseSyncWait')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(()=>{
+          startPage(PAGE_PROMISE_ASYNC_WAIT, { 'keyHello': 'Hello World' })
         })
     }
     .width('100%')

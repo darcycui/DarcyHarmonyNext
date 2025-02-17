@@ -46,8 +46,8 @@ export async function doGet<T>(
     usingCache: false,
     // 请求优先级
     priority: 1,
-    connectTimeout: 30_000,
-    readTimeout: 30_000,
+    connectTimeout: 10_000,
+    readTimeout: 10_000,
     // 是否使用代理
     usingProxy: false,
     // 使用的协议
