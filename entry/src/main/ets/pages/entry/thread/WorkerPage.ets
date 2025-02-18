@@ -14,23 +14,20 @@ import { Log } from 'static_common';
 @Entry
 @Component
 struct WorkerPage {
-  @State message: string = 'Hello World';
+  @State message: string = '多线程:使用Worker';
   @State value: string = 'default';
-
   workerInstance: worker.ThreadWorker = new worker.ThreadWorker('entry/ets/workers/AddWorker.ets');
 
   build() {
-    RelativeContainer() {
-      Column() {
-        Text(this.message)
-        Text(this.value)
-        Button('Worker并行计算')
-          .onClick(() => {
-            workerFunc(this.workerInstance, (value) => {
-              this.value = `${value}`
-            })
+    Column() {
+      Text(this.message)
+      Text(this.value)
+      Button('Worker并行计算')
+        .onClick(() => {
+          workerFunc(this.workerInstance, (value) => {
+            this.value = `${value}`
           })
-      }
+        })
     }
     .height('100%')
     .width('100%')
