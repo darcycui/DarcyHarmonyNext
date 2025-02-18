@@ -13,9 +13,10 @@ import {
   PAGE_SP,
   PAGE_STATIC_INNER,
   PAGE_STATIC_LIBRARY,
-  PAGE_TASK_PAGE,
+  PAGE_TASK_POOL,
   PAGE_WEBSOCKETS,
-  PAGE_WORKER_PAGE
+  PAGE_WORKER,
+  PAGE_UTD
 } from '../PageName';
 import { startNamedPage, startPage } from '../../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -165,14 +166,21 @@ struct StartPage {
         .fontSize(16)
         .fontWeight(FontWeight.Bold)
         .onClick(() => {
-          startPage(PAGE_TASK_PAGE, { 'keyHello': 'Hello World' })
+          startPage(PAGE_TASK_POOL, { 'keyHello': 'Hello World' })
         })
       Button($r('app.string.TestWorkerPage'))
         .id('TestWorkerPage')
         .fontSize(16)
         .fontWeight(FontWeight.Bold)
         .onClick(() => {
-          startPage(PAGE_WORKER_PAGE, { 'keyHello': 'Hello World' })
+          startPage(PAGE_WORKER, { 'keyHello': 'Hello World' })
+        })
+      Button($r('app.string.TestUTDPage'))
+        .id('TestUTDPage')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_UTD, { 'keyHello': 'Hello World' })
         })
     }
     .width('100%')

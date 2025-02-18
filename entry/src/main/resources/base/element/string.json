@@ -163,6 +163,10 @@
     {
       "name": "TestWorkerPage",
       "value": "TestWorkerPage"
+    },
+    {
+      "name": "TestUTDPage",
+      "value": "TestUTDPage"
     }
   ]
 }
