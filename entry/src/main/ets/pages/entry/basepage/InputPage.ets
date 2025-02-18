@@ -1,7 +1,7 @@
 import { promptAction, router } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common, Want } from '@kit.AbilityKit';
-import { PAGE_COLUMN } from '../PageName';
+import { PAGE_COLUMN } from '../../PageName';
 import { Log } from 'static_common';
 
 let TAG = "[InputPage] ";

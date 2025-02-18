@@ -1,4 +1,4 @@
-import { test_async_wait_func, test_promise_func } from '../../learn/unittest/PromiseAndAsyncWait'
+import { test_async_wait_func, test_promise_func } from '../../../learn/unittest/PromiseAndAsyncWait'
 
 @Entry
 @Component

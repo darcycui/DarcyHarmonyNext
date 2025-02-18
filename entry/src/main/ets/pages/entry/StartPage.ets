@@ -1,5 +1,5 @@
 import {
-  PAGE_CAMERA_STATIC,
+  PAGE_STATIC_CAMERA,
   PAGE_COLUMN,
   PAGE_FILE,
   PAGE_HTTPS,
@@ -13,12 +13,14 @@ import {
   PAGE_SP,
   PAGE_STATIC_INNER,
   PAGE_STATIC_LIBRARY,
-  PAGE_WEBSOCKETS
+  PAGE_TASK_PAGE,
+  PAGE_WEBSOCKETS,
+  PAGE_WORKER_PAGE
 } from '../PageName';
 import { startNamedPage, startPage } from '../../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
 import { EntryEvent } from '../../event/EventName';
-import { promptAction } from '@kit.ArkUI';
+import { LengthUnit, promptAction } from '@kit.ArkUI';
 import { nativeAdd } from 'library_camera_static';
 import { Student } from '../../bean/HttpBean';
 
@@ -32,12 +34,23 @@ struct StartPage {
 
   build() {
     Flex({
-      // 自动换行
+      // 主轴方向 横向
+      direction: FlexDirection.Row,
+      // 多行 自动换行
       wrap: FlexWrap.Wrap,
       // 主轴对齐方式
-      justifyContent: FlexAlign.SpaceEvenly,
+      justifyContent: FlexAlign.Start,
       // 交叉轴对齐方式
-      alignContent: FlexAlign.SpaceEvenly
+      alignItems: ItemAlign.Start,
+      // 交叉轴多行 额外空间对齐
+      // alignContent: FlexAlign.Center,
+      // 间距
+      space: {
+        // 主轴间距
+        main: { value: 5, unit: LengthUnit.VP },
+        // 交叉轴间距
+        cross: { value: 10, unit: LengthUnit.VP }
+      }
     }) {
       Button($r('app.string.RelativePage'))
         .id('RelativePage')
@@ -74,7 +87,7 @@ struct StartPage {
         .onClick(() => {
           let sum = nativeAdd(1, 2);
           promptAction.showToast({ message: `CameraPage sum=${sum}` })
-          startNamedPage(PAGE_CAMERA_STATIC, { 'keyHello': 'Hello World' });
+          startNamedPage(PAGE_STATIC_CAMERA, { 'keyHello': 'Hello World' });
         })
       Button($r('app.string.StaticLibraryPage'))
         .id('StaticLibraryPage')
@@ -101,55 +114,69 @@ struct StartPage {
       Button($r('app.string.TestCallFunction'))
         .id('TestCallFunction')
         .fontSize(16)
-        .fontWeight(FontWeight.Bold)
-        // .onClick(this.onShow) // 错误:找不到this
-        .onClick(()=>{
+        .fontWeight(FontWeight.Bold)// .onClick(this.onShow) // 错误:找不到this
+        .onClick(() => {
           this.onShow()
         })
       Button($r('app.string.TestHttpsCertPin'))
         .id('TestHttpsCertPin')
         .fontSize(16)
         .fontWeight(FontWeight.Bold)
-        .onClick(()=>{
+        .onClick(() => {
           startPage(PAGE_HTTPS_CERT_PIN, { 'keyHello': 'Hello World' })
         })
       Button($r('app.string.TestHttps'))
         .id('TestHttps')
         .fontSize(16)
         .fontWeight(FontWeight.Bold)
-        .onClick(()=>{
+        .onClick(() => {
           startPage(PAGE_HTTPS, { 'keyHello': 'Hello World' })
         })
       Button($r('app.string.TestWebsockets'))
         .id('TestWebsockets')
         .fontSize(16)
         .fontWeight(FontWeight.Bold)
-        .onClick(()=>{
+        .onClick(() => {
           startPage(PAGE_WEBSOCKETS, { 'keyHello': 'Hello World' })
         })
       Button($r('app.string.TestFile'))
         .id('TestFile')
         .fontSize(16)
         .fontWeight(FontWeight.Bold)
-        .onClick(()=>{
+        .onClick(() => {
           startPage(PAGE_FILE, { 'keyHello': 'Hello World' })
         })
       Button($r('app.string.TestSP'))
         .id('TestSP')
         .fontSize(16)
         .fontWeight(FontWeight.Bold)
-        .onClick(()=>{
+        .onClick(() => {
           startPage(PAGE_SP, { 'keyHello': 'Hello World' })
         })
       Button($r('app.string.TestPromiseSyncWait'))
         .id('TestPromiseSyncWait')
         .fontSize(16)
         .fontWeight(FontWeight.Bold)
-        .onClick(()=>{
+        .onClick(() => {
           startPage(PAGE_PROMISE_ASYNC_WAIT, { 'keyHello': 'Hello World' })
+        })
+      Button($r('app.string.TestTaskPoolPage'))
+        .id('TestTaskPoolPage')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_TASK_PAGE, { 'keyHello': 'Hello World' })
+        })
+      Button($r('app.string.TestWorkerPage'))
+        .id('TestWorkerPage')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_WORKER_PAGE, { 'keyHello': 'Hello World' })
         })
     }
     .width('100%')
+    .height('100%')
   }
 
   onShow() {

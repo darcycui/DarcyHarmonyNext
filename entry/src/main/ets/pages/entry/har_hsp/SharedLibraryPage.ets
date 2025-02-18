@@ -1,7 +1,7 @@
 import { add, ContextResourceManager, SharedMainPage } from 'shared_context';
-import { PAGE_SHARED_INNER } from '../PageName';
-import { getResourceString } from '../../utils/ResourceHelper';
-import { startNamedPage } from '../../utils/RouterHelper';
+import { PAGE_SHARED_INNER } from '../../PageName';
+import { getResourceString } from '../../../utils/ResourceHelper';
+import { startNamedPage } from '../../../utils/RouterHelper';
 import { Log } from 'static_common';
 
 @Entry

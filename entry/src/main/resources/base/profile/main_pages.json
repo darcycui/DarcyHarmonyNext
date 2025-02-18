@@ -1,17 +1,19 @@
 {
   "src": [
-    "pages/entry/RelativePage",
-    "pages/entry/InputPage",
-    "pages/entry/ColumnPage",
+    "pages/entry/basepage/RelativePage",
+    "pages/entry/basepage/InputPage",
+    "pages/entry/basepage/ColumnPage",
     "pages/entry/StartPage",
-    "pages/entry/ImagePage",
-    "pages/entry/StaticLibraryPage",
-    "pages/entry/SharedLibraryPage",
-    "pages/entry/HttpsCertPinPage",
-    "pages/entry/HttpsPage",
-    "pages/entry/WebsocketsPage",
-    "pages/entry/FilePage",
-    "pages/entry/SPPage",
-    "pages/entry/PromiseAsyncWaitPage"
+    "pages/entry/basepage/ImagePage",
+    "pages/entry/har_hsp/StaticLibraryPage",
+    "pages/entry/har_hsp/SharedLibraryPage",
+    "pages/entry/http/HttpsCertPinPage",
+    "pages/entry/http/HttpsPage",
+    "pages/entry/http/WebsocketsPage",
+    "pages/entry/file/FilePage",
+    "pages/entry/sp/SPPage",
+    "pages/entry/promise/PromiseAsyncWaitPage",
+    "pages/entry/thread/TaskPoolPage",
+    "pages/entry/thread/WorkerPage"
   ]
 }
