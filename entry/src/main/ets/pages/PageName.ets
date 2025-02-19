@@ -9,6 +9,7 @@ export let PAGE_HTTPS = "pages/entry/http/HttpsPage";
 export let PAGE_WEBSOCKETS = "pages/entry/http/WebsocketsPage";
 
 export let PAGE_SP = "pages/entry/sp/SPPage";
+export let PAGE_KEY_VALUE = "pages/entry/sp/KeyValuePage";
 export let PAGE_FILE = "pages/entry/file/FilePage";
 export let PAGE_UTD = "pages/entry/file/UTDPage";
 

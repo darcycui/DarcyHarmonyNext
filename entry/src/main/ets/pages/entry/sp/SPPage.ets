@@ -8,120 +8,107 @@ import { BusinessError } from '@kit.BasicServicesKit';
 struct SPPage {
   @State info: string = 'default';
   context = getContext(this) as common.UIAbilityContext;
-
-  build() {
-    Column() {
-      this.aText()
-      this.aButton()
-      this.bButton()
-    }
-    .height('100%')
-    .width('100%')
-  }
-
-  @Builder
-  aText() {
-    Text(this.info)
-      .id('FileInfo')
-      .fontSize(16)
-  }
-
-  @Builder
-  aButton() {
-    Button($r("app.string.TextSP"))
-      .id("TextSP")
-      .margin({ left: 10 })// 外边距
-      .onClick((event: ClickEvent) => {
-        testPreferences(this.context)
-      })
-  }
-
-  @Builder
-  bButton() {
-    Button($r("app.string.AnotherSP"))
-      .id("AnotherSP")
-      .margin({ left: 10 })// 外边距
-      .onClick((event: ClickEvent) => {
-        // 指定sp名称
-        let options: preferences.Options = {
-          name: 'test.sp',
-          // dataGroupId: 'group_id_1',
-        }
-        // 获取sp实例
-        let sp = preferences.getPreferencesSync(this.context, options);
-        // 读取数据
-        Log.error('testPreferences get second')
-        readSP(sp);
-        // sp.putSync('key1', 'value111')
-        // spFlush(sp);
-      })
-  }
-}
-
-function testPreferences(context: Context) {
   // 指定sp名称
-  let options: preferences.Options = {
+  options: preferences.Options = {
     name: 'test.sp',
     // dataGroupId: 'group_id_1',
   }
   // 获取sp实例
-  let sp = preferences.getPreferencesSync(context, options);
-  // 读取数据
-  Log.error('testPreferences get first')
-  readSP(sp);
-  // 存储数据(存储到内存)
-  Log.info('testPreferences put')
-  sp.putSync('key1', 'value1');
-  sp.putSync('key2', 'value2');
-  // 持久化写入文件
-  spFlush(sp);
-  // 读取数据
-  readSP(sp);
-  // 删除数据
-  // sp.deleteSync('key1')
-  // Log.info('testPreferences delete key1')
-  // readSP(sp);
-  // Log.info('testPreferences clear')
-  // sp.clearSync()
-  // readSP(sp);
-  // 等待3秒
-  setTimeout(()=>{
-    // 订阅数据变更
-    Log.info('testPreferences on listener')
-    sp.on('change', (key: string)=>{
-      Log.warn(`The key ${key} changed.`)
-      readSP(sp)
-    })
-    Log.info('testPreferences change key1')
-    sp.putSync('key1', 'value100');
-    spFlush(sp);
-  }, 3000)
-  // 持久化写入文件 触发订阅
-  // spFlush(sp);
-  // // 删除sp
-  // preferences.deletePreferences(context, options, (error: BusinessError) => {
-  //   if (error) {
-  //     Log.error(`testPreferences deletePreferences error=${error}`)
-  //   } else {
-  //     Log.info('testPreferences deletePreferences success')
-  //   }
-  // })
+  sp = preferences.getPreferencesSync(this.context, this.options);
 
+  build() {
+    Column() {
+      Text(this.info)
+      Button("监听变化")
+        .margin({ top: 10 })// 外边距
+        .onClick((event: ClickEvent) => {
+          addListener(this.sp)
+        })
+      Button("写入内存")
+        .margin({ top: 10 })// 外边距
+        .onClick((event: ClickEvent) => {
+          putSP('key1', 'value1', this.sp)
+        })
+      Button("写入文件")
+        .margin({ top: 10 })// 外边距
+        .onClick((event: ClickEvent) => {
+          flushSP(this.sp)
+        })
+      Button("读取")
+        .margin({ top: 10 })// 外边距
+        .onClick((event: ClickEvent) => {
+          getSP(this.sp)
+        })
+      Button("删除key")
+        .margin({ top: 10 })// 外边距
+        .onClick((event: ClickEvent) => {
+          deleteSP('key1', this.sp)
+        })
+      Button("清空sp")
+        .margin({ top: 10 })// 外边距
+        .onClick((event: ClickEvent) => {
+          clearSP(this.sp)
+        })
+      Button("删除sp")
+        .margin({ top: 10 })// 外边距
+        .onClick((event: ClickEvent) => {
+          deletePreference(this.context, this.options)
+        })
+    }
+    .height('100%')
+    .width('100%')
+  }
 }
 
-function spFlush(sp: preferences.Preferences) {
-  sp.flush((error: BusinessError) => {
+function deletePreference(context: Context, options: preferences.Options) {
+  Log.info('deletePreference')
+  preferences.deletePreferences(context, options, (error: BusinessError) => {
     if (error) {
-      Log.error(`testPreferences flush error=${error}`);
+      Log.error(`deletePreferences error=${error}`);
     } else {
-      Log.info('testPreferences flush success');
+      Log.info('deletePreferences success');
     }
   });
 }
 
-function readSP(sp: preferences.Preferences) {
+function clearSP(sp: preferences.Preferences) {
+  Log.info('clear')
+  sp.clearSync()
+}
+
+function flushSP(sp: preferences.Preferences) {
+  sp.flush((error: BusinessError) => {
+    if (error) {
+      Log.error(`flush error=${error}`);
+    } else {
+      Log.info('flush success');
+    }
+  });
+}
+
+function deleteSP(key: string, sp: preferences.Preferences) {
+  Log.info(`delete key=${key}`)
+  sp.deleteSync(key)
+}
+
+function putSP(key: string, value: string, sp: preferences.Preferences) {
+  Log.info(`put key=${key} value=${value}`)
+  sp.putSync(key, value)
+}
+
+function getSP(sp: preferences.Preferences) {
+  Log.info('on read')
   let value1 = sp.getSync('key1', 'default');
   Log.warn(`readSP value1=${value1}`)
   let value2 = sp.getSync('key2', 'default');
   Log.warn(`readSP value2=${value2}`)
+}
+
+// 订阅数据变更 当执行flush()时触发
+function addListener(sp: preferences.Preferences) {
+  Log.info('on listener')
+  sp.on('change', (key: string) => {
+    Log.warn(`The key ${key} changed.`)
+    getSP(sp)
+  })
 }

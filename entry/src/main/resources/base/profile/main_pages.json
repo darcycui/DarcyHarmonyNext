@@ -15,6 +15,7 @@
     "pages/entry/promise/PromiseAsyncWaitPage",
     "pages/entry/thread/TaskPoolPage",
     "pages/entry/thread/WorkerPage",
-    "pages/entry/file/UTDPage"
+    "pages/entry/file/UTDPage",
+    "pages/entry/sp/KeyValuePage"
   ]
 }

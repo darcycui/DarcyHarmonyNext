@@ -77,7 +77,7 @@ struct ColumnPage {
 @Component
 struct textComponent {
   // 自定义组件的参数
-  private text: string = ""
+  text: string = ""
   // TODO 非入口组件 监听入口组件的生命周期
   // 定义回调函数
   listener: (info: uiObserver.RouterPageInfo) => void = (info: uiObserver.RouterPageInfo) => {
@@ -136,8 +136,8 @@ struct textComponent {
 @Component
 struct buttonComponentParent {
   // 自定义组件的参数
-  private text: string = "";
-  private clickCallback?: () => void
+  text: string = "";
+  clickCallback?: () => void
 
   build() {
     Column() {
@@ -160,17 +160,17 @@ struct buttonComponentParent {
 
 @Component
 struct buttonComponentSub {
-  private clickCallback?: () => void
+  clickCallback?: () => void
 
   build() {
     Button("Sub Button")
       .margin({ top: 10 })
       .onClick(() => {
-      // this.callback?.call
-      // 调用lambda 函数
-      if (this.clickCallback) {
-        this.clickCallback();
-      }
-    })
+        // this.callback?.call
+        // 调用lambda 函数
+        if (this.clickCallback) {
+          this.clickCallback();
+        }
+      })
   }
 }

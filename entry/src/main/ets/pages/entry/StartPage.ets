@@ -16,7 +16,8 @@ import {
   PAGE_TASK_POOL,
   PAGE_WEBSOCKETS,
   PAGE_WORKER,
-  PAGE_UTD
+  PAGE_UTD,
+  PAGE_KEY_VALUE
 } from '../PageName';
 import { startNamedPage, startPage } from '../../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -153,6 +154,13 @@ struct StartPage {
         .fontWeight(FontWeight.Bold)
         .onClick(() => {
           startPage(PAGE_SP, { 'keyHello': 'Hello World' })
+        })
+      Button($r('app.string.TestKeyValue'))
+        .id('TestKeyValue')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_KEY_VALUE, { 'keyHello': 'Hello World' })
         })
       Button($r('app.string.TestPromiseSyncWait'))
         .id('TestPromiseSyncWait')
