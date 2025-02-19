@@ -16,6 +16,7 @@
     "pages/entry/thread/TaskPoolPage",
     "pages/entry/thread/WorkerPage",
     "pages/entry/file/UTDPage",
-    "pages/entry/sp/KeyValuePage"
+    "pages/entry/sp/KeyValuePage",
+    "pages/entry/database/DatabasePage"
   ]
 }

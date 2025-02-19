@@ -163,6 +163,10 @@
     {
       "name": "TestKeyValue",
       "value": "TestKeyValue"
+    },
+    {
+      "name": "TestDatabasePage",
+      "value": "TestDatabasePage"
     }
   ]
 }
