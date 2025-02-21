@@ -9,6 +9,7 @@ export function startPage(url: string, params: Record<string, string>) {
     Log.log("Succeed to start page: " + url);
   }).catch((err: Error) => {
     Log.error("Failed to start page: " + url);
+    Log.error(`error:${err.name} ${err.message}`)
   });
 }
 

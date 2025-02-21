@@ -17,6 +17,13 @@
     "pages/entry/thread/WorkerPage",
     "pages/entry/file/UTDPage",
     "pages/entry/sp/KeyValuePage",
-    "pages/entry/database/DatabasePage"
+    "pages/entry/database/DatabasePage",
+    "pages/entry/status/ComponentPage",
+    "pages/entry/status/StatePage",
+    "pages/entry/status/StateChangedPage1",
+    "pages/entry/status/StateChangedPage2",
+    "pages/entry/status/StateChangedPage3",
+    "pages/entry/status/StateChangedPage4",
+    "pages/entry/status/StateChangedPage5"
   ]
 }

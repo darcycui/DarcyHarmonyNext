@@ -90,7 +90,7 @@
     },
     {
       "name": "TestEventHub",
-      "value": "TestEventHub"
+      "value": "EventHub"
     },
     {
       "name": "CameraPage",
@@ -98,11 +98,11 @@
     },
     {
       "name": "TestCallFunction",
-      "value": "TestCallFunction"
+      "value": "CallFunction"
     },
     {
       "name": "TestHttps",
-      "value": "TestHttps"
+      "value": "Https"
     },
     {
       "name": "WebsocketConnect",
@@ -114,7 +114,7 @@
     },
     {
       "name": "TestWebsockets",
-      "value": "TestWebsockets"
+      "value": "Websockets"
     },
     {
       "name": "WebsocketSend",
@@ -130,11 +130,11 @@
     },
     {
       "name": "TestFile",
-      "value": "TestFile"
+      "value": "File"
     },
     {
       "name": "TestSP",
-      "value": "TestSP"
+      "value": "SP"
     },
     {
       "name": "TextSP",
@@ -146,27 +146,55 @@
     },
     {
       "name": "TestPromiseSyncWait",
-      "value": "TestPromiseSyncWait"
+      "value": "PromiseSyncWait"
     },
     {
       "name": "TestTaskPoolPage",
-      "value": "TestTaskPoolPage"
+      "value": "TaskPoolPage"
     },
     {
       "name": "TestWorkerPage",
-      "value": "TestWorkerPage"
+      "value": "WorkerPage"
     },
     {
       "name": "TestUTDPage",
-      "value": "TestUTDPage"
+      "value": "UTDPage"
     },
     {
       "name": "TestKeyValue",
-      "value": "TestKeyValue"
+      "value": "KeyValue"
     },
     {
       "name": "TestDatabasePage",
-      "value": "TestDatabasePage"
+      "value": "DatabasePage"
+    },
+    {
+      "name": "TestComponentStatusPage",
+      "value": "ComponentStatePage"
+    },
+    {
+      "name": "TestStatePage",
+      "value": "StatePage"
+    },
+    {
+      "name": "TestStateChangedPage1",
+      "value": "StateChangedPage"
+    },
+    {
+      "name": "TestStateChangedPage2",
+      "value": "StateChangedPage2"
+    },
+    {
+      "name": "TestStateChangedPage3",
+      "value": "StateChangedPage3"
+    },
+    {
+      "name": "TestStateChangedPage4",
+      "value": "StateChangedPage4"
+    },
+    {
+      "name": "TestStateChangedPage5",
+      "value": "StateChangedPage5"
     }
   ]
 }

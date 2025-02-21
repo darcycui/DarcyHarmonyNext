@@ -18,7 +18,14 @@ import {
   PAGE_WORKER,
   PAGE_UTD,
   PAGE_KEY_VALUE,
-  PAGE_DATABASE
+  PAGE_DATABASE,
+  PAGE_COMPONENT_STATUS,
+  PAGE_STATE,
+  PAGE_STATE_CHANGED_1,
+  PAGE_STATE_CHANGED_2,
+  PAGE_STATE_CHANGED_3,
+  PAGE_STATE_CHANGED_4,
+  PAGE_STATE_CHANGED_5
 } from '../PageName';
 import { startNamedPage, startPage } from '../../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -197,6 +204,55 @@ struct StartPage {
         .fontWeight(FontWeight.Bold)
         .onClick(() => {
           startPage(PAGE_DATABASE, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestComponentStatusPage"))
+        .id('TestComponentStatusPage')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_COMPONENT_STATUS, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestStatePage"))
+        .id('TestStatePage')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_STATE, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestStateChangedPage1"))
+        .id('TestStateChangedPage1')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_STATE_CHANGED_1, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestStateChangedPage2"))
+        .id('TestStateChangedPage2')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_STATE_CHANGED_2, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestStateChangedPage3"))
+        .id('TestStateChangedPage3')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_STATE_CHANGED_3, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestStateChangedPage4"))
+        .id('TestStateChangedPage4')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_STATE_CHANGED_4, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestStateChangedPage5"))
+        .id('TestStateChangedPage5')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_STATE_CHANGED_5, { 'keyHello': 'Hello World' })
         })
     }
     .width('100%')
