@@ -25,7 +25,9 @@ import {
   PAGE_STATE_CHANGED_2,
   PAGE_STATE_CHANGED_3,
   PAGE_STATE_CHANGED_4,
-  PAGE_STATE_CHANGED_5
+  PAGE_STATE_CHANGED_5,
+  PAGE_PROP_CHANGED_1,
+  PAGE_PROP_CHANGED_2
 } from '../PageName';
 import { startNamedPage, startPage } from '../../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -253,6 +255,20 @@ struct StartPage {
         .fontWeight(FontWeight.Bold)
         .onClick(() => {
           startPage(PAGE_STATE_CHANGED_5, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestPropChangedPage1"))
+        .id('TestPropChangedPage1')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_PROP_CHANGED_1, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestPropChangedPage2"))
+        .id('TestPropChangedPage2')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_PROP_CHANGED_2, { 'keyHello': 'Hello World' })
         })
     }
     .width('100%')

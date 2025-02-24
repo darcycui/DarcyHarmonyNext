@@ -9,15 +9,19 @@ struct ComponentPage {
   build() {
     Column() {
       Text(`link count=${this.linkCount}`)
+      Divider().height(5) // 分隔线
       Text(`prop count=${this.propCount}`)
+      Divider().height(5) // 分隔线
       Text(`stateInfo: ${this.stateInfo}`)
+      Divider().height(5) // 分隔线
       Text(`normalInfo: ${this.normalInfo}`)
+      Blank().height(20) // 空白间隔
       Button('Change Parent State').onClick(() => {
         this.linkCount = this.linkCount + 100
         this.propCount = this.propCount - 100
         this.stateInfo = 'state changed by Parent'
         this.normalInfo = 'normal changed by Parent'
-      }).margin({ top: 20 })
+      }).margin({ top: 2 })
       ComponentA({
         linkCount: this.linkCount,
         propCount: this.propCount,
@@ -42,15 +46,19 @@ struct ComponentA {
   build() {
     Column() {
       Text(`link count=${this.linkCount}`)
+      Divider().height(5) // 分隔线
       Text(`prop count=${this.propCount}`)
+      Divider().height(5) // 分隔线
       Text(`stateInfo: ${this.stateInfo}`)
+      Divider().height(5) // 分隔线
       Text(`normalInfo: ${this.normalInfo}`)
+      Blank().height(20) // 空白间隔
       Button('Change State').onClick(() => {
         this.linkCount = 999
         this.propCount = 888
         this.stateInfo = 'state changed by Child'
         this.normalInfo = 'normal changed by Child'
-      }).margin({ top: 20 })
+      }).margin({ top: 2 })
       ComponentC({ linkCount: this.linkCount })
     }
     .alignItems(HorizontalAlign.Start)
@@ -68,9 +76,10 @@ struct ComponentC {
   build() {
     Column() {
       Text(`link count=${this.linkCount}`)
+      Blank().height(20) // 空白间隔
       Button('Change State').onClick(() => {
         this.linkCount = 666
-      }).margin({ top: 20 })
+      }).margin({ top: 2 })
     }
     .alignItems(HorizontalAlign.Start)
     .padding(20)

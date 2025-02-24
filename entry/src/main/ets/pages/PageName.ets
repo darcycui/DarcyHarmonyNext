@@ -23,6 +23,8 @@ export let PAGE_STATE_CHANGED_3 = "pages/entry/status/StateChangedPage3";
 export let PAGE_STATE_CHANGED_4 = "pages/entry/status/StateChangedPage4";
 export let PAGE_STATE_CHANGED_5 = "pages/entry/status/StateChangedPage5";
 export let PAGE_COMPONENT_STATUS = "pages/entry/status/ComponentPage";
+export let PAGE_PROP_CHANGED_1 = "pages/entry/status/PropChangedPage1";
+export let PAGE_PROP_CHANGED_2 = "pages/entry/status/PropChangedPage2";
 
 export let PAGE_PROMISE_ASYNC_WAIT = "pages/entry/promise/PromiseAsyncWaitPage";
 export let PAGE_TASK_POOL = "pages/entry/thread/TaskPoolPage";

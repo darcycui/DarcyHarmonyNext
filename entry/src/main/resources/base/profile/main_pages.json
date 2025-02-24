@@ -24,6 +24,8 @@
     "pages/entry/status/StateChangedPage2",
     "pages/entry/status/StateChangedPage3",
     "pages/entry/status/StateChangedPage4",
-    "pages/entry/status/StateChangedPage5"
+    "pages/entry/status/StateChangedPage5",
+    "pages/entry/status/PropChangedPage1",
+    "pages/entry/status/PropChangedPage2"
   ]
 }

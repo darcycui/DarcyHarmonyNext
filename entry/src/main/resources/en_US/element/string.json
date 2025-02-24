@@ -195,6 +195,14 @@
     {
       "name": "TestStateChangedPage5",
       "value": "StateChangedPage5"
+    },
+    {
+      "name": "TestPropChangedPage1",
+      "value": "PropChangedPage1"
+    },
+    {
+      "name": "TestPropChangedPage2",
+      "value": "PropChangedPage2"
     }
   ]
 }

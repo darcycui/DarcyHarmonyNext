@@ -5,12 +5,16 @@ class Balloon {
     this.volume = volume;
   }
 
-  static increaseVolume(balloon: Balloon) {
+  static increaseVolumeStatic(balloon: Balloon) {
     balloon.volume += 2;
   }
 
-  increaseVolume2(balloon: Balloon) {
-    balloon.volume += 4;
+  increaseVolumeNormal(balloon: Balloon) {
+    balloon.volume += 2;
+  }
+
+  increaseVolumeWithoutParams() {
+    this.volume += 2;
   }
 }
 
@@ -22,6 +26,9 @@ struct StateChangedPage5 {
   reduceVolumeThis(balloon: Balloon) {
     balloon.volume -= 1;
   }
+  reduceVolumeThisWithoutParams() {
+    this.balloon.volume -= 1;
+  }
 
   build() {
     Column({ space: 8 }) {
@@ -29,31 +36,38 @@ struct StateChangedPage5 {
         .fontSize(20)
       Button(`increaseVolume`)
         .onClick(() => {
-          // TODO 通过其他类的静态函数调用，无法触发UI刷新
-          // Balloon.increaseVolume(this.balloon);
+          // TODO 将状态作为参数传递给其他类的静态函数，无法触发UI刷新
+          // Balloon.increaseVolumeStatic(this.balloon);
 
-          // TODO 通过其他类的普通函数调用，无法触发UI刷新
-          // this.balloon.increaseVolume2(this.balloon);
+          // TODO 将状态作为参数传递给其他类的普通函数，无法触发UI刷新
+          // this.balloon.increaseVolumeNormal(this.balloon);
 
           // 解决方法: 创建一个新的变量传递给静态函数
           let balloon1 = this.balloon;
-          Balloon.increaseVolume(balloon1);
+          // Balloon.increaseVolumeStatic(balloon1);
+          this.balloon.increaseVolumeNormal(balloon1);
         })
       Button(`reduceVolume`)
         .onClick(() => {
           // TODO 使用this内部函数调用，无法触发UI刷新
-          // this.reduceVolume(this.balloon);
+          // this.reduceVolumeThis(this.balloon);
+
           // 解决方法: 创建一个新的变量传递给静态函数
           let balloon1 = this.balloon;
           this.reduceVolumeThis(balloon1);
         })
+
       Button(`reduceVolume2`)
         .onClick(() => {
-          // TODO 使用当前文件外部函数调用，可以触发UI刷新
-          // reduceVolumeOut(this.balloon);
-          // 解决方法: 也可以创建一个新的变量传递给静态函数
-          let balloon1 = this.balloon;
-          reduceVolumeOut(balloon1);
+          // TODO 直接调用其他类的函数 不传递状态参数，可以触发UI刷新
+          // this.balloon.increaseVolumeWithoutParams()
+          // TODO 直接调用this内部函数 不传递状态参数，可以触发UI刷新
+          this.reduceVolumeThisWithoutParams()
+        })
+      Button(`reduceVolume3`)
+        .onClick(() => {
+          // TODO 将状态作为参数传递给当前文件外部函数，可以触发UI刷新
+          reduceVolumeOut(this.balloon);
         })
     }
     .width('100%')
@@ -62,5 +76,5 @@ struct StateChangedPage5 {
 }
 
 function reduceVolumeOut(balloon: Balloon) {
-  balloon.volume -= 2;
+  balloon.volume -= 1;
 }
