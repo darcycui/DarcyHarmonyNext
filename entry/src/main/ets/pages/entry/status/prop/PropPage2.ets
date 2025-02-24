@@ -22,7 +22,7 @@ class Father {
 
 @Entry
 @Component
-struct PropChangedPage2 {
+struct PropPage2 {
   @State person: Father = new Father('Hello', new Son('world'));
 
   build() {

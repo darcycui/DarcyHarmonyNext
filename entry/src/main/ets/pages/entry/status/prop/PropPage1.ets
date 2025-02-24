@@ -15,7 +15,7 @@ struct Child {
 
 @Entry
 @Component
-struct PropChangedPage1 {
+struct PropPage1 {
   @State arr: number[] = [1, 2, 3];
 
   build() {

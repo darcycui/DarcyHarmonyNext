@@ -197,12 +197,16 @@
       "value": "StateChangedPage5"
     },
     {
-      "name": "TestPropChangedPage1",
+      "name": "TestPropPage1",
       "value": "PropChangedPage1"
     },
     {
-      "name": "TestPropChangedPage2",
+      "name": "TestPropPage2",
       "value": "PropChangedPage2"
+    },
+    {
+      "name": "TestLinkPage",
+      "value": "LinkPage"
     }
   ]
 }
