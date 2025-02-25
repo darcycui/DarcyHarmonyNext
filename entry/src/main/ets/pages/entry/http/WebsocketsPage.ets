@@ -12,7 +12,6 @@ struct WebsocketsPage {
   @State count: number = 0;
   @State wsText: string = 'default';
   private context = getContext(this) as common.UIAbilityContext;
-  //   private certFileName = "test.crt"
   private certFileName = "test2.crt"
   private filePath = this.context.filesDir + "/" + this.certFileName;
 
