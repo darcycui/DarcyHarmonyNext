@@ -34,6 +34,7 @@
     "pages/entry/status/observed/ObservedClassPage",
     "pages/entry/status/observed/ObservedClassPage2",
     "pages/entry/status/observed/ObservedArrayPage",
-    "pages/entry/status/observed/ObservedArrayPage2"
+    "pages/entry/status/observed/ObservedArrayPage2",
+    "pages/entry/status/localstorage/LocalStoragePage"
   ]
 }
