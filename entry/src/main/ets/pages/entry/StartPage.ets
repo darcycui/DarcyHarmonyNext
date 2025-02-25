@@ -28,7 +28,14 @@ import {
   PAGE_STATE_CHANGED_5,
   PAGE_PROP_CHANGED_1,
   PAGE_PROP_CHANGED_2,
-  PAGE_LINK
+  PAGE_LINK,
+  PAGE_PROVIDE_CONSUME,
+  PAGE_PROVIDE_CONSUME_2,
+  PAGE_PROVIDE_CONSUME_3,
+  PAGE_OBSERVED_CLASS_PAGE,
+  PAGE_OBSERVED_CLASS_PAGE_2,
+  PAGE_OBSERVED_ARRAY_PAGE,
+  PAGE_OBSERVED_ARRAY_PAGE_2
 } from '../PageName';
 import { startNamedPage, startPage } from '../../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -277,6 +284,55 @@ struct StartPage {
         .fontWeight(FontWeight.Bold)
         .onClick(() => {
           startPage(PAGE_LINK, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestProvidePage"))
+        .id('TestProvidePage')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_PROVIDE_CONSUME, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestProvidePage2"))
+        .id('TestProvidePage2')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_PROVIDE_CONSUME_2, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestProvidePage3"))
+        .id('TestProvidePage3')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_PROVIDE_CONSUME_3, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestObservedClassPage"))
+        .id('TestObservedClassPage')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_OBSERVED_CLASS_PAGE, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestObservedClassPage2"))
+        .id('TestObservedClassPage2')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_OBSERVED_CLASS_PAGE_2, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestObservedArrayPage"))
+        .id('TestObservedArrayPage')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_OBSERVED_ARRAY_PAGE, { 'keyHello': 'Hello World' })
+        })
+      Button($r("app.string.TestObservedArrayPage2"))
+        .id('TestObservedArrayPage2')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          startPage(PAGE_OBSERVED_ARRAY_PAGE_2, { 'keyHello': 'Hello World' })
         })
     }
     .width('100%')

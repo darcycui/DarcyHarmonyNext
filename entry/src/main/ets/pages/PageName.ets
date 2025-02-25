@@ -26,6 +26,13 @@ export let PAGE_STATE_CHANGED_5 = "pages/entry/status/state/StateChangedPage5";
 export let PAGE_PROP_CHANGED_1 = "pages/entry/status/prop/PropPage1";
 export let PAGE_PROP_CHANGED_2 = "pages/entry/status/prop/PropPage2";
 export let PAGE_LINK = "pages/entry/status/link/LinkPage";
+export let PAGE_PROVIDE_CONSUME = "pages/entry/status/provide/ProvideConsumePage";
+export let PAGE_PROVIDE_CONSUME_2 = "pages/entry/status/provide/ProvideConsumePage2";
+export let PAGE_PROVIDE_CONSUME_3 = "pages/entry/status/provide/ProvideConsumePage3";
+export let PAGE_OBSERVED_CLASS_PAGE = "pages/entry/status/observed/ObservedClassPage";
+export let PAGE_OBSERVED_CLASS_PAGE_2 = "pages/entry/status/observed/ObservedClassPage2";
+export let PAGE_OBSERVED_ARRAY_PAGE = "pages/entry/status/observed/ObservedArrayPage";
+export let PAGE_OBSERVED_ARRAY_PAGE_2 = "pages/entry/status/observed/ObservedArrayPage2";
 
 export let PAGE_PROMISE_ASYNC_WAIT = "pages/entry/promise/PromiseAsyncWaitPage";
 export let PAGE_TASK_POOL = "pages/entry/thread/TaskPoolPage";

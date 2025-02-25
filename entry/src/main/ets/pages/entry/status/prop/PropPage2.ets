@@ -69,14 +69,14 @@ struct PropPage2 {
             // Child2可以观察到
             this.person.son.title = "openHarmony";
           })
-        Child2({ child: this.person.son })
+        ChildProp2({ child: this.person.son })
       }
     }
   }
 }
 
 @Component
-struct Child2 {
+struct ChildProp2 {
   // 子组件设置@Prop
   @Prop child: Son = new Son('');
 

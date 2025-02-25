@@ -27,6 +27,13 @@
     "pages/entry/status/state/StateChangedPage5",
     "pages/entry/status/prop/PropPage1",
     "pages/entry/status/prop/PropPage2",
-    "pages/entry/status/link/LinkPage"
+    "pages/entry/status/link/LinkPage",
+    "pages/entry/status/provide/ProvideConsumePage",
+    "pages/entry/status/provide/ProvideConsumePage2",
+    "pages/entry/status/provide/ProvideConsumePage3",
+    "pages/entry/status/observed/ObservedClassPage",
+    "pages/entry/status/observed/ObservedClassPage2",
+    "pages/entry/status/observed/ObservedArrayPage",
+    "pages/entry/status/observed/ObservedArrayPage2"
   ]
 }

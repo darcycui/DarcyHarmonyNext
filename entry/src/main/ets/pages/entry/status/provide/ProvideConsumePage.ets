@@ -1,23 +1,50 @@
+@Component
+struct ChildProvideConsume {
+  @Consume selectedDate: Date;
+
+  build() {
+    Column() {
+      Button(`child increase the day by 1`)
+        .onClick(() => {
+          this.selectedDate.setDate(this.selectedDate.getDate() + 1)
+        })
+      Button('child update the new date')
+        .margin(10)
+        .onClick(() => {
+          this.selectedDate = new Date('2023-09-09')
+        })
+      DatePicker({
+        start: new Date('1970-1-1'),
+        end: new Date('2100-1-1'),
+        selected: this.selectedDate
+      })
+    }
+  }
+}
+
 @Entry
 @Component
 struct ProvideConsumePage {
-  @State message: string = 'Hello World';
+  @Provide selectedDate: Date = new Date('2021-08-08')
 
   build() {
-    RelativeContainer() {
-      Text(this.message)
-        .id('ProvideConsumePageHelloWorld')
-        .fontSize($r('app.float.page_text_font_size'))
-        .fontWeight(FontWeight.Bold)
-        .alignRules({
-          center: { anchor: '__container__', align: VerticalAlign.Center },
-          middle: { anchor: '__container__', align: HorizontalAlign.Center }
-        })
+    Column() {
+      Button('parent increase the day by 1')
+        .margin(10)
         .onClick(() => {
-          this.message = 'Welcome';
+          this.selectedDate.setDate(this.selectedDate.getDate() + 1)
         })
+      Button('parent update the new date')
+        .margin(10)
+        .onClick(() => {
+          this.selectedDate = new Date('2023-07-07')
+        })
+      DatePicker({
+        start: new Date('1970-1-1'),
+        end: new Date('2100-1-1'),
+        selected: this.selectedDate
+      })
+      ChildProvideConsume()
     }
-    .height('100%')
-    .width('100%')
   }
 }

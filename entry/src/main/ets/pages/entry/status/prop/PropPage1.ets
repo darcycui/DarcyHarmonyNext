@@ -1,5 +1,5 @@
 @Component
-struct Child {
+struct ChildProp {
   @Prop value: number = 0;
 
   build() {
@@ -21,9 +21,9 @@ struct PropPage1 {
   build() {
     Row() {
       Column() {
-        Child({ value: this.arr[0] })
-        Child({ value: this.arr[1] })
-        Child({ value: this.arr[2] })
+        ChildProp({ value: this.arr[0] })
+        ChildProp({ value: this.arr[1] })
+        ChildProp({ value: this.arr[2] })
         Button('父组件 replace entire arr')
           .fontSize(20)
           .onClick(() => {
@@ -36,7 +36,7 @@ struct PropPage1 {
         // 遍历数组 添加子组件
         ForEach(this.arr,
           (item: number) => {
-            Child({ value: item })
+            ChildProp({ value: item })
           },
           (item: number) => item.toString()
         )

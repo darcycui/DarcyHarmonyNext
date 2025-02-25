@@ -178,7 +178,7 @@
     },
     {
       "name": "TestStateChangedPage1",
-      "value": "StateChangedPage"
+      "value": "StateChangedPage1"
     },
     {
       "name": "TestStateChangedPage2",
@@ -207,6 +207,34 @@
     {
       "name": "TestLinkPage",
       "value": "LinkPage"
+    },
+    {
+      "name": "TestProvidePage",
+      "value": "ProvidePage"
+    },
+    {
+      "name": "TestProvidePage2",
+      "value": "ProvidePage2"
+    },
+    {
+      "name": "TestProvidePage3",
+      "value": "ProvidePage3"
+    },
+    {
+      "name": "TestObservedClassPage",
+      "value": "ObservedClassPage"
+    },
+    {
+      "name": "TestObservedClassPage2",
+      "value": "ObservedClassPage2"
+    },
+    {
+      "name": "TestObservedArrayPage",
+      "value": "ObservedArrayPage"
+    },
+    {
+      "name": "TestObservedArrayPage2",
+      "value": "ObservedArrayPage2"
     }
   ]
 }
