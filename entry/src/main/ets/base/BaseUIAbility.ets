@@ -1,6 +1,7 @@
 import { AbilityConstant, Configuration, UIAbility, Want } from '@kit.AbilityKit'
-import { HiLog } from 'static_common'
+import { HiLog, Log } from 'static_common'
 import window from '@ohos.window'
+import { BusinessError } from '@kit.BasicServicesKit';
 
 export abstract class BaseUIAbility extends UIAbility {
   // 获取类名
@@ -34,13 +35,19 @@ export abstract class BaseUIAbility extends UIAbility {
     // TODO 监听WindowStage事件
     this.addLifecycleObserver(windowStage)
     // 加载启动页面
-    windowStage.loadContent(this.getInitPageName(), (err) => {
+    let callback = (err: BusinessError) => {
       if (err.code) {
         HiLog.error(this.TAG + 'Failed to load the content: ' + JSON.stringify(err) ?? '')
         return
       }
       HiLog.info(this.TAG + 'Succeeded in loading the content.')
-    })
+    }
+    if (this.getLocalStorage() == null) {
+      windowStage.loadContent(this.getInitPageName(), callback)
+    } else {
+      Log.warn(`${this.TAG} LocalStorage 传递给Page`)
+      windowStage.loadContent(this.getInitPageName(), this.getLocalStorage(), callback)
+    }
   }
 
   private addLifecycleObserver(windowStage: window.WindowStage) {
@@ -106,4 +113,6 @@ export abstract class BaseUIAbility extends UIAbility {
   }
 
   abstract getInitPageName(): string
+
+  abstract getLocalStorage(): LocalStorage | null
 }

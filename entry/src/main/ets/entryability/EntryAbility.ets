@@ -1,11 +1,25 @@
 import { AbilityConstant, Want } from '@kit.AbilityKit';
 import { PAGE_START } from '../pages/PageName';
-import { HiLog } from 'static_common';
+import { HiLog, Log } from 'static_common';
 import { BaseUIAbility } from '../base/BaseUIAbility';
 import { EntryEvent } from '../event/EventName';
 import { promptAction } from '@kit.ArkUI';
+import { Data } from '../pages/entry/status/localstorage/LocalStoragePage1';
+
 
 export default class EntryAbility extends BaseUIAbility {
+  getLocalStorage(): LocalStorage | null {
+    return this.localStorage
+  }
+  // 创建LocalStorage
+    para1: Record<string, number> = {
+    'PropA': 47,
+    'Tom': 100,
+    'Jerry': 200
+  };
+  // 创建新实例并使用给定对象初始化
+  localStorage: LocalStorage = new LocalStorage(this.para1);
+
   getInitPageName(): string {
     return PAGE_START
   }
@@ -15,6 +29,28 @@ export default class EntryAbility extends BaseUIAbility {
     // 获取want参数
     this.getParams(want);
     this.initEventHub()
+    this.testLocalStorage()
+  }
+
+  private testLocalStorage() {
+    // 添加key value
+    this.localStorage.setOrCreate('Spike', 300)
+    // 可以添加不同类型的 value 基本类型
+    this.localStorage.setOrCreate('name', "汤姆猫")
+    // 可以添加不同类型的 value class类型
+    // this.localStorage.setOrCreate('PropB', new Data(50));
+    // 使用LocalStorage
+    let propA: number | undefined = this.localStorage.get('PropA') ?? -1; // propA == 47
+    Log.log(`propA=${propA}`)
+    let link1: SubscribedAbstractProperty<number> = this.localStorage.link('PropA'); // link1.get() == 47
+    let link2: SubscribedAbstractProperty<number> = this.localStorage.link('PropA'); // link2.get() == 47
+    let prop: SubscribedAbstractProperty<number> = this.localStorage.prop('PropA'); // prop.get() == 47
+    link1.set(48); // 双向同步: link1.get() == link2.get() == prop.get() == 48
+    Log.log(`修改link1-->pro=${prop.get()} link1=${link1.get()} link2=${link2.get()}`)
+    prop.set(1); // 单向同步: prop.get() == 1; 但 link1.get() == link2.get() == 48
+    Log.log(`修改pop---->pro=${prop.get()} link1=${link1.get()} link2=${link2.get()}`)
+    link2.set(49); // 双向同步: link1.get() == link2.get() == prop.get() == 49
+    Log.log(`修改link2-->pro=${prop.get()} link1=${link1.get()} link2=${link2.get()}`)
   }
 
   private initEventHub() {

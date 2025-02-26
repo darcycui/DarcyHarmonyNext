@@ -12,7 +12,7 @@ class Info {
 }
 
 @Component
-struct Child {
+struct ChildArrayItem {
   // 子组件Child的@ObjectLink的类型是Info
   @ObjectLink info: Info;
   label: string = 'ViewChild';
@@ -40,14 +40,14 @@ struct ObservedArrayPage {
       Text('for-each 创建子组件')
       ForEach(this.arrA,
         (item: Info) => {
-          Child({ label: `#${item.id}`, info: item })
+          ChildArrayItem({ label: `#${item.id}`, info: item })
         },
         (item: Info): string => item.id.toString()
       )
       Text('index 创建子组件')
       // 使用@State装饰的数组的数组项初始化@ObjectLink，其中数组项是被@Observed装饰的Info的实例
-      Child({ label: `ViewChild this.arrA[first]`, info: this.arrA[0] })
-      Child({ label: `ViewChild this.arrA[last]`, info: this.arrA[this.arrA.length-1] })
+      ChildArrayItem({ label: `ViewChild this.arrA[first]`, info: this.arrA[0] })
+      ChildArrayItem({ label: `ViewChild this.arrA[last]`, info: this.arrA[this.arrA.length-1] })
 
       Text('数组操作')
       Button(`ViewParent: reset array`)

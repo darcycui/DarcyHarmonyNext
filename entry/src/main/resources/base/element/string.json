@@ -243,6 +243,26 @@
     {
       "name": "TestObservedArrayPage2",
       "value": "ObservedArrayPage2"
+    },
+    {
+      "name": "TestLocalStoragePage1",
+      "value": "LocalStoragePage1"
+    },
+    {
+      "name": "TestLocalStoragePage2",
+      "value": "LocalStoragePage2"
+    },
+    {
+      "name": "TestLocalStoragePage3",
+      "value": "LocalStoragePage3"
+    },
+    {
+      "name": "TestLocalStoragePage4",
+      "value": "LocalStoragePage4"
+    },
+    {
+      "name": "TestLocalStoragePage5",
+      "value": "LocalStoragePage5"
     }
   ]
 }

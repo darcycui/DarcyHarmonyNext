@@ -34,6 +34,12 @@ export let PAGE_OBSERVED_CLASS_PAGE_2 = "pages/entry/status/observed/ObservedCla
 export let PAGE_OBSERVED_ARRAY_PAGE = "pages/entry/status/observed/ObservedArrayPage";
 export let PAGE_OBSERVED_ARRAY_PAGE_2 = "pages/entry/status/observed/ObservedArrayPage2";
 
+export let PAGE_LOCAL_STORAGE_PAGE_1 = "pages/entry/status/localstorage/LocalStoragePage1";
+export let PAGE_LOCAL_STORAGE_PAGE_2 = "pages/entry/status/localstorage/LocalStoragePage2";
+export let PAGE_LOCAL_STORAGE_PAGE_3 = "pages/entry/status/localstorage/LocalStoragePage3";
+export let PAGE_LOCAL_STORAGE_PAGE_4 = "pages/entry/status/localstorage/LocalStoragePage4";
+export let PAGE_LOCAL_STORAGE_PAGE_5 = "pages/entry/status/localstorage/LocalStoragePage5";
+
 export let PAGE_PROMISE_ASYNC_WAIT = "pages/entry/promise/PromiseAsyncWaitPage";
 export let PAGE_TASK_POOL = "pages/entry/thread/TaskPoolPage";
 export let PAGE_WORKER = "pages/entry/thread/WorkerPage";
