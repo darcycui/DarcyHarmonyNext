@@ -30,6 +30,28 @@ export default class EntryAbility extends BaseUIAbility {
     this.getParams(want);
     this.initEventHub()
     this.testLocalStorage()
+    this.testAppStorage()
+  }
+
+  testAppStorage() {
+    // 添加key value
+    AppStorage.setOrCreate('PropA', 47);
+    // 可以添加不同类型的 value 基本类型
+    AppStorage.setOrCreate('name', "汤姆猫")
+    // 可以添加不同类型的 value class类型
+    AppStorage.setOrCreate('PropB', new Data(100));
+    // 使用AppStorage获取值
+    let propA: number | undefined = AppStorage.get('PropA') // propA in AppStorage == 47, propA in LocalStorage == 17
+    let link1: SubscribedAbstractProperty<number> = AppStorage.link('PropA'); // link1.get() == 47
+    let link2: SubscribedAbstractProperty<number> = AppStorage.link('PropA'); // link2.get() == 47
+    let prop: SubscribedAbstractProperty<number> = AppStorage.prop('PropA'); // prop.get() == 47
+
+    link1.set(48); // 双向同步: link1.get() == link2.get() == prop.get() == 48
+    Log.log(`AppStorage 修改link1-->pro=${prop.get()} link1=${link1.get()} link2=${link2.get()} propA=${propA}`)
+    prop.set(1); // 单向同步: prop.get() == 1; 但 link1.get() == link2.get() == 48
+    Log.log(`AppStorage 修改prop--->pro=${prop.get()} link1=${link1.get()} link2=${link2.get()} propA=${propA}`)
+    link1.set(49); // 双向同步: link1.get() == link2.get() == prop.get() == 49
+    Log.log(`AppStorage 修改link2-->pro=${prop.get()} link1=${link1.get()} link2=${link2.get()} propA=${propA}`)
   }
 
   private testLocalStorage() {
@@ -38,19 +60,19 @@ export default class EntryAbility extends BaseUIAbility {
     // 可以添加不同类型的 value 基本类型
     this.localStorage.setOrCreate('name', "汤姆猫")
     // 可以添加不同类型的 value class类型
-    // this.localStorage.setOrCreate('PropB', new Data(50));
-    // 使用LocalStorage
+    this.localStorage.setOrCreate('dataClass', new Data(50));
+    // 使用LocalStorage获取值
     let propA: number | undefined = this.localStorage.get('PropA') ?? -1; // propA == 47
     Log.log(`propA=${propA}`)
     let link1: SubscribedAbstractProperty<number> = this.localStorage.link('PropA'); // link1.get() == 47
     let link2: SubscribedAbstractProperty<number> = this.localStorage.link('PropA'); // link2.get() == 47
     let prop: SubscribedAbstractProperty<number> = this.localStorage.prop('PropA'); // prop.get() == 47
     link1.set(48); // 双向同步: link1.get() == link2.get() == prop.get() == 48
-    Log.log(`修改link1-->pro=${prop.get()} link1=${link1.get()} link2=${link2.get()}`)
+    Log.log(`LocalStorage 修改link1-->pro=${prop.get()} link1=${link1.get()} link2=${link2.get()} propA=${propA}`)
     prop.set(1); // 单向同步: prop.get() == 1; 但 link1.get() == link2.get() == 48
-    Log.log(`修改pop---->pro=${prop.get()} link1=${link1.get()} link2=${link2.get()}`)
+    Log.log(`LocalStorage 修改pop---->pro=${prop.get()} link1=${link1.get()} link2=${link2.get()} propA=${propA}`)
     link2.set(49); // 双向同步: link1.get() == link2.get() == prop.get() == 49
-    Log.log(`修改link2-->pro=${prop.get()} link1=${link1.get()} link2=${link2.get()}`)
+    Log.log(`LocalStorage 修改link2-->pro=${prop.get()} link1=${link1.get()} link2=${link2.get()} propA=${propA}`)
   }
 
   private initEventHub() {

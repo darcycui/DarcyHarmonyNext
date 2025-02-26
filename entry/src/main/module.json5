@@ -57,7 +57,7 @@
         "name": "EntryAbility",
         "srcEntry": "./ets/entryability/EntryAbility.ets",
         // TODO:启动模式 栈内唯一
-//        "launchType": "singleton",
+        //        "launchType": "singleton",
         "launchType": "standard",
         "description": "$string:EntryAbility_desc",
         // 页面图标
@@ -85,6 +85,15 @@
         "description": "$string:HomeAbility_desc",
         "icon": "$media:layered_image",
         "label": "$string:HomeAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "OtherAbility",
+        "srcEntry": "./ets/otherability/OtherAbility.ets",
+        "description": "$string:OtherAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:OtherAbility_label",
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background"
       }

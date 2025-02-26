@@ -255,6 +255,10 @@
     {
       "name": "TestLocalStoragePage5",
       "value": "LocalStoragePage5"
+    },
+    {
+      "name": "TestAppStoragePage1",
+      "value": "AppStoragePage1"
     }
   ]
 }

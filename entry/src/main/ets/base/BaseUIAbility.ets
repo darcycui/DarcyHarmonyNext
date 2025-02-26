@@ -42,6 +42,7 @@ export abstract class BaseUIAbility extends UIAbility {
       }
       HiLog.info(this.TAG + 'Succeeded in loading the content.')
     }
+    // 检查是否有localStorage
     if (this.getLocalStorage() == null) {
       windowStage.loadContent(this.getInitPageName(), callback)
     } else {

@@ -40,7 +40,8 @@ import {
   PAGE_LOCAL_STORAGE_PAGE_2,
   PAGE_LOCAL_STORAGE_PAGE_3,
   PAGE_LOCAL_STORAGE_PAGE_4,
-  PAGE_LOCAL_STORAGE_PAGE_5
+  PAGE_LOCAL_STORAGE_PAGE_5,
+  PAGE_APP_STORAGE_PAGE_1
 } from '../PageName';
 import { startNamedPage, startPage } from '../../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -404,6 +405,13 @@ struct StartPage {
       .fontWeight(FontWeight.Bold)
       .onClick(() => {
         startPage(PAGE_LOCAL_STORAGE_PAGE_5, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestAppStoragePage1"))
+      .id('TestAppStoragePage1')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_APP_STORAGE_PAGE_1, { 'keyHello': 'Hello World' });
       })
   }
 

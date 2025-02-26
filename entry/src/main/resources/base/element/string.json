@@ -263,6 +263,18 @@
     {
       "name": "TestLocalStoragePage5",
       "value": "LocalStoragePage5"
+    },
+    {
+      "name": "TestAppStoragePage1",
+      "value": "AppStoragePage1"
+    },
+    {
+      "name": "OtherAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "OtherAbility_label",
+      "value": "label"
     }
   ]
 }

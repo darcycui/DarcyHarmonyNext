@@ -1,4 +1,5 @@
 export let PAGE_START = "pages/entry/StartPage";
+export let PAGE_START_OTHER = "pages/other/OtherStartPage";
 export let PAGE_RELATIVE = "pages/entry/basepage/RelativePage";
 export let PAGE_INPUT = "pages/entry/basepage/InputPage";
 export let PAGE_COLUMN = "pages/entry/basepage/ColumnPage";
@@ -39,6 +40,8 @@ export let PAGE_LOCAL_STORAGE_PAGE_2 = "pages/entry/status/localstorage/LocalSto
 export let PAGE_LOCAL_STORAGE_PAGE_3 = "pages/entry/status/localstorage/LocalStoragePage3";
 export let PAGE_LOCAL_STORAGE_PAGE_4 = "pages/entry/status/localstorage/LocalStoragePage4";
 export let PAGE_LOCAL_STORAGE_PAGE_5 = "pages/entry/status/localstorage/LocalStoragePage5";
+
+export let PAGE_APP_STORAGE_PAGE_1 = "pages/entry/status/appstorage/AppStoragePage1";
 
 export let PAGE_PROMISE_ASYNC_WAIT = "pages/entry/promise/PromiseAsyncWaitPage";
 export let PAGE_TASK_POOL = "pages/entry/thread/TaskPoolPage";

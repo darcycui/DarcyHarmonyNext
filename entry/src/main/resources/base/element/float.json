@@ -3,6 +3,10 @@
     {
       "name": "page_text_font_size",
       "value": "50fp"
+    },
+    {
+      "name": "page_text_font_size_normal",
+      "value": "20fp"
     }
   ]
 }
