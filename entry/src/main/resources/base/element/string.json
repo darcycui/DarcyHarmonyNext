@@ -275,6 +275,10 @@
     {
       "name": "OtherAbility_label",
       "value": "label"
+    },
+    {
+      "name": "TestEmitPage1",
+      "value": "EmitPage1"
     }
   ]
 }

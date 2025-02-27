@@ -259,6 +259,10 @@
     {
       "name": "TestAppStoragePage1",
       "value": "AppStoragePage1"
+    },
+    {
+      "name": "TestEmitPage1",
+      "value": "EmitPage1"
     }
   ]
 }

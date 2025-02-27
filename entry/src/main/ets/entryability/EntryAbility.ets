@@ -76,7 +76,7 @@ export default class EntryAbility extends BaseUIAbility {
   }
 
   private initEventHub() {
-    // 添加事件监听
+    // eventHub 添加事件监听
     this.context.eventHub.on(EntryEvent.EVENT_CLICK, (data: string) => {
       HiLog.warn(this.TAG + 'EVENT_CLICK=' + data)
       promptAction.showToast({

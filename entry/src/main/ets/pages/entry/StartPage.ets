@@ -41,7 +41,8 @@ import {
   PAGE_LOCAL_STORAGE_PAGE_3,
   PAGE_LOCAL_STORAGE_PAGE_4,
   PAGE_LOCAL_STORAGE_PAGE_5,
-  PAGE_APP_STORAGE_PAGE_1
+  PAGE_APP_STORAGE_PAGE_1,
+  PAGE_EMIT_PAGE
 } from '../PageName';
 import { startNamedPage, startPage } from '../../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -172,7 +173,7 @@ struct StartPage {
       .fontSize(16)
       .fontWeight(FontWeight.Bold)
       .onClick(() => {
-        // TODO 发送事件
+        // TODO eventHub Page发送事件给Ability
         this.context.eventHub.emit(EntryEvent.EVENT_CLICK, 'Tom and Jerry from StartPage');
       })
     Button($r('app.string.TestCallFunction'))
@@ -412,6 +413,13 @@ struct StartPage {
       .fontWeight(FontWeight.Bold)
       .onClick(() => {
         startPage(PAGE_APP_STORAGE_PAGE_1, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestEmitPage1"))
+      .id('TestEmitPage1')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_EMIT_PAGE, { 'keyHello': 'Hello World' });
       })
   }
 
