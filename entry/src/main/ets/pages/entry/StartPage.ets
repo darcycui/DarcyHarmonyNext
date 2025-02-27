@@ -42,7 +42,9 @@ import {
   PAGE_LOCAL_STORAGE_PAGE_4,
   PAGE_LOCAL_STORAGE_PAGE_5,
   PAGE_APP_STORAGE_PAGE_1,
-  PAGE_EMIT_PAGE
+  PAGE_EMIT_PAGE,
+  PAGE_PERSISTENT_PAGE,
+  PAGE_ENVIRONMENT_PAGE
 } from '../PageName';
 import { startNamedPage, startPage } from '../../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -420,6 +422,20 @@ struct StartPage {
       .fontWeight(FontWeight.Bold)
       .onClick(() => {
         startPage(PAGE_EMIT_PAGE, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestPersistentPage"))
+      .id('TestPersistentPage')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_PERSISTENT_PAGE, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestEnvironmentPage"))
+      .id('TestEnvironmentPage')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_ENVIRONMENT_PAGE, { 'keyHello': 'Hello World' });
       })
   }
 

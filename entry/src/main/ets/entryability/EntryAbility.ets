@@ -3,7 +3,7 @@ import { PAGE_START } from '../pages/PageName';
 import { HiLog, Log } from 'static_common';
 import { BaseUIAbility } from '../base/BaseUIAbility';
 import { EntryEvent } from '../event/EventName';
-import { promptAction } from '@kit.ArkUI';
+import { promptAction, window } from '@kit.ArkUI';
 import { Data } from '../pages/entry/status/localstorage/LocalStoragePage1';
 
 
@@ -31,8 +31,38 @@ export default class EntryAbility extends BaseUIAbility {
     this.initEventHub()
     this.testLocalStorage()
     this.testAppStorage()
+    // this.testPersistentStorage()
+    // this.testEnvironment()
+  }
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    super.onWindowStageCreate(windowStage)
+    this.testPersistentStorage()
+
+    let window = windowStage.getMainWindow()
+    window.then(window => {
+      let uiContext = window.getUIContext()
+      uiContext.runScopedTask(() => {
+        this.testEnvironment()
+      })
+    })
   }
 
+  testEnvironment() {
+    // 使用Environment.EnvProp将设备运行languageCode存入AppStorage中；
+    Environment.envProp('languageCode', 'en');
+    // 从AppStorage获取单向绑定的languageCode的变量
+    const lang: SubscribedAbstractProperty<string> = AppStorage.prop('languageCode');
+
+    if (lang.get() === 'zh') {
+      Log.info('testEnvironment: 你好');
+    } else {
+      Log.info('testEnvironment: Hello!');
+    }
+  }
+
+  testPersistentStorage() {
+    PersistentStorage.persistProp('aProp', 45);
+  }
   testAppStorage() {
     // 添加key value
     AppStorage.setOrCreate('PropA', 47);

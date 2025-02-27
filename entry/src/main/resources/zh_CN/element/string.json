@@ -263,6 +263,14 @@
     {
       "name": "TestEmitPage1",
       "value": "EmitPage1"
+    },
+    {
+      "name": "TestPersistentPage",
+      "value": "PersistentPage"
+    },
+    {
+      "name": "TestEnvironmentPage",
+      "value": "EnvironmentPage"
     }
   ]
 }
