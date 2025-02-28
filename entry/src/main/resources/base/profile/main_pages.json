@@ -44,6 +44,11 @@
     "pages/other/OtherStartPage",
     "pages/entry/status/emit/EmitPage",
     "pages/entry/status/persistent/PersistentPage",
-    "pages/entry/status/environment/EnvironmentPage"
+    "pages/entry/status/environment/EnvironmentPage",
+    "pages/entry/status/watch/WatchPage",
+    "pages/entry/status/watch/WatchLinkPage",
+    "pages/entry/status/watch/WatchChangeTimePage",
+    "pages/entry/status/$$/DollarDollarPage",
+    "pages/entry/status/track/TrackPage"
   ]
 }

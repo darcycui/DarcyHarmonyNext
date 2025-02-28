@@ -44,7 +44,12 @@ import {
   PAGE_APP_STORAGE_PAGE_1,
   PAGE_EMIT_PAGE,
   PAGE_PERSISTENT_PAGE,
-  PAGE_ENVIRONMENT_PAGE
+  PAGE_ENVIRONMENT_PAGE,
+  PAGE_WATCH_PAGE,
+  PAGE_WATCH_LINK_PAGE,
+  PAGE_WATCH_CHANGE_TIME_PAGE,
+  PAGE_$$_PAGE,
+  PAGE_TRACK_PAGE
 } from '../PageName';
 import { startNamedPage, startPage } from '../../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -436,6 +441,41 @@ struct StartPage {
       .fontWeight(FontWeight.Bold)
       .onClick(() => {
         startPage(PAGE_ENVIRONMENT_PAGE, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestWatchPage"))
+      .id('TestWatchPage')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_WATCH_PAGE, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestWatchLinkPage"))
+      .id('TestWatchLinkPage')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_WATCH_LINK_PAGE, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestWatchChangeTimePage"))
+      .id('TestWatchChangeTimePage')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_WATCH_CHANGE_TIME_PAGE, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestDollarDollarPage"))
+      .id('Test$$Page')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_$$_PAGE, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestTrackPage"))
+      .id('TestTrackPage')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_TRACK_PAGE, { 'keyHello': 'Hello World' });
       })
   }
 

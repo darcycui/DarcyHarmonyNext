@@ -287,6 +287,26 @@
     {
       "name": "TestEnvironmentPage",
       "value": "EnvironmentPage"
+    },
+    {
+      "name": "TestWatchPage",
+      "value": "WatchPage"
+    },
+    {
+      "name": "TestWatchLinkPage",
+      "value": "WatchLinkPage"
+    },
+    {
+      "name": "TestWatchChangeTimePage",
+      "value": "WatchChangeTimePage"
+    },
+    {
+      "name": "TestDollarDollarPage",
+      "value": "Test$$Page"
+    },
+    {
+      "name": "TestTrackPage",
+      "value": "TrackPage"
     }
   ]
 }

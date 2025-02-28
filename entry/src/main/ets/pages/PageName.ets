@@ -45,6 +45,11 @@ export let PAGE_APP_STORAGE_PAGE_1 = "pages/entry/status/appstorage/AppStoragePa
 export let PAGE_EMIT_PAGE = "pages/entry/status/emit/EmitPage";
 export let PAGE_PERSISTENT_PAGE = "pages/entry/status/persistent/PersistentPage";
 export let PAGE_ENVIRONMENT_PAGE = "pages/entry/status/environment/EnvironmentPage";
+export let PAGE_WATCH_PAGE = "pages/entry/status/watch/WatchPage";
+export let PAGE_WATCH_LINK_PAGE = "pages/entry/status/watch/WatchLinkPage";
+export let PAGE_WATCH_CHANGE_TIME_PAGE = "pages/entry/status/watch/WatchChangeTimePage";
+export let PAGE_$$_PAGE = "pages/entry/status/$$/DollarDollarPage";
+export let PAGE_TRACK_PAGE = "pages/entry/status/track/TrackPage";
 
 export let PAGE_PROMISE_ASYNC_WAIT = "pages/entry/promise/PromiseAsyncWaitPage";
 export let PAGE_TASK_POOL = "pages/entry/thread/TaskPoolPage";
