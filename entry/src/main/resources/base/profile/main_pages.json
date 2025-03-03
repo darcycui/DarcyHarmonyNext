@@ -49,6 +49,12 @@
     "pages/entry/status/watch/WatchLinkPage",
     "pages/entry/status/watch/WatchChangeTimePage",
     "pages/entry/status/$$/DollarDollarPage",
-    "pages/entry/status/track/TrackPage"
+    "pages/entry/status/track/TrackPage",
+    "pages/entry/freeze/FreezePage1",
+    "pages/entry/freeze/FreezePage2",
+    "pages/entry/freeze/TabFreezePage",
+    "pages/entry/freeze/ListFreezePage",
+    "pages/entry/freeze/NavigationFreezePage",
+    "pages/entry/want/WantAbilityPage"
   ]
 }

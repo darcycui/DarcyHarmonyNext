@@ -1,7 +1,7 @@
 import { router } from '@kit.ArkUI';
 import { Log } from 'static_common';
 
-export function startPage(url: string, params: Record<string, string>) {
+export function startPage(url: string, params?: Record<string, string>) {
   router.pushUrl({
     url,
     params
@@ -13,7 +13,7 @@ export function startPage(url: string, params: Record<string, string>) {
   });
 }
 
-export function startNamedPage(url: string, params: Record<string, string>) {
+export function startNamedPage(url: string, params?: Record<string, string>) {
   router.pushNamedRoute({
     name: url,
     params: params

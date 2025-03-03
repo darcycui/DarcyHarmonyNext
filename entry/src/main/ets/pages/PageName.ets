@@ -4,6 +4,7 @@ export let PAGE_RELATIVE = "pages/entry/basepage/RelativePage";
 export let PAGE_INPUT = "pages/entry/basepage/InputPage";
 export let PAGE_COLUMN = "pages/entry/basepage/ColumnPage";
 export let PAGE_IMAGE = "pages/entry/basepage/ImagePage";
+export let PAGE_WANT_ABILITY = "pages/entry/want/WantAbilityPage";
 
 export let PAGE_HTTPS_CERT_PIN = "pages/entry/http/HttpsCertPinPage";
 export let PAGE_HTTPS = "pages/entry/http/HttpsPage";
@@ -50,6 +51,12 @@ export let PAGE_WATCH_LINK_PAGE = "pages/entry/status/watch/WatchLinkPage";
 export let PAGE_WATCH_CHANGE_TIME_PAGE = "pages/entry/status/watch/WatchChangeTimePage";
 export let PAGE_$$_PAGE = "pages/entry/status/$$/DollarDollarPage";
 export let PAGE_TRACK_PAGE = "pages/entry/status/track/TrackPage";
+
+export let PAGE_FREEZE_PAGE_1 = "pages/entry/freeze/FreezePage1";
+export let PAGE_FREEZE_PAGE_2 = "pages/entry/freeze/FreezePage2";
+export let PAGE_FREEZE_TAB = "pages/entry/freeze/TabFreezePage";
+export let PAGE_FREEZE_LIST = "pages/entry/freeze/ListFreezePage";
+export let PAGE_FREEZE_NAVIGATION = "pages/entry/freeze/NavigationFreezePage";
 
 export let PAGE_PROMISE_ASYNC_WAIT = "pages/entry/promise/PromiseAsyncWaitPage";
 export let PAGE_TASK_POOL = "pages/entry/thread/TaskPoolPage";

@@ -49,7 +49,12 @@ import {
   PAGE_WATCH_LINK_PAGE,
   PAGE_WATCH_CHANGE_TIME_PAGE,
   PAGE_$$_PAGE,
-  PAGE_TRACK_PAGE
+  PAGE_TRACK_PAGE,
+  PAGE_FREEZE_PAGE_1,
+  PAGE_FREEZE_TAB,
+  PAGE_FREEZE_LIST,
+  PAGE_FREEZE_NAVIGATION,
+  PAGE_WANT_ABILITY
 } from '../PageName';
 import { startNamedPage, startPage } from '../../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -124,6 +129,13 @@ struct StartPage {
 
   @Builder
   buildButtons() {
+    Button($r('app.string.TestWantAbilityPage'))
+      .id('TestWantAbilityPage')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_WANT_ABILITY, { 'keyHello': 'Hello World' });
+      })
     Button($r('app.string.RelativePage'))
       .id('RelativePage')
       .fontSize(16)
@@ -476,6 +488,34 @@ struct StartPage {
       .fontWeight(FontWeight.Bold)
       .onClick(() => {
         startPage(PAGE_TRACK_PAGE, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestFreezePage"))
+      .id('TestFreezePage')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_FREEZE_PAGE_1, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestFreezeTabPage"))
+      .id('TestFreezeTabPage')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_FREEZE_TAB, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestFreezeListPage"))
+      .id('TestFreezeListPage')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_FREEZE_LIST, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestNavigationFreezePage"))
+      .id('TestNavigationFreezePage')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_FREEZE_NAVIGATION, { 'keyHello': 'Hello World' });
       })
   }
 

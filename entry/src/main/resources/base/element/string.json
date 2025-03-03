@@ -45,8 +45,8 @@
       "value": "Terminate"
     },
     {
-      "name": "HomeAbility",
-      "value": "HomeAblity"
+      "name": "HomeAbility2",
+      "value": "HomeAbility"
     },
     {
       "name": "RelativePage",
@@ -307,6 +307,26 @@
     {
       "name": "TestTrackPage",
       "value": "TrackPage"
+    },
+    {
+      "name": "TestFreezePage",
+      "value": "FreezePage"
+    },
+    {
+      "name": "TestFreezeTabPage",
+      "value": "FreezeTabPage"
+    },
+    {
+      "name": "TestFreezeListPage",
+      "value": "FreezeListPage"
+    },
+    {
+      "name": "TestNavigationFreezePage",
+      "value": "NavigationFreezePage"
+    },
+    {
+      "name": "TestWantAbilityPage",
+      "value": "WantAbilityPage"
     }
   ]
 }
