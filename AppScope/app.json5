@@ -5,7 +5,9 @@
     "vendor": "example",
     "versionCode": 1000000,
     "versionName": "1.0.0",
+    // 应用图标
     "icon": "$media:app_icon2",
+    // 应用名称
     "label": "$string:app_name"
   }
 }

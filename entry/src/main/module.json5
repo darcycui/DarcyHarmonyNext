@@ -61,7 +61,8 @@
         "launchType": "standard",
         "description": "$string:EntryAbility_desc",
         // 页面图标
-        "icon": "$media:layered_image",
+//        "icon": "$media:layered_image",
+//        "icon": "$media:layered_image",
         // 页面名称
         "label": "$string:EntryAbility_label",
         "startWindowIcon": "$media:startIcon",
