@@ -65,7 +65,7 @@
 //        "icon": "$media:layered_image",
         // 页面名称
         "label": "$string:EntryAbility_label",
-        "startWindowIcon": "$media:startIcon",
+        "startWindowIcon": "$media:app_icon2",
         // 页面启动背景
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
