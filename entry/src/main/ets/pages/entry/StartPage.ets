@@ -54,14 +54,16 @@ import {
   PAGE_FREEZE_TAB,
   PAGE_FREEZE_LIST,
   PAGE_FREEZE_NAVIGATION,
-  PAGE_WANT_ABILITY
+  PAGE_WANT_ABILITY,
+  PAGE_MVVM_TEST,
+  PAGE_TEST_LIST
 } from '../PageName';
 import { startNamedPage, startPage } from '../../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
 import { EntryEvent } from '../../event/EventName';
 import { inspector, LengthUnit, promptAction, UIContext } from '@kit.ArkUI';
 import { nativeAdd } from 'library_camera_static';
-import { Student } from '../../bean/HttpBean';
+import { Student } from '../../network/models/HttpBean';
 import { Log } from 'static_common';
 
 @Entry
@@ -516,6 +518,20 @@ struct StartPage {
       .fontWeight(FontWeight.Bold)
       .onClick(() => {
         startPage(PAGE_FREEZE_NAVIGATION, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestMVVMPage"))
+      .id('TestMVVMPage')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_MVVM_TEST, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestList"))
+      .id('TestList')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_TEST_LIST, { 'keyHello': 'Hello World' });
       })
   }
 

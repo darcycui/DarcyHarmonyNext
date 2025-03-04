@@ -311,6 +311,18 @@
     {
       "name": "TestWantAbilityPage",
       "value": "WantAbilityPage"
+    },
+    {
+      "name": "TestMVVMPage",
+      "value": "MVVMPage"
+    },
+    {
+      "name": "TestList",
+      "value": "TestList"
+    },
+    {
+      "name": "TestTest2",
+      "value": "TestTest2"
     }
   ]
 }

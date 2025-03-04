@@ -1,7 +1,7 @@
 import { Log } from "static_common"
 import { webSocket } from "@kit.NetworkKit"
 import { BusinessError } from "@kit.BasicServicesKit"
-import { MessageBean } from "../bean/MessageBean"
+import { MessageBean } from "./models/MessageBean"
 
 export const self = "Harmony"
 

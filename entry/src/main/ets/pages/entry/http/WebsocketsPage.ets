@@ -2,7 +2,7 @@ import { Log } from 'static_common';
 import { closeWS, connectWS, other, self, sendWS, WSS_URL } from '../../../network/WebSocket';
 import { saveByteArrayToFile } from '../../../utils/FileUtil';
 import { common } from '@kit.AbilityKit';
-import { MessageBean } from '../../../bean/MessageBean';
+import { MessageBean } from '../../../network/models/MessageBean';
 
 let TAG = "[WebsocketsPage] ";
 

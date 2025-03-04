@@ -1,5 +1,5 @@
 // objectLinkNestedObjects.ets
-let NextID: number = 1;
+let NextIDO2: number = 1;
 
 @Observed
 class Name {
@@ -7,7 +7,7 @@ class Name {
   public length: number;
 
   constructor(length: number) {
-    this.id = NextID++;
+    this.id = NextIDO2++;
     this.length = length;
   }
 }

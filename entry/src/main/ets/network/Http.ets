@@ -1,7 +1,7 @@
 import { buffer, JSON } from '@kit.ArkTS';
 import { http } from '@kit.NetworkKit';
 import { Log } from 'static_common';
-import { IPBean, ResultBean } from '../bean/HttpBean';
+import { IPBean, ResultBean } from './models/HttpBean';
 import { base64DecodeToString, base64DecodeToUint8Array, base64Encode } from '../utils/Bese64Util';
 import { hexToUint8Array, stringToUint8Array, uint8ArrayToHexString } from '../utils/StringUnit8ArrayUtil';
 import { generatePubkeyHashBase64 } from './PubkeyPinHelper';

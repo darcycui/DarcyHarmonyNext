@@ -1,5 +1,5 @@
 import { Log } from 'static_common';
-import { IPBean, ResultBean } from '../../../bean/HttpBean';
+import { IPBean, ResultBean } from '../../../network/models/HttpBean';
 import { doGet } from '../../../network/Http';
 import { common } from '@kit.AbilityKit';
 import { saveByteArrayToFile } from '../../../utils/FileUtil';

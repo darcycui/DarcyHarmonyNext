@@ -55,6 +55,8 @@
     "pages/entry/freeze/TabFreezePage",
     "pages/entry/freeze/ListFreezePage",
     "pages/entry/freeze/NavigationFreezePage",
-    "pages/entry/want/WantAbilityPage"
+    "pages/entry/want/WantAbilityPage",
+    "pages/mvvm/TodoListPage",
+    "pages/entry/list/ListA1"
   ]
 }
