@@ -323,6 +323,42 @@
     {
       "name": "TestTest2",
       "value": "TestTest2"
+    },
+    {
+      "name": "TestRenderIfElse",
+      "value": "IfElse"
+    },
+    {
+      "name": "TestRenderIfElseWithState",
+      "value": "IfElseState"
+    },
+    {
+      "name": "TestRenderIfElseWithStateChanged",
+      "value": "IfElseChanged"
+    },
+    {
+      "name": "TestAnimateTo",
+      "value": "AnimateTo"
+    },
+    {
+      "name": "TestForEach1",
+      "value": "ForEach1"
+    },
+    {
+      "name": "TestArticleList",
+      "value": "ArticleList"
+    },
+    {
+      "name": "TestLazyForEach1",
+      "value": "LazyForEach1"
+    },
+    {
+      "name": "TestLazyForEachClass2",
+      "value": "LazyForEachClass2"
+    },
+    {
+      "name": "TestLazyForEachReusable3",
+      "value": "LazyForEachReusable3"
     }
   ]
 }

@@ -1,4 +1,4 @@
-export let PAGE_START = "pages/entry/StartPage";
+export let PAGE_START = "pages/StartPage";
 export let PAGE_START_OTHER = "pages/other/OtherStartPage";
 export let PAGE_RELATIVE = "pages/entry/basepage/RelativePage";
 export let PAGE_INPUT = "pages/entry/basepage/InputPage";
@@ -71,4 +71,15 @@ export let PAGE_SHARED_INNER = "pages/shared/context/SharedInnerPage";
 
 export let PAGE_MVVM_TEST = "pages/mvvm/TodoListPage";
 export let PAGE_TEST_LIST = "pages/entry/list/ListA1";
+export let PAGE_ARTICLE_LIST = "pages/entry/list/ArticleListPage";
+
+export let PAGE_RENDER_IF_ELSE = "pages/entry/render_control/If_ElsePage";
+export let PAGE_RENDER_IF_ELSE_WITH_STATE = "pages/entry/render_control/If_Else_WithStatePage";
+export let PAGE_RENDER_IF_ELSE_WITH_STATE_CHANGED = "pages/entry/render_control/If_Else_WithStateChangedPage";
+export let PAGE_RENDER_FOR_EACH_PAGE_1 = "pages/entry/render_control/ForEachPage";
+export let PAGE_RENDER_LAZY_FOR_EACH_PAGE_1 = "pages/entry/render_control/LazyForEachPage";
+export let PAGE_RENDER_LAZY_FOR_EACH_PAGE_2 = "pages/entry/render_control/LazyForEachClassPage";
+export let PAGE_RENDER_LAZY_FOR_EACH_PAGE_3 = "pages/entry/render_control/LazyForEachReusablePage";
+
+export let PAGE_ANIMATE_TO = "pages/animate/AnimateToPage";
 

@@ -3,7 +3,7 @@
     "pages/entry/basepage/RelativePage",
     "pages/entry/basepage/InputPage",
     "pages/entry/basepage/ColumnPage",
-    "pages/entry/StartPage",
+    "pages/StartPage",
     "pages/entry/basepage/ImagePage",
     "pages/entry/har_hsp/StaticLibraryPage",
     "pages/entry/har_hsp/SharedLibraryPage",
@@ -57,6 +57,15 @@
     "pages/entry/freeze/NavigationFreezePage",
     "pages/entry/want/WantAbilityPage",
     "pages/mvvm/TodoListPage",
-    "pages/entry/list/ListA1"
+    "pages/entry/list/ListA1",
+    "pages/entry/render_control/If_ElsePage",
+    "pages/entry/render_control/If_Else_StatePage",
+    "pages/entry/render_control/If_Else_StateChangedPage",
+    "pages/animate/AnimateToPage",
+    "pages/entry/render_control/ForEachPage",
+    "pages/entry/list/ArticleListPage",
+    "pages/entry/render_control/LazyForEachPage",
+    "pages/entry/render_control/LazyForEachClassPage",
+    "pages/entry/render_control/LazyForEachReusablePage"
   ]
 }

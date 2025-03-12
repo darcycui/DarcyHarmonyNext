@@ -56,14 +56,23 @@ import {
   PAGE_FREEZE_NAVIGATION,
   PAGE_WANT_ABILITY,
   PAGE_MVVM_TEST,
-  PAGE_TEST_LIST
-} from '../PageName';
-import { startNamedPage, startPage } from '../../utils/RouterHelper';
+  PAGE_TEST_LIST,
+  PAGE_RENDER_IF_ELSE,
+  PAGE_RENDER_IF_ELSE_WITH_STATE,
+  PAGE_RENDER_IF_ELSE_WITH_STATE_CHANGED,
+  PAGE_ANIMATE_TO,
+  PAGE_RENDER_FOR_EACH_PAGE_1,
+  PAGE_ARTICLE_LIST,
+  PAGE_RENDER_LAZY_FOR_EACH_PAGE_1,
+  PAGE_RENDER_LAZY_FOR_EACH_PAGE_2,
+  PAGE_RENDER_LAZY_FOR_EACH_PAGE_3
+} from './PageName';
+import { startNamedPage, startPage } from '../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
-import { EntryEvent } from '../../event/EventName';
+import { EntryEvent } from '../event/EventName';
 import { inspector, LengthUnit, promptAction, UIContext } from '@kit.ArkUI';
 import { nativeAdd } from 'library_camera_static';
-import { Student } from '../../network/models/HttpBean';
+import { Student } from '../network/models/HttpBean';
 import { Log } from 'static_common';
 
 @Entry
@@ -532,6 +541,69 @@ struct StartPage {
       .fontWeight(FontWeight.Bold)
       .onClick(() => {
         startPage(PAGE_TEST_LIST, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestArticleList"))
+      .id('TestArticleList')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_ARTICLE_LIST, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestRenderIfElse"))
+      .id('TestRenderIfElse')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_RENDER_IF_ELSE, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestRenderIfElseWithState"))
+      .id('TestRenderIfElseWithState')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_RENDER_IF_ELSE_WITH_STATE, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestRenderIfElseWithStateChanged"))
+      .id('TestRenderIfElseWithStateChanged')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_RENDER_IF_ELSE_WITH_STATE_CHANGED, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestAnimateTo"))
+      .id('TestAnimateTo')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_ANIMATE_TO, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestForEach1"))
+      .id('TestForEach1')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_RENDER_FOR_EACH_PAGE_1, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestLazyForEach1"))
+      .id('TestLazyForEach1')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_RENDER_LAZY_FOR_EACH_PAGE_1, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestLazyForEachClass2"))
+      .id('TestLazyForEachClass2')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_RENDER_LAZY_FOR_EACH_PAGE_2, { 'keyHello': 'Hello World' });
+      })
+    Button($r("app.string.TestLazyForEachReusable3"))
+      .id('TestLazyForEachReusable3')
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        startPage(PAGE_RENDER_LAZY_FOR_EACH_PAGE_3, { 'keyHello': 'Hello World' });
       })
   }
 

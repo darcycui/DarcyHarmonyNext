@@ -57,7 +57,7 @@ class BasicDataSource implements IDataSource {
   }
 }
 
-class MyDataSource extends BasicDataSource {
+class MyDataSourceFreeze extends BasicDataSource {
   private dataArray: string[] = [];
 
   public totalCount(): number {
@@ -82,7 +82,7 @@ class MyDataSource extends BasicDataSource {
 @Entry
 @Component
 struct ListForEachTest {
-  private data: MyDataSource = new MyDataSource();
+  private data: MyDataSourceFreeze = new MyDataSourceFreeze();
   @State @Watch("onMessageUpdated") message: number = 0;
 
   onMessageUpdated() {
