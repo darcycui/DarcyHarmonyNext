@@ -2,7 +2,7 @@
 @Component
 struct StateChangedPage1 {
   @State son: string = '111';
-  @State parent: Parent = new Parent();
+  @State parent: ParentClass = new ParentClass();
 
   aboutToAppear(): void {
     this.parent.son = this.son;
@@ -19,6 +19,6 @@ struct StateChangedPage1 {
     }
   }
 }
-class Parent {
+class ParentClass {
   son: string = '000';
 }

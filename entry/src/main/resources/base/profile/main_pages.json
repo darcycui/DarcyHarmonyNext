@@ -66,6 +66,13 @@
     "pages/entry/list/ArticleListPage",
     "pages/entry/render_control/LazyForEachPage",
     "pages/entry/render_control/LazyForEachClassPage",
-    "pages/entry/render_control/LazyForEachReusablePage"
+    "pages/entry/render_control/LazyForEachReusablePage",
+    "pages/entry/custom/BuilderPage",
+    "pages/entry/custom/CustomBuilderPage",
+    "pages/entry/custom/MultiBuildersPage",
+    "pages/entry/custom/LocalBuilderPage",
+    "pages/entry/custom/LocalBuilderPage2",
+    "pages/entry/napi/NApiPage",
+    "pages/entry/event/EventPagePage"
   ]
 }

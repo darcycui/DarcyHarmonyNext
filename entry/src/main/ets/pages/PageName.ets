@@ -6,6 +6,9 @@ export let PAGE_COLUMN = "pages/entry/basepage/ColumnPage";
 export let PAGE_IMAGE = "pages/entry/basepage/ImagePage";
 export let PAGE_WANT_ABILITY = "pages/entry/want/WantAbilityPage";
 
+export let PAGE_EVENT = "pages/entry/event/EventPagePage";
+export let PAGE_NAPI = "pages/entry/napi/NApiPage";
+
 export let PAGE_HTTPS_CERT_PIN = "pages/entry/http/HttpsCertPinPage";
 export let PAGE_HTTPS = "pages/entry/http/HttpsPage";
 export let PAGE_WEBSOCKETS = "pages/entry/http/WebsocketsPage";
@@ -80,6 +83,11 @@ export let PAGE_RENDER_FOR_EACH_PAGE_1 = "pages/entry/render_control/ForEachPage
 export let PAGE_RENDER_LAZY_FOR_EACH_PAGE_1 = "pages/entry/render_control/LazyForEachPage";
 export let PAGE_RENDER_LAZY_FOR_EACH_PAGE_2 = "pages/entry/render_control/LazyForEachClassPage";
 export let PAGE_RENDER_LAZY_FOR_EACH_PAGE_3 = "pages/entry/render_control/LazyForEachReusablePage";
+
+export let PAGE_BUILDER_1 = "pages/entry/custom/BuilderPage";
+export let PAGE_BUILDER_2 = "pages/entry/custom/CustomBuilderPage";
+export let PAGE_BUILDER_3 = "pages/entry/custom/MultiBuildersPage";
+export let PAGE_LOCAL_BUILDER_1 = "pages/entry/custom/LocalBuilderPage";
 
 export let PAGE_ANIMATE_TO = "pages/animate/AnimateToPage";
 

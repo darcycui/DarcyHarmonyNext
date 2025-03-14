@@ -65,15 +65,46 @@ import {
   PAGE_ARTICLE_LIST,
   PAGE_RENDER_LAZY_FOR_EACH_PAGE_1,
   PAGE_RENDER_LAZY_FOR_EACH_PAGE_2,
-  PAGE_RENDER_LAZY_FOR_EACH_PAGE_3
+  PAGE_RENDER_LAZY_FOR_EACH_PAGE_3,
+  PAGE_BUILDER_1,
+  PAGE_BUILDER_2,
+  PAGE_BUILDER_3,
+  PAGE_LOCAL_BUILDER_1,
+  PAGE_EVENT,
+  PAGE_NAPI
 } from './PageName';
-import { startNamedPage, startPage } from '../utils/RouterHelper';
+import { startPage } from '../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
-import { EntryEvent } from '../event/EventName';
-import { inspector, LengthUnit, promptAction, UIContext } from '@kit.ArkUI';
-import { nativeAdd } from 'library_camera_static';
-import { Student } from '../network/models/HttpBean';
+import { inspector, LengthUnit } from '@kit.ArkUI';
 import { Log } from 'static_common';
+
+class ItemBean {
+  private _pageName: string;
+
+  public set pageName(value: string) {
+    this._pageName = value;
+  }
+
+  public get pageName(): string {
+    return this._pageName;
+  }
+
+  private _text: Resource;
+
+  public set text(value: Resource) {
+    this._text = value;
+  }
+
+  public get text(): Resource {
+    return this._text;
+  }
+
+
+  constructor(pageName: string, text: Resource) {
+    this._pageName = pageName
+    this._text = text
+  }
+}
 
 @Entry
 @Component
@@ -81,7 +112,6 @@ struct StartPage {
   @State message: string = 'Hello World';
   // 获取上下文context
   context = getContext(this) as common.UIAbilityContext;
-  @State stu: Student | undefined = new Student("Tom", 7);
   // 监听组件渲染步骤
   observer: inspector.ComponentObserver = this.getUIContext().getUIInspector().createComponentObserver('scroll');
   onLayout = () => {
@@ -138,472 +168,103 @@ struct StartPage {
     })
   }
 
+  pageNameArray: ItemBean[] = [
+    new ItemBean(PAGE_EVENT, $r('app.string.TestEventPage')),
+    new ItemBean(PAGE_NAPI, $r('app.string.TestNApiPage')),
+    new ItemBean(PAGE_WANT_ABILITY, $r('app.string.TestWantAbilityPage')),
+    new ItemBean(PAGE_RELATIVE, $r('app.string.RelativePage')),
+    new ItemBean(PAGE_INPUT, $r('app.string.InputPage')),
+    new ItemBean(PAGE_COLUMN, $r('app.string.ColumnPage')),
+    new ItemBean(PAGE_IMAGE, $r('app.string.ImagePage')),
+    new ItemBean(PAGE_STATIC_CAMERA, $r('app.string.CameraPage')),
+    new ItemBean(PAGE_STATIC_LIBRARY, $r('app.string.StaticLibraryPage')),
+    new ItemBean(PAGE_SHARED_LIBRARY, $r('app.string.SharedLibraryPage')),
+    new ItemBean(PAGE_HTTPS_CERT_PIN, $r("app.string.TestHttpsCertPinPage")),
+    new ItemBean(PAGE_HTTPS, $r("app.string.TestHttpsPage")),
+    new ItemBean(PAGE_WEBSOCKETS, $r("app.string.TestWebsocketsPage")),
+    new ItemBean(PAGE_FILE, $r("app.string.TestFilePage")),
+    new ItemBean(PAGE_SP, $r("app.string.TestSPPage")),
+    new ItemBean(PAGE_KEY_VALUE, $r("app.string.TestKeyValuePage")),
+    new ItemBean(PAGE_PROMISE_ASYNC_WAIT, $r("app.string.TestPromiseSyncWaitPage")),
+    new ItemBean(PAGE_TASK_POOL, $r('app.string.TestTaskPoolPage')),
+    new ItemBean(PAGE_WORKER, $r('app.string.TestWorkerPage')),
+    new ItemBean(PAGE_UTD, $r('app.string.TestUTDPage')),
+    new ItemBean(PAGE_DATABASE, $r('app.string.TestDatabasePage')),
+    new ItemBean(PAGE_COMPONENT_STATUS, $r('app.string.TestComponentStatusPage')),
+    new ItemBean(PAGE_STATE, $r('app.string.TestStatePage')),
+    new ItemBean(PAGE_STATE_CHANGED_1, $r('app.string.TestStateChangedPage1')),
+    new ItemBean(PAGE_STATE_CHANGED_2, $r('app.string.TestStateChangedPage2')),
+    new ItemBean(PAGE_STATE_CHANGED_3, $r('app.string.TestStateChangedPage3')),
+    new ItemBean(PAGE_STATE_CHANGED_4, $r('app.string.TestStateChangedPage4')),
+    new ItemBean(PAGE_STATE_CHANGED_5, $r('app.string.TestStateChangedPage5')),
+    new ItemBean(PAGE_PROP_CHANGED_1, $r('app.string.TestPropPage1')),
+    new ItemBean(PAGE_PROP_CHANGED_2, $r('app.string.TestPropPage2')),
+    new ItemBean(PAGE_LINK, $r('app.string.TestLinkPage')),
+    new ItemBean(PAGE_PROVIDE_CONSUME, $r('app.string.TestProvidePage')),
+    new ItemBean(PAGE_PROVIDE_CONSUME_2, $r('app.string.TestProvidePage2')),
+    new ItemBean(PAGE_PROVIDE_CONSUME_3, $r('app.string.TestProvidePage3')),
+    new ItemBean(PAGE_OBSERVED_CLASS_PAGE, $r('app.string.TestObservedClassPage')),
+    new ItemBean(PAGE_OBSERVED_CLASS_PAGE_2, $r('app.string.TestObservedClassPage2')),
+    new ItemBean(PAGE_OBSERVED_ARRAY_PAGE, $r('app.string.TestObservedArrayPage')),
+    new ItemBean(PAGE_OBSERVED_ARRAY_PAGE_2, $r('app.string.TestObservedArrayPage2')),
+    new ItemBean(PAGE_LOCAL_STORAGE_PAGE_1, $r('app.string.TestLocalStoragePage1')),
+    new ItemBean(PAGE_LOCAL_STORAGE_PAGE_3, $r('app.string.TestLocalStoragePage3')),
+    new ItemBean(PAGE_LOCAL_STORAGE_PAGE_4, $r('app.string.TestLocalStoragePage4')),
+    new ItemBean(PAGE_LOCAL_STORAGE_PAGE_5, $r('app.string.TestLocalStoragePage5')),
+    new ItemBean(PAGE_APP_STORAGE_PAGE_1, $r('app.string.TestAppStoragePage1')),
+    new ItemBean(PAGE_EMIT_PAGE, $r('app.string.TestEmitPage1')),
+    new ItemBean(PAGE_PERSISTENT_PAGE, $r('app.string.TestPersistentPage')),
+    new ItemBean(PAGE_ENVIRONMENT_PAGE, $r('app.string.TestEnvironmentPage')),
+    new ItemBean(PAGE_WATCH_PAGE, $r('app.string.TestWatchPage')),
+    new ItemBean(PAGE_WATCH_LINK_PAGE, $r('app.string.TestWatchLinkPage')),
+    new ItemBean(PAGE_WATCH_CHANGE_TIME_PAGE, $r('app.string.TestWatchChangeTimePage')),
+    new ItemBean(PAGE_$$_PAGE, $r('app.string.TestDollarDollarPage')),
+    new ItemBean(PAGE_TRACK_PAGE, $r('app.string.TestTrackPage')),
+    new ItemBean(PAGE_FREEZE_PAGE_1, $r('app.string.TestFreezePage')),
+    new ItemBean(PAGE_FREEZE_TAB, $r('app.string.TestFreezeTabPage')),
+    new ItemBean(PAGE_FREEZE_LIST, $r('app.string.TestFreezeListPage')),
+    new ItemBean(PAGE_FREEZE_NAVIGATION, $r('app.string.TestNavigationFreezePage')),
+    new ItemBean(PAGE_MVVM_TEST, $r('app.string.TestMVVMPage')),
+    new ItemBean(PAGE_TEST_LIST, $r("app.string.TestListPage")),
+    new ItemBean(PAGE_RENDER_IF_ELSE, $r("app.string.TestArticleListPage")),
+    new ItemBean(PAGE_RENDER_IF_ELSE_WITH_STATE, $r("app.string.TestRenderIfElsePage")),
+    new ItemBean(PAGE_RENDER_IF_ELSE_WITH_STATE_CHANGED, $r("app.string.TestRenderIfElseWithStatePage")),
+    new ItemBean(PAGE_ANIMATE_TO, $r("app.string.TestRenderIfElseWithStateChangedPage")),
+    new ItemBean(PAGE_RENDER_FOR_EACH_PAGE_1, $r("app.string.TestAnimateToPage")),
+    new ItemBean(PAGE_ARTICLE_LIST, $r("app.string.TestForEachPage1")),
+    new ItemBean(PAGE_RENDER_LAZY_FOR_EACH_PAGE_1, $r("app.string.TestLazyForEachPage1")),
+    new ItemBean(PAGE_RENDER_LAZY_FOR_EACH_PAGE_2, $r("app.string.TestLazyForEachClassPage2")),
+    new ItemBean(PAGE_RENDER_LAZY_FOR_EACH_PAGE_3, $r("app.string.TestLazyForEachReusablePage3")),
+    new ItemBean(PAGE_BUILDER_1, $r("app.string.TestBuilderPage1")),
+    new ItemBean(PAGE_BUILDER_2, $r("app.string.TestBuilderPage2")),
+    new ItemBean(PAGE_BUILDER_3, $r("app.string.TestBuilderPage3")),
+    new ItemBean(PAGE_LOCAL_BUILDER_1, $r("app.string.TestLocalBuilderPage1")),
+  ]
+
   @Builder
   buildButtons() {
-    Button($r('app.string.TestWantAbilityPage'))
-      .id('TestWantAbilityPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_WANT_ABILITY, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.RelativePage'))
-      .id('RelativePage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_RELATIVE, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.InputPage'))
-      .id('InputPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_INPUT, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.ColumnPage'))
-      .id('ColumnPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_COLUMN, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.ImagePage'))
-      .id('ImagePage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_IMAGE, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.CameraPage'))
-      .id('CameraPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        let sum = nativeAdd(1, 2);
-        promptAction.showToast({ message: `CameraPage sum=${sum}` });
-        startNamedPage(PAGE_STATIC_CAMERA, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.StaticLibraryPage'))
-      .id('StaticLibraryPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_STATIC_LIBRARY, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.SharedLibraryPage'))
-      .id('SharedLibraryPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_SHARED_LIBRARY, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.TestEventHub'))
-      .id('TestEventHub')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        // TODO eventHub Page发送事件给Ability
-        this.context.eventHub.emit(EntryEvent.EVENT_CLICK, 'Tom and Jerry from StartPage');
-      })
-    Button($r('app.string.TestCallFunction'))
-      .id('TestCallFunction')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)// .onClick(this.onShow) // 错误:找不到this
-      .onClick(() => {
-        this.clickFunction();
-      })
-    Button($r('app.string.TestHttpsCertPin'))
-      .id('TestHttpsCertPin')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_HTTPS_CERT_PIN, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.TestHttps'))
-      .id('TestHttps')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_HTTPS, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.TestWebsockets'))
-      .id('TestWebsockets')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_WEBSOCKETS, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.TestFile'))
-      .id('TestFile')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_FILE, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.TestSP'))
-      .id('TestSP')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_SP, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.TestKeyValue'))
-      .id('TestKeyValue')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_KEY_VALUE, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.TestPromiseSyncWait'))
-      .id('TestPromiseSyncWait')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_PROMISE_ASYNC_WAIT, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.TestTaskPoolPage'))
-      .id('TestTaskPoolPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_TASK_POOL, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.TestWorkerPage'))
-      .id('TestWorkerPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_WORKER, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.TestUTDPage'))
-      .id('TestUTDPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_UTD, { 'keyHello': 'Hello World' });
-      })
-    Button($r('app.string.TestDatabasePage'))
-      .id('TestDatabasePage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_DATABASE, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestComponentStatusPage"))
-      .id('TestComponentStatusPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_COMPONENT_STATUS, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestStatePage"))
-      .id('TestStatePage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_STATE, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestStateChangedPage1"))
-      .id('TestStateChangedPage1')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_STATE_CHANGED_1, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestStateChangedPage2"))
-      .id('TestStateChangedPage2')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_STATE_CHANGED_2, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestStateChangedPage3"))
-      .id('TestStateChangedPage3')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_STATE_CHANGED_3, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestStateChangedPage4"))
-      .id('TestStateChangedPage4')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_STATE_CHANGED_4, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestStateChangedPage5"))
-      .id('TestStateChangedPage5')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_STATE_CHANGED_5, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestPropPage1"))
-      .id('TestPropChangedPage1')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_PROP_CHANGED_1, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestPropPage2"))
-      .id('TestPropChangedPage2')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_PROP_CHANGED_2, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestLinkPage"))
-      .id('TestLinkPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_LINK, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestProvidePage"))
-      .id('TestProvidePage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_PROVIDE_CONSUME, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestProvidePage2"))
-      .id('TestProvidePage2')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_PROVIDE_CONSUME_2, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestProvidePage3"))
-      .id('TestProvidePage3')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_PROVIDE_CONSUME_3, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestObservedClassPage"))
-      .id('TestObservedClassPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_OBSERVED_CLASS_PAGE, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestObservedClassPage2"))
-      .id('TestObservedClassPage2')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_OBSERVED_CLASS_PAGE_2, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestObservedArrayPage"))
-      .id('TestObservedArrayPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_OBSERVED_ARRAY_PAGE, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestObservedArrayPage2"))
-      .id('TestObservedArrayPage2')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_OBSERVED_ARRAY_PAGE_2, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestLocalStoragePage1"))
-      .id('TestLocalStoragePage1')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_LOCAL_STORAGE_PAGE_1, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestLocalStoragePage3"))
-      .id('TestLocalStoragePage3')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_LOCAL_STORAGE_PAGE_3, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestLocalStoragePage4"))
-      .id('TestLocalStoragePage4')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_LOCAL_STORAGE_PAGE_4, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestLocalStoragePage5"))
-      .id('TestLocalStoragePage5')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_LOCAL_STORAGE_PAGE_5, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestAppStoragePage1"))
-      .id('TestAppStoragePage1')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_APP_STORAGE_PAGE_1, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestEmitPage1"))
-      .id('TestEmitPage1')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_EMIT_PAGE, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestPersistentPage"))
-      .id('TestPersistentPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_PERSISTENT_PAGE, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestEnvironmentPage"))
-      .id('TestEnvironmentPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_ENVIRONMENT_PAGE, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestWatchPage"))
-      .id('TestWatchPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_WATCH_PAGE, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestWatchLinkPage"))
-      .id('TestWatchLinkPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_WATCH_LINK_PAGE, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestWatchChangeTimePage"))
-      .id('TestWatchChangeTimePage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_WATCH_CHANGE_TIME_PAGE, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestDollarDollarPage"))
-      .id('Test$$Page')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_$$_PAGE, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestTrackPage"))
-      .id('TestTrackPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_TRACK_PAGE, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestFreezePage"))
-      .id('TestFreezePage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_FREEZE_PAGE_1, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestFreezeTabPage"))
-      .id('TestFreezeTabPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_FREEZE_TAB, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestFreezeListPage"))
-      .id('TestFreezeListPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_FREEZE_LIST, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestNavigationFreezePage"))
-      .id('TestNavigationFreezePage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_FREEZE_NAVIGATION, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestMVVMPage"))
-      .id('TestMVVMPage')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_MVVM_TEST, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestList"))
-      .id('TestList')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_TEST_LIST, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestArticleList"))
-      .id('TestArticleList')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_ARTICLE_LIST, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestRenderIfElse"))
-      .id('TestRenderIfElse')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_RENDER_IF_ELSE, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestRenderIfElseWithState"))
-      .id('TestRenderIfElseWithState')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_RENDER_IF_ELSE_WITH_STATE, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestRenderIfElseWithStateChanged"))
-      .id('TestRenderIfElseWithStateChanged')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_RENDER_IF_ELSE_WITH_STATE_CHANGED, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestAnimateTo"))
-      .id('TestAnimateTo')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_ANIMATE_TO, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestForEach1"))
-      .id('TestForEach1')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_RENDER_FOR_EACH_PAGE_1, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestLazyForEach1"))
-      .id('TestLazyForEach1')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_RENDER_LAZY_FOR_EACH_PAGE_1, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestLazyForEachClass2"))
-      .id('TestLazyForEachClass2')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_RENDER_LAZY_FOR_EACH_PAGE_2, { 'keyHello': 'Hello World' });
-      })
-    Button($r("app.string.TestLazyForEachReusable3"))
-      .id('TestLazyForEachReusable3')
-      .fontSize(16)
-      .fontWeight(FontWeight.Bold)
-      .onClick(() => {
-        startPage(PAGE_RENDER_LAZY_FOR_EACH_PAGE_3, { 'keyHello': 'Hello World' });
+    ForEach(this.pageNameArray,
+      (item: ItemBean, index: number) => {
+        this.buildOneButton(item.pageName, item.text, { 'keyHello': 'Hello World' })
+      }, (item: string, index: number) => {
+        return item
+      })
+
+  }
+
+  @Builder
+  buildOneButton(url: string, text: ResourceStr, params?: Record<string, string>, onclick?: () => void) {
+    Button(text)
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .onClick(() => {
+        if (onclick) {
+          Log.log('-->param onClick')
+          onclick()
+        } else {
+          Log.log(`-->default onClick: start page: ${url}`)
+          startPage(url, params);
+        }
       })
   }
 
@@ -634,14 +295,6 @@ struct StartPage {
 
   onDidBuild(): void {
     Log.log('-->onDidBuild')
-  }
-
-  clickFunction() {
-    console.log(`StartPage onShow this=${this}`);
-    console.log(`stu.getName()=${this.stu?.getName()}`);
-    console.log(`stu.name=${this.stu?.name}`);
-    console.log(`stu.getAge()=${this.stu?.getAge()}`);
-    console.log(`stu.age=${this.stu?.age}`);
   }
 }
 

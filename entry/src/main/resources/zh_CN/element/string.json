@@ -2,7 +2,7 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "模块描述"
+      "value": "module description"
     },
     {
       "name": "EntryAbility_desc",
@@ -10,19 +10,19 @@
     },
     {
       "name": "EntryAbility_label",
-      "value": "HarmonyNextZh"
+      "value": "HarmonyNextEn"
     },
     {
       "name": "Left",
-      "value": "左"
-    },
-    {
-      "name": "Next",
-      "value": "下一页"
+      "value": "Left"
     },
     {
       "name": "Back",
-      "value": "上一页"
+      "value": "Back"
+    },
+    {
+      "name": "Next",
+      "value": "Next"
     },
     {
       "name": "HomeAbility_desc",
@@ -38,7 +38,7 @@
     },
     {
       "name": "HomePage",
-      "value": "HomePage"
+      "value": "Home"
     },
     {
       "name": "Terminate",
@@ -50,19 +50,19 @@
     },
     {
       "name": "RelativePage",
-      "value": "RelativePage"
+      "value": "Relative"
     },
     {
       "name": "InputPage",
-      "value": "InputPage"
+      "value": "Input"
     },
     {
       "name": "ColumnPage",
-      "value": "ColumnPage"
+      "value": "Column"
     },
     {
       "name": "ImagePage",
-      "value": "ImagePage"
+      "value": "Image"
     },
     {
       "name": "TakeImage",
@@ -70,7 +70,7 @@
     },
     {
       "name": "StaticLibraryPage",
-      "value": "StaticLibraryPage"
+      "value": "StaticLibrary"
     },
     {
       "name": "StaticLibraryPageTest",
@@ -82,7 +82,7 @@
     },
     {
       "name": "SharedLibraryPage",
-      "value": "SharedLibraryPage"
+      "value": "SharedLibrary"
     },
     {
       "name": "StaticLibraryCommonFunc",
@@ -94,14 +94,22 @@
     },
     {
       "name": "CameraPage",
-      "value": "CameraPage"
+      "value": "Camera"
     },
     {
       "name": "TestCallFunction",
       "value": "CallFunction"
     },
     {
-      "name": "TestHttps",
+      "name": "HttpTest",
+      "value": "httpTest"
+    },
+    {
+      "name": "TestHttpsCertPinPage",
+      "value": "HttpsCertPin"
+    },
+    {
+      "name": "TestHttpsPage",
       "value": "Https"
     },
     {
@@ -113,7 +121,7 @@
       "value": "Disconnect"
     },
     {
-      "name": "TestWebsockets",
+      "name": "TestWebsocketsPage",
       "value": "Websockets"
     },
     {
@@ -129,11 +137,11 @@
       "value": "AppFile"
     },
     {
-      "name": "TestFile",
+      "name": "TestFilePage",
       "value": "File"
     },
     {
-      "name": "TestSP",
+      "name": "TestSPPage",
       "value": "SP"
     },
     {
@@ -145,179 +153,187 @@
       "value": "AnotherSP"
     },
     {
-      "name": "TestPromiseSyncWait",
+      "name": "TestPromiseSyncWaitPage",
       "value": "PromiseSyncWait"
     },
     {
       "name": "TestTaskPoolPage",
-      "value": "TaskPoolPage"
+      "value": "TaskPool"
     },
     {
       "name": "TestWorkerPage",
-      "value": "WorkerPage"
+      "value": "Worker"
     },
     {
       "name": "TestUTDPage",
-      "value": "UTDPage"
+      "value": "UTD"
     },
     {
-      "name": "TestKeyValue",
+      "name": "TestKeyValuePage",
       "value": "KeyValue"
     },
     {
       "name": "TestDatabasePage",
-      "value": "DatabasePage"
+      "value": "Database"
     },
     {
       "name": "TestComponentStatusPage",
-      "value": "ComponentStatePage"
+      "value": "ComponentState"
     },
     {
       "name": "TestStatePage",
-      "value": "StatePage"
+      "value": "State"
     },
     {
       "name": "TestStateChangedPage1",
-      "value": "StateChangedPage1"
+      "value": "StateChanged1"
     },
     {
       "name": "TestStateChangedPage2",
-      "value": "StateChangedPage2"
+      "value": "StateChanged2"
     },
     {
       "name": "TestStateChangedPage3",
-      "value": "StateChangedPage3"
+      "value": "StateChanged3"
     },
     {
       "name": "TestStateChangedPage4",
-      "value": "StateChangedPage4"
+      "value": "StateChanged4"
     },
     {
       "name": "TestStateChangedPage5",
-      "value": "StateChangedPage5"
+      "value": "StateChanged5"
     },
     {
       "name": "TestPropPage1",
-      "value": "PropChangedPage1"
+      "value": "PropChanged1"
     },
     {
       "name": "TestPropPage2",
-      "value": "PropChangedPage2"
+      "value": "PropChanged2"
     },
     {
       "name": "TestLinkPage",
-      "value": "LinkPage"
+      "value": "Link"
     },
     {
       "name": "TestProvidePage",
-      "value": "ProvidePage"
+      "value": "Provide"
     },
     {
       "name": "TestProvidePage2",
-      "value": "ProvidePage2"
+      "value": "Provide2"
     },
     {
       "name": "TestProvidePage3",
-      "value": "ProvidePage3"
+      "value": "Provide3"
     },
     {
       "name": "TestObservedClassPage",
-      "value": "ObservedClassPage"
+      "value": "ObservedClass"
     },
     {
       "name": "TestObservedClassPage2",
-      "value": "ObservedClassPage2"
+      "value": "ObservedClass2"
     },
     {
       "name": "TestObservedArrayPage",
-      "value": "ObservedArrayPage"
+      "value": "ObservedArray"
     },
     {
       "name": "TestObservedArrayPage2",
-      "value": "ObservedArrayPage2"
+      "value": "ObservedArray2"
     },
     {
       "name": "TestLocalStoragePage1",
-      "value": "LocalStoragePage1"
+      "value": "LocalStorage1"
     },
     {
       "name": "TestLocalStoragePage2",
-      "value": "LocalStoragePage2"
+      "value": "LocalStorage2"
     },
     {
       "name": "TestLocalStoragePage3",
-      "value": "LocalStoragePage3"
+      "value": "LocalStorage3"
     },
     {
       "name": "TestLocalStoragePage4",
-      "value": "LocalStoragePage4"
+      "value": "LocalStorage4"
     },
     {
       "name": "TestLocalStoragePage5",
-      "value": "LocalStoragePage5"
+      "value": "LocalStorage5"
     },
     {
       "name": "TestAppStoragePage1",
-      "value": "AppStoragePage1"
+      "value": "AppStorage1"
+    },
+    {
+      "name": "OtherAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "OtherAbility_label",
+      "value": "label"
     },
     {
       "name": "TestEmitPage1",
-      "value": "EmitPage1"
+      "value": "Emit1"
     },
     {
       "name": "TestPersistentPage",
-      "value": "PersistentPage"
+      "value": "Persistent"
     },
     {
       "name": "TestEnvironmentPage",
-      "value": "EnvironmentPage"
+      "value": "Environment"
     },
     {
       "name": "TestWatchPage",
-      "value": "WatchPage"
+      "value": "Watch"
     },
     {
       "name": "TestWatchLinkPage",
-      "value": "WatchLinkPage"
+      "value": "WatchLink"
     },
     {
       "name": "TestWatchChangeTimePage",
-      "value": "WatchChangeTimePage"
+      "value": "WatchChangeTime"
     },
     {
       "name": "TestDollarDollarPage",
-      "value": "Test$$Page"
+      "value": "Test$$"
     },
     {
       "name": "TestTrackPage",
-      "value": "TrackPage"
+      "value": "Track"
     },
     {
       "name": "TestFreezePage",
-      "value": "FreezePage"
+      "value": "Freeze"
     },
     {
       "name": "TestFreezeTabPage",
-      "value": "FreezeTabPage"
+      "value": "FreezeTab"
     },
     {
       "name": "TestFreezeListPage",
-      "value": "FreezeListPage"
+      "value": "FreezeList"
     },
     {
       "name": "TestNavigationFreezePage",
-      "value": "NavigationFreezePage"
+      "value": "NavigationFreeze"
     },
     {
       "name": "TestWantAbilityPage",
-      "value": "WantAbilityPage"
+      "value": "WantAbility"
     },
     {
       "name": "TestMVVMPage",
-      "value": "MVVMPage"
+      "value": "MVVM"
     },
     {
-      "name": "TestList",
+      "name": "TestListPage",
       "value": "TestList"
     },
     {
@@ -325,40 +341,64 @@
       "value": "TestTest2"
     },
     {
-      "name": "TestRenderIfElse",
+      "name": "TestRenderIfElsePage",
       "value": "IfElse"
     },
     {
-      "name": "TestRenderIfElseWithState",
+      "name": "TestRenderIfElseWithStatePage",
       "value": "IfElseState"
     },
     {
-      "name": "TestRenderIfElseWithStateChanged",
+      "name": "TestRenderIfElseWithStateChangedPage",
       "value": "IfElseChanged"
     },
     {
-      "name": "TestAnimateTo",
+      "name": "TestAnimateToPage",
       "value": "AnimateTo"
     },
     {
-      "name": "TestForEach1",
+      "name": "TestForEachPage1",
       "value": "ForEach1"
     },
     {
-      "name": "TestArticleList",
+      "name": "TestArticleListPage",
       "value": "ArticleList"
     },
     {
-      "name": "TestLazyForEach1",
+      "name": "TestLazyForEachPage1",
       "value": "LazyForEach1"
     },
     {
-      "name": "TestLazyForEachClass2",
+      "name": "TestLazyForEachClassPage2",
       "value": "LazyForEachClass2"
     },
     {
-      "name": "TestLazyForEachReusable3",
+      "name": "TestLazyForEachReusablePage3",
       "value": "LazyForEachReusable3"
+    },
+    {
+      "name": "TestBuilderPage1",
+      "value": "Builder1"
+    },
+    {
+      "name": "TestBuilderPage2",
+      "value": "Builder2"
+    },
+    {
+      "name": "TestBuilderPage3",
+      "value": "Builder3"
+    },
+    {
+      "name": "TestLocalBuilderPage1",
+      "value": "LocalBuilder1"
+    },
+    {
+      "name": "TestEventPage",
+      "value": "Event"
+    },
+    {
+      "name": "TestNApiPage",
+      "value": "NApi"
     }
   ]
 }
