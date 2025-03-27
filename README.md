@@ -1,2 +1,271 @@
-About
-鸿蒙Next Api汇总Demo
+鸿蒙Next Api示例集合
+# 组件
+## 1. UI范式
+
+- ArkUI都是由组件构成的
+- 组件分类
+    - 系统组件 Text Button Image TextInput Row Colunm RelativeContainer Flex
+    - 自定义组件
+        - 添加@Component注解
+            - 配置freezeWhenInactive:bool参数 是否开启组件冻结
+        - 使用struct关键字 + 组件名 声明
+        - 实现build()函数
+            - 必须重写
+            - 根节点必须唯一
+            - 不可以声明变量
+            - 不可以调用console.log 打印日志
+            - 不可以调用没有@Builder装饰的函数
+            - 不可以使用三目表达式 改用if
+            - 不可以使用switch case 改用if
+            - 不可以在build()方法中直接改变状态变量 (Text(`${this.count++}`) 避免循环渲染)
+            - 参数可以是普通方法的返回值
+            - ()[https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V13/arkts-create-custom-components-V13]
+
+        - @Entry注解 UI页面的入口(可选)
+            - useSharedStorage:bool 是否使用LocalStorage.getShared()状态存储 默认false
+            - 配置storage:LocalStorage参数 UI状态存储 页面级
+            - 配置routeName命名路由
+        - @State注解 声明状态变量
+        - 成员函数 私有
+        - 成员变量(即自定义组件的属性) 私有 初始化:本地初始化 父组件传递参数初始化
+        - @Reusable 可复用组件???
+        - 组件不可以继承!!!
+
+详见下图  
+![组件示意图](/image/ArkTS自定义组件.png)
+
+- 1.组件的特点
+    - 状态驱动UI UI=f(State)
+    - 可重用 export/import
+    - 可组合多个组件
+
+- 2.组件和页面
+    - UI页面是一个或多个组件组成的
+    - @Entry注解的组件是UI页面的入口组件,一个页面只有一个入口组件
+
+- 3.页面和Ability
+    - Ability有一个或多个UI页面
+    - 页面之间切换使用router或navigation
+
+- 4.组件的生命周期
+    - onPageShow (只限入口组件) 页面显示时触发 包括路由切换/前后台切换
+    - onPageHide (只限入口组件) 页面隐藏时触发
+    - onBackPress (只限入口组件) 点击返回按钮触发
+
+    - onDidBuild 组件构建完成时触发
+    - aboutToAppear 页面即将显示时触发
+    - aboutToDisappear 页面即将隐藏时触发
+    - 非入口组件监听页面状态
+        - 使用 uiObserver + listener
+        - aboutToAppear中注册
+        - aboutToDisappear中反注册
+        - 可以监听onPageShow/onPageHide
+
+    - 执行顺序(显示)
+      aboutToAppear()-->build()-->onDidBuild()-->onPageShow()
+    - 执行顺序(消失)
+      onBackPress()-->onPageHide()-->aboutToDisappear()
+
+详见下图
+![组件生命周期](/image/ArkTS组件生命周期.png)
+
+
+## 2.组件状态管理
+- 声明式UI中 UI是状态的运行结果
+- 动态页面需要有"状态",状态的改变触发UI重新渲染
+  State-->UI
+  UI-->State
+- 自定义组件的变量 加上装饰器(@State等)成为一种状态变量
+
+- 装饰器
+    - @State
+        - 私有 组件内使用
+        - 必须初始化 (声明时初始化 或 从父组件初始化)
+        - 支持各种数据类型(可以是联合类型)
+        - 不支持any类型
+        - 不支持Function类型
+        - 不与父组件同步
+        - 与子组件中的@Prop单向同步(父组件-->子组件)
+        - 与子组件中的@Link @ObjectLink双向同步
+        - 可以在aboutToAppear()生命周期方法中修改
+        - 可以在LocalStorage中修改
+        - 不可以直接传递给其他类的函数修改,即a.b(this.stateName)调用无法观察到状态变化
+        - 状态修改只对直接属性有效, 嵌套赋值无法观察到
+        - 区分值传递和引用传递
+        - 必须写在build()方法前面 否则视为普通变量
+
+    - @Prop
+        - 私有 组件内使用
+        - 单向 父组件-->子组件
+        - 允许声明时初始化 也可以 从父组件初始化
+        - 可以使用父组件的普通变量 状态变量(@State @Link @Prop)初始化
+        - 可以传递给子组件(用于初始化 普通变量 @State @Link @Prop @Provide)
+        - 支持简单类型和class类型(可以是联合类型)
+        - 不支持any类型
+            - 后台无法刷新 使用@Link代替???
+            - Diff算法保留的组件无法刷新
+        - 不能用于@Entry入口组件
+        - 5层 嵌套层数过大引起卡顿
+        - 更新依赖重新渲染---
+
+    - @Link
+        - 私有 组件内使用
+        - 双向 父组件<==>子组件
+        - 只能从父组件初始化
+        - 只能使用父组件的状态变量(@State @Link @Prop)初始化
+        - 可以传递给子组件(用于初始化 普通变量 @State @Link @Prop @Provide)
+        - 支持简单类型和class类型(可以是联合类型)
+        - 不支持any类型
+        - 不能用于@Entry入口组件
+        - 没有嵌套层数限制
+        - 更新不依赖渲染刷新+++
+
+    - @Provide
+        - 私有 组件内访问
+        - 双向 多层传递(变量名相同/key相同)  父组件(@Provide)<==>...<==>子组件(@Consume)
+        - 变量名/key 不能重复
+        - 必须初始化(声明时初始化)
+        - 支持简单类型和class类型(可以是联合类型)
+        - 不只是any类型
+        - 允许子组件重写 allowOverride (会打断多层传递链 慎用)
+        - 可以指定别名 key(string类型)
+        - 可以传递给子组件(用于初始化 普通变量 @State @Link @Prop @Provide)
+
+    - @Consume
+        - 私有 组件内使用
+        - 双向 多层传递(变量名相同/key相同)  父组件(@Provide)<==>...<==>子组件(@Consume)
+        - 变量名/key 不能重复
+        - 不可以手动初始化(自动解析对应@Provider)
+        - 支持简单类型和class类型(可以是联合类型)
+        - 不支持any类型
+        - 可以传递给子组件(用于初始化 普通变量 @State @Link @Prop @Provide)
+
+    - @Observed
+        - 修饰class 可用于观察嵌套属性赋值(与@ObjectLink配合)
+        - class属性是class的 需要同时用Observed修饰
+        - 必须在组件中修改,否则不会触发UI刷新
+        - 在构造函数中修改,不触发UI刷新
+
+    - @ObjectLink
+        - 修饰变量 类型为被@Observed修饰的class
+        - 可以修改内部属性,不可以重新赋值整个class
+        - 双向 父组件<==>子组件
+        - 只能从父组件初始化
+        - 不能使用函数返回值初始化
+        - 可以传递给子组件
+        - 不能在@Entry入口组件中使用
+        - 更新依赖父组件刷新---
+
+    - @Watch
+        - 用于状态变量
+        - 参数 回调函数名 string类型
+        - 回调函数是组件成员函数 类型 (changedPropertyName? : string)=>void
+        - 内部使用 === 判断是否相同 不相同触发回调
+        - 多个状态变量 可以绑定同一个回调函数 通过changedPropertyName 区分
+        - 状态变量初始化 不会触发回调函数
+        - 不能在回调函数内 修改状态变变量 否则可能导致循环回调
+        - 不能在回调函数内 执行异步操作 否则可能影响渲染
+
+    - ```$$```语法
+        - 用于状态变量
+        - 将状态变量与系统组件的内部状态关联
+        - 双向同步 组件内部状态<==>状态变量
+        - 支持的系统组件
+          详见:[鸿蒙5.0.2 Api13](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V13/arkts-two-way-sync-V13)
+            - CheckBox CheckBoxGroup
+            - DatePicker TimePicker
+            - Tabs
+            - MenuItem
+            - Toogle
+            - ListItem GridItem
+
+    - @Track
+        - 用于class的非静态属性
+        - class属性变化时 只触发该属性关联的状态变化
+        - 嵌套赋值无法观察
+        - 只要有一个class属性使用了@Track 其他没使用@Track的属性不可以在UI中作为状态使用
+        - 没使用@Track的属性 可以在点击事件中使用
+
+    - 组件冻结
+        - 不可见时 不刷新
+
+
+## 3.渲染控制
+- 在自定义组件build()函数 或 @Builder装饰器的函数内使用
+
+- 是否显示 if-else
+    - 只渲染满足条件的分支
+    - 当条件变化时 先移除原有子组件 再渲染新的子组件
+    - 注意子组件状态,移除后会重置
+    - 如果需要保留分支子组件的状态,需要在父组件声明该状态(通过@Link传递给子组件)
+    - 支持嵌套的if-else
+    - 在动画中改变条件 会导致原有子组件移除失败 要小心
+
+- 数组生成组件 ForEach
+    - 在容器组件中使用
+    - 子组件类型必须符合容器要求
+    - keyGenerator 数组元素的唯一键key
+    - 默认key index_ + JSON.stringify(item)
+    - itemGenerator 生成子组件
+    - keyGenerator和itemGenerator的index参数 同时定义或者同时不定义
+    - 当数组变化-->刷新
+    - 当数组项变化-->刷新
+    - 当数组项嵌套变化,配合Observed ObjectLink-->刷新
+    - 不要与LazyForEach同时使用
+    - key要重写
+    - key不要重复 util.
+    - key不要带index
+    - 刷新: key存在且已渲染-->不刷新 key不存在-->新建+渲染
+
+- 数据懒加载 LazyForEach
+    - 在容器组件中使用 List Grid WaterFlow Swiper
+    - 只加载可视区域的组件
+    - cachedCount 指定可视区域外 缓存数量
+    - 只能有一个LazyForEach
+    - 不要与ForEach同时使用
+    - keyGenerator 数组元素的唯一key
+    - 错误:onDatasetChange cannot be used with other interface 上拉加载更多的同时进行删除/新增操作
+    - 有两套刷新机制
+        - 1. DataSource notifyXXX api
+            - 只有key改变才会刷新
+            - 刷新文字,图片闪烁
+        - 2. @Observed @ObjectLink
+            - 只要到对象的字段改变就刷新 key可以不变
+            - 刷新文字,图片不闪烁
+    - Item子组件复用 设置@Reusable
+        - 子组件状态变量 只能用@State
+        - 重写 aboutToReuse 设置新item的状态
+        - 重写 aboutToRecycle
+        -
+- 组件渲染(用于混合模式开发???) ContentSlot
+
+## 4.常用组件
+- Divider 分隔线
+- Blank 空白间隔
+- Scroll 垂直滚动 水平滚动
+- Flex 自动换行容器
+- List 列表
+- Grid 块状列表
+- WaterFlow 瀑布流
+- Swiper 轮播
+- Tabs 导航按钮
+
+## 5.常用api
+- LocalStorage Ability-->组件 参数传递
+- EventHub 组件-->Ability 事件传递
+- emitter  组件内事件传递
+- router 组件路由
+- navigation 组件导航
+- want Ability跳转
+- context 获取上下文
+    - getContext(this) as common.UIAbilityContext
+    - this.getUIContent()
+- ForEach
+- LazyForEach
+- height('auto')
+- AttrHelper px vp fp转换工具类
+- promptAction.showToast({meaasge: "XXX"}) 吐司
+
+
+
+ 
