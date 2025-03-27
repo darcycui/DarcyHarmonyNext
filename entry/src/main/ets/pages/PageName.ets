@@ -84,10 +84,16 @@ export let PAGE_RENDER_LAZY_FOR_EACH_PAGE_1 = "pages/entry/render_control/LazyFo
 export let PAGE_RENDER_LAZY_FOR_EACH_PAGE_2 = "pages/entry/render_control/LazyForEachClassPage";
 export let PAGE_RENDER_LAZY_FOR_EACH_PAGE_3 = "pages/entry/render_control/LazyForEachReusablePage";
 
-export let PAGE_BUILDER_1 = "pages/entry/custom/BuilderPage";
-export let PAGE_BUILDER_2 = "pages/entry/custom/CustomBuilderPage";
-export let PAGE_BUILDER_3 = "pages/entry/custom/MultiBuildersPage";
-export let PAGE_LOCAL_BUILDER_1 = "pages/entry/custom/LocalBuilderPage";
+export let PAGE_BUILDER_1 = "pages/entry/custom/builder/BuilderPage";
+export let PAGE_BUILDER_2 = "pages/entry/custom/builder/CustomBuilderPage";
+export let PAGE_BUILDER_3 = "pages/entry/custom/builder/MultiBuildersPage";
+export let PAGE_LOCAL_BUILDER_1 = "pages/entry/custom/localbuilder/LocalBuilderPage";
+export let PAGE_LOCAL_BUILDER_2 = "pages/entry/custom/localbuilder/LocalBuilderPage2";
+export let PAGE_LOCAL_BUILDER_3 = "pages/entry/custom/localbuilder/LocalBuilderPage3";
+export let PAGE_BUILDER_PARAM_1 = "pages/entry/custom/builderparam/BuilderParamPage";
+export let PAGE_BUILDER_PARAM_2 = "pages/entry/custom/builderparam/BuilderParamPage2";
+export let PAGE_BUILDER_PARAM_3 = "pages/entry/custom/builderparam/BuilderParamPage3";
+export let PAGE_WRAP_BUILDER_PAGE = "pages/entry/wrapbuilder/WrapBuilderPage";
 
 export let PAGE_ANIMATE_TO = "pages/animate/AnimateToPage";
 

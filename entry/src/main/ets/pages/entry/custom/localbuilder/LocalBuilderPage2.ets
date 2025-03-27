@@ -24,7 +24,7 @@ struct LocalBuilderPage2 {
     Row() {
       Column({ space: 10 }) {
         Text(`citeLocalBuilder===${$$.value}`)
-        // @LocalBuilder引用其他组件 传递参数
+        // TODO @LocalBuilder引用其他组件并传递参数 其他组件可以刷新
         OtherComponent({ message: $$.value })
       }.width('100%')
     }.width('100%')

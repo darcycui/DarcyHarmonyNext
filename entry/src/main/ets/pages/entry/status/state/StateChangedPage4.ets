@@ -4,8 +4,8 @@ import { Log } from 'static_common';
 @Entry
 @Component
 struct StateChangedPage4 {
-  list: DataObj[] = [new DataObj('a'), new DataObj('b'), new DataObj('c')];
-  @State dataObjFromList: DataObj = this.list[0];
+  list: DataStatePage[] = [new DataStatePage('a'), new DataStatePage('b'), new DataStatePage('c')];
+  @State dataObjFromList: DataStatePage = this.list[0];
 
   build() {
     Column() {
@@ -28,7 +28,7 @@ struct StateChangedPage4 {
 
 @Component
 struct ConsumerChild {
-  @Link @Watch('onDataObjChange') dataObj: DataObj;
+  @Link @Watch('onDataObjChange') dataObj: DataStatePage;
 
   onDataObjChange() {
     // TODO 每次点击按钮 都会触发changed监听 (DataObj类型 和 proxy类型不一样)
@@ -47,7 +47,7 @@ struct ConsumerChild {
 }
 
 // @Observed
-class DataObj {
+class DataStatePage {
   name: string = 'default name';
 
   constructor(name: string) {

@@ -4,7 +4,7 @@ import { HiLog, Log } from 'static_common';
 import { BaseUIAbility } from '../base/BaseUIAbility';
 import { EntryEvent } from '../event/EventName';
 import { promptAction, window } from '@kit.ArkUI';
-import { Data } from '../pages/entry/status/localstorage/LocalStoragePage1';
+import { DataStorage } from '../pages/entry/status/localstorage/LocalStoragePage1';
 
 
 export default class EntryAbility extends BaseUIAbility {
@@ -69,7 +69,7 @@ export default class EntryAbility extends BaseUIAbility {
     // 可以添加不同类型的 value 基本类型
     AppStorage.setOrCreate('name', "汤姆猫")
     // 可以添加不同类型的 value class类型
-    AppStorage.setOrCreate('PropB', new Data(100));
+    AppStorage.setOrCreate('PropB', new DataStorage(100));
     // 使用AppStorage获取值
     let propA: number | undefined = AppStorage.get('PropA') // propA in AppStorage == 47, propA in LocalStorage == 17
     let link1: SubscribedAbstractProperty<number> = AppStorage.link('PropA'); // link1.get() == 47
@@ -90,7 +90,7 @@ export default class EntryAbility extends BaseUIAbility {
     // 可以添加不同类型的 value 基本类型
     this.localStorage.setOrCreate('name', "汤姆猫")
     // 可以添加不同类型的 value class类型
-    this.localStorage.setOrCreate('dataClass', new Data(50));
+    this.localStorage.setOrCreate('dataClass', new DataStorage(50));
     // 使用LocalStorage获取值
     let propA: number | undefined = this.localStorage.get('PropA') ?? -1; // propA == 47
     Log.log(`propA=${propA}`)

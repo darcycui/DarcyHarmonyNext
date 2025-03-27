@@ -16,7 +16,14 @@ struct LocalBuilderPage {
   @LocalBuilder
   messageLocalBuilder($$: ReferenceTypeMessage) {
     Row() {
-      Text(`参数: ${$$.value}`)
+      Text(`引用传递参数: ${$$.value}`)
+    }
+  };
+
+  @LocalBuilder
+  messageLocalBuilder2($$: string) {
+    Row() {
+      Text(`值传递参数: ${$$}`)
     }
   };
 
@@ -24,13 +31,14 @@ struct LocalBuilderPage {
   @LocalBuilder
   countLocalBuilder($$: ReferenceTypeCount) {
     Row() {
-      Text(`参数: ${$$.count}`)
+      Text(`引用传递参数: ${$$.count}`)
     }
   };
 
   build() {
     Column({ space: 10 }) {
       this.messageLocalBuilder({ value: this.message })
+      this.messageLocalBuilder2(this.message) // 值传递 UI不刷新
       this.countLocalBuilder({ count: this.count })
       // 这里点击事件的处理 封装到handleClick函数中
       Button('Click me =>').onClick(() => this.handleClick())

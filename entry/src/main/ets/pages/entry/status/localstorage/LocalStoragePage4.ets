@@ -34,7 +34,7 @@ struct ChildLocal4 {
   }
 }
 
-export class Data {
+export class DataStorage4 {
   code: number;
 
   constructor(code: number) {

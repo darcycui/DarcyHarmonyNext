@@ -17,7 +17,7 @@ struct LocalStoragePage2 {
   // @LocalStorageLink变量装饰器与LocalStorage中的'PropA'属性建立双向绑定 TODO 如果没有'PropA',则使用默认值 1
   @LocalStorageLink('PropA') parentLinkNumber: number = 1;
   // @LocalStorageLink变量装饰器与LocalStorage中的'PropB'属性建立双向绑定
-  @LocalStorageLink('PropB') parentLinkObject: Data = new Data(0);
+  @LocalStorageLink('PropB') parentLinkObject: DataStorage2 = new DataStorage2(0);
 
   build() {
     Column({ space: 15 }) {
@@ -42,7 +42,7 @@ struct ChildLocal2 {
   // @LocalStorageLink变量装饰器与LocalStorage中的'PropA'属性建立双向绑定 TODO 如果没有'PropA',则使用默认值 -1
   @LocalStorageLink('PropA') childLinkNumber: number = -2;
   // @LocalStorageLink变量装饰器与LocalStorage中的'PropB'属性建立双向绑定
-  @LocalStorageLink('PropB') childLinkObject: Data = new Data(-2);
+  @LocalStorageLink('PropB') childLinkObject: DataStorage2 = new DataStorage2(-2);
 
   build() {
     Column({ space: 15 }) {
@@ -61,7 +61,7 @@ struct ChildLocal2 {
   }
 }
 
-export class Data {
+export class DataStorage2 {
   code: number;
 
   constructor(code: number) {

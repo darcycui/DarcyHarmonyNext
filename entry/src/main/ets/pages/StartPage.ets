@@ -71,7 +71,13 @@ import {
   PAGE_BUILDER_3,
   PAGE_LOCAL_BUILDER_1,
   PAGE_EVENT,
-  PAGE_NAPI
+  PAGE_NAPI,
+  PAGE_LOCAL_BUILDER_2,
+  PAGE_LOCAL_BUILDER_3,
+  PAGE_BUILDER_PARAM_1,
+  PAGE_BUILDER_PARAM_2,
+  PAGE_BUILDER_PARAM_3,
+  PAGE_WRAP_BUILDER_PAGE
 } from './PageName';
 import { startPage } from '../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -239,6 +245,12 @@ struct StartPage {
     new ItemBean(PAGE_BUILDER_2, $r("app.string.TestBuilderPage2")),
     new ItemBean(PAGE_BUILDER_3, $r("app.string.TestBuilderPage3")),
     new ItemBean(PAGE_LOCAL_BUILDER_1, $r("app.string.TestLocalBuilderPage1")),
+    new ItemBean(PAGE_LOCAL_BUILDER_2, $r("app.string.TestLocalBuilderPage2")),
+    new ItemBean(PAGE_LOCAL_BUILDER_3, $r("app.string.TestLocalBuilderPage3")),
+    new ItemBean(PAGE_BUILDER_PARAM_1, $r("app.string.TestLocalBuilderParamPage1")),
+    new ItemBean(PAGE_BUILDER_PARAM_2, $r("app.string.TestLocalBuilderParamPage2")),
+    new ItemBean(PAGE_BUILDER_PARAM_3, $r("app.string.TestLocalBuilderParamPage3")),
+    // new ItemBean(PAGE_WRAP_BUILDER_PAGE, $r("app.string.TestLocalBuilderParamPage3")),
   ]
 
   @Builder

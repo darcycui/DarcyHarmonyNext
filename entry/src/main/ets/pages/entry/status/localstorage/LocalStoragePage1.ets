@@ -9,7 +9,7 @@ struct LocalStoragePage1 {
   // @LocalStorageLink('PropA') parentLinkNumber: number = 1;
   @LocalStorageProp('PropA') parentLinkNumber: number = 1;
   // @LocalStorageLink变量装饰器与LocalStorage中的'PropB'属性建立双向绑定
-  @LocalStorageLink('PropB') parentLinkObject: Data = new Data(0);
+  @LocalStorageLink('PropB') parentLinkObject: DataStorage = new DataStorage(0);
 
   build() {
     Column({ space: 15 }) {
@@ -37,7 +37,7 @@ struct ChildLocal1 {
   // @LocalStorageLink('PropA') childLinkNumber: number = -1;
   @LocalStorageProp('PropA') childLinkNumber: number = -1;
   // @LocalStorageLink变量装饰器与LocalStorage中的'PropB'属性建立双向绑定
-  @LocalStorageLink('PropB') childLinkObject: Data = new Data(-1);
+  @LocalStorageLink('PropB') childLinkObject: DataStorage = new DataStorage(-1);
 
   build() {
     Column({ space: 15 }) {
@@ -56,7 +56,7 @@ struct ChildLocal1 {
   }
 }
 
-export class Data {
+export class DataStorage {
   code: number;
 
   constructor(code: number) {

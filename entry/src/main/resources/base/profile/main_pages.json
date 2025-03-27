@@ -67,12 +67,20 @@
     "pages/entry/render_control/LazyForEachPage",
     "pages/entry/render_control/LazyForEachClassPage",
     "pages/entry/render_control/LazyForEachReusablePage",
-    "pages/entry/custom/BuilderPage",
-    "pages/entry/custom/CustomBuilderPage",
-    "pages/entry/custom/MultiBuildersPage",
-    "pages/entry/custom/LocalBuilderPage",
-    "pages/entry/custom/LocalBuilderPage2",
+    "pages/entry/custom/builder/BuilderPage",
+    "pages/entry/custom/builder/CustomBuilderPage",
+    "pages/entry/custom/builder/MultiBuildersPage",
+    "pages/entry/custom/localbuilder/LocalBuilderPage",
+    "pages/entry/custom/localbuilder/LocalBuilderPage2",
     "pages/entry/napi/NApiPage",
-    "pages/entry/event/EventPagePage"
+    "pages/entry/event/EventPagePage",
+    "pages/entry/custom/localbuilder/LocalBuilderPage3",
+    "pages/entry/custom/builderparam/BuilderParamPage",
+    "pages/entry/custom/builderparam/BuilderParamPage2",
+    "pages/entry/custom/builderparam/BuilderParamPage3",
+    "pages/entry/custom/wrapbuilder/WrapBuilderPage",
+    "pages/entry/custom/styles/StylesPage",
+    "pages/entry/custom/styles/ExtendPage",
+    "pages/entry/custom/styles/StateStylesPage"
   ]
 }

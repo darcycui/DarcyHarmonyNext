@@ -1,5 +1,5 @@
 @Builder
-function overBuilder() {
+function overBuilder1() {
   Row() {
     Text('全局 Builder')
       .fontSize(30)
@@ -37,7 +37,7 @@ struct CustomBuilderPage {
           .swipeAction({
             start: {
               // TODO @Builder函数 传递给CustomBuilder类型的参数
-              builder: overBuilder()
+              builder: overBuilder1()
             },
             end: {
               // TODO @Builder函数 传递给CustomBuilder类型的参数 包一层 ()=>{}

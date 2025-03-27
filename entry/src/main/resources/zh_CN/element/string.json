@@ -399,6 +399,26 @@
     {
       "name": "TestNApiPage",
       "value": "NApi"
+    },
+    {
+      "name": "TestLocalBuilderPage2",
+      "value": "LocalBuilderPage2"
+    },
+    {
+      "name": "TestLocalBuilderPage3",
+      "value": "LocalBuilderPage3"
+    },
+    {
+      "name": "TestLocalBuilderParamPage1",
+      "value": "BuilderParam1"
+    },
+    {
+      "name": "TestLocalBuilderParamPage2",
+      "value": "BuilderParam2"
+    },
+    {
+      "name": "TestLocalBuilderParamPage3",
+      "value": "BuilderParam3"
     }
   ]
 }

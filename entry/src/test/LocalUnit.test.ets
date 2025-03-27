@@ -331,6 +331,15 @@ export default function localUnitTest() {
       class Point {
         x: number = 0
         y: number = 0
+
+        // constructor(x: number, y: number) {
+        //   this.x = x;
+        //   this.y = y;
+        // }
+
+        // aaa(){
+        //   Log.log("aaa")
+        // }
       }
 
       // 创建类的实例 TODO:简单实体类可以使用对象字面量(表达式)创建实例 类似kotlin的解构声明

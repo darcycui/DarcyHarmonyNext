@@ -1,4 +1,4 @@
-import { showTextBuilderGlobal } from './Builders';
+import { showTextBuilderGlobal } from '../Builders';
 import { promptAction } from '@kit.ArkUI';
 
 class ParamClass {

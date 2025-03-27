@@ -17,7 +17,7 @@ export struct TodoListComponent {
               // 待办事项
               // TODO 注意这里 不能使用getItem(item)函数返回值传递给子组件@ObjLinked变量
               // ThingsComponent({ things: getItem(item) }).margin(5)
-              ThingsComponent({ things: item }).margin(5)
+              ThingsComponent({ thingsViewModel: item }).margin(5)
             }
           },
           (item: ThingsViewModel) => {

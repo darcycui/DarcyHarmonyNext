@@ -7,14 +7,14 @@ export struct ThingsComponent {
   // 1.单向绑定 使用@Prop
   // @Prop @Watch('onItemChanged') things: ThingsViewModel;
   // 2.双向绑定使用@ObjectLink
-  @ObjectLink @Watch('onItemChanged') things: ThingsViewModel;
+  @ObjectLink @Watch('onItemChanged') thingsViewModel: ThingsViewModel;
   // 3.不可以使用@Link 因为@Link只能通过状态属性初始化
   // @Link @Watch('onItemChanged') things: ThingsViewModel;
 
   label: string = 'ViewA1';
 
   onItemChanged(changedPropertyName: string) {
-    Log.log(`onItemChanged: ${this.things.thingsName}`)
+    Log.log(`onItemChanged: ${this.thingsViewModel.thingsName}`)
   }
 
   @Builder
@@ -23,31 +23,31 @@ export struct ThingsComponent {
       .width(28)
       .height(28)
       .onClick(() => {
-        this.things.updateIsFinish();
+        this.thingsViewModel.updateIsFinish();
       })
   }
 
   build() {
     // 待办事项
     Row({ space: 15 }) {
-      if (this.things.isFinish) {
+      if (this.thingsViewModel.isFinish) {
         this.displayIcon($r('app.media.yes'));
       } else {
         this.displayIcon($r('app.media.no'));
       }
 
-      Text(`${this.things.thingsName}`)
+      Text(`${this.thingsViewModel.thingsName}`)
         .fontSize(getFontSize())
         .fontWeight(450)
-        .decoration({ type: this.things.isFinish ? TextDecorationType.LineThrough : TextDecorationType.None })
+        .decoration({ type: this.thingsViewModel.isFinish ? TextDecorationType.LineThrough : TextDecorationType.None })
         .onClick(() => {
-          this.things.addSuffixes();
+          this.thingsViewModel.addSuffixes();
         })
     }
     .height('8%')
     .width('90%')
     .padding({ left: 15 })
-    .opacity(this.things.isFinish ? 0.3 : 1)
+    .opacity(this.thingsViewModel.isFinish ? 0.3 : 1)
     .border({ width: 1 })
     .borderColor(Color.White)
     .borderRadius(25)

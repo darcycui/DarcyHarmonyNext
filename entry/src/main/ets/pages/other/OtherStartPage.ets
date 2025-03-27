@@ -4,7 +4,7 @@
 struct OtherStartPage {
   @State message: string = 'OtherAbility Start Page';
   @StorageLink('PropA') storageLink: number = -2;
-  @StorageLink('PropB') storageLinkObject: Data = new Data(-200);
+  @StorageLink('PropB') storageLinkObject: DataOtherPage = new DataOtherPage(-200);
 
   @LocalStorageLink('name1') name1:string = 'name1'
   @LocalStorageLink('id1') id1:number = -1
@@ -39,7 +39,7 @@ struct OtherStartPage {
   }
 }
 
-class Data {
+class DataOtherPage {
   code: number;
 
   constructor(code: number) {
