@@ -26,7 +26,7 @@ Abilitiy生命周期
 - onBackground 后台
 - onDestroy 销毁Ability实例
   
-![UIAbility生命周期](/image/UIAbility生命周期.png)
+![UIAbility生命周期](image/UIAbility生命周期.png)
 
 windowStage状态
 - onWindowStageCreate 创建窗口
@@ -45,10 +45,10 @@ windowStage事件
 隐藏
 - InActive -> Hidden -> onBackground -> onWindowStageWillDestroy -> onWindowStageDestroy -> onDestroy
 
-![UIAbility生命周期_关联WindowStage状态](/image/UIAbility生命周期_关联WindowStage状态.png)
+![UIAbility生命周期_关联WindowStage状态](image/UIAbility生命周期_关联WindowStage状态.png)
 
 - TODO 存疑: 模拟器运行结果与文档描述不一致
-![UIAbility生命周期模拟器运行结果](/image/UIAbility生命周期模拟器运行结果.png)
+![UIAbility生命周期模拟器运行结果](image/UIAbility生命周期模拟器运行结果.png)
 
 onNewIntent
 - 启动模式为singletone时,会调用onNewIntent
