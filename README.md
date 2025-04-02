@@ -6,7 +6,7 @@
 * [3. 组件及其状态管理](/HarmonyNext/组件.md)
 * [4. MVVM管理状态](/HarmonyNext/MVVM管理状态.md)
 * [5. 组件样式和复用](/HarmonyNext/组件复用Custom.md)
-* [6. 异步任务](/HarmonyNext/单线程 异步任务.md)
+* [6. 异步任务](/HarmonyNext/单线程异步任务.md)
 * [7. 多线程](/HarmonyNext/多线程.md)
 * [8. 数据持久化](/HarmonyNext/数据持久化.md)
 * [9. 统一数据管理框架 UDMF](/HarmonyNext/统一数据管理框架.md)
