@@ -18,3 +18,17 @@
 * [14. 进程通信]
 * [15. 文件操作]
 * [16. NApi调用C、C++]
+
+## 企业微信自定义状态管理
+* [企业微信自定义状态管理(代码实现)](entry/src/main/ets/pages/entry/custom/styles/modifier/weixingroup/WeiXinGroupAttributeUpdaterPage.ets)
+- 实现思路：系统的动态代理有性能问题 需要优化，所以基于自定义状态管理的性能优化
+* 框架层
+  * 1.通过Updater获取到Attribute的实例instance
+  * 2.将instance实例传递给Data类
+  * 3.Data类代理instance 修改Data的值同时 instance实例也会修改(触发UI刷新)
+* 客户端
+  * 4.使用@Watch 监听Data类的属性变化 在回调函数中更新UI
+  * 5.在aboutToAppear() aboutToReuse()中绑定Updater和Data
+* darcyRefactor: 这里有坑
+* 6.注意：目前状态管理要求组件和Data一一对应 否则状态错乱
+* [参考链接:在流沙上筑城：企微鸿蒙开发演进](https://mp.weixin.qq.com/s/vdH7hbznyJSluwwa0sLIHQ)
