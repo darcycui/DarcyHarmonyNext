@@ -83,6 +83,7 @@
     "pages/entry/custom/styles/ExtendPage",
     "pages/entry/custom/styles/StateStylesPage",
     "pages/entry/custom/styles/modifier/ModifierPage",
-    "pages/entry/custom/styles/modifier/ModifierUpdaterPage"
+    "pages/entry/custom/styles/modifier/ModifierUpdaterPage",
+    "pages/entry/custom/styles/modifier/weixingroup/WeiXinGroupAttributeUpdaterPage"
   ]
 }

@@ -25,6 +25,7 @@ struct ChildProvideConsume {
 @Entry
 @Component
 struct ProvideConsumePage {
+  // darcyRefactor: 变量名不能重复
   @Provide selectedDate: Date = new Date('2021-08-08')
 
   build() {

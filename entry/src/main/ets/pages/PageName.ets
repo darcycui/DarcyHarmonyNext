@@ -100,6 +100,7 @@ export let PAGE_EXTEND_PAGE = "pages/entry/custom/styles/ExtendPage";
 export let PAGE_STATE_STYLES_PAGE = "pages/entry/custom/styles/StateStylesPage";
 export let PAGE_MODIFIER_PAGE = "pages/entry/custom/styles/modifier/ModifierPage";
 export let PAGE_MODIFIER_UPDATER_PAGE = "pages/entry/custom/styles/modifier/ModifierUpdaterPage";
+export let PAGE_MODIFIER_UPDATER_WEIXIN_PAGE = "pages/entry/custom/styles/modifier/weixingroup/WeiXinGroupAttributeUpdaterPage";
 
 export let PAGE_ANIMATE_TO = "pages/animate/AnimateToPage";
 

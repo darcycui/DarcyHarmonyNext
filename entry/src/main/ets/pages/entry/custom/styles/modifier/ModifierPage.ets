@@ -4,7 +4,7 @@ import { MyButtonModifier } from './Modifiers';
 @Component
 struct ModifierPage {
   @State message: string = 'Test AttributeModifier';
-  // TODO 使用导入的 Modifier 必须使用 @State修饰 
+  // TODO 使用导入的 Modifier 必须使用 @State修饰
   @State modifier: MyButtonModifier = new MyButtonModifier(true);
 
   build() {

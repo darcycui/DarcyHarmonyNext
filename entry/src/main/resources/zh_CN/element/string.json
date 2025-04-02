@@ -443,6 +443,10 @@
     {
       "name": "TestModifierUpdaterPage",
       "value": "ModifierUpdater"
+    },
+    {
+      "name": "TestModifierUpdaterWeiXinPage",
+      "value": "ModifierUpdaterWeiXin"
     }
   ]
 }
