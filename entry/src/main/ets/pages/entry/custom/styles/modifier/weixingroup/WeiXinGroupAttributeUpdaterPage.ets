@@ -1,6 +1,7 @@
 import { TextData } from './data/TextData';
 import { WeiXinGroupTextAttributeUpdater } from './modifier_updater/WeiXinGroupAttributeUpdater';
 /**
+ * entry/src/main/ets/pages/entry/custom/styles/modifier/weixingroup/WeiXinGroupAttributeUpdaterPage.ets
  * 参考链接：https://mp.weixin.qq.com/s/vdH7hbznyJSluwwa0sLIHQ
  * 实现思路：第三版：基于自定义状态管理的性能优化
  * 系统的动态代理有性能问题 需要优化
