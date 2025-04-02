@@ -77,7 +77,12 @@ import {
   PAGE_BUILDER_PARAM_1,
   PAGE_BUILDER_PARAM_2,
   PAGE_BUILDER_PARAM_3,
-  PAGE_WRAP_BUILDER_PAGE
+  PAGE_WRAP_BUILDER_PAGE,
+  PAGE_STYLES_PAGE,
+  PAGE_EXTEND_PAGE,
+  PAGE_STATE_STYLES_PAGE,
+  PAGE_MODIFIER_PAGE,
+  PAGE_MODIFIER_UPDATER_PAGE
 } from './PageName';
 import { startPage } from '../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -250,7 +255,13 @@ struct StartPage {
     new ItemBean(PAGE_BUILDER_PARAM_1, $r("app.string.TestLocalBuilderParamPage1")),
     new ItemBean(PAGE_BUILDER_PARAM_2, $r("app.string.TestLocalBuilderParamPage2")),
     new ItemBean(PAGE_BUILDER_PARAM_3, $r("app.string.TestLocalBuilderParamPage3")),
-    // new ItemBean(PAGE_WRAP_BUILDER_PAGE, $r("app.string.TestLocalBuilderParamPage3")),
+    new ItemBean(PAGE_WRAP_BUILDER_PAGE, $r("app.string.TestWrapBuilderPage")),
+
+    new ItemBean(PAGE_STYLES_PAGE, $r("app.string.TestStylesPage")),
+    new ItemBean(PAGE_EXTEND_PAGE, $r("app.string.TestExtendPage")),
+    new ItemBean(PAGE_STATE_STYLES_PAGE, $r("app.string.TestStateStylesPage")),
+    new ItemBean(PAGE_MODIFIER_PAGE, $r("app.string.TestModifierPage")),
+    new ItemBean(PAGE_MODIFIER_UPDATER_PAGE, $r("app.string.TestModifierUpdaterPage")),
   ]
 
   @Builder

@@ -1,7 +1,7 @@
 import { Log } from "static_common";
-import ThingsViewModel from "../viewmodel/ThingsViewModel";
+import ThingsViewModel from "../viewmodel/ThingViewModel";
 import { ThingsViewModelArray } from "../viewmodel/TodoListViewModel";
-import { ThingsComponent } from "./ThingsComponent";
+import { ThingComponent } from "./ThingComponent";
 
 @Component
 export struct TodoListComponent {
@@ -17,7 +17,7 @@ export struct TodoListComponent {
               // 待办事项
               // TODO 注意这里 不能使用getItem(item)函数返回值传递给子组件@ObjLinked变量
               // ThingsComponent({ things: getItem(item) }).margin(5)
-              ThingsComponent({ thingsViewModel: item }).margin(5)
+              ThingComponent({ thingViewModel: item }).margin(5)
             }
           },
           (item: ThingsViewModel) => {

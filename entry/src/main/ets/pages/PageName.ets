@@ -95,5 +95,11 @@ export let PAGE_BUILDER_PARAM_2 = "pages/entry/custom/builderparam/BuilderParamP
 export let PAGE_BUILDER_PARAM_3 = "pages/entry/custom/builderparam/BuilderParamPage3";
 export let PAGE_WRAP_BUILDER_PAGE = "pages/entry/wrapbuilder/WrapBuilderPage";
 
+export let PAGE_STYLES_PAGE = "pages/entry/custom/styles/StylesPage";
+export let PAGE_EXTEND_PAGE = "pages/entry/custom/styles/ExtendPage";
+export let PAGE_STATE_STYLES_PAGE = "pages/entry/custom/styles/StateStylesPage";
+export let PAGE_MODIFIER_PAGE = "pages/entry/custom/styles/modifier/ModifierPage";
+export let PAGE_MODIFIER_UPDATER_PAGE = "pages/entry/custom/styles/modifier/ModifierUpdaterPage";
+
 export let PAGE_ANIMATE_TO = "pages/animate/AnimateToPage";
 

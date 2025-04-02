@@ -1,7 +1,7 @@
 /** BasicDataSource代码见文档末尾附件: string类型数组的BasicDataSource代码 **/
 import { Log } from 'static_common';
 import { BasicDataSource } from './datasource/DataSources';
-import { JSON } from '@kit.ArkTS';
+import { JSON, util } from '@kit.ArkTS';
 
 @Observed
 class StringData {
@@ -13,8 +13,11 @@ class StringData {
     this.message = message
     this.imgSrc = imgSrc
     // TODO 生成唯一hash 用于List唯一标识
-    this.hash = `@${Math.random().toString(36).substring(2, 10)}`
+    // this.hash = `@${Math.random().toString(36).substring(2, 10)}`
+    // darcyRefactor: 使用UUID生成唯一id
+    this.hash = util.generateRandomUUID(true)
   }
+
 
   // TODO get方法
   public get hashCode(): string {

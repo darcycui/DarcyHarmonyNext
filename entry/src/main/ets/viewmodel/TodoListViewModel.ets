@@ -1,4 +1,4 @@
-import ThingsViewModel from "./ThingsViewModel";
+import ThingsViewModel from "./ThingViewModel";
 import { common } from "@kit.AbilityKit";
 import TodoListModel from "../models/TodoListModel";
 
@@ -19,7 +19,7 @@ export default class TodoListViewModel {
     await todoList.loadTasks(context);
     for(let things of todoList.things) {
       let thingsViewModel = new ThingsViewModel();
-      thingsViewModel.updateTask(things);
+      thingsViewModel.initViewModel(things);
       this.things.push(thingsViewModel);
     }
   }

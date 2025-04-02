@@ -7,7 +7,7 @@ export default class ThingsViewModel {
   @Track thingsName: string = 'Todo';
   @Track isFinish: boolean = false;
 
-  updateTask(things: ThingsModel) {
+  initViewModel(things: ThingsModel) {
     this.thingsName = things.thingsName;
     this.isFinish = things.isFinish;
   }
@@ -16,7 +16,7 @@ export default class ThingsViewModel {
     this.isFinish = !this.isFinish;
   }
 
-  addSuffixes(): void {
+  addNameSuffixes(): void {
     this.thingsName += '啦';
   }
 }

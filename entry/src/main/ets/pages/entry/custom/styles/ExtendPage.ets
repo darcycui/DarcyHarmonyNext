@@ -2,7 +2,7 @@ import { promptAction } from '@kit.ArkUI'
 
 @Entry
 @Component
-struct FancyUse {
+struct ExtendPage {
   @State label: string = 'Test Extend '
   @State sizes: number = 20
 

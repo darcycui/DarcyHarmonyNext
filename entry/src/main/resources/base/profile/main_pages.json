@@ -81,6 +81,8 @@
     "pages/entry/custom/wrapbuilder/WrapBuilderPage",
     "pages/entry/custom/styles/StylesPage",
     "pages/entry/custom/styles/ExtendPage",
-    "pages/entry/custom/styles/StateStylesPage"
+    "pages/entry/custom/styles/StateStylesPage",
+    "pages/entry/custom/styles/modifier/ModifierPage",
+    "pages/entry/custom/styles/modifier/ModifierUpdaterPage"
   ]
 }

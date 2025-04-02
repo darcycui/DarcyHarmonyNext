@@ -419,6 +419,30 @@
     {
       "name": "TestLocalBuilderParamPage3",
       "value": "BuilderParam3"
+    },
+    {
+      "name": "TestWrapBuilderPage",
+      "value": "WrapBuilder"
+    },
+    {
+      "name": "TestStylesPage",
+      "value": "Styles"
+    },
+    {
+      "name": "TestExtendPage",
+      "value": "Extend"
+    },
+    {
+      "name": "TestStateStylesPage",
+      "value": "StateStyles"
+    },
+    {
+      "name": "TestModifierPage",
+      "value": "Modifier"
+    },
+    {
+      "name": "TestModifierUpdaterPage",
+      "value": "ModifierUpdater"
     }
   ]
 }

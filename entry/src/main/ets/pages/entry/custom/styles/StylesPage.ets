@@ -1,5 +1,4 @@
 import { promptAction } from '@kit.ArkUI';
-import { MyButtonModifier } from './Modifiers';
 
 // 定义在全局的@Styles封装的样式 是一个函数
 // TODO 只支持通用属性 不能传参数
@@ -17,8 +16,6 @@ function globalFancy() {
 @Component
 struct StylesPage {
   @State heightValue: number = 100;
-  // TODO 使用导入的 Modifier
-  @State modifier: MyButtonModifier = new MyButtonModifier();
 
   // 定义在组件内的@Styles封装的样式
   // TODO 只支持通用属性 不能传参数
@@ -44,12 +41,6 @@ struct StylesPage {
       Text('FancyB')
         .fancy()
         .fontSize(30)
-      // 跨文件使用Modifier
-      Button("Button")
-        .attributeModifier(this.modifier)
-        .onClick(() => {
-          this.modifier.isDark = !this.modifier.isDark
-        })
     }
   }
 }
