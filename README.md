@@ -1,4 +1,6 @@
-# 鸿蒙Next Api示例集合
+# 鸿蒙Next Api示例集合 
+* 版本更新记录：
+  * V0.0.1 已集成企业微信自定义状态管理框架DataList
 ## 目录
 * [0. ArkTs学习笔记](/HarmonyNext/ArkTS学习笔记.md)
 * [1. 项目结构](/HarmonyNext/项目结构.md)
