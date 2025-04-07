@@ -12,7 +12,7 @@ UI窗口,用于特殊交互(卡片/输入法/分享/备份/嵌入等)
 
 ## 3. 包括
 - FormExtentionAbility 服务卡片
-- WorkShedualerExtentionAbility 后台工作调度
+- WorkSchedulerExtentionAbility 后台工作调度
 - InputExtentionAbility 输入法
 - BackupExtentionAbility 备份
 - DriverExtentionAbility 驱动

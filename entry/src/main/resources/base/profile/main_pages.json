@@ -84,6 +84,12 @@
     "pages/entry/custom/styles/StateStylesPage",
     "pages/entry/custom/styles/modifier/ModifierPage",
     "pages/entry/custom/styles/modifier/ModifierUpdaterPage",
-    "pages/entry/custom/styles/modifier/weixingroup/WeiXinGroupAttributeUpdaterPage"
+    "pages/entry/custom/styles/modifier/weixingroup/WeiXinGroupAttributeUpdaterPage",
+    "pages/background_task/WorkSchedulerPage",
+    "pages/background_task/BackgroundTaskPage",
+    "pages/background_task/ShortTaskPage",
+    "pages/Index",
+    "pages/other/LongTaskPage",
+    "pages/other/LongTaskDetailPage"
   ]
 }

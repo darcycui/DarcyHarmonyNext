@@ -3,11 +3,13 @@ import { common, Want } from '@kit.AbilityKit';
 import { LengthUnit, router } from '@kit.ArkUI';
 import { PAGE_COLUMN } from '../../PageName';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { startAbility } from '../../../utils/RouterHelper';
 
 @Entry
 @Component
 struct WantAbilityPage {
   @State message: string = 'Hello World';
+  context = getContext(this) as common.UIAbilityContext;
 
   build() {
     RelativeContainer() {
@@ -34,8 +36,8 @@ struct WantAbilityPage {
         alignItems: ItemAlign.Start,
         // 间距
         space: {
-          main: {value: 5, unit: LengthUnit.VP},
-          cross: {value: 10, unit: LengthUnit.VP}
+          main: { value: 5, unit: LengthUnit.VP },
+          cross: { value: 10, unit: LengthUnit.VP }
         }
       }) {
         this.backButton()
@@ -81,18 +83,7 @@ struct WantAbilityPage {
       .id("LoginFeatureButton")
       .onClick((event: ClickEvent) => {
         // TODO feature module页面跳转 使用want
-        try {
-          let want: Want = {
-            deviceId: "", // TODO deviceId为空表示当前设备
-            bundleName: "com.darcy.harmonys",
-            abilityName: "LoginAbility"
-          };
-          let context = getContext(this) as common.UIAbilityContext;
-          context.startAbility(want);
-          Log.info(`explicit start ability succeed`);
-        } catch (error) {
-          Log.error(`explicit start ability failed with ${error.code}`);
-        }
+        startAbility(this.context, "LoginAbility", {})
       })
   }
 
@@ -102,19 +93,7 @@ struct WantAbilityPage {
       .id("HomeButton")
       .onClick((event: ClickEvent) => {
         // TODO Ability页面跳转 使用 want + router
-        try {
-          let want: Want = {
-            deviceId: "", // TODO deviceId为空表示当前设备
-            bundleName: "com.darcy.harmonys",
-            abilityName: "HomeAbility",
-            parameters: { "paramsName": "李四", "paramsId": 2 }
-          };
-          let context = getContext(this) as common.UIAbilityContext;
-          context.startAbility(want);
-          Log.info(`explicit start ability succeed`);
-        } catch (error) {
-          Log.error(`explicit start ability failed with ${error.code}`);
-        }
+        startAbility(this.context, "HomeAbility", { "paramsName": "李四", "paramsId": 2 })
       })
   }
 

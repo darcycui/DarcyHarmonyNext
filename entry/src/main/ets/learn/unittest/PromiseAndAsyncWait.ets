@@ -42,3 +42,24 @@ export async function test_async_wait_func(): Promise<number> {
   return result
 
 }
+export async function test_await_func(){
+  let result = await get_async_number()
+  // darcyRefactor: 获取 async 的值
+  Log.log(`await result=${result.valueOf()}`)
+  return result
+}
+
+export async function get_async_number() {
+  return new Promise<number>((resolve, reject) => {
+    setTimeout(() => {
+      const result: number = Math.random()
+      if (result > 0.5) {
+        resolve(result)
+        Log.log(`Promise resolved with result: ${result}`)
+      } else {
+        Log.error(`Promise rejected with reason: Error: random number is too small.`)
+        reject(new Error('Error: random number is too small.'))
+      }
+    }, 3_000)
+ })
+}

@@ -50,6 +50,16 @@
           "when": "inuse"
         },
         "reason": "$string:CAMERA"
+      },
+      {
+        "name": "ohos.permission.KEEP_BACKGROUND_RUNNING",
+        "usedScene": {
+          "abilities": [
+            "LongTaskAbility"
+          ],
+          "when": "inuse"
+        },
+        "reason": "$string:KeepRunning"
       }
     ],
     "abilities": [
@@ -61,9 +71,9 @@
         "launchType": "standard",
         "description": "$string:EntryAbility_desc",
         // 页面图标
-//        "icon": "$media:layered_image",
+        //        "icon": "$media:layered_image",
         // 页面名称
-//        "label": "$string:EntryAbility_label",
+        //        "label": "$string:EntryAbility_label",
         "startWindowIcon": "$media:app_icon2",
         // 页面启动背景
         "startWindowBackground": "$color:start_window_background",
@@ -96,12 +106,39 @@
         "label": "$string:OtherAbility_label",
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "LongTaskAbility",
+        "srcEntry": "./ets/otherability/LongTaskAbility.ets",
+        "description": "$string:LongTaskAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:LongTaskAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background",
+        // 长时间后台运行类型
+        "backgroundModes": [
+          "dataTransfer"
+        ]
+      },
+      {
+        "name": "LongTaskDetailAbility",
+        "srcEntry": "./ets/otherability/LongTaskDetailAbility.ets",
+        "description": "$string:LongTaskDetailAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:LongTaskDetailAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background"
       }
     ],
     "extensionAbilities": [
       {
+        "name": "EntryWorkSchedulerExtensionAbility",
+        "srcEntry": "./ets/otherability/extension_ability/EntryWorkSchedulerExtensionAbility.ets",
+        "type": "workScheduler"
+      },
+      {
         "name": "EntryBackupAbility",
-        "srcEntry": "./ets/otherability/EntryBackupAbility.ets",
+        "srcEntry": "./ets/otherability/extension_ability/EntryBackupAbility.ets",
         "type": "backup",
         "exported": false,
         "metadata": [

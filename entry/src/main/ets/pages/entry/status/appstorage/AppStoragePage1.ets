@@ -1,6 +1,7 @@
 import { Log } from 'static_common';
 import { promptAction } from '@kit.ArkUI';
 import { common, Want } from '@kit.AbilityKit';
+import { startAbility } from '../../../../utils/RouterHelper';
 
 class DataAppStorage {
   code: number;
@@ -40,19 +41,5 @@ struct AppStoragePage1 {
 }
 
 function startOtherAbility(context: common.UIAbilityContext) {
-  try {
-    let want: Want = {
-      deviceId: "", // TODO deviceId为空表示当前设备
-      bundleName: "com.darcy.harmonys",
-      abilityName: "OtherAbility",
-      // 传参数
-      parameters: { "name": "张三", "id": 100 }
-    };
-    // 吐司 toast
-    promptAction.showToast({ message: "Go Ability Success" })
-    context.startAbility(want);
-    Log.info(`explicit start ability succeed`);
-  } catch (error) {
-    Log.error(`explicit start ability failed with ${error.code}`);
-  }
+  startAbility(context, "OtherAbility", {"name": "张三", "id": 100})
 }

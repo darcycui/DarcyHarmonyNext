@@ -447,6 +447,14 @@
     {
       "name": "TestModifierUpdaterWeiXinPage",
       "value": "ModifierUpdaterWeiXin"
+    },
+    {
+      "name": "TestTaskPage",
+      "value": "TaskPage"
+    },
+    {
+      "name": "KeepRunning",
+      "value": "KeepRunning in background"
     }
   ]
 }

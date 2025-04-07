@@ -83,7 +83,8 @@ import {
   PAGE_STATE_STYLES_PAGE,
   PAGE_MODIFIER_PAGE,
   PAGE_MODIFIER_UPDATER_PAGE,
-  PAGE_MODIFIER_UPDATER_WEIXIN_PAGE
+  PAGE_MODIFIER_UPDATER_WEIXIN_PAGE,
+  PAGE_TASK_PAGE
 } from './PageName';
 import { startPage } from '../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -264,6 +265,7 @@ struct StartPage {
     new ItemBean(PAGE_MODIFIER_PAGE, $r("app.string.TestModifierPage")),
     new ItemBean(PAGE_MODIFIER_UPDATER_PAGE, $r("app.string.TestModifierUpdaterPage")),
     new ItemBean(PAGE_MODIFIER_UPDATER_WEIXIN_PAGE, $r("app.string.TestModifierUpdaterWeiXinPage")),
+    new ItemBean(PAGE_TASK_PAGE, $r("app.string.TestTaskPage")),
   ]
 
   @Builder

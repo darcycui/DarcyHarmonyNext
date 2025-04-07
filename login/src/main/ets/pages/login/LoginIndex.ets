@@ -1,11 +1,13 @@
 import { common, Want } from '@kit.AbilityKit';
 import { Log } from 'static_common';
+import { startAbility } from '../../utils/RouterHelper';
 
 @Entry
 @Component
 struct LoginIndex {
   @State userName: string = '';
   @State password: string = '';
+  context = getContext(this) as common.UIAbilityContext;
 
   build() {
     Column() {
@@ -52,19 +54,7 @@ struct LoginIndex {
       .margin({ top: 10 })// 外边距
       .onClick((event: ClickEvent) => {
         // TODO entry module页面跳转 使用want
-        try {
-          let want: Want = {
-            deviceId: "", // TODO deviceId为空表示当前设备
-            bundleName: "com.darcy.harmonys",
-            abilityName: "HomeAbility"
-            // abilityName: "EntryAbility"
-          };
-          let context = getContext(this) as common.UIAbilityContext;
-          context.startAbility(want);
-          Log.info(`explicit start ability succeed`);
-        } catch (error) {
-          Log.error(`explicit start ability failed with ${error.code}`);
-        }
+        startAbility(this.context, "HomeAbility", {})
       })
   }
 }

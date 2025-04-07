@@ -447,6 +447,30 @@
     {
       "name": "TestModifierUpdaterWeiXinPage",
       "value": "ModifierUpdaterWeiXin"
+    },
+    {
+      "name": "TestTaskPage",
+      "value": "TaskPage"
+    },
+    {
+      "name": "LongTaskAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "LongTaskAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "KeepRunning",
+      "value": "KeepRunning in background"
+    },
+    {
+      "name": "LongTaskDetailAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "LongTaskDetailAbility_label",
+      "value": "label"
     }
   ]
 }

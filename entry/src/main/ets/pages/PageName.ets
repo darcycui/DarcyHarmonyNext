@@ -104,3 +104,9 @@ export let PAGE_MODIFIER_UPDATER_WEIXIN_PAGE = "pages/entry/custom/styles/modifi
 
 export let PAGE_ANIMATE_TO = "pages/animate/AnimateToPage";
 
+export let PAGE_TASK_PAGE = "pages/background_task/BackgroundTaskPage";
+export let PAGE_WORK_SCHEDULER = "pages/background_task/WorkSchedulerPage";
+export let PAGE_SHORT_TASK = "pages/background_task/ShortTaskPage";
+export let PAGE_LONG_TASK = "pages/other/LongTaskPage";
+export let PAGE_LONG_TASK_DETAIL = "pages/other/LongTaskDetailPage";
+

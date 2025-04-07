@@ -1,6 +1,7 @@
 import { common, Want } from '@kit.AbilityKit';
 import { promptAction, uiObserver } from '@kit.ArkUI';
 import { Log } from 'static_common';
+import { startAbility } from '../../../utils/RouterHelper';
 
 let TAG = "[Home Struct] ";
 let TAG2 = "[textComponent Struct] ";
@@ -9,6 +10,7 @@ let TAG2 = "[textComponent Struct] ";
 @Component
 struct ColumnPage {
   @State messageHome: string = 'Hello World';
+  context = getContext(this) as common.UIAbilityContext;
 
   // 生命周期回调:页面显示 只限入口组件
   onPageShow(): void {
@@ -55,22 +57,7 @@ struct ColumnPage {
   }
 
   startEntryAbility() {
-    try {
-      let want: Want = {
-        deviceId: "", // TODO deviceId为空表示当前设备
-        bundleName: "com.darcy.harmonys",
-        abilityName: "EntryAbility",
-        // 传参数
-        parameters: { "paramsName": "张三", "paramsId": 1 }
-      };
-      // 吐司 toast
-      promptAction.showToast({ message: "Go EntryAbility" })
-      let context = getContext(this) as common.UIAbilityContext;
-      context.startAbility(want);
-      Log.info(`explicit start ability succeed`);
-    } catch (error) {
-      Log.error(`explicit start ability failed with ${error.code}`);
-    }
+    startAbility(this.context, "EntryAbility", {})
   }
 }
 
