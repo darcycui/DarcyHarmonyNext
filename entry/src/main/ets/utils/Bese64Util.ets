@@ -1,6 +1,6 @@
 
 import util from '@ohos.util';
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 
 export function base64DecodeToString(base64Str: string): string {
   try {

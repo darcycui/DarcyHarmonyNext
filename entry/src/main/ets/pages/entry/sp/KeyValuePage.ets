@@ -1,6 +1,6 @@
 import { common } from '@kit.AbilityKit';
 import { distributedKVStore } from '@kit.ArkData';
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 const KEY_ = 'key_test_string';

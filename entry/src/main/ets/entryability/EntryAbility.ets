@@ -1,6 +1,6 @@
 import { AbilityConstant, Want } from '@kit.AbilityKit';
 import { PAGE_START } from '../pages/PageName';
-import { HiLog, Log } from 'static_common';
+import { HiLog, Log } from 'static_library_common';
 import { BaseUIAbility } from '../base/BaseUIAbility';
 import { EntryEvent } from '../event/EventName';
 import { promptAction, window } from '@kit.ArkUI';

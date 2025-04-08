@@ -7,7 +7,7 @@
   "license": "",
   "dependencies": {
     // 引用本地静态库源码
-    "static_common": "file:../static_library_common"
+    "static_library_common": "file:../static_library_common"
   }
 }
 

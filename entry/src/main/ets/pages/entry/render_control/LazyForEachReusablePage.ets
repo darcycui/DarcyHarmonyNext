@@ -1,5 +1,5 @@
 /** BasicDataSource代码见文档末尾附件: string类型数组的BasicDataSource代码 **/
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 import { BasicDataSource } from './datasource/DataSources';
 import { JSON, util } from '@kit.ArkTS';
 

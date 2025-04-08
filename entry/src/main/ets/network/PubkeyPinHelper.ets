@@ -1,4 +1,4 @@
-import { Log } from "static_common"
+import { Log } from 'static_library_common'
 import { base64DecodeToUint8Array, base64Encode } from "../utils/Bese64Util"
 import { hexToUint8Array, uint8ArrayToHexString } from "../utils/StringUnit8ArrayUtil"
 

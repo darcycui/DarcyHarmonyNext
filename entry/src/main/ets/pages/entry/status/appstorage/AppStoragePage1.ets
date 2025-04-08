@@ -1,4 +1,4 @@
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 import { promptAction } from '@kit.ArkUI';
 import { common, Want } from '@kit.AbilityKit';
 import { startAbility } from '../../../../utils/RouterHelper';

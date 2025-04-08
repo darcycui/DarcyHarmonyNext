@@ -1,5 +1,5 @@
 import { router } from '@kit.ArkUI';
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 import { common, Want } from '@kit.AbilityKit';
 
 export function startPage(url: string, params?: Record<string, string>) {

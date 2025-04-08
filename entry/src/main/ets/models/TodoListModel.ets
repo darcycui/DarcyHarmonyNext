@@ -1,7 +1,7 @@
 
 import { common } from '@kit.AbilityKit';
 import util from '@ohos.util';
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 import ThingsModel from './ThingsModel';
 
 export default class TodoListModel {

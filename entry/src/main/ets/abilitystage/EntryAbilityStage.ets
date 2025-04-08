@@ -1,5 +1,5 @@
 import { AbilityConstant, AbilityStage, Configuration, Want } from '@kit.AbilityKit'
-import { InitCommon, Log } from 'static_common'
+import { InitCommon, Log } from 'static_library_common'
 import { AppInfo } from '../utils/AppInfo'
 
 export default class EntryAbilityStage extends AbilityStage {

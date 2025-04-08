@@ -1,6 +1,6 @@
-import { nativeAdd } from 'library_camera_static';
+import { nativeAdd } from 'library_camera';
 import { promptAction } from '@kit.ArkUI';
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 import { Student } from '../../../network/models/HttpBean';
 
 @Entry

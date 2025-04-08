@@ -1,4 +1,4 @@
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 // PersistentStorage要先在Ability中存储 再使通过AppStorage使用
 PersistentStorage.persistProp('aProp', 46);
 Log.warn('PersistentPage log test')

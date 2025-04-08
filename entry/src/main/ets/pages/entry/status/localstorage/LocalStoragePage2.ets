@@ -1,4 +1,4 @@
-import { Log } from "static_common";
+import { Log } from 'static_library_common';
 
 // 第二个页面组件 获取Ability共享的localStorage
 @Entry({storage: LocalStorage.getShared()})

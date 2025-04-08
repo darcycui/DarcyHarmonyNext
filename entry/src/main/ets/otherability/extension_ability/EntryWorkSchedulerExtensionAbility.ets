@@ -1,5 +1,5 @@
 import { workScheduler, WorkSchedulerExtensionAbility } from "@kit.BackgroundTasksKit";
-import { Log } from "static_common";
+import { Log } from "static_library_common";
 
 export class EntryWorkSchedulerExtensionAbility extends WorkSchedulerExtensionAbility{
   onWorkStart(work: workScheduler.WorkInfo): void {

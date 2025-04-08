@@ -1,4 +1,4 @@
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 import { IPBean, ResultBean } from '../../../network/models/HttpBean';
 import { doGet } from '../../../network/Http';
 import { common } from '@kit.AbilityKit';

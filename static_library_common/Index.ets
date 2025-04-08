@@ -10,5 +10,9 @@ export { InitCommon } from './src/main/ets/InitCommon'
 
 export { HiLog } from './src/main/ets/utils/HiLog'
 
+export { RouterHelper } from './src/main/ets/utils/RouterHelper'
+
+export { ToastUtil } from './src/main/ets/utils/ToastUtil'
+
 // TODO 导出函数 在Index.ets导出文件中声明
 export { func, func2 } from './src/main/ets/utils/Log'

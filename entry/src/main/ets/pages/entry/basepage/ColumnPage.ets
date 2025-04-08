@@ -1,6 +1,6 @@
 import { common, Want } from '@kit.AbilityKit';
 import { promptAction, uiObserver } from '@kit.ArkUI';
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 import { startAbility } from '../../../utils/RouterHelper';
 
 let TAG = "[Home Struct] ";

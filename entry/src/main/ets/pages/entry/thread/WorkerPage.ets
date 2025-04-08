@@ -1,5 +1,5 @@
 import { ErrorEvent, MessageEvents, process, worker } from '@kit.ArkTS';
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 
 // 宿主线程(这里是主线程) 创建worker
 // const workerInstance: worker.ThreadWorker = new worker.ThreadWorker('./src/main/ets/workers/AddWorker.ets');

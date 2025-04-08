@@ -1,4 +1,4 @@
-import { Log } from "static_common";
+import { Log } from 'static_library_common';
 
 export function test_promise_func() {
   const promise: Promise<number> = new Promise((resolve, reject) => {

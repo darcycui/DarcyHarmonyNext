@@ -1,6 +1,5 @@
-import { common, Want } from '@kit.AbilityKit';
-import { Log } from 'static_common';
-import { startAbility } from '../../utils/RouterHelper';
+import { common } from '@kit.AbilityKit';
+import { RouterHelper } from 'static_library_common';
 
 @Entry
 @Component
@@ -54,7 +53,7 @@ struct LoginIndex {
       .margin({ top: 10 })// 外边距
       .onClick((event: ClickEvent) => {
         // TODO entry module页面跳转 使用want
-        startAbility(this.context, "HomeAbility", {})
+        RouterHelper.startAbility(this.context, "HomeAbility", {})
       })
   }
 }

@@ -1,7 +1,7 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
-import { InitCommon } from 'static_common';
+import { InitCommon } from 'static_library_common';
 import { AppInfo } from '../utils/AppInfo';
 import BuildProfile from 'BuildProfile';
 

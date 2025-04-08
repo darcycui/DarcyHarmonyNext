@@ -1,4 +1,4 @@
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 import test_async_wait from './AsyncWait.test';
 import localUnitTest from './LocalUnit.test';
 import test_promise from './Promise.test';

@@ -5,7 +5,7 @@ import { http } from '@kit.NetworkKit';
 import { cert } from '@kit.DeviceCertificateKit';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { util } from '@kit.ArkTS';
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 import { uint8ArrayToString } from '../../../utils/StringUnit8ArrayUtil';
 import { base64DecodeToString } from '../../../utils/Bese64Util';
 import { saveByteArrayToFile } from '../../../utils/FileUtil';

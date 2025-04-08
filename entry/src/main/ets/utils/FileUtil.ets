@@ -1,4 +1,4 @@
-import { Log } from "static_common";
+import { Log } from "static_library_common";
 import { fileIo } from "@kit.CoreFileKit";
 
 export function saveByteArrayToFile(value: Uint8Array, filePath: string) {

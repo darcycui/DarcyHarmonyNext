@@ -89,7 +89,7 @@ import {
 import { startPage } from '../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
 import { inspector, LengthUnit } from '@kit.ArkUI';
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 
 class ItemBean {
   private _pageName: string;

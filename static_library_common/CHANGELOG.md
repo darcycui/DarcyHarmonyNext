@@ -10,3 +10,8 @@
 - 添加Log日志打印类(console实现)
 - 添加HiLog日志打印类(hilog实现)
 - 支持在InItCommon中配置是否打印Log/Hilog日志
+
+# 3. 版本号 1.0.2
+- 发布时间: 2025-04-08
+- 添加ToastUtil，封装Toast功能
+- 添加RouterHelper，封装路由功能(router、want)

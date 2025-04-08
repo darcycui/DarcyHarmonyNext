@@ -1,5 +1,5 @@
 import { common } from '@kit.AbilityKit';
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 import { fileIo, ReadOptions, WriteOptions } from '@kit.CoreFileKit';
 import { buffer } from '@kit.ArkTS';
 

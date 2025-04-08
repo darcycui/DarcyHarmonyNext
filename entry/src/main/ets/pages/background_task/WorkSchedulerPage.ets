@@ -1,7 +1,7 @@
 import { workScheduler } from '@kit.BackgroundTasksKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 
 @Entry
 @Component

@@ -1,4 +1,4 @@
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 import { relationalStore } from '@kit.ArkData';
 import { common, Context } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';

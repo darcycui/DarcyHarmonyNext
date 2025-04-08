@@ -1,8 +1,5 @@
-import { promptAction, router } from '@kit.ArkUI';
-import { BusinessError } from '@kit.BasicServicesKit';
-import { common, Want } from '@kit.AbilityKit';
-import { PAGE_COLUMN } from '../../PageName';
-import { Log } from 'static_common';
+import { common } from '@kit.AbilityKit';
+import { Log, ToastUtil } from 'static_library_common';
 
 let TAG = "[InputPage] ";
 
@@ -70,7 +67,7 @@ struct InputPage {
         })
         .onSubmit((enterKey: EnterKeyType, event: SubmitEvent) => {
           // 吐司 toast
-          promptAction.showToast({ message: "完成:" + this.inputStr })
+          ToastUtil.showToast("完成:" + this.inputStr)
           this.message = "完成:" + this.inputStr
         })
     }

@@ -1,5 +1,5 @@
 import { HashMap, JSON } from '@kit.ArkTS';
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 
 @Entry
 @Component

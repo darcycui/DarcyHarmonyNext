@@ -1,4 +1,4 @@
-import { func, func2, Log, StaticMainPage } from 'static_common';
+import { func, func2, Log, StaticMainPage } from 'static_library_common';
 import { PAGE_STATIC_INNER } from '../../PageName';
 import { getResourceString } from '../../../utils/ResourceHelper';
 import { startNamedPage } from '../../../utils/RouterHelper';

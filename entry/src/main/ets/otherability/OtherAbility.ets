@@ -1,7 +1,7 @@
 import { AbilityConstant, Want } from '@kit.AbilityKit';
 import { BaseUIAbility } from '../base/BaseUIAbility';
 import { PAGE_START_OTHER } from '../pages/PageName';
-import { HiLog, Log } from 'static_common';
+import { HiLog, Log } from 'static_library_common';
 
 export default class OtherAbility extends BaseUIAbility {
 

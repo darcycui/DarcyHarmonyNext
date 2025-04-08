@@ -1,5 +1,5 @@
 import { ErrorEvent, MessageEvents, ThreadWorkerGlobalScope, worker, process } from '@kit.ArkTS';
-import { InitCommon, Log } from 'static_common';
+import { InitCommon, Log } from 'static_library_common';
 import { AppInfo } from '../utils/AppInfo';
 
 // worker线程 接口

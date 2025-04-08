@@ -1,4 +1,4 @@
-import { Log } from "static_common"
+import { Log } from 'static_library_common'
 import { webSocket } from "@kit.NetworkKit"
 import { BusinessError } from "@kit.BasicServicesKit"
 import { MessageBean } from "./models/MessageBean"

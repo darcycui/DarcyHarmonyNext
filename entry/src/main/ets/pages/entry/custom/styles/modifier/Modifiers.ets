@@ -1,5 +1,5 @@
 import { AttributeUpdater } from "@kit.ArkUI";
-import { Log } from "static_common";
+import { Log } from 'static_library_common';
 
 // TODO 实现 AttributeModifier 接口
 export class MyButtonModifier implements AttributeModifier<ButtonAttribute> {

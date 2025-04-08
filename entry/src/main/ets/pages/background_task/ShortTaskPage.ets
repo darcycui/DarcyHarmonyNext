@@ -1,7 +1,6 @@
 import { backgroundTaskManager } from '@kit.BackgroundTasksKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { Log } from 'static_common';
-import { showToast } from '../../utils/ToastUtil';
+import { Log, ToastUtil } from 'static_library_common';
 
 let taskID: number = 100; // 申请短时任务ID
 let remainTime: number = 0; // 本次申请短时任务的剩余时间
@@ -15,7 +14,7 @@ struct ShortTaskPage {
     Column({ space: 20 }) {
       Text(this.message)
       Button('申请短任务').onClick((event: ClickEvent) => {
-        showToast('请退到后台，触发短时任务')
+        ToastUtil.showToast('请退到后台，触发短时任务')
       })
       Button('取消短任务').onClick((event: ClickEvent) => {
         stopTask()

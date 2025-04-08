@@ -1,7 +1,7 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { router } from '@kit.ArkUI';
 import { PAGE_INPUT } from '../../PageName';
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 
 let TAG = "[Index Struct] ";
 

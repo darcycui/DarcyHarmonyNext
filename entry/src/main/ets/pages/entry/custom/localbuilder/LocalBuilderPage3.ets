@@ -1,4 +1,4 @@
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 
 class DataBuilderPage {
   size: number = 0;

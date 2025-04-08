@@ -1,7 +1,7 @@
 import { common, Context } from '@kit.AbilityKit';
 import { preferences } from '@kit.ArkData';
-import { Log } from 'static_common/src/main/ets/utils/Log';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { Log } from 'static_library_common';
 
 @Entry
 @Component

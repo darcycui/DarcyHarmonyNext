@@ -1,7 +1,7 @@
 import { BusinessError } from '@kit.BasicServicesKit';
 import { backgroundTaskManager } from '@kit.BackgroundTasksKit';
 import { common, WantAgent, wantAgent } from '@kit.AbilityKit';
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 
 @Entry
 @Component

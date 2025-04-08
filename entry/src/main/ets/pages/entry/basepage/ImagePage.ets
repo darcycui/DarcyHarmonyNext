@@ -3,7 +3,7 @@ import { cameraPicker as picker } from '@kit.CameraKit';
 import { camera } from '@kit.CameraKit';
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 
 @Entry
 @Component

@@ -1,4 +1,4 @@
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 import { common, Want } from '@kit.AbilityKit';
 import { LengthUnit, router } from '@kit.ArkUI';
 import { PAGE_COLUMN } from '../../PageName';

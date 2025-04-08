@@ -1,5 +1,5 @@
 import { AbilityConstant, Configuration, UIAbility, Want } from '@kit.AbilityKit'
-import { HiLog, Log } from 'static_common'
+import { HiLog, Log } from 'static_library_common'
 import window from '@ohos.window'
 import { BusinessError } from '@kit.BasicServicesKit';
 

@@ -18,7 +18,7 @@ import {
 import { Person } from '../main/ets/learn/Person';
 import { GenericClass } from '../main/ets/learn/GenericClass';
 import { Teacher, School } from '../main/ets/learn/School'
-import { Log } from 'static_common';
+import { Log } from 'static_library_common';
 
 export default function localUnitTest() {
   describe('localUnitTest', () => {

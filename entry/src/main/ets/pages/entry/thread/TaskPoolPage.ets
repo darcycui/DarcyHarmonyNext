@@ -1,4 +1,4 @@
-import { InitCommon, Log, } from 'static_common';
+import { InitCommon, Log, } from 'static_library_common';
 import { process, taskpool } from '@kit.ArkTS';
 import { AppInfo } from '../../../utils/AppInfo';
 
