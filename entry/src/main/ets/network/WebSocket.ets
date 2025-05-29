@@ -9,8 +9,9 @@ export const other = "three-to-harmony"
 
 // export const other = "user_two"
 
-// export const WSS_URL = "ws://10.0.0.126:7777/person/" + self
-export const WSS_URL = "wss://10.0.0.126:8443/person/" + self
+// export const WSS_URL = "ws://10.0.0.137:7777/person/" + self
+// export const WSS_URL = "wss://10.0.0.137:7443/person/" + self
+export const WSS_URL = "wss://darcycui.com.cn:7443/person/" + self
 
 let ws: webSocket.WebSocket
 
@@ -54,11 +55,12 @@ export function connectWS(
     header: { "key1": "value1" },
     // 内置证书路径
     // caPath: certPath,
-    clientCert: {
-      certPath: "",
-      keyPath: "",
-      keyPassword: ""
-    }
+
+    // clientCert: {
+    //   certPath: "",
+    //   keyPath: "",
+    //   keyPassword: ""
+    // }
   }
   // 连接
   ws.connect(wssUrl,

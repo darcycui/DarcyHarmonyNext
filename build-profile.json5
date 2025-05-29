@@ -94,6 +94,14 @@
     {
       "name": "library_camera",
       "srcPath": "./library_camera",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     }
   ]
 }

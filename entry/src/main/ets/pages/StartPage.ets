@@ -129,10 +129,10 @@ struct StartPage {
   observer: inspector.ComponentObserver = this.getUIContext().getUIInspector().createComponentObserver('scroll');
   onLayout = () => {
     // 布局结束
-    console.log('Component layout completed');
+    // console.log('Component layout completed');
   }
   onDraw = () => {
-    console.log('Component draw completed');
+    // console.log('Component draw completed');
   }
   // 用于控制Scroll组件的滚动
   scroller = new Scroller()

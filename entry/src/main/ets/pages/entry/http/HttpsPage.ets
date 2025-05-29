@@ -6,14 +6,16 @@ import { saveByteArrayToFile } from '../../../utils/FileUtil';
 
 let TAG = "[HttpPage] ";
 
-export let httpsUrl: string = "https://10.0.0.126/web/hello"
+// export let httpsUrl: string = "https://10.0.0.126/web/hello"
+export let httpsUrl: string = "https://darcycui.com.cn/web/hello"
 
 @Entry
 @Component
 struct HttpsPage {
   @State httpText: string = 'default';
   private context = getContext(this) as common.UIAbilityContext;
-  private certFileName = "test2.crt"
+  // private certFileName = "test2IPSelf.crt"
+  private certFileName = "test2ServerSelf.crt"
   private filePath = this.context.filesDir + "/" + this.certFileName;
 
   // 生命周期回调:页面即将显示 所有组件

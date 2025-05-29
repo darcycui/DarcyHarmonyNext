@@ -16,6 +16,9 @@ class ViewData {
   }
 }
 
+/**
+ * 组件之间通信
+ */
 @Entry
 @Component
 struct EmitPage {
