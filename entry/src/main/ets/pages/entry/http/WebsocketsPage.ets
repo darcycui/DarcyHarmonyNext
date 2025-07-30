@@ -12,8 +12,9 @@ struct WebsocketsPage {
   @State count: number = 0;
   @State wsText: string = 'default';
   private context = getContext(this) as common.UIAbilityContext;
-  // private certFileName = "test2IPSelf.crt"
-  private certFileName = "test2ServerSelf.crt"
+  // private certFileName = "test2IPSelf137.crt"
+  private certFileName = "test2IPSelf241.crt"
+  // private certFileName = "test2ServerSelf.crt"
   private filePath = this.context.filesDir + "/" + this.certFileName;
 
   // 生命周期回调:页面即将显示 所有组件
@@ -39,9 +40,15 @@ struct WebsocketsPage {
 
   @Builder
   resultText() {
-    Text(this.wsText)
-      .id('ResultText')
-      .fontSize(16)
+    Scroll() {
+      Text(this.wsText)
+        .id('ResultText')
+        .fontSize(16)
+        .height('100%')
+
+    }.scrollBar(BarState.On)
+    .width('100%')
+    .height('100%')
   }
 
   @Builder

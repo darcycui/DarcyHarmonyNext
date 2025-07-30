@@ -2,6 +2,7 @@ import { Log } from 'static_library_common'
 import { webSocket } from "@kit.NetworkKit"
 import { BusinessError } from "@kit.BasicServicesKit"
 import { MessageBean } from "./models/MessageBean"
+import { clearPongTimeout, startHeartbeat } from './Heartbeat'
 
 export const self = "Harmony"
 
@@ -10,8 +11,8 @@ export const other = "three-to-harmony"
 // export const other = "user_two"
 
 // export const WSS_URL = "ws://10.0.0.137:7777/person/" + self
-// export const WSS_URL = "wss://10.0.0.137:7443/person/" + self
-export const WSS_URL = "wss://darcycui.com.cn:7443/person/" + self
+export const WSS_URL = "wss://10.0.0.241:7443/person/" + self
+// export const WSS_URL = "wss://darcycui.com.cn:7443/person/" + self
 
 let ws: webSocket.WebSocket
 
@@ -33,10 +34,16 @@ export function connectWS(
     } else {
       Log.warn("value is null")
     }
+    // 开启心跳
+    startHeartbeat(ws)
   })
   // 接收消息
   ws.on("message", (err: BusinessError, value: string | ArrayBuffer) => {
     Log.warn("on message:" + value)
+    if (value == "pong") {
+      Log.info("客户端收到心跳: pong")
+      clearPongTimeout()
+    }
     onMessage(value)
   })
   // 关闭事件
