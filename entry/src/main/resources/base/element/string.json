@@ -471,6 +471,10 @@
     {
       "name": "LongTaskDetailAbility_label",
       "value": "label"
+    },
+    {
+      "name": "ChatPage",
+      "value": "Chat"
     }
   ]
 }

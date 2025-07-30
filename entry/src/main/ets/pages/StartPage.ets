@@ -84,7 +84,8 @@ import {
   PAGE_MODIFIER_PAGE,
   PAGE_MODIFIER_UPDATER_PAGE,
   PAGE_MODIFIER_UPDATER_WEIXIN_PAGE,
-  PAGE_TASK_PAGE
+  PAGE_TASK_PAGE,
+  PAGE_CHAT
 } from './PageName';
 import { startPage } from '../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -161,7 +162,7 @@ struct StartPage {
             cross: { value: 10, unit: LengthUnit.VP }
           }
         }) {
-          this.buildButtons()
+          this.buildItems()
         }
       }
       .width('100%')
@@ -266,10 +267,11 @@ struct StartPage {
     new ItemBean(PAGE_MODIFIER_UPDATER_PAGE, $r("app.string.TestModifierUpdaterPage")),
     new ItemBean(PAGE_MODIFIER_UPDATER_WEIXIN_PAGE, $r("app.string.TestModifierUpdaterWeiXinPage")),
     new ItemBean(PAGE_TASK_PAGE, $r("app.string.TestTaskPage")),
+    new ItemBean(PAGE_CHAT, $r("app.string.ChatPage")),
   ]
 
   @Builder
-  buildButtons() {
+  buildItems() {
     ForEach(this.pageNameArray,
       (item: ItemBean, index: number) => {
         this.buildOneButton(item.pageName, item.text, { 'keyHello': 'Hello World' })
