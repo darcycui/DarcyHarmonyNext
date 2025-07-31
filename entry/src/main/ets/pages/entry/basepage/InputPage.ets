@@ -1,5 +1,5 @@
 import { common } from '@kit.AbilityKit';
-import { Log, ToastUtil } from 'static_library_common';
+import { Log, ToastHelper } from 'static_library_common';
 
 let TAG = "[InputPage] ";
 
@@ -67,7 +67,7 @@ struct InputPage {
         })
         .onSubmit((enterKey: EnterKeyType, event: SubmitEvent) => {
           // 吐司 toast
-          ToastUtil.showToast("完成:" + this.inputStr)
+          ToastHelper.showToast("完成:" + this.inputStr)
           this.message = "完成:" + this.inputStr
         })
     }

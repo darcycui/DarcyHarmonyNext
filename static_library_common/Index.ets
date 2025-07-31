@@ -14,7 +14,7 @@ export { RouterHelper } from './src/main/ets/utils/RouterHelper'
 
 export { AbilityHelper } from './src/main/ets/utils/AbilityHelper'
 
-export { ToastUtil } from './src/main/ets/utils/ToastUtil'
+export { ToastHelper } from './src/main/ets/utils/ToastHelper'
 
 // TODO 导出函数 在Index.ets导出文件中声明
 export { func, func2 } from './src/main/ets/utils/Log'
