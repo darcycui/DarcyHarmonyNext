@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "chat",
+    "name": "library_chat",
     "type": "har",
     "description": "$string:module_desc",
     "mainElement": "ChatAbility",

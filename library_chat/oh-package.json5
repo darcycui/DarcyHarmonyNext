@@ -1,13 +1,12 @@
 {
-  "name": "chat",
-  "version": "1.0.0",
+  "name": "library_chat",
+  "version": "1.0.3",
   "description": "Please describe the basic information.",
-  "main": "",
-  "author": "",
-  "license": "",
+  "main": "Index.ets",
+  "author": "darcy",
+  "license": "Apache-2.0",
   "dependencies": {
     // 源码依赖
     "static_library_common": "file:../static_library_common"
   }
 }
-

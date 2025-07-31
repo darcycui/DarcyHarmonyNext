@@ -80,8 +80,8 @@
       ]
     },
     {
-      "name": "chat",
-      "srcPath": "./chat",
+      "name": "library_chat",
+      "srcPath": "./library_chat",
       "targets": [
         {
           "name": "default",

@@ -1,6 +1,6 @@
 {
   "name": "entry",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Please describe the basic information.",
   "main": "",
   "author": "",
@@ -18,7 +18,7 @@
     // 引用camera库源码
     "library_camera": "file:../library_camera",
     // 引用chat库源码
-    "library_chat": "file:../chat"
+    "library_chat": "file:../library_chat"
 //
 //    // 2.本地文件依赖
 //    // 引用本地静态库文件
