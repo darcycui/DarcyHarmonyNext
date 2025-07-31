@@ -95,7 +95,7 @@ build(){
  Log.info(`explicit start ability succeed`);
  ...
 ```
-## 6.使用HiLog打印hilog日志
+## 7.使用 HiLog 打印 hilog 日志
 - info
 - debug
 - warn
@@ -108,6 +108,24 @@ onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     HiLog.info('Ability onCreate');
     ...
     }
+```
+## 8.使用 ToastHelper 打印 promptAction
+```typescript
+ToastHelper.showToast('This is a toast')
+```
+
+## 9.使用 RouterHelper 跳转 page
+```typescript
+// 跳转当前module page
+RouterHelper.startPage('pages/entry/XXXPage', { 'keyHello': 'Hello World' })
+  
+// 跳转其他module page
+RouterHelper.startNamedPage('pages/static/common/StaticInnerPage', { 'keyHello': 'Hello World' })
+```
+
+## 10.使用 AbilityHelper 跳转 Ability
+```typescript
+AbilityHelper.startAbility(context, "OtherAbility", {"name": "张三", "id": 100})
 ```
 
 # 2.引用方式
