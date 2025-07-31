@@ -1,9 +1,9 @@
 import { Log } from 'static_library_common';
-import { common, Want } from '@kit.AbilityKit';
+import { common } from '@kit.AbilityKit';
 import { LengthUnit, router } from '@kit.ArkUI';
 import { PAGE_COLUMN } from '../../PageName';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { startAbility } from '../../../utils/RouterHelper';
+import { AbilityHelper } from 'static_library_common/src/main/ets/utils/AbilityHelper';
 
 @Entry
 @Component
@@ -83,24 +83,24 @@ struct WantAbilityPage {
       .id("LoginFeatureButton")
       .onClick((event: ClickEvent) => {
         // TODO feature module页面跳转 使用want
-        startAbility(this.context, "LoginAbility", {})
+        AbilityHelper.startAbility(this.context, "LoginAbility", {})
       })
   }
 
   @Builder
   startHomeAbility() {
     Button($r("app.string.HomeAbility2"))
-      .id("HomeButton")
+      .id("HomeActivityButton")
       .onClick((event: ClickEvent) => {
-        // TODO Ability页面跳转 使用 want + router
-        startAbility(this.context, "HomeAbility", { "paramsName": "李四", "paramsId": 2 })
+        // TODO Ability页面跳转 使用 want
+        AbilityHelper.startAbility(this.context, "HomeAbility", { "paramsName": "李四", "paramsId": 2 })
       })
   }
 
   @Builder
   startHomePage() {
     Button($r("app.string.HomePage"))
-      .id("HomeButton")
+      .id("HomePageButton")
       .onClick((event: ClickEvent) => {
         // TODO 页面跳转 使用router
         router.pushUrl(

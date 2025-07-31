@@ -1,5 +1,5 @@
 import { common, Want } from '@kit.AbilityKit';
-import { RouterHelper } from 'static_library_common';
+import { AbilityHelper, RouterHelper } from 'static_library_common';
 
 @Entry
 @Component
@@ -15,7 +15,7 @@ struct TestPage {
         .fontWeight(FontWeight.Bold)
       Button($r("app.string.HomePage")).onClick(()=>{
         // TODO entry module页面跳转 使用want
-        RouterHelper.startAbility(this.context, "HomeAbility", {})
+        AbilityHelper.startAbility(this.context, "HomeAbility", {})
       })
     }
     .height('100%')

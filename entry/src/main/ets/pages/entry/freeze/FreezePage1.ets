@@ -1,5 +1,4 @@
-import { router } from '@kit.ArkUI';
-import { startPage } from '../../../utils/RouterHelper';
+import { RouterHelper } from 'static_library_common/src/main/ets/utils/RouterHelper';
 import { PAGE_FREEZE_PAGE_2 } from '../../PageName';
 
 // 测试组件冻结功能 freezeWhenInactive: true
@@ -21,7 +20,7 @@ struct Page1 {
         })
       Button('go to next page')
         .onClick(() => {
-          startPage(PAGE_FREEZE_PAGE_2)
+          RouterHelper.startPage(PAGE_FREEZE_PAGE_2)
         })
     }
   }

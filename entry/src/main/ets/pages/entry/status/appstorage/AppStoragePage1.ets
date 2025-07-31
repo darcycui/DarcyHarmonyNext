@@ -1,7 +1,5 @@
-import { Log } from 'static_library_common';
-import { promptAction } from '@kit.ArkUI';
-import { common, Want } from '@kit.AbilityKit';
-import { startAbility } from '../../../../utils/RouterHelper';
+import { common } from '@kit.AbilityKit';
+import { AbilityHelper } from 'static_library_common/src/main/ets/utils/AbilityHelper';
 
 class DataAppStorage {
   code: number;
@@ -41,5 +39,5 @@ struct AppStoragePage1 {
 }
 
 function startOtherAbility(context: common.UIAbilityContext) {
-  startAbility(context, "OtherAbility", {"name": "张三", "id": 100})
+  AbilityHelper.startAbility(context, "OtherAbility", {"name": "张三", "id": 100})
 }

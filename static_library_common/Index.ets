@@ -12,6 +12,8 @@ export { HiLog } from './src/main/ets/utils/HiLog'
 
 export { RouterHelper } from './src/main/ets/utils/RouterHelper'
 
+export { AbilityHelper } from './src/main/ets/utils/AbilityHelper'
+
 export { ToastUtil } from './src/main/ets/utils/ToastUtil'
 
 // TODO 导出函数 在Index.ets导出文件中声明

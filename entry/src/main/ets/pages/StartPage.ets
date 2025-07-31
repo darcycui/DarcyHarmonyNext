@@ -87,7 +87,7 @@ import {
   PAGE_TASK_PAGE,
   PAGE_CHAT
 } from './PageName';
-import { startNamedPage, startPage } from '../utils/RouterHelper';
+import { RouterHelper } from 'static_library_common/src/main/ets/utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
 import { inspector, LengthUnit } from '@kit.ArkUI';
 import { Log } from 'static_library_common';
@@ -278,7 +278,7 @@ struct StartPage {
       (item: ItemBean, index: number) => {
         if (item.pageName === PAGE_CHAT || item.pageName === PAGE_STATIC_CAMERA) {
           this.buildOneItem(item.pageName, item.text, { 'keyHello': 'Hello World' }, () => {
-            startNamedPage(item.pageName, { 'keyHello': 'Hello World' })
+            RouterHelper.startNamedPage(item.pageName, { 'keyHello': 'Hello World' })
           })
         } else {
           this.buildOneItem(item.pageName, item.text, { 'keyHello': 'Hello World' })
@@ -300,7 +300,7 @@ struct StartPage {
           onclick()
         } else {
           Log.log(`-->default onClick: start page: ${url}`)
-          startPage(url, params);
+          RouterHelper.startPage(url, params);
         }
       })
   }

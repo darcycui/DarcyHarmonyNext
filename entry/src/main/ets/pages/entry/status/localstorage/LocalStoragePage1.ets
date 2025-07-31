@@ -1,4 +1,4 @@
-import { startPage } from "../../../../utils/RouterHelper";
+import { RouterHelper } from "static_library_common/src/main/ets/utils/RouterHelper";
 import { PAGE_LOCAL_STORAGE_PAGE_2 } from "../../../PageName";
 
 // 第一个页面组件 获取Ability共享的localStorage
@@ -25,7 +25,7 @@ struct LocalStoragePage1 {
       // @Component子组件自动获得对Parent LocalStorage实例的访问权限。
       ChildLocal1()
       Button('跳转页面2').onClick(() => {
-        startPage(PAGE_LOCAL_STORAGE_PAGE_2, { 'message': '测试不同页面共享LocalStorage' })
+        RouterHelper.startPage(PAGE_LOCAL_STORAGE_PAGE_2, { 'message': '测试不同页面共享LocalStorage' })
       })
     }
   }

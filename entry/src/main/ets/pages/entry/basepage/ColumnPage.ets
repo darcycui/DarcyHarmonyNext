@@ -1,7 +1,7 @@
-import { common, Want } from '@kit.AbilityKit';
-import { promptAction, uiObserver } from '@kit.ArkUI';
+import { common } from '@kit.AbilityKit';
+import { uiObserver } from '@kit.ArkUI';
 import { Log } from 'static_library_common';
-import { startAbility } from '../../../utils/RouterHelper';
+import { AbilityHelper } from 'static_library_common/src/main/ets/utils/AbilityHelper';
 
 let TAG = "[Home Struct] ";
 let TAG2 = "[textComponent Struct] ";
@@ -57,7 +57,7 @@ struct ColumnPage {
   }
 
   startEntryAbility() {
-    startAbility(this.context, "EntryAbility", {})
+    AbilityHelper.startAbility(this.context, "EntryAbility", {})
   }
 }
 
