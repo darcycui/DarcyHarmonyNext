@@ -87,10 +87,13 @@ import {
   PAGE_TASK_PAGE,
   PAGE_CHAT
 } from './PageName';
-import { startPage } from '../utils/RouterHelper';
+import { startNamedPage, startPage } from '../utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
 import { inspector, LengthUnit } from '@kit.ArkUI';
 import { Log } from 'static_library_common';
+// 手动导入module中的页面
+import 'library_chat/src/main/ets/pages/chat/ChatEntryPage';
+import 'library_camera/src/main/ets/pages/camera/CameraEntryPage';
 
 class ItemBean {
   private _pageName: string;
@@ -112,7 +115,6 @@ class ItemBean {
   public get text(): Resource {
     return this._text;
   }
-
 
   constructor(pageName: string, text: Resource) {
     this._pageName = pageName
@@ -274,7 +276,13 @@ struct StartPage {
   buildItems() {
     ForEach(this.pageNameArray,
       (item: ItemBean, index: number) => {
-        this.buildOneButton(item.pageName, item.text, { 'keyHello': 'Hello World' })
+        if (item.pageName === PAGE_CHAT || item.pageName === PAGE_STATIC_CAMERA) {
+          this.buildOneItem(item.pageName, item.text, { 'keyHello': 'Hello World' }, () => {
+            startNamedPage(item.pageName, { 'keyHello': 'Hello World' })
+          })
+        } else {
+          this.buildOneItem(item.pageName, item.text, { 'keyHello': 'Hello World' })
+        }
       }, (item: string, index: number) => {
         return item
       })
@@ -282,7 +290,7 @@ struct StartPage {
   }
 
   @Builder
-  buildOneButton(url: string, text: ResourceStr, params?: Record<string, string>, onclick?: () => void) {
+  buildOneItem(url: string, text: ResourceStr, params?: Record<string, string>, onclick?: () => void) {
     Button(text)
       .fontSize(16)
       .fontWeight(FontWeight.Bold)

@@ -109,5 +109,5 @@ export let PAGE_WORK_SCHEDULER = "pages/background_task/WorkSchedulerPage";
 export let PAGE_SHORT_TASK = "pages/background_task/ShortTaskPage";
 export let PAGE_LONG_TASK = "pages/other/LongTaskPage";
 export let PAGE_LONG_TASK_DETAIL = "pages/other/LongTaskDetailPage";
-export let PAGE_CHAT = "pages/entry/chat/ChatPage";
+export let PAGE_CHAT = "pages/static/chat/ChatEntryPage";
 

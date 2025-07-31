@@ -16,6 +16,9 @@ export struct ChatItemComponent {
     .height('auto')
   }
 
+  /**
+   * 收到的消息
+   */
   @Builder
   OtherItem() {
     Row({ space: 8 }) {
@@ -44,6 +47,9 @@ export struct ChatItemComponent {
     })
   }
 
+  /**
+   * 发出的消息
+   */
   @Builder
   SelfItem() {
     Row({ space: 8 }) {

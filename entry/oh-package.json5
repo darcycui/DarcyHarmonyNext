@@ -15,9 +15,10 @@
     "static_library_common": "file:../static_library_common",
     // 引用本地动态库源码
     "shared_library_context": "file:../shared_library_context",
-    // 引用camera库
-//    "library_camera_shared": "file:../library_camera_shared",
-    "library_camera": "file:../library_camera"
+    // 引用camera库源码
+    "library_camera": "file:../library_camera",
+    // 引用chat库源码
+    "library_chat": "file:../chat"
 //
 //    // 2.本地文件依赖
 //    // 引用本地静态库文件

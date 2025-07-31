@@ -1,9 +1,9 @@
 import { BusinessError } from '@kit.BasicServicesKit';
-import { CameraHelper } from '../CameraHelper';
-import { Constants } from '../constants/Constants';
-import grantPermission from '../utils/PermissionUtils';
+import { CameraHelper } from '../../CameraHelper';
+import { Constants } from '../../constants/Constants';
+import grantPermission from '../../utils/PermissionUtils';
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
-import { GlobalCameraContext } from '../state/GlobalCameraContext';
+import { GlobalCameraContext } from '../../state/GlobalCameraContext';
 import { image } from '@kit.ImageKit';
 
 @Entry({ routeName: "pages/static/camera/CameraEntryPage" })

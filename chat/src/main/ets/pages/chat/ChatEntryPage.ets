@@ -1,9 +1,10 @@
-import { ChatItem } from '../../../models/ChatItem';
-import { ChatItemComponent } from '../../../views/ChatItemComponent';
+import { ChatItem } from '../../models/ChatItem';
+import { ChatItemComponent } from '../../views/ChatItemComponent';
 
-@Entry
+
+@Entry({routeName: 'pages/static/chat/ChatEntryPage'})
 @Component
-struct ChatPage {
+export struct ChatEntryPage {
   @State message: string = '消息';
   private chatList: Array<ChatItem> = [
     new ChatItem(200, 'Jerry', '你好 我是一只小老鼠'),
@@ -17,7 +18,7 @@ struct ChatPage {
           .fontSize(20)
           .fontColor(Color.Black)
         Row() {
-          Image($r('app.media.aaa')).width(34).height(34).margin({ left: 16 })
+          Image($r("app.media.left_arrow")).width(34).height(34).margin({ left: 16 })
             .onClick(() => {
               // 返回
             })

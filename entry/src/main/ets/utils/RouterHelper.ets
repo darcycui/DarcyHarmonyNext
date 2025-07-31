@@ -1,6 +1,7 @@
 import { router } from '@kit.ArkUI';
 import { Log } from 'static_library_common';
 import { common, Want } from '@kit.AbilityKit';
+import { JSON } from '@kit.ArkTS';
 
 export function startPage(url: string, params?: Record<string, string>) {
   router.pushUrl({
@@ -19,9 +20,10 @@ export function startNamedPage(url: string, params?: Record<string, string>) {
     name: url,
     params: params
   }).then(() => {
-    Log.log("Succeed to start page: " + url);
+    Log.log("Succeed to start named page: " + url);
   }).catch((err: Error) => {
-    Log.error("Failed to start page: " + url);
+    Log.error("Failed to start named page: " + url);
+    Log.error(`error:${err.name} ${err.message}`)
   });
 }
 

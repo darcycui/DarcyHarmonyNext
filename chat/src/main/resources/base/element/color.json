@@ -3,6 +3,18 @@
     {
       "name": "start_window_background",
       "value": "#FFFFFF"
+    },
+    {
+      "name": "message_color",
+      "value": "#4A4A4A"
+    },
+    {
+      "name": "message_bg_color_self",
+      "value": "#EDEDED"
+    },
+    {
+      "name": "message_bg_color_other",
+      "value": "#D84642"
     }
   ]
 }

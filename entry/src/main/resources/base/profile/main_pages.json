@@ -90,7 +90,6 @@
     "pages/background_task/ShortTaskPage",
     "pages/Index",
     "pages/other/LongTaskPage",
-    "pages/other/LongTaskDetailPage",
-    "pages/entry/chat/ChatPage"
+    "pages/other/LongTaskDetailPage"
   ]
 }
