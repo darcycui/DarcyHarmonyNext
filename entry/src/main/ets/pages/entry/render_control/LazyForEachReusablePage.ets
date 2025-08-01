@@ -1,6 +1,5 @@
 /** BasicDataSource代码见文档末尾附件: string类型数组的BasicDataSource代码 **/
-import { Log } from 'static_library_common';
-import { BasicDataSource } from './datasource/DataSources';
+import { Log, BasicDataSource } from 'static_library_common';
 import { JSON, util } from '@kit.ArkTS';
 
 @Observed
@@ -26,7 +25,7 @@ class StringData {
   }
 }
 
-class MyDataSourceLazyClass extends BasicDataSource<StringData> {
+class MyDataSourceLazyReusableClass extends BasicDataSource<StringData> {
   public moveDataWithoutNotify(from: number, to: number) {
     let tmp = this.dataArray.splice(from, 1);
     this.dataArray.splice(to, 0, tmp[0])
@@ -47,7 +46,7 @@ class MyDataSourceLazyClass extends BasicDataSource<StringData> {
 @Entry
 @Component
 struct LazyForEachClassPage {
-  private data: MyDataSourceLazyClass = new MyDataSourceLazyClass();
+  private data: MyDataSourceLazyReusableClass = new MyDataSourceLazyReusableClass();
 
   aboutToAppear() {
     for (let i = 0; i <= 30; i++) {

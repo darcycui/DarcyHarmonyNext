@@ -5,17 +5,13 @@ export { StaticInnerPage } from './src/main/ets/pages/StaticInnerPage'
 
 // TODO 导出类 在Index.ets导出文件中声明
 export { Log } from './src/main/ets/utils/Log'
-
 export { InitCommon } from './src/main/ets/InitCommon'
-
 export { HiLog } from './src/main/ets/utils/HiLog'
-
 export { RouterHelper } from './src/main/ets/utils/RouterHelper'
 export { NavigationHelper } from './src/main/ets/utils/NavigationHelper'
-
 export { AbilityHelper } from './src/main/ets/utils/AbilityHelper'
-
 export { ToastHelper } from './src/main/ets/utils/ToastHelper'
+export { BasicDataSource } from './src/main/ets/datasource/BasicDataSource'
 
 // TODO 导出函数 在Index.ets导出文件中声明
 export { func, func2 } from './src/main/ets/utils/Log'

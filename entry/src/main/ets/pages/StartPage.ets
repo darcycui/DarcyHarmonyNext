@@ -91,36 +91,12 @@ import { RouterHelper } from 'static_library_common/src/main/ets/utils/RouterHel
 import { common } from '@kit.AbilityKit';
 import { inspector, LengthUnit } from '@kit.ArkUI';
 import { Log, NavigationHelper } from 'static_library_common';
+import { ItemBean } from '../models/ItemBean';
+
 // 手动导入module中的页面
-import 'library_chat/src/main/ets/pages/chat/ChatEntryPage';
-import 'library_camera/src/main/ets/pages/camera/CameraEntryPage';
+// import 'library_chat/src/main/ets/pages/chat/ChatEntryPage';
+// import 'library_camera/src/main/ets/pages/camera/CameraEntryPage';
 
-class ItemBean {
-  private _pageName: string;
-
-  public set pageName(value: string) {
-    this._pageName = value;
-  }
-
-  public get pageName(): string {
-    return this._pageName;
-  }
-
-  private _text: Resource;
-
-  public set text(value: Resource) {
-    this._text = value;
-  }
-
-  public get text(): Resource {
-    return this._text;
-  }
-
-  constructor(pageName: string, text: Resource) {
-    this._pageName = pageName
-    this._text = text
-  }
-}
 
 @Entry
 @Component
@@ -296,7 +272,7 @@ struct StartPage {
           this.buildOneItem(item.pageName, item.text, { 'keyHello': 'Hello World' })
         }
       }, (item: string, index: number) => {
-        return item
+        return item + index
       })
 
   }

@@ -1,6 +1,7 @@
 import { Log, NavigationHelper, RouterHelper } from 'static_library_common';
 import { ChatItem } from '../../models/ChatItem';
 import { ChatItemComponent } from '../../views/ChatItemComponent';
+import { ChatDataSource } from './datasource/ChatDataSource';
 
 // darcyRefactor: 定义页面路由函数 @Builder
 @Builder
@@ -13,15 +14,22 @@ export function ChatEntryBuilder() {
 @Component
 @Preview
 export struct ChatEntryPage {
-  @State message: string = '消息';
-  private chatList: Array<ChatItem> = [
+  @State private message: string = '消息';
+  @State private chatList: Array<ChatItem> = [
     new ChatItem(200, 'Jerry', '你好 我是一只小老鼠'),
     new ChatItem(101, 'Tom', '你好 我是一只老猫'),
   ]
+  private lazyChatDataSource: ChatDataSource = new ChatDataSource();
+
   // Navigation 路由 栈控制器
   pathStack: NavPathStack = new NavPathStack();
   // 路由参数
   pageParam: Map<string, string> = new Map();
+
+  aboutToAppear(): void {
+    this.lazyChatDataSource.pushData(new ChatItem(200, 'Jerry', '你好 我是一只小老鼠'))
+    this.lazyChatDataSource.pushData(new ChatItem(101, 'Tom', '你好 我是一只老猫'))
+  }
 
   build() {
     NavDestination() {
@@ -40,20 +48,24 @@ export struct ChatEntryPage {
         }.width('100%').height(60).backgroundColor(Color.Blue)
 
         List() {
-          ForEach(this.chatList, (item: ChatItem, index: number) => {
+          LazyForEach(this.lazyChatDataSource, (item: ChatItem, index: number) => {
             ListItem() {
               ChatItemComponent({ model: item })
             }.width('100%').onClick(() => {
               NavigationHelper.startPage(this.pathStack, 'ChatUserInfo', { "key": "value", "userName": item.from })
             })
           }, (item: ChatItem, index: number) => {
-            return JSON.stringify(item)
+            return JSON.stringify(item) + index
           })
         }.width('100%').height('auto').layoutWeight(1)
 
         Row() {
           TextInput().layoutWeight(1)
-          Text('发送').fontSize(20).fontColor(Color.Black).margin({ right: 16 })
+          Button('发送').fontSize(20).fontColor(Color.Black).margin({ right: 16 })
+            .onClick(()=>{
+              this.lazyChatDataSource.pushData(new ChatItem(101, 'Tom', `来自老猫Tom的消息: ${Math.random() * 1000}`))
+              Log.warn(`lazyChatDataSource: ${JSON.stringify(this.lazyChatDataSource)}`)
+            })
         }.width('100%').height(50).backgroundColor(Color.Blue)
       }
       .height('100%')

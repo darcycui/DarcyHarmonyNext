@@ -1,6 +1,5 @@
 /** BasicDataSource代码见文档末尾附件: string类型数组的BasicDataSource代码 **/
-import { Log } from 'static_library_common';
-import { BasicDataSource } from './datasource/DataSources';
+import { Log, BasicDataSource } from 'static_library_common';
 
 class MyDataSourceLazy extends BasicDataSource<string> {
   public pushData(data: string): void {
