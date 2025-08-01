@@ -25,7 +25,7 @@ struct LocalStoragePage1 {
       // @Component子组件自动获得对Parent LocalStorage实例的访问权限。
       ChildLocal1()
       Button('跳转页面2').onClick(() => {
-        RouterHelper.startPage(PAGE_LOCAL_STORAGE_PAGE_2, { 'message': '测试不同页面共享LocalStorage' })
+        RouterHelper.startPage(this.getUIContext(), PAGE_LOCAL_STORAGE_PAGE_2, { 'message': '测试不同页面共享LocalStorage' })
       })
     }
   }

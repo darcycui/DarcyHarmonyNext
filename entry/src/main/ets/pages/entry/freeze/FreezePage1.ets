@@ -20,7 +20,7 @@ struct Page1 {
         })
       Button('go to next page')
         .onClick(() => {
-          RouterHelper.startPage(PAGE_FREEZE_PAGE_2)
+          RouterHelper.startPage(this.getUIContext(), PAGE_FREEZE_PAGE_2)
         })
     }
   }

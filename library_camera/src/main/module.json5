@@ -13,6 +13,7 @@
         "value": "true"
       }
     ],
+    "routerMap": "$profile:router_map",
     "requestPermissions": [
       {
         "name": "ohos.permission.CAMERA",

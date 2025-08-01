@@ -1,0 +1,14 @@
+{
+  "routerMap" : [
+    {
+      "name" : "pages/static/chat/ChatEntryPage",
+      "pageSourceFile" : "src/main/ets/pages/chat/ChatEntryPage.ets",
+      "buildFunction" : "ChatEntryBuilder"
+    },
+    {
+      "name" : "ChatUserInfo",
+      "pageSourceFile" : "src/main/ets/pages/chat/UserInfoPage.ets",
+      "buildFunction" : "ChatUserInfoBuilder"
+    }
+  ]
+}

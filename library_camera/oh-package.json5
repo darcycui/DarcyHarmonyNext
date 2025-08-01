@@ -6,6 +6,9 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "liblibrary_camera.so": "file:./src/main/cpp/types/liblibrary_camera"
+    // 依赖 Napi接口
+    "liblibrary_camera.so": "file:./src/main/cpp/types/liblibrary_camera",
+    // 源码依赖 common
+    "static_library_common": "file:../static_library_common"
   }
 }

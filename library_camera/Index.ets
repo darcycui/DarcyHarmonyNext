@@ -1,4 +1,4 @@
-export { MainPage } from './src/main/ets/components/MainPage'
+export { CameraComponent } from './src/main/ets/components/CameraComponent'
 
 export { CameraEntryPage } from './src/main/ets/pages/camera/CameraEntryPage'
 

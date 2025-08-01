@@ -11,6 +11,7 @@ export { InitCommon } from './src/main/ets/InitCommon'
 export { HiLog } from './src/main/ets/utils/HiLog'
 
 export { RouterHelper } from './src/main/ets/utils/RouterHelper'
+export { NavigationHelper } from './src/main/ets/utils/NavigationHelper'
 
 export { AbilityHelper } from './src/main/ets/utils/AbilityHelper'
 

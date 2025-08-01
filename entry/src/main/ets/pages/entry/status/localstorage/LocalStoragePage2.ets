@@ -6,10 +6,10 @@ import { Log } from 'static_library_common';
 struct LocalStoragePage2 {
   @State message: string = ''
   onPageShow(): void {
-    // 接收传递进来的参数
+    // 接收router传递进来的参数
     const params = this.getUIContext().getRouter().getParams() as Record<string, string>; // 获取传递过来的参数对象
     if (params) {
-      this.message = params.message as string ?? 'default'; // 获取message属性的值
+      this.message = params['keyHello'] as string ?? 'default'; // 获取参数keyHello
     } else {
       Log.error(`router params is null`)
     }

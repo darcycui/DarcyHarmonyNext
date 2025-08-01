@@ -1,8 +1,9 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import testNapi from 'liblibrary_camera.so';
+import { Log } from 'static_library_common';
 
 @Component
-export struct MainPage {
+export struct CameraComponent {
   @State message: string = 'Hello World';
 
   build() {
@@ -12,7 +13,7 @@ export struct MainPage {
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
           .onClick(() => {
-            hilog.info(0x0000, 'testTag', 'Test NAPI 2 + 3 = %{public}d', testNapi.add(2, 3));
+            Log.info(`Test NAPI 2 + 3 = ${testNapi.add(2, 3)}`)
           })
       }
       .width('100%')

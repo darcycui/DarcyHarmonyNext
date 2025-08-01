@@ -20,7 +20,7 @@ struct StaticLibraryPage {
         .margin({ bottom: 10 })
         .onClick(() => {
           // 跳转到静态库页面
-          RouterHelper.startNamedPage(PAGE_STATIC_INNER, { 'keyHello': 'Hello World' });
+          RouterHelper.startNamedPage(this.getUIContext(), PAGE_STATIC_INNER, { 'keyHello': 'Hello World' });
         })
       // 引用static库中的图片
       Image($r("app.media.static_icon"))

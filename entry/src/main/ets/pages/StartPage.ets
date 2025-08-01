@@ -90,7 +90,7 @@ import {
 import { RouterHelper } from 'static_library_common/src/main/ets/utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
 import { inspector, LengthUnit } from '@kit.ArkUI';
-import { Log } from 'static_library_common';
+import { Log, NavigationHelper } from 'static_library_common';
 // 手动导入module中的页面
 import 'library_chat/src/main/ets/pages/chat/ChatEntryPage';
 import 'library_camera/src/main/ets/pages/camera/CameraEntryPage';
@@ -126,6 +126,8 @@ class ItemBean {
 @Component
 struct StartPage {
   @State message: string = 'Hello World';
+  // navigation 栈控制器
+  pathStack: NavPathStack = new NavPathStack();
   // 获取上下文context
   context = getContext(this) as common.UIAbilityContext;
   // 监听组件渲染步骤
@@ -141,46 +143,54 @@ struct StartPage {
   scroller = new Scroller()
 
   build() {
-    Scroll(this.scroller) {
-      Column() {
-        Text(getTextStr())
-        Blank().height(5)
-        Flex({
-          // 主轴方向 横向
-          direction: FlexDirection.Row,
-          // 多行 自动换行
-          wrap: FlexWrap.Wrap,
-          // 主轴对齐方式
-          justifyContent: FlexAlign.Start,
-          // 交叉轴对齐方式
-          alignItems: ItemAlign.Start,
-          // 交叉轴多行 额外空间对齐
-          // alignContent: FlexAlign.Center,
-          // 间距
-          space: {
-            // 主轴间距
-            main: { value: 5, unit: LengthUnit.VP },
-            // 交叉轴间距
-            cross: { value: 10, unit: LengthUnit.VP }
-          }
-        }) {
-          this.buildItems()
-        }
-      }
-      .width('100%')
+    Navigation(this.pathStack) {
 
-      // .height('100%') // Scroll的子组件 不能设置height为100% 否则无法滚动
-    }
-    .scrollable(ScrollDirection.Vertical)
-    .width('100%')
-    .height('100%')
-    .id('scroll')
+
+      Scroll(this.scroller) {
+        Column() {
+          Text(getTextStr())
+          Blank().height(5)
+          Flex({
+            // 主轴方向 横向
+            direction: FlexDirection.Row,
+            // 多行 自动换行
+            wrap: FlexWrap.Wrap,
+            // 主轴对齐方式
+            justifyContent: FlexAlign.Start,
+            // 交叉轴对齐方式
+            alignItems: ItemAlign.Start,
+            // 交叉轴多行 额外空间对齐
+            // alignContent: FlexAlign.Center,
+            // 间距
+            space: {
+              // 主轴间距
+              main: { value: 5, unit: LengthUnit.VP },
+              // 交叉轴间距
+              cross: { value: 10, unit: LengthUnit.VP }
+            }
+          }) {
+            this.buildItems()
+          }
+        }
+        .width('100%')
+
+        // .height('100%') // Scroll的子组件 不能设置height为100% 否则无法滚动
+      }
+      .scrollable(ScrollDirection.Vertical)
+      .width('100%')
+      .height('100%')
+      .id('scroll')
+      .onAppear(() => {
+        Log.log('scroll onAppear')
+        // 等待绘制结束 滚动到底部
+        setTimeout(() => {
+          this.scroller.scrollEdge(Edge.Bottom)
+        }, 1_00)
+      })
+    }.title("StartPage")
+    .titleMode(NavigationTitleMode.Mini)
     .onAppear(() => {
-      Log.log('scroll onAppear')
-      // 等待绘制结束 滚动到底部
-      setTimeout(() => {
-        this.scroller.scrollEdge(Edge.Bottom)
-      }, 1_00)
+      Log.log('StartPage onAppear')
     })
   }
 
@@ -224,6 +234,7 @@ struct StartPage {
     new ItemBean(PAGE_OBSERVED_ARRAY_PAGE, $r('app.string.TestObservedArrayPage')),
     new ItemBean(PAGE_OBSERVED_ARRAY_PAGE_2, $r('app.string.TestObservedArrayPage2')),
     new ItemBean(PAGE_LOCAL_STORAGE_PAGE_1, $r('app.string.TestLocalStoragePage1')),
+    new ItemBean(PAGE_LOCAL_STORAGE_PAGE_2, $r('app.string.TestLocalStoragePage2')),
     new ItemBean(PAGE_LOCAL_STORAGE_PAGE_3, $r('app.string.TestLocalStoragePage3')),
     new ItemBean(PAGE_LOCAL_STORAGE_PAGE_4, $r('app.string.TestLocalStoragePage4')),
     new ItemBean(PAGE_LOCAL_STORAGE_PAGE_5, $r('app.string.TestLocalStoragePage5')),
@@ -278,7 +289,8 @@ struct StartPage {
       (item: ItemBean, index: number) => {
         if (item.pageName === PAGE_CHAT || item.pageName === PAGE_STATIC_CAMERA) {
           this.buildOneItem(item.pageName, item.text, { 'keyHello': 'Hello World' }, () => {
-            RouterHelper.startNamedPage(item.pageName, { 'keyHello': 'Hello World' })
+            // RouterHelper.startNamedPage(this.getUIContext(), item.pageName, { 'keyHello': 'Hello World' })
+            NavigationHelper.startPage(this.pathStack, item.pageName, { 'keyHello': 'Hello World' })
           })
         } else {
           this.buildOneItem(item.pageName, item.text, { 'keyHello': 'Hello World' })
@@ -300,7 +312,7 @@ struct StartPage {
           onclick()
         } else {
           Log.log(`-->default onClick: start page: ${url}`)
-          RouterHelper.startPage(url, params);
+          RouterHelper.startPage(this.getUIContext(), url, params);
         }
       })
   }

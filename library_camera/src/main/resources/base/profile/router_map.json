@@ -1,0 +1,9 @@
+{
+  "routerMap" : [
+    {
+      "name" : "pages/static/camera/CameraEntryPage",
+      "pageSourceFile" : "src/main/ets/pages/camera/CameraEntryPage.ets",
+      "buildFunction" : "CameraEntryBuilder"
+    }
+  ]
+}
