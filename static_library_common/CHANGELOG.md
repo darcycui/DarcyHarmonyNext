@@ -21,3 +21,7 @@
 - 添加AbilityHelper，封装Ability跳转功能(want)
 - 添加RouterHelper，封装路由功能(router)
 - 重构ToastUtil 为 ToastHelper
+
+# 5. 版本号 1.0.4
+- 发布时间: 2025-09-05
+- 添加NavigationHelper，封装导航功能(navigator)，建议使用NavigationHelper替换RouterHelper
