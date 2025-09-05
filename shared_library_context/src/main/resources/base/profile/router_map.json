@@ -1,0 +1,9 @@
+{
+  "routerMap" : [
+    {
+      "name" : "pages/shared/context/SharedInnerPage",
+      "pageSourceFile" : "src/main/ets/pages/SharedInnerPage.ets",
+      "buildFunction" : "SharedInnerPageBuilder"
+    }
+  ]
+}

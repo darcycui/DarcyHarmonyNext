@@ -89,6 +89,10 @@
       "value": "StaticLibraryCommonFunc"
     },
     {
+      "name": "SharedLibraryCommonFunc",
+      "value": "SharedLibraryCommonFunc"
+    },
+    {
       "name": "TestEventHub",
       "value": "EventHub"
     },

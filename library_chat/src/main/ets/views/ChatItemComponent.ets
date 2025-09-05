@@ -6,7 +6,12 @@ export struct ChatItemComponent {
 
   build() {
     Column() {
-      Text(this.model.time).fontSize(13).fontColor(Color.Gray).width('100%').textAlign(TextAlign.Center)
+      Text(this.model.time)
+        .fontSize(13)
+        .fontColor(Color.Gray)
+        .width('100%')
+        .textAlign(TextAlign.Center)
+        .margin({ top: 20 })
       if (this.model.isSelf()) {
         this.SelfItem()
       } else {

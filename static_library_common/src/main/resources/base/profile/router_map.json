@@ -1,0 +1,9 @@
+{
+  "routerMap" : [
+    {
+      "name" : "pages/static/common/StaticInnerPage",
+      "pageSourceFile" : "src/main/ets/pages/StaticInnerPage.ets",
+      "buildFunction" : "StaticInnerPageBuilder"
+    }
+  ]
+}

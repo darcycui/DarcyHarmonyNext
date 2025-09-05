@@ -93,11 +93,6 @@ import { inspector, LengthUnit } from '@kit.ArkUI';
 import { Log, NavigationHelper } from 'static_library_common';
 import { ItemBean } from '../models/ItemBean';
 
-// 手动导入module中的页面
-// import 'library_chat/src/main/ets/pages/chat/ChatEntryPage';
-// import 'library_camera/src/main/ets/pages/camera/CameraEntryPage';
-
-
 @Entry
 @Component
 struct StartPage {
@@ -163,7 +158,10 @@ struct StartPage {
           this.scroller.scrollEdge(Edge.Bottom)
         }, 1_00)
       })
-    }.title("StartPage")
+    }
+    .mode(NavigationMode.Auto)
+    .title("StartPage")
+    .hideBackButton(true)
     .titleMode(NavigationTitleMode.Mini)
     .onAppear(() => {
       Log.log('StartPage onAppear')
@@ -263,9 +261,10 @@ struct StartPage {
   buildItems() {
     ForEach(this.pageNameArray,
       (item: ItemBean, index: number) => {
-        if (item.pageName === PAGE_CHAT || item.pageName === PAGE_STATIC_CAMERA) {
+        if (item.pageName === PAGE_CHAT || item.pageName === PAGE_STATIC_CAMERA
+          || item.pageName === PAGE_STATIC_LIBRARY || item.pageName === PAGE_SHARED_LIBRARY) {
           this.buildOneItem(item.pageName, item.text, { 'keyHello': 'Hello World' }, () => {
-            // RouterHelper.startNamedPage(this.getUIContext(), item.pageName, { 'keyHello': 'Hello World' })
+            // 使用 Navigation 跳转 支持相同模块、不同模块
             NavigationHelper.startPage(this.pathStack, item.pageName, { 'keyHello': 'Hello World' })
           })
         } else {
@@ -288,7 +287,7 @@ struct StartPage {
           onclick()
         } else {
           Log.log(`-->default onClick: start page: ${url}`)
-          RouterHelper.startPage(this.getUIContext(), url, params);
+          RouterHelper.startPage(this.getUIContext(), url, params)
         }
       })
   }

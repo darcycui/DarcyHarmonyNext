@@ -3,7 +3,7 @@ import { PAGE_START } from '../pages/PageName';
 import { HiLog, Log } from 'static_library_common';
 import { BaseUIAbility } from '../base/BaseUIAbility';
 import { EntryEvent } from '../event/EventName';
-import { promptAction, window } from '@kit.ArkUI';
+import { KeyboardAvoidMode, promptAction, window } from '@kit.ArkUI';
 import { DataStorage } from '../pages/entry/status/localstorage/LocalStoragePage1';
 
 
@@ -11,8 +11,9 @@ export default class EntryAbility extends BaseUIAbility {
   getLocalStorage(): LocalStorage | null {
     return this.localStorage
   }
+
   // 创建LocalStorage
-    para1: Record<string, number> = {
+  para1: Record<string, number> = {
     'PropA': 47,
     'Tom': 100,
     'Jerry': 200
@@ -34,6 +35,7 @@ export default class EntryAbility extends BaseUIAbility {
     // this.testPersistentStorage()
     // this.testEnvironment()
   }
+
   onWindowStageCreate(windowStage: window.WindowStage): void {
     super.onWindowStageCreate(windowStage)
     this.testPersistentStorage()
@@ -41,10 +43,14 @@ export default class EntryAbility extends BaseUIAbility {
     let window = windowStage.getMainWindow()
     window.then(window => {
       let uiContext = window.getUIContext()
+      // 设置软键盘弹出时 页面避让策略
+      uiContext.setKeyboardAvoidMode(KeyboardAvoidMode.RESIZE)
+
       uiContext.runScopedTask(() => {
         this.testEnvironment()
       })
     })
+
   }
 
   testEnvironment() {
@@ -63,6 +69,7 @@ export default class EntryAbility extends BaseUIAbility {
   testPersistentStorage() {
     PersistentStorage.persistProp('aProp', 45);
   }
+
   testAppStorage() {
     // 添加key value
     AppStorage.setOrCreate('PropA', 47);

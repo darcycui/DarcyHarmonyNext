@@ -9,6 +9,7 @@
       "2in1"
     ],
     "deliveryWithInstall": true,
-    "pages": "$profile:main_pages"
+    "pages": "$profile:main_pages",
+    "routerMap":'$profile:router_map'
   }
 }

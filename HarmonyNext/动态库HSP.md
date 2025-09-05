@@ -41,7 +41,7 @@ export struct SharedInnerPage {
 }
 ```
 
-# 8.跳转pages的其他方法
+# 8.通过Navigation跳转pages
 
 # 9.
 

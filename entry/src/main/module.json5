@@ -13,6 +13,7 @@
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:main_pages",
+    "routerMap": "$profile:router_map",
     // TODO:申请权限
     "requestPermissions": [
       {

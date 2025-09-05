@@ -45,7 +45,7 @@ class MyDataSourceLazyReusableClass extends BasicDataSource<StringData> {
 
 @Entry
 @Component
-struct LazyForEachClassPage {
+struct LazyForEachReusablePage {
   private data: MyDataSourceLazyReusableClass = new MyDataSourceLazyReusableClass();
 
   aboutToAppear() {

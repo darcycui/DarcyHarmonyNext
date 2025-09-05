@@ -13,7 +13,6 @@ export function CameraEntryBuilder() {
   CameraEntryPage()
 }
 
-// @Entry({ routeName: "pages/static/camera/CameraEntryPage" })
 @Component
 export struct CameraEntryPage {
   private XComponentController: XComponentController = new XComponentController();
