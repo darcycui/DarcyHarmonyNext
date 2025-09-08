@@ -21,8 +21,9 @@ export struct ChatEntryPage {
     new ChatItem(101, 'Tom', '你好 我是一只老猫'),
   ]
   private lazyChatDataSource: ChatDataSource = new ChatDataSource();
-  // Navigation 路由 栈控制器
-  pathStack: NavPathStack = new NavPathStack();
+  // Navigation 路由 栈控制器 @Consume跨组件传递
+  @Consume('appPathStack') pathStack: NavPathStack;
+
   // 路由参数
   pageParam: Map<string, string> = new Map();
   private scroller: Scroller = new Scroller()
@@ -48,7 +49,7 @@ export struct ChatEntryPage {
   }
 
   build() {
-    NavDestination() {
+    // NavDestination() {
       Column() {
         Stack() {
           Text(this.message)
@@ -96,13 +97,13 @@ export struct ChatEntryPage {
       .height('100%')
       .width('100%')
     }
-    .title("聊天")
-    .onReady((context: NavDestinationContext) => {
-      // 从参数中获取 页面栈
-      this.pathStack = context.pathStack
-      // 从参数中获取 路由参数
-      this.pageParam = context.pathInfo.param as Map<string, string>
-      Log.info(`pageParam: ${JSON.stringify(this.pageParam)}`)
-    })
-  }
+    // .title("聊天")
+    // .onReady((context: NavDestinationContext) => {
+    //   // 从参数中获取 页面栈
+    //   this.pathStack = context.pathStack
+    //   // 从参数中获取 路由参数
+    //   this.pageParam = context.pathInfo.param as Map<string, string>
+    //   Log.info(`pageParam: ${JSON.stringify(this.pageParam)}`)
+    // })
+  // }
 }

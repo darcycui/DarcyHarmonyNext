@@ -7,6 +7,8 @@ import { StartPage } from './StartPage';
 struct Index {
   @State message: string = 'This is contract page';
   @State currentIndex: number = 0;
+  // navigation路由控制器 @Provide跨页面传递
+  @Provide('appPathStack') pathStack: NavPathStack = new NavPathStack();
 
   // 自定义 TabContent
   @Builder
@@ -23,23 +25,33 @@ struct Index {
   }
 
   build() {
-    Tabs({ barPosition: BarPosition.End, index: this.currentIndex }) {
-      TabContent() {
-        ChatEntryPage()
-      }.tabBar(this.tabBuilder(0, $r("app.string.tab_bar_title_chat"), $r('app.media.yes'), $r('app.media.no')))
+    Navigation(this.pathStack) {
 
-      TabContent() {
-        ContractPage()
-      }.tabBar(this.tabBuilder(1, $r("app.string.tab_bar_title_contract"), $r('app.media.yes'), $r('app.media.no')))
+      Tabs({ barPosition: BarPosition.End, index: this.currentIndex }) {
+        TabContent() {
+          ChatEntryPage()
+        }.tabBar(this.tabBuilder(0, $r("app.string.tab_bar_title_chat"), $r('app.media.yes'), $r('app.media.no')))
 
-      TabContent() {
-        StartPage()
-      }.tabBar(this.tabBuilder(2, $r('app.string.tab_bar_title_me'), $r('app.media.yes'), $r('app.media.no')))
-    }.scrollable(true)
-    .barMode(BarMode.Fixed)
-    // 监听选中页面
-    .onChange((index: number) => {
-      this.currentIndex = index
-    })
+        TabContent() {
+          ContractPage()
+        }.tabBar(this.tabBuilder(1, $r("app.string.tab_bar_title_contract"), $r('app.media.yes'), $r('app.media.no')))
+
+        TabContent() {
+          StartPage()
+        }.tabBar(this.tabBuilder(2, $r('app.string.tab_bar_title_me'), $r('app.media.yes'), $r('app.media.no')))
+      }
+      .scrollable(true)
+      .barMode(BarMode.Fixed)
+      // 监听选中页面
+      .onChange((index: number) => {
+        this.currentIndex = index
+      })
+    }
+    .width('100%')
+    .height('100%')
+    .hideTitleBar(true)
+    .hideToolBar(true)
+    .mode(NavigationMode.Stack)
+
   }
 }
