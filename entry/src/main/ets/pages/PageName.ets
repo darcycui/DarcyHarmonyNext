@@ -1,3 +1,4 @@
+export let PAGE_INDEX = "pages/Index";
 export let PAGE_START = "pages/StartPage";
 export let PAGE_START_OTHER = "pages/other/OtherStartPage";
 export let PAGE_RELATIVE = "pages/entry/basepage/RelativePage";

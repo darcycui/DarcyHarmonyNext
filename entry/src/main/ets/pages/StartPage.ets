@@ -90,12 +90,12 @@ import {
 import { RouterHelper } from 'static_library_common/src/main/ets/utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
 import { inspector, LengthUnit } from '@kit.ArkUI';
-import { Log, NavigationHelper } from 'static_library_common';
+import { Log, NavigationHelper, ToastHelper } from 'static_library_common';
 import { ItemBean } from '../models/ItemBean';
 
 @Entry
 @Component
-struct StartPage {
+export struct StartPage {
   @State message: string = 'Hello World';
   // navigation 栈控制器
   pathStack: NavPathStack = new NavPathStack();
@@ -112,11 +112,44 @@ struct StartPage {
   }
   // 用于控制Scroll组件的滚动
   scroller = new Scroller()
+  // 菜单栏(右上角)
+  menuItem1: NavigationMenuItem = {
+    value: $r('app.string.start_menu_1'),
+    icon: $r('app.media.yes'),
+    isEnabled: true,
+    action: ()=>{
+      ToastHelper.showToast($r('app.string.start_menu_1'))
+    }
+  }
+  menuItem2: NavigationMenuItem = {
+    value: $r('app.string.start_menu_2'),
+    icon: $r('app.media.no'),
+    isEnabled: true,
+    action: ()=>{
+      ToastHelper.showToast($r('app.string.start_menu_2'))
+    }
+  }
+  // 工具栏(底部)
+  toolbarItem1: ToolbarItem = {
+    value: $r('app.string.start_toolbar_1'),
+    icon: $r('app.media.yes'),
+    status: ToolbarItemStatus.ACTIVE,
+    action: ()=>{
+      ToastHelper.showToast($r('app.string.start_toolbar_1'))
+    }
+  }
+  toolbarItem2: ToolbarItem = {
+    value: $r('app.string.start_toolbar_2'),
+    icon: $r('app.media.yes'),
+    status: ToolbarItemStatus.NORMAL,
+    action: ()=>{
+      ToastHelper.showToast($r('app.string.start_toolbar_2'))
+      NavigationHelper.startPage(this.pathStack, PAGE_CHAT, { "key": "value" })
+    }
+  }
 
   build() {
     Navigation(this.pathStack) {
-
-
       Scroll(this.scroller) {
         Column() {
           Text(getTextStr())
@@ -144,7 +177,6 @@ struct StartPage {
           }
         }
         .width('100%')
-
         // .height('100%') // Scroll的子组件 不能设置height为100% 否则无法滚动
       }
       .scrollable(ScrollDirection.Vertical)
@@ -163,6 +195,8 @@ struct StartPage {
     .title("StartPage")
     .hideBackButton(true)
     .titleMode(NavigationTitleMode.Mini)
+    .menus([this.menuItem1, this.menuItem2])
+    .toolbarConfiguration([this.toolbarItem1, this.toolbarItem2])
     .onAppear(() => {
       Log.log('StartPage onAppear')
     })

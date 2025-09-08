@@ -1,5 +1,5 @@
 import { AbilityConstant, Want } from '@kit.AbilityKit';
-import { PAGE_START } from '../pages/PageName';
+import { PAGE_INDEX, PAGE_START } from '../pages/PageName';
 import { HiLog, Log } from 'static_library_common';
 import { BaseUIAbility } from '../base/BaseUIAbility';
 import { EntryEvent } from '../event/EventName';
@@ -22,7 +22,7 @@ export default class EntryAbility extends BaseUIAbility {
   localStorage: LocalStorage = new LocalStorage(this.para1);
 
   getInitPageName(): string {
-    return PAGE_START
+    return PAGE_INDEX
   }
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {

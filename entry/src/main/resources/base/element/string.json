@@ -479,6 +479,34 @@
     {
       "name": "ChatPage",
       "value": "Chat"
+    },
+    {
+      "name": "start_menu_1",
+      "value": "Menu1"
+    },
+    {
+      "name": "start_menu_2",
+      "value": "Menu2"
+    },
+    {
+      "name": "start_toolbar_1",
+      "value": "Home"
+    },
+    {
+      "name": "start_toolbar_2",
+      "value": "Chat"
+    },
+    {
+      "name": "tab_bar_title_chat",
+      "value": "Chat"
+    },
+    {
+      "name": "tab_bar_title_contract",
+      "value": "Contract"
+    },
+    {
+      "name": "tab_bar_title_me",
+      "value": "Me"
     }
   ]
 }
