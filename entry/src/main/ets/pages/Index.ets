@@ -1,4 +1,5 @@
 import { ChatEntryPage } from 'library_chat';
+import { ContractPage } from 'library_contract';
 import { StartPage } from './StartPage';
 
 @Entry
@@ -28,7 +29,7 @@ struct Index {
       }.tabBar(this.tabBuilder(0, $r("app.string.tab_bar_title_chat"), $r('app.media.yes'), $r('app.media.no')))
 
       TabContent() {
-        Text(this.message)
+        ContractPage()
       }.tabBar(this.tabBuilder(1, $r("app.string.tab_bar_title_contract"), $r('app.media.yes'), $r('app.media.no')))
 
       TabContent() {

@@ -1,0 +1,11 @@
+{
+  "module": {
+    "name": "library_contact",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet",
+      "2in1"
+    ]
+  }
+}

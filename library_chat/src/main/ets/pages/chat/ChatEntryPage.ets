@@ -1,4 +1,4 @@
-import { Log, NavigationHelper, RouterHelper } from 'static_library_common';
+import { Log, NavigationHelper, RouterHelper, ToastHelper } from 'static_library_common';
 import { ChatItem } from '../../models/ChatItem';
 import { ChatItemComponent } from '../../views/ChatItemComponent';
 import { ChatDataSource } from './datasource/ChatDataSource';
@@ -55,10 +55,10 @@ export struct ChatEntryPage {
             .fontSize(20)
             .fontColor(Color.Black)
           Row() {
-            Image($r("app.media.left_arrow")).width(34).height(34).margin({ left: 16 })
+            Image($r("app.media.mouse")).width(34).height(34).margin({ left: 16 })
               .onClick(() => {
-                // 返回
-                RouterHelper.back(this.getUIContext())
+                // 头像
+                ToastHelper.showToast('头像')
               })
           }.width('100%')
         }.width('100%').height(60).backgroundColor(Color.Blue)
