@@ -1,6 +1,7 @@
 // library/src/main/ts/test.ets
 export class Log {
-  private static showLog: boolean = false;
+  // private static showLog: boolean = false;
+  private static showLog: boolean = true;
 
   static setShowLog(showLog: boolean) {
     Log.showLog = showLog;

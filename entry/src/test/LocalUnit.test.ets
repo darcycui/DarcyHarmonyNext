@@ -357,24 +357,24 @@ export default function localUnitTest() {
       // tom2.getName()
 
       // Record(map) 使用对象字面量初始化
-      let map: Record<string, number> = {
+      let record: Record<string, number> = {
         "John": 25,
         "Mary": 21
       }
       // Record遍历
       // 使用 Object.keys() 和 forEach() 遍历 Record
-      Object.keys(map).forEach(key => {
-        Log.log(`Key: ${key}, Value: ${map[key]}`);
+      Object.keys(record).forEach(key => {
+        Log.log(`Key: ${key}, Value: ${record[key]}`);
       });
 
       // 获取record的值
-      Log.log("record John=" + map["John"])
+      Log.log("record John=" + record["John"])
       // 修改record的值
-      map["John"] = 24
-      Log.log("record John=" + map["John"])
+      record["John"] = 24
+      Log.log("record John=" + record["John"])
 
-      // record的K只能是string或number
-      let map2: Record<number, Point> = {
+      // record的Key只能是string或number
+      let record2: Record<number, Point> = {
         1: {
           x: 1, y: 1
         },
@@ -382,7 +382,16 @@ export default function localUnitTest() {
           x: 2, y: 2
         }
       }
-      Log.log("record2 point1=" + map2[1].x + " " + map2[1].y)
+      Log.log("record2 point1=" + record2[1].x + " " + record2[1].y)
+
+      // map
+      let map: Map<string, number>= new Map<string,number>()
+      map.set("one", 1)
+      map.set("two",2)
+      // 遍历map
+      map.forEach((value, key) => {
+        Log.log(`Key: ${key}, Value: ${value}`);
+      })
 
     })
 
@@ -410,6 +419,10 @@ export default function localUnitTest() {
       // TODO:在尾部添加元素 push
       array.push(100)
       array.push(200)
+      // 遍历数组
+      array.forEach(item => {
+        Log.log("item=" + item)
+      })
       // TODO:在头部添加元素 unshift
       array.unshift(300)
       Log.log("array=" + array)

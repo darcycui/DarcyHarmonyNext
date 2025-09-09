@@ -12,6 +12,7 @@ export function test_promise_func() {
     }, 3_000);
   });
   Log.log(`promise start`);
+  // 获取 promise 的结果 then()
   promise.then((result) => {
     Log.log(`Promise resolved with result: ${result}`);
   }, (reason: string) => {
@@ -19,7 +20,7 @@ export function test_promise_func() {
   }).catch((error: Error) => {
     Log.error(`Promise rejected with error: ${error.message}`);
   });
-  console.log(`promise end`);
+  Log.log(`promise end`);
 }
 
 
@@ -37,6 +38,7 @@ export async function test_async_wait_func(): Promise<number> {
       }
     }, 3_000)
   })
+  // 等待 promise 的结果
   let result = await promise
   Log.log(`async end`)
   return result
