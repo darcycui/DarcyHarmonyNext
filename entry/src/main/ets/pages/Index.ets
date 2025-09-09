@@ -6,7 +6,7 @@ import { StartPage } from './StartPage';
 @Component
 struct Index {
   @State message: string = 'This is contract page';
-  @State currentIndex: number = 0;
+  @State currentIndex: number = 2;
   // navigation路由控制器 @Provide跨页面传递
   @Provide('appPathStack') pathStack: NavPathStack = new NavPathStack();
 

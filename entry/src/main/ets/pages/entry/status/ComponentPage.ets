@@ -1,3 +1,8 @@
+@Builder
+export function NavigationBuilder() {
+  ComponentPage()
+}
+
 @Entry
 @Component
 struct ComponentPage {

@@ -19,65 +19,14 @@ import {
   PAGE_UTD,
   PAGE_KEY_VALUE,
   PAGE_DATABASE,
-  PAGE_COMPONENT_STATUS,
-  PAGE_STATE,
-  PAGE_STATE_CHANGED_1,
-  PAGE_STATE_CHANGED_2,
-  PAGE_STATE_CHANGED_3,
-  PAGE_STATE_CHANGED_4,
-  PAGE_STATE_CHANGED_5,
-  PAGE_PROP_CHANGED_1,
-  PAGE_PROP_CHANGED_2,
-  PAGE_LINK,
-  PAGE_PROVIDE_CONSUME,
-  PAGE_PROVIDE_CONSUME_2,
-  PAGE_PROVIDE_CONSUME_3,
-  PAGE_OBSERVED_CLASS_PAGE,
-  PAGE_OBSERVED_CLASS_PAGE_2,
-  PAGE_OBSERVED_ARRAY_PAGE,
-  PAGE_OBSERVED_ARRAY_PAGE_2,
-  PAGE_LOCAL_STORAGE_PAGE_1,
-  PAGE_LOCAL_STORAGE_PAGE_2,
-  PAGE_LOCAL_STORAGE_PAGE_3,
-  PAGE_LOCAL_STORAGE_PAGE_4,
-  PAGE_LOCAL_STORAGE_PAGE_5,
-  PAGE_APP_STORAGE_PAGE_1,
   PAGE_EMIT_PAGE,
-  PAGE_PERSISTENT_PAGE,
-  PAGE_ENVIRONMENT_PAGE,
-  PAGE_WATCH_PAGE,
-  PAGE_WATCH_LINK_PAGE,
-  PAGE_WATCH_CHANGE_TIME_PAGE,
-  PAGE_$$_PAGE,
-  PAGE_TRACK_PAGE,
-  PAGE_FREEZE_PAGE_1,
-  PAGE_FREEZE_TAB,
-  PAGE_FREEZE_LIST,
-  PAGE_FREEZE_NAVIGATION,
   PAGE_WANT_ABILITY,
   PAGE_MVVM_TEST,
   PAGE_TEST_LIST,
-  PAGE_RENDER_IF_ELSE,
-  PAGE_RENDER_IF_ELSE_WITH_STATE,
-  PAGE_RENDER_IF_ELSE_WITH_STATE_CHANGED,
   PAGE_ANIMATE_TO,
-  PAGE_RENDER_FOR_EACH_PAGE_1,
   PAGE_ARTICLE_LIST,
-  PAGE_RENDER_LAZY_FOR_EACH_PAGE_1,
-  PAGE_RENDER_LAZY_FOR_EACH_PAGE_2,
-  PAGE_RENDER_LAZY_FOR_EACH_PAGE_3,
-  PAGE_BUILDER_1,
-  PAGE_BUILDER_2,
-  PAGE_BUILDER_3,
-  PAGE_LOCAL_BUILDER_1,
   PAGE_EVENT,
   PAGE_NAPI,
-  PAGE_LOCAL_BUILDER_2,
-  PAGE_LOCAL_BUILDER_3,
-  PAGE_BUILDER_PARAM_1,
-  PAGE_BUILDER_PARAM_2,
-  PAGE_BUILDER_PARAM_3,
-  PAGE_WRAP_BUILDER_PAGE,
   PAGE_STYLES_PAGE,
   PAGE_EXTEND_PAGE,
   PAGE_STATE_STYLES_PAGE,
@@ -85,7 +34,14 @@ import {
   PAGE_MODIFIER_UPDATER_PAGE,
   PAGE_MODIFIER_UPDATER_WEIXIN_PAGE,
   PAGE_TASK_PAGE,
-  PAGE_CHAT
+  PAGE_CHAT,
+  PAGE_STATUS_V2,
+  PAGE_STATUS_V1,
+  PAGE_LOCAL_APP_STORAGE_PAGE,
+  PAGE_BUILDER_ENTRY,
+  PAGE_FREEZE_ENTRY,
+  PAGE_RENDER_ENTRY,
+  PAGE_LAYOUT
 } from './PageName';
 import { RouterHelper } from 'static_library_common/src/main/ets/utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -117,7 +73,7 @@ export struct StartPage {
     value: $r('app.string.start_menu_1'),
     icon: $r('app.media.yes'),
     isEnabled: true,
-    action: ()=>{
+    action: () => {
       ToastHelper.showToast($r('app.string.start_menu_1'))
     }
   }
@@ -125,7 +81,7 @@ export struct StartPage {
     value: $r('app.string.start_menu_2'),
     icon: $r('app.media.no'),
     isEnabled: true,
-    action: ()=>{
+    action: () => {
       ToastHelper.showToast($r('app.string.start_menu_2'))
     }
   }
@@ -134,7 +90,7 @@ export struct StartPage {
     value: $r('app.string.start_toolbar_1'),
     icon: $r('app.media.yes'),
     status: ToolbarItemStatus.ACTIVE,
-    action: ()=>{
+    action: () => {
       ToastHelper.showToast($r('app.string.start_toolbar_1'))
     }
   }
@@ -142,7 +98,7 @@ export struct StartPage {
     value: $r('app.string.start_toolbar_2'),
     icon: $r('app.media.yes'),
     status: ToolbarItemStatus.NORMAL,
-    action: ()=>{
+    action: () => {
       ToastHelper.showToast($r('app.string.start_toolbar_2'))
       NavigationHelper.startPage(this.pathStack, PAGE_CHAT, { "key": "value" })
     }
@@ -152,8 +108,7 @@ export struct StartPage {
     Navigation(this.pathStack) {
       Scroll(this.scroller) {
         Column() {
-          Text(getTextStr())
-          Blank().height(5)
+          Text(getTextStr()).visibility(Visibility.None)
           Flex({
             // 主轴方向 横向
             direction: FlexDirection.Row,
@@ -161,22 +116,21 @@ export struct StartPage {
             wrap: FlexWrap.Wrap,
             // 主轴对齐方式
             justifyContent: FlexAlign.Start,
-            // 交叉轴对齐方式
+            // 交叉轴对齐方式(单行)
             alignItems: ItemAlign.Start,
-            // 交叉轴多行 额外空间对齐
-            // alignContent: FlexAlign.Center,
+            // 交叉轴对齐方式(多行)
+            alignContent: FlexAlign.Start,
             // 间距
             space: {
               // 主轴间距
               main: { value: 5, unit: LengthUnit.VP },
               // 交叉轴间距
-              cross: { value: 10, unit: LengthUnit.VP }
+              cross: { value: 5, unit: LengthUnit.VP }
             }
           }) {
             this.buildItems()
-          }
-        }
-        .width('100%')
+          }.width('100%').height('100%')
+        }.width('100%')
         // .height('100%') // Scroll的子组件 不能设置height为100% 否则无法滚动
       }
       .scrollable(ScrollDirection.Vertical)
@@ -195,8 +149,10 @@ export struct StartPage {
     .title("StartPage")
     .hideBackButton(true)
     .titleMode(NavigationTitleMode.Mini)
+    // 菜单栏(右上角)
     .menus([this.menuItem1, this.menuItem2])
-    .toolbarConfiguration([this.toolbarItem1, this.toolbarItem2])
+    // 工具栏(底部)
+    // .toolbarConfiguration([this.toolbarItem1, this.toolbarItem2])
     .onAppear(() => {
       Log.log('StartPage onAppear')
     })
@@ -206,10 +162,7 @@ export struct StartPage {
     new ItemBean(PAGE_EVENT, $r('app.string.TestEventPage')),
     new ItemBean(PAGE_NAPI, $r('app.string.TestNApiPage')),
     new ItemBean(PAGE_WANT_ABILITY, $r('app.string.TestWantAbilityPage')),
-    new ItemBean(PAGE_RELATIVE, $r('app.string.RelativePage')),
-    new ItemBean(PAGE_INPUT, $r('app.string.InputPage')),
-    new ItemBean(PAGE_COLUMN, $r('app.string.ColumnPage')),
-    new ItemBean(PAGE_IMAGE, $r('app.string.ImagePage')),
+    new ItemBean(PAGE_LAYOUT, $r('app.string.TestLayoutPage')),
     new ItemBean(PAGE_STATIC_CAMERA, $r('app.string.CameraPage')),
     new ItemBean(PAGE_STATIC_LIBRARY, $r('app.string.StaticLibraryPage')),
     new ItemBean(PAGE_SHARED_LIBRARY, $r('app.string.SharedLibraryPage')),
@@ -224,63 +177,16 @@ export struct StartPage {
     new ItemBean(PAGE_WORKER, $r('app.string.TestWorkerPage')),
     new ItemBean(PAGE_UTD, $r('app.string.TestUTDPage')),
     new ItemBean(PAGE_DATABASE, $r('app.string.TestDatabasePage')),
-    new ItemBean(PAGE_COMPONENT_STATUS, $r('app.string.TestComponentStatusPage')),
-    new ItemBean(PAGE_STATE, $r('app.string.TestStatePage')),
-    new ItemBean(PAGE_STATE_CHANGED_1, $r('app.string.TestStateChangedPage1')),
-    new ItemBean(PAGE_STATE_CHANGED_2, $r('app.string.TestStateChangedPage2')),
-    new ItemBean(PAGE_STATE_CHANGED_3, $r('app.string.TestStateChangedPage3')),
-    new ItemBean(PAGE_STATE_CHANGED_4, $r('app.string.TestStateChangedPage4')),
-    new ItemBean(PAGE_STATE_CHANGED_5, $r('app.string.TestStateChangedPage5')),
-    new ItemBean(PAGE_PROP_CHANGED_1, $r('app.string.TestPropPage1')),
-    new ItemBean(PAGE_PROP_CHANGED_2, $r('app.string.TestPropPage2')),
-    new ItemBean(PAGE_LINK, $r('app.string.TestLinkPage')),
-    new ItemBean(PAGE_PROVIDE_CONSUME, $r('app.string.TestProvidePage')),
-    new ItemBean(PAGE_PROVIDE_CONSUME_2, $r('app.string.TestProvidePage2')),
-    new ItemBean(PAGE_PROVIDE_CONSUME_3, $r('app.string.TestProvidePage3')),
-    new ItemBean(PAGE_OBSERVED_CLASS_PAGE, $r('app.string.TestObservedClassPage')),
-    new ItemBean(PAGE_OBSERVED_CLASS_PAGE_2, $r('app.string.TestObservedClassPage2')),
-    new ItemBean(PAGE_OBSERVED_ARRAY_PAGE, $r('app.string.TestObservedArrayPage')),
-    new ItemBean(PAGE_OBSERVED_ARRAY_PAGE_2, $r('app.string.TestObservedArrayPage2')),
-    new ItemBean(PAGE_LOCAL_STORAGE_PAGE_1, $r('app.string.TestLocalStoragePage1')),
-    new ItemBean(PAGE_LOCAL_STORAGE_PAGE_2, $r('app.string.TestLocalStoragePage2')),
-    new ItemBean(PAGE_LOCAL_STORAGE_PAGE_3, $r('app.string.TestLocalStoragePage3')),
-    new ItemBean(PAGE_LOCAL_STORAGE_PAGE_4, $r('app.string.TestLocalStoragePage4')),
-    new ItemBean(PAGE_LOCAL_STORAGE_PAGE_5, $r('app.string.TestLocalStoragePage5')),
-    new ItemBean(PAGE_APP_STORAGE_PAGE_1, $r('app.string.TestAppStoragePage1')),
+    new ItemBean(PAGE_STATUS_V1, $r('app.string.TestStatusV1Page')),
     new ItemBean(PAGE_EMIT_PAGE, $r('app.string.TestEmitPage1')),
-    new ItemBean(PAGE_PERSISTENT_PAGE, $r('app.string.TestPersistentPage')),
-    new ItemBean(PAGE_ENVIRONMENT_PAGE, $r('app.string.TestEnvironmentPage')),
-    new ItemBean(PAGE_WATCH_PAGE, $r('app.string.TestWatchPage')),
-    new ItemBean(PAGE_WATCH_LINK_PAGE, $r('app.string.TestWatchLinkPage')),
-    new ItemBean(PAGE_WATCH_CHANGE_TIME_PAGE, $r('app.string.TestWatchChangeTimePage')),
-    new ItemBean(PAGE_$$_PAGE, $r('app.string.TestDollarDollarPage')),
-    new ItemBean(PAGE_TRACK_PAGE, $r('app.string.TestTrackPage')),
-    new ItemBean(PAGE_FREEZE_PAGE_1, $r('app.string.TestFreezePage')),
-    new ItemBean(PAGE_FREEZE_TAB, $r('app.string.TestFreezeTabPage')),
-    new ItemBean(PAGE_FREEZE_LIST, $r('app.string.TestFreezeListPage')),
-    new ItemBean(PAGE_FREEZE_NAVIGATION, $r('app.string.TestNavigationFreezePage')),
+    new ItemBean(PAGE_LOCAL_APP_STORAGE_PAGE, $r('app.string.TestLocalAppStoragePage')),
+    new ItemBean(PAGE_FREEZE_ENTRY, $r('app.string.TestFreezeEntryPage')),
+    new ItemBean(PAGE_RENDER_ENTRY, $r('app.string.TestRenderEntryPage')),
     new ItemBean(PAGE_MVVM_TEST, $r('app.string.TestMVVMPage')),
     new ItemBean(PAGE_TEST_LIST, $r("app.string.TestListPage")),
-    new ItemBean(PAGE_RENDER_IF_ELSE, $r("app.string.TestArticleListPage")),
-    new ItemBean(PAGE_RENDER_IF_ELSE_WITH_STATE, $r("app.string.TestRenderIfElsePage")),
-    new ItemBean(PAGE_RENDER_IF_ELSE_WITH_STATE_CHANGED, $r("app.string.TestRenderIfElseWithStatePage")),
-    new ItemBean(PAGE_ANIMATE_TO, $r("app.string.TestRenderIfElseWithStateChangedPage")),
-    new ItemBean(PAGE_RENDER_FOR_EACH_PAGE_1, $r("app.string.TestAnimateToPage")),
     new ItemBean(PAGE_ARTICLE_LIST, $r("app.string.TestForEachPage1")),
-    new ItemBean(PAGE_RENDER_LAZY_FOR_EACH_PAGE_1, $r("app.string.TestLazyForEachPage1")),
-    new ItemBean(PAGE_RENDER_LAZY_FOR_EACH_PAGE_2, $r("app.string.TestLazyForEachClassPage2")),
-    new ItemBean(PAGE_RENDER_LAZY_FOR_EACH_PAGE_3, $r("app.string.TestLazyForEachReusablePage3")),
-    new ItemBean(PAGE_BUILDER_1, $r("app.string.TestBuilderPage1")),
-    new ItemBean(PAGE_BUILDER_2, $r("app.string.TestBuilderPage2")),
-    new ItemBean(PAGE_BUILDER_3, $r("app.string.TestBuilderPage3")),
-    new ItemBean(PAGE_LOCAL_BUILDER_1, $r("app.string.TestLocalBuilderPage1")),
-    new ItemBean(PAGE_LOCAL_BUILDER_2, $r("app.string.TestLocalBuilderPage2")),
-    new ItemBean(PAGE_LOCAL_BUILDER_3, $r("app.string.TestLocalBuilderPage3")),
-    new ItemBean(PAGE_BUILDER_PARAM_1, $r("app.string.TestLocalBuilderParamPage1")),
-    new ItemBean(PAGE_BUILDER_PARAM_2, $r("app.string.TestLocalBuilderParamPage2")),
-    new ItemBean(PAGE_BUILDER_PARAM_3, $r("app.string.TestLocalBuilderParamPage3")),
-    new ItemBean(PAGE_WRAP_BUILDER_PAGE, $r("app.string.TestWrapBuilderPage")),
-
+    new ItemBean(PAGE_ANIMATE_TO, $r("app.string.TestAnimateToPage")),
+    new ItemBean(PAGE_BUILDER_ENTRY, $r("app.string.TestBuilderEntryPage")),
     new ItemBean(PAGE_STYLES_PAGE, $r("app.string.TestStylesPage")),
     new ItemBean(PAGE_EXTEND_PAGE, $r("app.string.TestExtendPage")),
     new ItemBean(PAGE_STATE_STYLES_PAGE, $r("app.string.TestStateStylesPage")),
@@ -288,15 +194,15 @@ export struct StartPage {
     new ItemBean(PAGE_MODIFIER_UPDATER_PAGE, $r("app.string.TestModifierUpdaterPage")),
     new ItemBean(PAGE_MODIFIER_UPDATER_WEIXIN_PAGE, $r("app.string.TestModifierUpdaterWeiXinPage")),
     new ItemBean(PAGE_TASK_PAGE, $r("app.string.TestTaskPage")),
-    new ItemBean(PAGE_CHAT, $r("app.string.ChatPage")),
+    new ItemBean(PAGE_STATUS_V2, $r("app.string.StatusV2Page")),
   ]
 
   @Builder
   buildItems() {
     ForEach(this.pageNameArray,
       (item: ItemBean, index: number) => {
-        if (item.pageName === PAGE_CHAT || item.pageName === PAGE_STATIC_CAMERA
-          || item.pageName === PAGE_STATIC_LIBRARY || item.pageName === PAGE_SHARED_LIBRARY) {
+        if (item.pageName === PAGE_STATIC_CAMERA || item.pageName === PAGE_STATIC_LIBRARY ||
+          item.pageName === PAGE_SHARED_LIBRARY) {
           this.buildOneItem(item.pageName, item.text, { 'keyHello': 'Hello World' }, () => {
             // 使用 Navigation 跳转 支持相同模块、不同模块
             NavigationHelper.startPage(this.pathStack, item.pageName, { 'keyHello': 'Hello World' })

@@ -3,12 +3,22 @@
     {
       "name": "pages/entry/har_hsp/StaticLibraryPage",
       "pageSourceFile": "src/main/ets/pages/entry/har_hsp/StaticLibraryPage.ets",
-      "buildFunction": "Navigation"
+      "buildFunction": "NavigationBuilder"
     },
     {
       "name": "pages/entry/har_hsp/SharedLibraryPage",
       "pageSourceFile": "src/main/ets/pages/entry/har_hsp/SharedLibraryPage.ets",
-      "buildFunction": "Navigation"
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/entry/statusv2/ObserverV2Page",
+      "pageSourceFile": "src/main/ets/pages/entry/statusv2/ObserverV2Page.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/entry/status/ComponentPage",
+      "pageSourceFile": "src/main/ets/pages/entry/status/ComponentPage.ets",
+      "buildFunction": "NavigationBuilder"
     }
   ]
 }

@@ -5,7 +5,7 @@ import { RouterHelper } from 'static_library_common/src/main/ets/utils/RouterHel
 import { JSON } from '@kit.ArkTS';
 
 @Builder
-export function Navigation(){
+export function NavigationBuilder(){
   StaticLibraryPage()
 }
 

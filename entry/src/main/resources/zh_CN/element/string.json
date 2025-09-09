@@ -158,7 +158,7 @@
     },
     {
       "name": "TestPromiseSyncWaitPage",
-      "value": "PromiseSyncWait"
+      "value": "PromiseAsync"
     },
     {
       "name": "TestTaskPoolPage",
@@ -362,10 +362,6 @@
     },
     {
       "name": "TestForEachPage1",
-      "value": "ForEach1"
-    },
-    {
-      "name": "TestArticleListPage",
       "value": "ArticleList"
     },
     {
@@ -487,6 +483,34 @@
     {
       "name": "tab_bar_title_me",
       "value": "Me"
+    },
+    {
+      "name": "StatusV2Page",
+      "value": "StatusV2"
+    },
+    {
+      "name": "TestStatusV1Page",
+      "value": "StatusV1"
+    },
+    {
+      "name": "TestLocalAppStoragePage",
+      "value": "LocalAppStorage"
+    },
+    {
+      "name": "TestBuilderEntryPage",
+      "value": "CustomBuilderEntry"
+    },
+    {
+      "name": "TestFreezeEntryPage",
+      "value": "FreezeEntry"
+    },
+    {
+      "name": "TestRenderEntryPage",
+      "value": "RenderControl"
+    },
+    {
+      "name": "TestLayoutPage",
+      "value": "Layout"
     }
   ]
 }
