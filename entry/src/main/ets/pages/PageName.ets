@@ -119,5 +119,15 @@ export let PAGE_LONG_TASK_DETAIL = "pages/other/LongTaskDetailPage";
 export let PAGE_CHAT = "pages/static/chat/ChatEntryPage";
 
 export let PAGE_STATUS_V2 = "pages/entry/statusv2/StatusV2Page";
-export let PAGE_OBSERVER_V2 = "pages/entry/statusv2/ObserverV2Page";
+export let PAGE_OBSERVED_V2 = "pages/entry/statusv2/observedv2/ObservedV2Page";
+export let PAGE_LOCAL = "pages/entry/statusv2/local/LocalPage";
+export let PAGE_PARAM = "pages/entry/statusv2/param/ParamPage";
+export let PAGE_ONCE = "pages/entry/statusv2/once/OncePage";
+export let PAGE_EVENT_CALLBACK = "pages/entry/statusv2/event/EventPage";
+export let PAGE_PROVIDER = "pages/entry/statusv2/provider/ProviderPage";
+export let PAGE_PROVIDER_FUNCTION = "pages/entry/statusv2/provider/ProviderFunctionPage";
+export let PAGE_MONITOR = "pages/entry/statusv2/monitor/MonitorPage";
+export let PAGE_MONITOR_CLASS = "pages/entry/statusv2/monitor/MonitorClassPage";
+export let PAGE_COMPUTED = "pages/entry/statusv2/computed/ComputedPage";
+export let PAGE_COMPUTED_CLASS = "pages/entry/statusv2/computed/ComputedClassPage";
 

@@ -11,13 +11,63 @@
       "buildFunction": "NavigationBuilder"
     },
     {
-      "name": "pages/entry/statusv2/ObserverV2Page",
-      "pageSourceFile": "src/main/ets/pages/entry/statusv2/ObserverV2Page.ets",
+      "name": "pages/entry/statusv2/observedv2/ObservedV2Page",
+      "pageSourceFile": "src/main/ets/pages/entry/statusv2/observedv2/ObservedV2Page.ets",
       "buildFunction": "NavigationBuilder"
     },
     {
       "name": "pages/entry/status/ComponentPage",
       "pageSourceFile": "src/main/ets/pages/entry/status/ComponentPage.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/entry/statusv2/local/LocalPage",
+      "pageSourceFile": "src/main/ets/pages/entry/statusv2/local/LocalPage.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/entry/statusv2/param/ParamPage",
+      "pageSourceFile": "src/main/ets/pages/entry/statusv2/param/ParamPage.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/entry/statusv2/once/OncePage",
+      "pageSourceFile": "src/main/ets/pages/entry/statusv2/once/OncePage.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/entry/statusv2/event/EventPage",
+      "pageSourceFile": "src/main/ets/pages/entry/statusv2/event/EventPage.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/entry/statusv2/provider/ProviderPage",
+      "pageSourceFile": "src/main/ets/pages/entry/statusv2/provider/ProviderPage.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/entry/statusv2/provider/ProviderFunctionPage",
+      "pageSourceFile": "src/main/ets/pages/entry/statusv2/provider/ProviderFunctionPage.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/entry/statusv2/monitor/MonitorPage",
+      "pageSourceFile": "src/main/ets/pages/entry/statusv2/monitor/MonitorPage.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/entry/statusv2/monitor/MonitorClassPage",
+      "pageSourceFile": "src/main/ets/pages/entry/statusv2/monitor/MonitorClassPage.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/entry/statusv2/computed/ComputedPage",
+      "pageSourceFile": "src/main/ets/pages/entry/statusv2/computed/ComputedPage.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/entry/statusv2/computed/ComputedClassPage",
+      "pageSourceFile": "src/main/ets/pages/entry/statusv2/computed/ComputedClassPage.ets",
       "buildFunction": "NavigationBuilder"
     }
   ]

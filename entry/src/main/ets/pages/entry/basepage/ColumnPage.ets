@@ -51,7 +51,8 @@ struct ColumnPage {
         text: "Go EntryAbility",
         clickCallback: this.startEntryAbility
       })
-    }
+    }.justifyContent(FlexAlign.Start)
+    .alignItems(HorizontalAlign.Center)
     .height('100%')
     .width('100%')
   }
@@ -140,8 +141,8 @@ struct buttonComponentParent {
       // 将lambda 函数传递给子组件
       buttonComponentSub({ clickCallback: this.clickCallback })
     }
-    .width('100%')
-    .height('100%')
+    .width('auto')
+    .height('auto')
   }
 }
 

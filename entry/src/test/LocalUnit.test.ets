@@ -19,6 +19,7 @@ import { Person } from '../main/ets/learn/Person';
 import { GenericClass } from '../main/ets/learn/GenericClass';
 import { Teacher, School } from '../main/ets/learn/School'
 import { Log } from 'static_library_common';
+import { Point } from '@ohos.UiTest';
 
 export default function localUnitTest() {
   describe('localUnitTest', () => {
@@ -331,7 +332,6 @@ export default function localUnitTest() {
       class Point {
         x: number = 0
         y: number = 0
-
         // constructor(x: number, y: number) {
         //   this.x = x;
         //   this.y = y;
@@ -356,6 +356,31 @@ export default function localUnitTest() {
       // }
       // tom2.getName()
 
+      // 常量实例
+      const constPerson = new Person('三', '张')
+      // 常量实例 可以修改属性
+      constPerson.supername = '张张'
+      constPerson.setName('三三')
+      // 编译错误: 常量实例不能被重新赋值
+      // constPerson = new Person('四', '李')
+    })
+
+    //TODO 学习笔记 泛型
+    it("learnGeneric", 0, () => {
+      // 泛型类 TODO:泛型可以省略
+      let num = new GenericClass(1)
+      Log.log("num=" + num.getValue())
+      let str = new GenericClass<string>("hello generic")
+      Log.log("str=" + str.getValue())
+
+      // 泛型方法 TODO:泛型可以省略
+      let lastn = last([1, 2, 3, 4, 5])
+      Log.log("lastn=" + lastn);
+      let laststr = last<string>(["Hello", "World", "Welcome"])
+      Log.log("laststr=" + laststr);
+    })
+    //TODO 学习笔记 类
+    it("learnMapRecord", 0, () => {
       // Record(map) 使用对象字面量初始化
       let record: Record<string, number> = {
         "John": 25,
@@ -384,30 +409,29 @@ export default function localUnitTest() {
       }
       Log.log("record2 point1=" + record2[1].x + " " + record2[1].y)
 
-      // map
-      let map: Map<string, number>= new Map<string,number>()
+      // map 创建
+      let map: Map<string, number> = new Map<string, number>()
+      // map 添加元素
       map.set("one", 1)
-      map.set("two",2)
+      map.set("two", 2)
+      map.set("three", 3)
       // 遍历map
       map.forEach((value, key) => {
-        Log.log(`Key: ${key}, Value: ${value}`);
+        Log.log(`遍历map: Key: ${key}, Value: ${value}`);
       })
-
-    })
-
-    //TODO 学习笔记 泛型
-    it("learnGeneric", 0, () => {
-      // 泛型类 TODO:泛型可以省略
-      let num = new GenericClass(1)
-      Log.log("num=" + num.getValue())
-      let str = new GenericClass<string>("hello generic")
-      Log.log("str=" + str.getValue())
-
-      // 泛型方法 TODO:泛型可以省略
-      let lastn = last([1, 2, 3, 4, 5])
-      Log.log("lastn=" + lastn);
-      let laststr = last<string>(["Hello", "World", "Welcome"])
-      Log.log("laststr=" + laststr);
+      map.delete("one")
+      // 打印map
+      map.forEach((value, key) => {
+        Log.log(`遍历map2: Key: ${key}, Value: ${value}`);
+      })
+      // map 创建时添加元素
+      let map2: Map<string, number> = new Map([
+        ["Tom", 8],
+        ["Jerry", 4]
+      ])
+      map2.forEach((value, key) => {
+        Log.log(`遍历map3: Key: ${key}, Value: ${value}`);
+      })
     })
     // TODO 学习笔记 数组
     it("learnArray", 0, () => {
@@ -470,7 +494,7 @@ export default function localUnitTest() {
       let nicklength = (nick ?? "").length
       Log.log("nicklength=" + nicklength)
 
-      // TODO 可选链(?.) 优先级:类的属性是undefined或者null 可选链回返回undefined
+      // TODO 可选链(?.) 优先级:类的属性是undefined或者null 可选链会返回undefined
       let school = new School()
       let name1 = school.getTeacherName()
       Log.log("teacher name1=" + name1)

@@ -531,6 +531,50 @@
     {
       "name": "TestLayoutPage",
       "value": "Layout"
+    },
+    {
+      "name": "observer_v2_page",
+      "value": "ObservedV2"
+    },
+    {
+      "name": "local_page",
+      "value": "Local"
+    },
+    {
+      "name": "param_page",
+      "value": "Param"
+    },
+    {
+      "name": "once_page",
+      "value": "Once"
+    },
+    {
+      "name": "event_callback_page",
+      "value": "EventCallback"
+    },
+    {
+      "name": "provider_page",
+      "value": "Provider Consumer"
+    },
+    {
+      "name": "provider_function_page",
+      "value": "Provider Function"
+    },
+    {
+      "name": "monitor_page",
+      "value": "Monitor"
+    },
+    {
+      "name": "monitor_class_page",
+      "value": "Monitor Class"
+    },
+    {
+      "name": "computed_page",
+      "value": "Computed"
+    },
+    {
+      "name": "computed_class_page",
+      "value": "Computed Class"
     }
   ]
 }

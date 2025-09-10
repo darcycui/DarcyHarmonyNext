@@ -92,12 +92,22 @@
     "pages/other/LongTaskPage",
     "pages/other/LongTaskDetailPage",
     "pages/entry/statusv2/StatusV2Page",
-    "pages/entry/statusv2/ObserverV2Page",
+    "pages/entry/statusv2/observedv2/ObservedV2Page",
     "pages/entry/status/StatusV1Page",
     "pages/entry/status/LocalAppStoragePage",
     "pages/entry/custom/CustomBuilderEntryPage",
     "pages/entry/freeze/FreezeEntryPage",
     "pages/entry/render_control/RenderControlEntryPage",
-    "pages/entry/basepage/LayoutPage"
+    "pages/entry/basepage/LayoutPage",
+    "pages/entry/statusv2/local/LocalPage",
+    "pages/entry/statusv2/param/ParamPage",
+    "pages/entry/statusv2/once/OncePage",
+    "pages/entry/statusv2/event/EventPage",
+    "pages/entry/statusv2/provider/ProviderPage",
+    "pages/entry/statusv2/provider/ProviderFunctionPage",
+    "pages/entry/statusv2/monitor/MonitorPage",
+    "pages/entry/statusv2/monitor/MonitorClassPage",
+    "pages/entry/statusv2/computed/ComputedPage",
+    "pages/entry/statusv2/computed/ComputedClassPage"
   ]
 }
