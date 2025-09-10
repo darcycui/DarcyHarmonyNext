@@ -4,7 +4,7 @@ struct ChildProp {
 
   build() {
     Button(`${this.value} Click`)
-      .fontSize(20)
+      .width('100%').fontSize(20)
       .margin({ top: 4 })
       .backgroundColor($r('app.color.purple'))
       .onClick(() => {
@@ -25,7 +25,7 @@ struct PropPage1 {
         ChildProp({ value: this.arr[1] })
         ChildProp({ value: this.arr[2] })
         Button('父组件 replace entire arr')
-          .fontSize(20)
+          .width('100%').fontSize(20)
           .onClick(() => {
             // 两个数组都包含项“3”。
             this.arr = this.arr[0] == 1 ? [3, 4, 5] : [1, 2, 3];

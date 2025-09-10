@@ -6,7 +6,7 @@ struct CounterView {
   build() {
     Column({ space: 20 }) {
       Text(`${this.label}`)
-      Button(`counter ${this.counter} +1`)
+      Button(`counter ${this.counter} +1`).width('100%')
         .onClick(() => {
           this.counter += 1;
         })
@@ -29,7 +29,7 @@ struct If_Else_WithState {
       } else {
         CounterView({ label: 'CounterView #negative' })
       }
-      Button(`toggle ${this.toggle}`)
+      Button(`toggle ${this.toggle}`).width('100%')
         .onClick(() => {
           this.toggle = !this.toggle;
         })

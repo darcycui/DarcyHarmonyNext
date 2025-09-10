@@ -53,11 +53,11 @@ struct WeiXinComponent {
       Text('我是文本1').attributeModifier(this.textModifierUpdater)
       Text('我是文本2').attributeModifier(this.textModifierUpdater)
       // darcyRefactor: Data类只能绑定一个组件 文本2生效 文本1不生效
-      Button('修改TextData-Blue').onClick(() => {
+      Button('修改TextData-Blue').width('100%').onClick(() => {
         this.textData.color = Color.Blue
       })
       // darcyRefactor: Data类只能绑定一个组件 文本2生效 文本1不生效
-      Button('修改TextData-Red').onClick(() => {
+      Button('修改TextData-Red').width('100%').onClick(() => {
         this.textData.color = Color.Red
       })
     }

@@ -8,25 +8,25 @@ struct UTDPage {
   build() {
     Column() {
       Text(this.message)
-      Button('根据.mp3 后缀查询类型').onClick(() => {
+      Button('根据.mp3 后缀查询类型').width('100%').onClick(() => {
         this.getByFileExtention('.mp3');
       }).margin({ top: 10 })
-      Button('根据audio/mp3 MIME查询类型').onClick(() => {
+      Button('根据audio/mp3 MIME查询类型').width('100%').onClick(() => {
         this.getByMIME('audio/mp3');
       }).margin({ top: 10 })
-      Button('比较两种查询得到的类型').onClick(() => {
+      Button('比较两种查询得到的类型').width('100%').onClick(() => {
         this.compareTwoTypes();
       }).margin({ top: 10 })
-      Button('根据后缀查MIME').onClick(() => {
+      Button('根据后缀查MIME').width('100%').onClick(() => {
         this.getMIMEByExtention();
       }).margin({ top: 10 })
-      Button('根据MIME查后缀').onClick(() => {
+      Button('根据MIME查后缀').width('100%').onClick(() => {
         this.getExtentionByMIME();
       }).margin({ top: 10 })
-      Button('根据.myImage 后缀查询自定义类型').onClick(() => {
+      Button('根据.myImage 后缀查询自定义类型').width('100%').onClick(() => {
         this.getByFileExtention('.myImage');
       }).margin({ top: 10 })
-      Button('根据 application/myImage MIME查询自定义类型').onClick(() => {
+      Button('根据 application/myImage MIME查询自定义类型').width('100%').onClick(() => {
         this.getByMIME('application/myImage');
       }).margin({ top: 10 })
     }

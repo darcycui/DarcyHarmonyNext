@@ -8,7 +8,7 @@ struct TextInputExample {
   build() {
     Column({ space: 20 }) {
       Text(this.text)
-      Button('clear').onClick(()=>{
+      Button('clear').width('100%').onClick(()=>{
         this.text = ''
       })
       // 将this.text与TextInput组件的text关联

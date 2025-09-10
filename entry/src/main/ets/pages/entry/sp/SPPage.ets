@@ -19,37 +19,37 @@ struct SPPage {
   build() {
     Column() {
       Text(this.info)
-      Button("监听变化")
+      Button("监听变化").width('100%')
         .margin({ top: 10 })// 外边距
         .onClick((event: ClickEvent) => {
           addListener(this.sp)
         })
-      Button("写入内存")
+      Button("写入内存").width('100%')
         .margin({ top: 10 })// 外边距
         .onClick((event: ClickEvent) => {
           putSP('key1', 'value1', this.sp)
         })
-      Button("写入文件")
+      Button("写入文件").width('100%')
         .margin({ top: 10 })// 外边距
         .onClick((event: ClickEvent) => {
           flushSP(this.sp)
         })
-      Button("读取")
+      Button("读取").width('100%')
         .margin({ top: 10 })// 外边距
         .onClick((event: ClickEvent) => {
           getSP(this.sp)
         })
-      Button("删除key")
+      Button("删除key").width('100%')
         .margin({ top: 10 })// 外边距
         .onClick((event: ClickEvent) => {
           deleteSP('key1', this.sp)
         })
-      Button("清空sp")
+      Button("清空sp").width('100%')
         .margin({ top: 10 })// 外边距
         .onClick((event: ClickEvent) => {
           clearSP(this.sp)
         })
-      Button("删除sp")
+      Button("删除sp").width('100%')
         .margin({ top: 10 })// 外边距
         .onClick((event: ClickEvent) => {
           deletePreference(this.context, this.options)

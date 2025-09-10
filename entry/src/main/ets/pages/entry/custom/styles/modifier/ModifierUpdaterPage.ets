@@ -11,7 +11,7 @@ struct ModifierUpdaterPage {
   build() {
     Column({ space: 10 }) {
       // 跨文件使用ModifierUpdater
-      Button(this.message)
+      Button(this.message).width('100%')
         .attributeModifier(this.buttonModifierUpdater)
         .onClick(() => {
           // TODO 通过 AttributeUpdater 直接更新UI 跳过状态管理,违反"单向数据流"原则

@@ -20,10 +20,10 @@ struct WorkSchedulerPage {
   build() {
     Column({ space: 20 }) {
       Text(this.message)
-      Button('申请延迟任务').onClick((event: ClickEvent) => {
+      Button('申请延迟任务').width('100%').onClick((event: ClickEvent) => {
         this.startWork();
       })
-      Button('取消延迟任务').onClick((event: ClickEvent) => {
+      Button('取消延迟任务').width('100%').onClick((event: ClickEvent) => {
         this.stopWork();
       })
 

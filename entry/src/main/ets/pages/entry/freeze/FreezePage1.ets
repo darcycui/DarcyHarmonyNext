@@ -14,11 +14,11 @@ struct Page1 {
   build() {
     Column({space: 20}) {
       Text(`From first Page ${this.storageLink}`)
-      Button('first page storageLink + 1')
+      Button('first page storageLink + 1').width('100%')
         .onClick(() => {
           this.storageLink += 1
         })
-      Button('go to next page')
+      Button('go to next page').width('100%')
         .onClick(() => {
           RouterHelper.startPage(this.getUIContext(), PAGE_FREEZE_PAGE_2)
         })

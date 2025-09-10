@@ -23,12 +23,12 @@ struct LocalStoragePage2 {
     Column({ space: 15 }) {
       Text(`title: ${this.message}`)
       Button(`2.Parent from LocalStorage ${this.parentLinkNumber}`)// 由于LocalStorage中PropA已经被初始化，因此this.parentLinkNumber的值为47
-        .onClick(() => {
+        .width('100%').onClick(() => {
           this.parentLinkNumber += 1;
         })
 
       Button(`2.Parent from LocalStorage ${this.parentLinkObject.code}`)// 由于LocalStorage中PropB已经被初始化，因此this.parentLinkObject.code的值为50
-        .onClick(() => {
+        .width('100%').onClick(() => {
           this.parentLinkObject.code += 1;
         })
       // @Component子组件自动获得对Parent LocalStorage实例的访问权限。
@@ -48,13 +48,13 @@ struct ChildLocal2 {
     Column({ space: 15 }) {
       // 更改将同步至LocalStorage中的'PropA'以及Parent.parentLinkNumber
       Button(`2.Child from LocalStorage ${this.childLinkNumber}`)
-        .onClick(() => {
+        .width('100%').onClick(() => {
           this.childLinkNumber += 1;
         })
 
       // 更改将同步至LocalStorage中的'PropB'以及Parent.parentLinkObject.code
       Button(`2.Child from LocalStorage ${this.childLinkObject.code}`)
-        .onClick(() => {
+        .width('100%').onClick(() => {
           this.childLinkObject.code += 1;
         })
     }

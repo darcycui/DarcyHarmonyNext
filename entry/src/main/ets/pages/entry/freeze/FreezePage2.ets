@@ -12,12 +12,12 @@ struct Page2 {
   build() {
     Column({ space: 20 }) {
       Text(`second Page ${this.storageLink2}`)
-      Button('Go Back')
+      Button('Go Back').width('100%')
         .onClick(() => {
           router.back()
         })
 
-      Button('second page storageLink2 + 2')
+      Button('second page storageLink2 + 2').width('100%')
         .onClick(() => {
           this.storageLink2 += 2
         })

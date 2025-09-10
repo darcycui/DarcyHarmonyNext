@@ -17,7 +17,7 @@ struct Child {
     Column({ space: 10 }) {
       this.customBuilderParam()
       this.customChangeThisBuilderParam()
-      Button(`子组件 Click ${this.label}`).onClick(()=>{
+      Button(`子组件 Click ${this.label}`).width('100%').onClick(()=>{
         this.label += 'C'
       })
     }.width('100%')
@@ -39,7 +39,7 @@ struct BuildParamPage {
 
   build() {
     Column({ space: 10 }) {
-      Button(`父组件 Click ${this.label}`).onClick(()=>{
+      Button(`父组件 Click ${this.label}`).width('100%').onClick(()=>{
         this.label += 'A'
       })
       // 调用this.componentBuilder()时，this指向当前@Entry所装饰的Parent组件，即label变量的值为"Parent"。

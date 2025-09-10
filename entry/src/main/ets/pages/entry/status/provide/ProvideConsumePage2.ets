@@ -7,7 +7,7 @@ struct ToDoItem {
     Column() {
       Text(`count(${this.count})`)
       Button(`count(${this.count}), count + 1`)
-        .onClick(() => this.count += 1)
+        .width('100%').onClick(() => this.count += 1)
     }
     .width('50%')
   }
@@ -39,7 +39,7 @@ struct ProvideConsumePage2 {
   build() {
     Column() {
       Button(`count(${this.count}), count + 1`)
-        .onClick(() => this.count += 1)
+        .width('100%').onClick(() => this.count += 1)
       ToDoDemo()
     }
   }

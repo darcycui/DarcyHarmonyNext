@@ -26,7 +26,7 @@ struct ImagePage {
         .onClick(() => {
           promptAction.showToast({ message: "Image Click" })
         })
-      Button($r('app.string.TakeImage'))
+      Button($r('app.string.TakeImage')).width('100%')
         .margin({ top: 10 })
         .onClick(() => {
         promptAction.showToast({ message: "Take Image" })

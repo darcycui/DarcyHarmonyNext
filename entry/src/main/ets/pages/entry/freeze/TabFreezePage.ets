@@ -11,7 +11,7 @@ struct TabContentTest {
   build() {
     Row() {
       Column() {
-        Button('change message').onClick(() => {
+        Button('change message').width('100%').onClick(() => {
           this.message++
         })
 

@@ -14,17 +14,17 @@ struct LocalStoragePage1 {
   build() {
     Column({ space: 15 }) {
       Button(`Parent from LocalStorage ${this.parentLinkNumber}`)// 由于LocalStorage中PropA已经被初始化，因此this.parentLinkNumber的值为47
-        .onClick(() => {
+        .width('100%').onClick(() => {
           this.parentLinkNumber += 1;
         })
 
       Button(`Parent from LocalStorage ${this.parentLinkObject.code}`)// 由于LocalStorage中PropB已经被初始化，因此this.parentLinkObject.code的值为50
-        .onClick(() => {
+        .width('100%').onClick(() => {
           this.parentLinkObject.code += 1;
         })
       // @Component子组件自动获得对Parent LocalStorage实例的访问权限。
       ChildLocal1()
-      Button('跳转页面2').onClick(() => {
+      Button('跳转页面2').width('100%').onClick(() => {
         RouterHelper.startPage(this.getUIContext(), PAGE_LOCAL_STORAGE_PAGE_2, { 'message': '测试不同页面共享LocalStorage' })
       })
     }

@@ -9,7 +9,7 @@ struct LocalStoragePage4 {
   build() {
     Column({ space: 15 }) {
       Button(`Parent from LocalStorage ${this.parentLinkNumber}`)// 由于LocalStorage中PropA已经被初始化，因此this.parentLinkNumber的值为47
-        .onClick(() => {
+        .width('100%').onClick(() => {
           this.parentLinkNumber += 1;
         })
       // @Component子组件自动获得对Parent LocalStorage实例的访问权限。
@@ -27,7 +27,7 @@ struct ChildLocal4 {
     Column({ space: 15 }) {
       // 更改将同步至LocalStorage中的'PropA'以及Parent.parentLinkNumber
       Button(`Child from LocalStorage ${this.childLinkNumber}`)
-        .onClick(() => {
+        .width('100%').onClick(() => {
           this.childLinkNumber += 1;
         })
     }

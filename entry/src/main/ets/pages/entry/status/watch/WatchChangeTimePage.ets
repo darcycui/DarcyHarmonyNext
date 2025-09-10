@@ -29,7 +29,7 @@ struct WatchChangeTimePage {
       Text(`父组件任务B状态: ${this.taskB.isFinished ? '已完成' : '未完成'}`)
       ChildComponent({ taskA: this.taskA, taskB: this.taskB })
       Button('切换任务状态')
-        .onClick(() => {
+        .width('100%').onClick(() => {
           this.taskB = new Task(!this.taskB.isFinished);
           this.taskA = new Task(!this.taskA.isFinished);
           // TODO 执行顺序如下: 父组件 B--A 子组件 A--B

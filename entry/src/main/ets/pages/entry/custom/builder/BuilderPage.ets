@@ -38,11 +38,11 @@ struct BuilderPage {
         message: this.message,
         other: ''
       }, { count: this.count })
-      Button('改变messageA').onClick(() => {
+      Button('改变messageA').width('100%').onClick(() => {
         this.message += 'A'
         this.count += 100
       })
-    }
+    }.alignItems(HorizontalAlign.Start)
     .height('100%')
     .width('100%')
   }

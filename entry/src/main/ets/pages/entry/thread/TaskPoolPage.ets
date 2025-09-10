@@ -13,7 +13,7 @@ struct TaskPoolPage {
       Text(this.message)
       Text(this.value)
       Button('TaskPool并行计算')
-        .onClick(() => {
+        .width('100%').onClick(() => {
           concurrentFunc((value)=>{
             this.value = `${value}`
           })

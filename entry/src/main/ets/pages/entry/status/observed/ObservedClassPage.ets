@@ -21,18 +21,18 @@ struct ObservedClassPage {
       Text(JSON.stringify(this.parent))
       // 空白间隔
       Blank().height(10)
-      Button('直接属性修改')
+      Button('直接属性修改').width('100%')
         .onClick(() => {
           this.parent.count += 100;
           this.parent.child = new ChildObserved(this.parent.child.num -100)
         })
       Blank().height(10)
-      Button('嵌套属性修改')
+      Button('嵌套属性修改').width('100%')
         .onClick(() => {
           this.parent.child.num -= 100;
         })
       Blank().height(10)
-      Button('整个class修改')
+      Button('整个class修改').width('100%')
         .onClick(() => {
           this.parent = new ParentObserved(888, new ChildObserved(-999));
         })
@@ -54,12 +54,12 @@ struct ComponentO {
     Column(){
       Text(`ComponentO ${JSON.stringify(this.objectLinkParam)}`)
       Blank().height(10)
-      Button('直接属性修改2')
+      Button('直接属性修改2').width('100%')
         .onClick(() => {
           this.objectLinkParam.num += 100;
         })
       Blank().height(10)
-      Button('整个class修改2')
+      Button('整个class修改2').width('100%')
         .onClick(() => {
           // 运行报错 子组件中 不允许修改整个class对象
           // this.objectLinkParam = new ParentObserved(222, new ChildObserved(-111));

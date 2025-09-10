@@ -13,7 +13,7 @@ struct StateChangedPage1 {
       Text(`${this.son}`); //text1
       Text(`${this.parent.son}`); //text2
       Button('change')
-        .onClick(() => {
+        .width('100%').onClick(() => {
           this.parent.son = '222'; // text2改变 text1不变
         })
     }

@@ -32,15 +32,15 @@ struct LazyForEachPage {
   build() {
     Column() {
       Row({ space: 10 }) {
-        Button('增加').onClick(() => {
+        Button('增加').width('100%').onClick(() => {
           // 点击追加
           this.data.pushData(`New ${this.data.totalCount()}`);
         })
-        Button('删除').onClick(() => {
+        Button('删除').width('100%').onClick(() => {
           // 点击删除
           this.data.deleteData(0);
         })
-        Button('修改').onClick(() => {
+        Button('修改').width('100%').onClick(() => {
           // 点击删除
           this.data.changeData(0, 'A');
         })

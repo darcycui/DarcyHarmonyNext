@@ -10,21 +10,19 @@ struct ChildLink {
   build() {
     Column() {
       Text(`子组件 data: ${this.data.size}`)
-      Button('子组件点击 data +1').onClick(() => {
+      Button('子组件点击 data +1').width('100%').onClick(() => {
         this.data.size += 1;
       })
       Blank().height(1).color(Color.Gray)
       Button(`Child: push`)
-        .margin(12)
-        .width(312)
+        .margin(12).width('100%')
         .height(40)
         .fontColor('#FFFFFF，90%')
         .onClick(() => {
           this.items.push(this.items.length + 1);
         })
       Button(`Child: replace whole item`)
-        .margin(12)
-        .width(312)
+        .margin(12).width('100%')
         .height(40)
         .fontColor('#FFFFFF，90%')
         .onClick(() => {
@@ -43,7 +41,7 @@ struct LinkPage {
   build() {
     Column() {
       Text(`父组件 data: ${this.data.size}`)
-      Button('父组件点击 data +100').onClick(() => {
+      Button('父组件点击 data +100').width('100%').onClick(() => {
         this.data.size += 100;
       })
       Blank().height(1).color(Color.Gray)
@@ -53,8 +51,7 @@ struct LinkPage {
       ForEach(this.arr,
         (item: number) => {
           Button(`${item}`)
-            .margin(12)
-            .width(312)
+            .margin(12).width('100%')
             .height(40)
             .backgroundColor('#11a2a2a2')
             .fontColor('#e6000000')

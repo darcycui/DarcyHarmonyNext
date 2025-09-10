@@ -21,7 +21,7 @@ struct ExtendPage {
           promptAction.showToast({message: '3'})
         })
       //
-      Button('Click change size').onClick(() => {
+      Button('Click change size').width('100%').onClick(() => {
         // this.label += 'A'
         //
         this.sizes += 10

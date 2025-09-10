@@ -23,7 +23,7 @@ struct WorkerPage {
       Text(this.message)
       Text(this.value)
       Button('Worker并行计算')
-        .onClick(() => {
+        .width('100%').onClick(() => {
           workerFunc(this.workerInstance, (value) => {
             this.value = `${value}`
           })

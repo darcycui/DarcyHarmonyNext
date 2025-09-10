@@ -88,13 +88,13 @@ struct LazyForEachClassPage {
   build() {
     Column() {
       Row({ space: 10 }) {
-        Button('头部增加').onClick(() => {
+        Button('头部增加').width('100%').onClick(() => {
           this.data.addDataWithIndex(new StringData(`New Head ${this.data.totalCount()}`), 0);
         })
-        Button('尾部增加').onClick(() => {
+        Button('尾部增加').width('100%').onClick(() => {
           this.data.pushData(new StringData(`New Tail ${this.data.totalCount()}`));
         })
-        Button('其他增加').onClick(() => {
+        Button('其他增加').width('100%').onClick(() => {
           this.data.addDataWithIndex(new StringData(`New ${this.data.totalCount()}`), 1);
         })
       }
@@ -103,13 +103,13 @@ struct LazyForEachClassPage {
       .height('auto')
 
       Row({ space: 10 }) {
-        Button('头部删除').onClick(() => {
+        Button('头部删除').width('100%').onClick(() => {
           this.data.deleteData(0);
         })
-        Button('尾部删除').onClick(() => {
+        Button('尾部删除').width('100%').onClick(() => {
           this.data.deleteData(this.data.totalCount() - 1);
         })
-        Button('其他删除').onClick(() => {
+        Button('其他删除').width('100%').onClick(() => {
           this.data.deleteData(1);
         })
       }.margin({ top: 5 })
@@ -118,10 +118,10 @@ struct LazyForEachClassPage {
       .height('auto')
 
       Row({ space: 10 }) {
-        Button('修改单个').onClick(() => {
+        Button('修改单个').width('100%').onClick(() => {
           this.data.changeData(0, 'A');
         })
-        Button('修改全部').onClick(() => {
+        Button('修改全部').width('100%').onClick(() => {
           this.data.modifyAllData();
         })
       }.margin({ top: 5 })

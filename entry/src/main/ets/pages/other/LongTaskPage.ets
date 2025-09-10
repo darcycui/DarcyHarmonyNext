@@ -12,11 +12,11 @@ struct LongTaskPage {
   build() {
     Column({ space: 20 }) {
       Text(this.message)
-      Button('申请长任务').onClick(() => {
+      Button('申请长任务').width('100%').onClick(() => {
         this.message = '申请长任务';
         this.startLongTask()
       })
-      Button('取消长任务').onClick(() => {
+      Button('取消长任务').width('100%').onClick(() => {
         this.message = '取消长任务';
         this.stopLongTask()
       })

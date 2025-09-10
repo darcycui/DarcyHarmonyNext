@@ -94,7 +94,7 @@ struct MultiBuildersPage {
     Column({ space: 10 }) {
       // 引用传递 对象字面量
       parentBuilder({ paramA1: this.label })
-      Button('Click me').onClick(() => {
+      Button('Click me').width('100%').onClick(() => {
         this.label = 'ArkUI';
       })
     }

@@ -45,7 +45,7 @@ struct LoginIndex {
 
   @Builder
   startPage() {
-    Button($r("app.string.HomePage"))
+    Button($r("app.string.HomePage")).width('100%')
       .alignRules({
         top: { anchor: '__container__', align: VerticalAlign.Top },
         left: { anchor: '__container__', align: HorizontalAlign.Start }

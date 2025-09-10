@@ -11,7 +11,7 @@ struct StateChangedPage4 {
     Column() {
       Text(JSON.stringify(this.list[0]))
       ConsumerChild({ dataObj: this.dataObjFromList })
-      Button('change to self').onClick(() => {
+      Button('change to self').width('100%').onClick(() => {
         this.dataObjFromList = this.list[0];
         // 获取原始对象来和新值做对比
         if (UIUtils.getTarget(this.dataObjFromList) !== this.list[0]) {

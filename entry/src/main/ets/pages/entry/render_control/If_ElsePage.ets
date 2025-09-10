@@ -14,12 +14,12 @@ struct If_Else {
         Text(`count is nagative`)
       }
 
-      Button('increase count')
+      Button('increase count').width('100%')
         .onClick(() => {
           this.count++;
         })
 
-      Button('decrease count')
+      Button('decrease count').width('100%')
         .onClick(() => {
           this.count--;
         })

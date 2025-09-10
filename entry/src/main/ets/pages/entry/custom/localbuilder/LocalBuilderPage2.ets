@@ -33,7 +33,7 @@ struct LocalBuilderPage2 {
   build() {
     Column({ space: 20 }) {
       this.citeLocalBuilder({ value: this.value })
-      Button('Click me').onClick(() => {
+      Button('Click me').width('100%').onClick(() => {
         this.value = 'Hi World';
       })
     }.width('100%')

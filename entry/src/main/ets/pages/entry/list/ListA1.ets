@@ -54,7 +54,7 @@ struct ListA1 {
 
   build() {
     Column() {
-      Button(`ListA1: chg item property in middle`)
+      Button(`ListA1: change item property in middle`).width('100%')
         .margin({ top: 20 })
         .onClick(() => {
           // this.arrA.arrA[Math.floor(this.arrA.arrA.length / 2)].c = 10;

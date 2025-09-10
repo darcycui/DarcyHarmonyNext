@@ -13,7 +13,7 @@ struct StateChangedPage2 {
       Text(`${this.son.value}`); //text1
       Text(`${this.parent.son.value}`); //text2
       Button('change')
-        .onClick(() => {
+        .width('100%').onClick(() => {
           // son的直接属性改变-->text1改变
           // parent的嵌套属性改变 无法观察-->text2不变
           this.parent.son.value = '333';

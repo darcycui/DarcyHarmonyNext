@@ -10,7 +10,7 @@ struct ModifierPage {
   build() {
     Column() {
       // 跨文件使用Modifier
-      Button(this.message)
+      Button(this.message).width('100%')
         .attributeModifier(this.modifier)
         .onClick(() => {
           this.modifier.isDark = !this.modifier.isDark

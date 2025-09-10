@@ -39,7 +39,7 @@ struct WrapBuilderPage {
   build() {
     Column({ space: 10 }) {
       this.testBuilder()
-      Button('Click to change value').onClick(() => {
+      Button('Click to change value').width('100%').onClick(() => {
         this.data.value += 'A'
       })
     }

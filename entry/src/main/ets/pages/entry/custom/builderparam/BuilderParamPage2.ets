@@ -37,7 +37,7 @@ struct BuilderParamPage2 {
       CustomContainer({ header: this.text }) {
         Column() {
           specificParam('testA', 'testB')
-          Button('Change Header').onClick(() => {
+          Button('Change Header').width('100%').onClick(() => {
             this.text = 'changed header';
           }).margin({ bottom: 10 })
         }.backgroundColor(Color.Yellow)

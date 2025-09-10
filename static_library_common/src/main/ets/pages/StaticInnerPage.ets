@@ -18,7 +18,7 @@ export struct StaticInnerPage {
           .fontSize(16)
           .fontWeight(FontWeight.Bold)
         Text(JSON.stringify(this.params))
-        Button("返回")
+        Button("返回").width('100%')
           .onClick(() => {
             NavigationHelper.back(this.pathStack)
           })

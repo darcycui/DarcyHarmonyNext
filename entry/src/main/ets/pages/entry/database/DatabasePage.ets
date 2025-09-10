@@ -61,7 +61,7 @@ struct DatabasePage {
   build() {
     Column() {
       Text(this.message)
-      Button('增')
+      Button('增').width('100%')
         .margin({top: 10})
         .onClick(() => {
           if (this.rDBStore != null) {
@@ -70,7 +70,7 @@ struct DatabasePage {
             Log.error('rDBStore is null')
           }
         })
-      Button('查')
+      Button('查').width('100%')
         .margin({top: 10})
         .onClick(() => {
           if (this.rDBStore != null) {
@@ -79,7 +79,7 @@ struct DatabasePage {
             Log.error('rDBStore is null')
           }
         })
-      Button('改')
+      Button('改').width('100%')
         .margin({top: 10})
         .onClick(() => {
           if (this.rDBStore != null) {
@@ -88,7 +88,7 @@ struct DatabasePage {
             Log.error('rDBStore is null')
           }
         })
-      Button('删')
+      Button('删').width('100%')
         .margin({top: 10})
         .onClick(() => {
           if (this.rDBStore != null) {
@@ -97,7 +97,7 @@ struct DatabasePage {
             Log.error('rDBStore is null')
           }
         })
-      Button('删除数据库')
+      Button('删除数据库').width('100%')
         .margin({top: 10})
         .onClick(() => {
           if (this.rDBStore != null) {
@@ -106,7 +106,7 @@ struct DatabasePage {
             Log.error('rDBStore is null')
           }
         })
-      Button('备份数据库')
+      Button('备份数据库').width('100%')
         .margin({top: 10})
         .onClick(() => {
           if (this.rDBStore != null) {
@@ -115,7 +115,7 @@ struct DatabasePage {
             Log.error('rDBStore is null')
           }
         })
-      Button('恢复数据库')
+      Button('恢复数据库').width('100%')
         .margin({top: 10})
         .onClick(() => {
           if (this.rDBStore != null) {

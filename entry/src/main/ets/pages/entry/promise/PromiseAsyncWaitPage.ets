@@ -4,12 +4,12 @@ import { test_async_wait_func, test_promise_func } from '../../../learn/unittest
 @Component
 struct PromiseAsyncWaitPage {
   build() {
-    Column(){
+    Column({ space: 5 }) {
       Text('PromiseAsyncWaitPage')
-      Button('Promise').onClick(()=>{
+      Button('Promise').width('100%').onClick(() => {
         test_promise_func()
       })
-      Button('async/wait').onClick(()=>{
+      Button('async/wait').width('100%').onClick(() => {
         test_async_wait_func()
       })
     }.height('100%')

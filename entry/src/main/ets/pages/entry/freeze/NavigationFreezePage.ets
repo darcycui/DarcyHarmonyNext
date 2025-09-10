@@ -22,14 +22,14 @@ struct MyNavigationTestStack {
 
   build() {
     Column() {
-      Button('change message')
+      Button('change message').width('100%')
         .onClick(() => {
           this.message++;
         })
       Navigation(this.pageInfo) {
         Column() {
           Button('Next Page', { stateEffect: true, type: ButtonType.Capsule })
-            .width('80%')
+            .width('100%')
             .height(40)
             .margin(20)
             .onClick(() => {

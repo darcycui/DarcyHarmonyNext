@@ -40,7 +40,7 @@ struct TrackPage {
           .fontSize(this.isRender(2))
           .fontWeight(FontWeight.Bold)
         Button('change logTrack.str1')
-          .onClick(() => {
+          .width('100%').onClick(() => {
             // TODO 只有text1更新 text2不更新
             this.logTrack.str1 = 'Bye';
           })
@@ -51,7 +51,7 @@ struct TrackPage {
           .fontSize(this.isRender(4))
           .fontWeight(FontWeight.Bold)
         Button('change logNotTrack.str1')
-          .onClick(() => {
+          .width('100%').onClick(() => {
             // text3和text4都会更新
             this.logNotTrack.str1 = '再见';
           })

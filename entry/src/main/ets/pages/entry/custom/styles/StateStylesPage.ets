@@ -23,7 +23,7 @@ struct StateStylesPage {
 
   build() {
     Column({ space: 20 }) {
-      Button('Button1')
+      Button('Button1').width('100%')
         // 设置statesStyles
         .stateStyles({
           // 使用函数给 normal focused pressed 3个状态设置样式
@@ -31,7 +31,7 @@ struct StateStylesPage {
           focused: this.focusedStyle,
           pressed: this.pressedStyle,
         })
-      Button('Button2')
+      Button('Button2').width('100%')
         .stateStyles({
           normal: {
             // TODO 可以使用状态变量 可以刷新UI
@@ -40,7 +40,7 @@ struct StateStylesPage {
           focused: this.focusedStyle,
           pressed: this.pressedStyle,
         })
-      Button('Change normal color').onClick(() => {
+      Button('Change normal color').width('100%').onClick(() => {
         this.normalColor = '#ff000000'
       })
     }.width('100%')

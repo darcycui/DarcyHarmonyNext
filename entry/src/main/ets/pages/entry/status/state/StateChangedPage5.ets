@@ -35,7 +35,7 @@ struct StateChangedPage5 {
       Text(`The volume of the balloon is ${this.balloon.volume} cubic centimeters.`)
         .fontSize(20)
       Button(`increaseVolume`)
-        .onClick(() => {
+        .width('100%').onClick(() => {
           // TODO 将状态作为参数传递给其他类的静态函数，无法触发UI刷新
           // Balloon.increaseVolumeStatic(this.balloon);
 
@@ -48,7 +48,7 @@ struct StateChangedPage5 {
           this.balloon.increaseVolumeNormal(balloon1);
         })
       Button(`reduceVolume`)
-        .onClick(() => {
+        .width('100%').onClick(() => {
           // TODO 使用this内部函数调用，无法触发UI刷新
           // this.reduceVolumeThis(this.balloon);
 
@@ -58,14 +58,14 @@ struct StateChangedPage5 {
         })
 
       Button(`reduceVolume2`)
-        .onClick(() => {
+        .width('100%').onClick(() => {
           // TODO 直接调用其他类的函数 不传递状态参数，可以触发UI刷新
           // this.balloon.increaseVolumeWithoutParams()
           // TODO 直接调用this内部函数 不传递状态参数，可以触发UI刷新
           this.reduceVolumeThisWithoutParams()
         })
       Button(`reduceVolume3`)
-        .onClick(() => {
+        .width('100%').onClick(() => {
           // TODO 将状态作为参数传递给当前文件外部函数，可以触发UI刷新
           reduceVolumeOut(this.balloon);
         })

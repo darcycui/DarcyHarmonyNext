@@ -6,7 +6,7 @@ struct WatchLinkPage {
   build() {
     Column() {
       Button('Add to basket')
-        .onClick(() => {
+        .width('100%').onClick(() => {
           this.shopBasket.push(new PurchaseItem(Math.round(100 * Math.random())))
         })
       // TODO 可以使用$$shopBasket引用状态变量 等同于this.shopBasket

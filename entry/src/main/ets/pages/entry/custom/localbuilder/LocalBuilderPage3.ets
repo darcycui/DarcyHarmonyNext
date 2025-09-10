@@ -53,7 +53,7 @@ struct LocalBuilderPage3 {
         data: this.data
       })
       Text(`${'父组件 size : ' + this.data.size}`)
-      Button('父组件修改size: +100').onClick(() => {
+      Button('父组件修改size: +100').width('100%').onClick(() => {
         this.data.size += 100;
         Log.log(`1--size=${this.data.size}`)
       }
@@ -84,7 +84,7 @@ struct Child {
       this.contentLocalBuilder({ size: this.data.size })
       this.contentLocalBuilderNoArgument()
       Text(`${'子组件 size : ' + this.data.size}`)
-      Button("子组件修改size: +1").onClick(() => {
+      Button("子组件修改size: +1").width('100%').onClick(() => {
         this.data.size += 1;
         Log.log(`2--size=${this.data.size}`)
       })

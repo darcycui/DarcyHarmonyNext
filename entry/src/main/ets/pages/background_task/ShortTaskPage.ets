@@ -13,10 +13,10 @@ struct ShortTaskPage {
   build() {
     Column({ space: 20 }) {
       Text(this.message)
-      Button('申请短任务').onClick((event: ClickEvent) => {
+      Button('申请短任务').width('100%').onClick((event: ClickEvent) => {
         ToastHelper.showToast('请退到后台，触发短时任务')
       })
-      Button('取消短任务').onClick((event: ClickEvent) => {
+      Button('取消短任务').width('100%').onClick((event: ClickEvent) => {
         stopTask()
       })
 

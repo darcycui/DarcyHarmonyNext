@@ -63,12 +63,12 @@ struct KeyValuePage {
   build() {
     Column() {
       Text(this.info)
-      Button("创建KVStore")
+      Button("创建KVStore").width('100%')
         .margin({ top: 10 })// 外边距
         .onClick((event: ClickEvent) => {
           Log.log('已经在aboutToAppear中创建kvStore')
         })
-      Button("写入")
+      Button("写入").width('100%')
         .margin({ top: 10 })// 外边距
         .onClick((event: ClickEvent) => {
           if (this.kvStore != undefined) {
@@ -77,7 +77,7 @@ struct KeyValuePage {
             Log.error(`kvStore is undefined`);
           }
         })
-      Button("读取")
+      Button("读取").width('100%')
         .margin({ top: 10 })// 外边距
         .onClick((event: ClickEvent) => {
           if (this.kvStore != undefined) {
@@ -86,7 +86,7 @@ struct KeyValuePage {
             Log.error(`kvStore is undefined`);
           }
         })
-      Button("删除key")
+      Button("删除key").width('100%')
         .margin({ top: 10 })// 外边距
         .onClick((event: ClickEvent) => {
           if (this.kvStore != undefined) {
@@ -95,12 +95,12 @@ struct KeyValuePage {
             Log.error(`kvStore is undefined`);
           }
         })
-      Button("关闭KVStore")
+      Button("关闭KVStore").width('100%')
         .margin({ top: 10 })// 外边距
         .onClick((event: ClickEvent) => {
           closeKV(this.kvManager, this.kvStore);
         })
-      Button("删除KvStore")
+      Button("删除KvStore").width('100%')
         .margin({ top: 10 })// 外边距
         .onClick((event: ClickEvent) => {
           if (this.kvStore != undefined) {

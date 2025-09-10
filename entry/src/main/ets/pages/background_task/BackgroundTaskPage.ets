@@ -21,15 +21,15 @@ struct BackgroundTaskPage {
     Column({ space: 20 }) {
       Text(`Title: ${this.message}`)
       Text(`params: ${JSON.stringify(this.params)}`)
-      Button('短任务').onClick(() => {
+      Button('短任务').width('100%').onClick(() => {
         this.message = '短任务';
         RouterHelper.startPage(this.getUIContext(), PAGE_SHORT_TASK, {})
       })
-      Button('长任务').onClick(() => {
+      Button('长任务').width('100%').onClick(() => {
         this.message = '长任务';
         AbilityHelper.startAbility(this.context, "LongTaskAbility", {})
       })
-      Button('延迟任务').onClick(() => {
+      Button('延迟任务').width('100%').onClick(() => {
         this.message = '延迟任务';
         RouterHelper.startPage(this.getUIContext(), PAGE_WORK_SCHEDULER, {})
       })

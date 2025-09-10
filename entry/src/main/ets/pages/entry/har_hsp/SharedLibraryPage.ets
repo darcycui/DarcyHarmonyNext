@@ -26,7 +26,7 @@ struct SharedLibraryPage {
           .margin({ bottom: 10 })
           .fontWeight(FontWeight.Bold)
         // // 引用动态库中的string
-        // Button(ContextResourceManager.getString())
+        // Button(ContextResourceManager.getString()).width('100%')
         //   .margin({ bottom: 10 })
         //   .onClick(() => {
         //     // 跳转到动态库页面
@@ -38,7 +38,7 @@ struct SharedLibraryPage {
         //   .width(100)
         //   .objectFit(ImageFit.Contain)
         // // 调用动态库中的方法
-        // Button($r("app.string.SharedLibraryCommonFunc"))
+        // Button($r("app.string.SharedLibraryCommonFunc")).width('100%')
         //   .onClick(() => {
         //     let sum = add(1, 2)
         //     Log.log(`call add from shared library: sum=${sum}`)

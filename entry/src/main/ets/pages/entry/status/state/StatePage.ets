@@ -37,20 +37,20 @@ struct StatePage {
   @Builder
   testSetState() {
     Text(getSetString(this.set)).fontSize(20).margin({ top: 20 })
-    Button('set 赋值').onClick(() => {
+    Button('set 赋值').width('100%').onClick(() => {
       this.set = new Set([new Person('100'), new Person('200'), new Person('300')])
     }).margin({ top: 10 })
-    Button('set item新增').onClick(() => {
+    Button('set item新增').width('100%').onClick(() => {
       this.set.add(this.person4)
     }).margin({ top: 10 })
-    Button('set item删除').onClick(() => {
+    Button('set item删除').width('100%').onClick(() => {
       this.set.delete(this.person4)
     }).margin({ top: 10 })
-    Button('set 清空').onClick(() => {
+    Button('set 清空').width('100%').onClick(() => {
       this.set.clear()
     }).margin({ top: 10 })
     // TODO 无法观察到!
-    Button('set item属性嵌套赋值').onClick(() => {
+    Button('set item属性嵌套赋值').width('100%').onClick(() => {
       // set 遍历
       for (let item of this.set) {
         Log.log(`item= ${item.value}`)
@@ -68,28 +68,28 @@ struct StatePage {
   @Builder
   testMapState() {
     Text(getMapString(this.map)).fontSize(20).margin({ top: 20 })
-    Button('map 赋值').onClick(() => {
+    Button('map 赋值').width('100%').onClick(() => {
       Log.log(`1 ${this.map.get('one')?.value}`)
       this.map = new Map([['第一', new Person('111')], ['第二', new Person('222')], ['第三', new Person('333')]]);
       Log.log(`1 ${this.map.get('第一')?.value}`)
     }).margin({ top: 10 })
-    Button('map item赋值').onClick(() => {
+    Button('map item赋值').width('100%').onClick(() => {
       this.map.set('第一', new Person('-101'));
       Log.log(`1 ${this.map.get('第一')?.value}`)
     }).margin({ top: 10 })
-    Button('map item新增').onClick(() => {
+    Button('map item新增').width('100%').onClick(() => {
       this.map.set('第四', new Person('444'))
       Log.log(`4 ${this.map.get('第四')?.value}`)
     }).margin({ top: 10 })
-    Button('map item删除').onClick(() => {
+    Button('map item删除').width('100%').onClick(() => {
       this.map.delete('第四')
       Log.log(`4 ${this.map.get('第四')?.value}`)
     }).margin({ top: 10 })
-    Button('map 清空').onClick(() => {
+    Button('map 清空').width('100%').onClick(() => {
       this.map.clear()
     }).margin({ top: 10 })
     // TODO 无法观察到!
-    Button('map item属性嵌套赋值').onClick(() => {
+    Button('map item属性嵌套赋值').width('100%').onClick(() => {
       let original: Person | undefined = this.map.get('第一')
       Log.log(`original=${original?.value}`);
       if (original != undefined) {
@@ -105,23 +105,23 @@ struct StatePage {
   @Builder
   testArrayState() {
     Text(JSON.stringify(this.array)).fontSize(20).margin({ top: 20 })
-    Button('array 赋值').onClick(() => {
+    Button('array 赋值').width('100%').onClick(() => {
       this.array = [new Person('汤姆'), new Person('杰瑞')];
     }).margin({ top: 10 })
-    Button('array item赋值').onClick(() => {
+    Button('array item赋值').width('100%').onClick(() => {
       this.array[1] = new Person('斯派克');
     }).margin({ top: 10 })
-    Button('array item新增').onClick(() => {
+    Button('array item新增').width('100%').onClick(() => {
       this.array.push(new Person('多盖洛'));
     }).margin({ top: 10 })
-    Button('array item删除').onClick(() => {
+    Button('array item删除').width('100%').onClick(() => {
       this.array.pop();
     }).margin({ top: 10 })
-    Button('map 清空').onClick(() => {
+    Button('map 清空').width('100%').onClick(() => {
       this.array.length = 0
     }).margin({ top: 10 })
     // TODO 无法观察到!
-    Button('array item属性嵌套赋值').onClick(() => {
+    Button('array item属性嵌套赋值').width('100%').onClick(() => {
       this.array[0].value = '猫和老鼠';
     }).margin({ top: 10 })
   }
@@ -129,15 +129,15 @@ struct StatePage {
   @Builder
   testClassState() {
     Text(JSON.stringify(this.model)).fontSize(20)
-    Button('class 赋值').onClick(() => {
+    Button('class 赋值').width('100%').onClick(() => {
       this.model = new Model('Hi', new Person('ArkUI'));
     }).margin({ top: 10 })
-    Button('class 属性赋值').onClick(() => {
+    Button('class 属性赋值').width('100%').onClick(() => {
       this.model.value = '你好';
       this.model.name = new Person('世界');
     }).margin({ top: 10 })
     // TODO 无法观察到!
-    Button('class 属性嵌套赋值').onClick(() => {
+    Button('class 属性嵌套赋值').width('100%').onClick(() => {
       this.model.name.value = '我的世界';
     }).margin({ top: 10 })
   }
@@ -146,22 +146,22 @@ struct StatePage {
   testDateState() {
     Text(JSON.stringify(this.selectedDate)).fontSize(20).margin({ top: 20 })
     Button('set selectedDate to 2023-07-08')
-      .margin(10)
+      .width('100%').margin(10)
       .onClick(() => {
         this.selectedDate = new Date('2023-07-08');
       })
     Button('increase the year by 1')
-      .margin(10)
+      .width('100%').margin(10)
       .onClick(() => {
         this.selectedDate.setFullYear(this.selectedDate.getFullYear() + 1);
       })
     Button('increase the month by 1')
-      .margin(10)
+      .width('100%').margin(10)
       .onClick(() => {
         this.selectedDate.setMonth(this.selectedDate.getMonth() + 1);
       })
     Button('increase the day by 1')
-      .margin(10)
+      .width('100%').margin(10)
       .onClick(() => {
         this.selectedDate.setDate(this.selectedDate.getDate() + 1);
       })

@@ -10,14 +10,14 @@ struct LocalStoragePage5 {
     Column({ space: 16 }) {
       Text('Parent')
       Button(`playCount ${this.playCount} dec by 1`)
-        .onClick(() => {
+        .width('100%').onClick(() => {
           // 修改父组件中的状态
           this.playCount -= 1;
         })
 
       Text('LocalStorage')
       Button(`countStorage ${this.playCount} incr by 1`)
-        .onClick(() => {
+        .width('100%').onClick(() => {
           // 修改storage中的值
           localStorage5.set<number | undefined>('countStorage', Number(localStorage5.get<number>('countStorage')) + 1);
         })
@@ -42,7 +42,7 @@ struct ChildStorage5 {
     Column({ space: 10 }) {
       Text(this.label)
       Button(`playCountLink ${this.playCountLink}: inc by 1`)
-        .onClick(() => {
+        .width('100%').onClick(() => {
           // 修改子组件中的状态
           this.playCountLink += 1;
         })

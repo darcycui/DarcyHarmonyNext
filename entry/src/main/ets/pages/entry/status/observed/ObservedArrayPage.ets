@@ -20,7 +20,7 @@ struct ChildArrayItem {
   build() {
     Row() {
       Button(`ViewChild [${this.label}] this.info.info = ${this.info ? this.info.value : "undefined"}`)
-        .width(320)
+        .width('100%')
         .margin(10)
         .onClick(() => {
           this.info.value += 1;
@@ -51,19 +51,19 @@ struct ObservedArrayPage {
 
       Text('数组操作')
       Button(`ViewParent: reset array`)
-        .width(320)
+        .width('100%')
         .margin(10)
         .onClick(() => {
           this.arrA = [new Info(0), new Info(0)];
         })
       Button(`ViewParent: push`)
-        .width(320)
+        .width('100%')
         .margin(10)
         .onClick(() => {
           this.arrA.push(new Info(0));
         })
       Button(`ViewParent: shift`)
-        .width(320)
+        .width('100%')
         .margin(10)
         .onClick(() => {
           if (this.arrA.length > 0) {
@@ -73,13 +73,13 @@ struct ObservedArrayPage {
           }
         })
       Button(`ViewParent: item property in middle`)
-        .width(320)
+        .width('100%')
         .margin(10)
         .onClick(() => {
           this.arrA[Math.floor(this.arrA.length / 2)].value = 10;
         })
       Button(`ViewParent: item property in middle`)
-        .width(320)
+        .width('100%')
         .margin(10)
         .onClick(() => {
           this.arrA[Math.floor(this.arrA.length / 2)] = new Info(11);

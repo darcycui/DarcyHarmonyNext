@@ -12,12 +12,12 @@ struct NApiPage {
 
   build() {
     Column({ space: 10 }) {
-      Button('调用function Click')
+      Button('调用function Click').width('100%')
         // TODO 传递函数 包一层 ()=>{}
         .onClick(() => {
           this.callFunction()
         })
-      Button('调用NApi Click')
+      Button('调用NApi Click').width('100%')
         .onClick(() => {
           let sum = nativeAdd(1, 2);
           promptAction.showToast({ message: `NApiPage sum=${sum}` });

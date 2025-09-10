@@ -7,9 +7,8 @@ struct GrandSon {
     Column() {
       Text(`GrandSon(${this.reviewVotes})`) // Text显示10
       Button(`reviewVotes(${this.reviewVotes}), give +1`)
-        .onClick(() => this.reviewVotes += 1)
-    }
-    .width('50%')
+        .width('100%').onClick(() => this.reviewVotes += 1)
+    }.width('100%')
   }
 }
 
@@ -23,7 +22,7 @@ struct ChildProvideConsume3 {
         Text(`ChildProvideConsume3(${this.reviewVotes})`) // Text显示10
         GrandSon()
       }
-    }
+    }.width('100%')
   }
 }
 
@@ -33,7 +32,7 @@ struct ParentProvideConsume3 {
   @Provide({ allowOverride: "reviewVotes" }) reviewVotes: number = 20;
 
   build() {
-    ChildProvideConsume3()
+    ChildProvideConsume3().width('100%')
   }
 }
 
@@ -45,8 +44,8 @@ struct ProvideConsumePage3 {
   build() {
     Column() {
       Button(`reviewVotes(${this.reviewVotes}), give +1`)
-        .onClick(() => this.reviewVotes += 1)
-      ParentProvideConsume3()
+        .width('100%').onClick(() => this.reviewVotes += 1)
+      ParentProvideConsume3().width('100%')
     }
   }
 }

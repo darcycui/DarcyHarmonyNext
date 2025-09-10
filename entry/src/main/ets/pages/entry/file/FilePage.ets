@@ -10,7 +10,7 @@ struct FilePage {
   context = getContext(this) as common.UIAbilityContext;
 
   build() {
-    Column() {
+    Column({ space: 5 }) {
       this.resultText()
       this.appFileButton()
       this.userFileButton()
@@ -28,7 +28,7 @@ struct FilePage {
 
   @Builder
   appFileButton() {
-    Button($r("app.string.AppFile"))
+    Button($r("app.string.AppFile")).width('100%')
       .id("AppFile")
       .margin({ left: 10 })// 外边距
       .onClick((event: ClickEvent) => {
@@ -46,7 +46,7 @@ struct FilePage {
 
   @Builder
   userFileButton() {
-    Button($r("app.string.UserFile"))
+    Button($r("app.string.UserFile")).width('100%')
       .id("UserFile")
       .margin({ left: 10 })// 外边距
       .onClick((event: ClickEvent) => {
@@ -261,7 +261,7 @@ function copyAppFileStream2(context: Context) {
       if (data) {
         fileOutputStream.write(data as Uint8Array)
       } else {
-            Log.error(`read data=null`)
+        Log.error(`read data=null`)
       }
     })
 

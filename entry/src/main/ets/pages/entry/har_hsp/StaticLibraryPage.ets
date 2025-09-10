@@ -26,7 +26,7 @@ struct StaticLibraryPage {
           .margin({ bottom: 10 })
           .fontWeight(FontWeight.Bold)
         // 引用static库中的string
-        Button($r("app.string.StaticLibraryCommonName"))
+        Button($r("app.string.StaticLibraryCommonName")).width('100%')
           .margin({ bottom: 10 })
           .onClick(() => {
             // 跳转到静态库页面
@@ -38,7 +38,7 @@ struct StaticLibraryPage {
           .width(100)
           .objectFit(ImageFit.Contain)
         // 调用static库中的方法
-        Button($r("app.string.StaticLibraryCommonFunc"))
+        Button($r("app.string.StaticLibraryCommonFunc")).width('100%')
           .onClick(() => {
             Log.info('har static library common func')
             let info = func() + ' ' + func2()

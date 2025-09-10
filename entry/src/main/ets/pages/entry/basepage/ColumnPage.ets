@@ -129,7 +129,7 @@ struct buttonComponentParent {
 
   build() {
     Column() {
-      Button(this.text)
+      Button(this.text).width('100%')
         .margin({ top: 10 })
         .onClick(() => {
           // this.clickCallback?.call;
@@ -151,7 +151,7 @@ struct buttonComponentSub {
   clickCallback?: () => void
 
   build() {
-    Button("Sub Button")
+    Button("Sub Button").width('100%')
       .margin({ top: 10 })
       .onClick(() => {
         // this.callback?.call

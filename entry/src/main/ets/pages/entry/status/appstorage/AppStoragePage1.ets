@@ -21,16 +21,16 @@ struct AppStoragePage1 {
 
   build() {
     Column({ space: 20 }) {
-      Button(`From AppStorage ${this.storageLink}`)
+      Button(`From AppStorage ${this.storageLink}`).width('100%')
         .onClick(() => {
           this.storageLink += 1;
         })
 
-      Button(`From AppStorage ${this.storageLinkObject.code}`)
+      Button(`From AppStorage ${this.storageLinkObject.code}`).width('100%')
         .onClick(() => {
           this.storageLinkObject.code += 1;
         })
-      Button(`跳转另一个Ability`)
+      Button(`跳转另一个Ability`).width('100%')
         .onClick(() => {
           startOtherAbility(this.context)
         })

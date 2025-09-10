@@ -28,7 +28,7 @@ struct If_Else_WithStateChanged {
         Text(this.data2.str).fontColor(Color.Red).id("2")
       }
 
-      Button("play with animation")
+      Button("play with animation").width('100%')
         .rotate({ angle: this.rotateValue }) // 添加旋转动画
         .onClick(() => {
           animateTo({
@@ -49,7 +49,7 @@ struct If_Else_WithStateChanged {
           })
         })
 
-      Button("play directly")
+      Button("play directly").width('100%')
         .onClick(() => {
           // 直接改if条件，不在动画当中，可以正常切换，也不会加默认转场
           if (this.data1) {

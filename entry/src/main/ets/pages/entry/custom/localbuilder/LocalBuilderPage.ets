@@ -41,7 +41,7 @@ struct LocalBuilderPage {
       this.messageLocalBuilder2(this.message) // 值传递 UI不刷新
       this.countLocalBuilder({ count: this.count })
       // 这里点击事件的处理 封装到handleClick函数中
-      Button('Click me =>').onClick(() => this.handleClick())
+      Button('Click me =>').width('100%').onClick(() => this.handleClick())
     }.width('100%')
   }
 

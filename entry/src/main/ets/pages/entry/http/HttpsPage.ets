@@ -46,7 +46,7 @@ struct HttpsPage {
 
   @Builder
   httpButton() {
-    Button($r("app.string.HttpTest"))
+    Button($r("app.string.HttpTest")).width('100%')
       .id("HttpTest")
       .margin({ left: 10 })// 外边距
       .onClick((event: ClickEvent) => {

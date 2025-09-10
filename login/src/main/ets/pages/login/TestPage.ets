@@ -13,7 +13,7 @@ struct TestPage {
         .id('TestPageHelloWorld')
         .fontSize(50)
         .fontWeight(FontWeight.Bold)
-      Button($r("app.string.HomePage")).onClick(()=>{
+      Button($r("app.string.HomePage")).width('100%').onClick(()=>{
         // TODO entry module页面跳转 使用want
         AbilityHelper.startAbility(this.context, "HomeAbility", {})
       })

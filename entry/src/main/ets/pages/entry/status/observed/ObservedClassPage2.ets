@@ -34,7 +34,7 @@ struct SonObserved2 {
         .margin(10)
         .textAlign(TextAlign.Center)
       Button(`Son: this.name.length add 1`)
-        .width(320)
+        .width('100%')
         .backgroundColor('#ff17a98d')
         .margin(10)
         .onClick(() => {
@@ -53,13 +53,13 @@ struct ObservedClassPage2 {
     Column() {
       SonObserved2({ label: 'Son #1', name: this.user.name }).width(320)
       Button(`GrandFather: this.user.name = new Name(10)`)
-        .width(320)
+        .width('100%')
         .margin(10)
         .onClick(() => {
           this.user.name = new Name(10); // 重新赋值name SonObserved2 会更新UI
         })
       Button(`Father: this.user = new User(new Name(20))`)
-        .width(320)
+        .width('100%')
         .margin(10)
         .onClick(() => {
           this.user = new User(new Name(20)); // 重新赋值user SonObserved2 会更新UI

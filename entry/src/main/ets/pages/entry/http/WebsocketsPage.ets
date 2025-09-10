@@ -28,7 +28,7 @@ struct WebsocketsPage {
   }
 
   build() {
-    Column() {
+    Column({ space: 5 }) {
       this.connectButton()
       this.sendButton()
       this.disconnectButton()
@@ -53,7 +53,7 @@ struct WebsocketsPage {
 
   @Builder
   connectButton() {
-    Button($r("app.string.WebsocketConnect"))
+    Button($r("app.string.WebsocketConnect")).width('100%')
       .id("WebsocketConnect")
       .margin({ left: 10 })// 外边距
       .onClick((event: ClickEvent) => {
@@ -64,7 +64,7 @@ struct WebsocketsPage {
 
   @Builder
   sendButton() {
-    Button($r("app.string.WebsocketSend"))
+    Button($r("app.string.WebsocketSend")).width('100%')
       .id("WebsocketSend")
       .margin({ left: 10 })// 外边距
       .onClick((event: ClickEvent) => {
@@ -75,7 +75,7 @@ struct WebsocketsPage {
 
   @Builder
   disconnectButton() {
-    Button($r("app.string.WebsocketDisconnect"))
+    Button($r("app.string.WebsocketDisconnect")).width('100%')
       .id("WebsocketDisconnect")
       .margin({ left: 10 })// 外边距
       .onClick((event: ClickEvent) => {

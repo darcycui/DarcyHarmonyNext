@@ -21,7 +21,7 @@ struct ComponentPage {
       Divider().height(5) // 分隔线
       Text(`normalInfo: ${this.normalInfo}`)
       Blank().height(20) // 空白间隔
-      Button('Change Parent State').onClick(() => {
+      Button('Change Parent State').width('100%').onClick(() => {
         this.linkCount = this.linkCount + 100
         this.propCount = this.propCount - 100
         this.stateInfo = 'state changed by Parent'
@@ -58,7 +58,7 @@ struct ComponentA {
       Divider().height(5) // 分隔线
       Text(`normalInfo: ${this.normalInfo}`)
       Blank().height(20) // 空白间隔
-      Button('Change State').onClick(() => {
+      Button('Change State').width('100%').onClick(() => {
         this.linkCount = 999
         this.propCount = 888
         this.stateInfo = 'state changed by Child'
@@ -82,7 +82,7 @@ struct ComponentC {
     Column() {
       Text(`link count=${this.linkCount}`)
       Blank().height(20) // 空白间隔
-      Button('Change State').onClick(() => {
+      Button('Change State').width('100%').onClick(() => {
         this.linkCount = 666
       }).margin({ top: 2 })
     }

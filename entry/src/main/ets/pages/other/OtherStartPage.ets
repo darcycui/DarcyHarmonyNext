@@ -21,12 +21,12 @@ struct OtherStartPage {
             this.message = 'Welcome';
           })
         Button(`From AppStorage ${this.storageLink}`)
-          .onClick(() => {
+          .width('100%').onClick(() => {
             this.storageLink += 1;
           })
 
         Button(`From AppStorage ${this.storageLinkObject.code}`)
-          .onClick(() => {
+          .width('100%').onClick(() => {
             this.storageLinkObject.code += 1;
           })
       }

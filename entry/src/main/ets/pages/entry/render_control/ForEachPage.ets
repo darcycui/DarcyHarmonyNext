@@ -35,7 +35,7 @@ struct ForEachPage {
           })
         Button() {
           Text('在第1项后插入新项').fontSize(30).padding(16)
-        }
+        }.width('100%')
         .onClick(() => {
           this.simpleList.splice(1, 0, 'new item');
           Log.log(`simpleList=${JSON.stringify(this.simpleList)}`)
