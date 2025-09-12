@@ -11,7 +11,6 @@ export function ChatEntryBuilder() {
 }
 
 @Component
-@Preview
 export struct ChatEntryPage {
   @State keyboardHeight: number = 0;
   @State input: string = '';

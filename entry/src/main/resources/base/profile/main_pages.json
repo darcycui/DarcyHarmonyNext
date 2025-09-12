@@ -108,6 +108,7 @@
     "pages/entry/statusv2/monitor/MonitorPage",
     "pages/entry/statusv2/monitor/MonitorClassPage",
     "pages/entry/statusv2/computed/ComputedPage",
-    "pages/entry/statusv2/computed/ComputedClassPage"
+    "pages/entry/statusv2/computed/ComputedClassPage",
+    "pages/preview/PreviewPage"
   ]
 }

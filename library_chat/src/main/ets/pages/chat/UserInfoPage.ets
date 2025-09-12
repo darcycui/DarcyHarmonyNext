@@ -8,7 +8,6 @@ export function ChatUserInfoBuilder() {
 
 
 @Component
-@Preview
 export struct UserInfoPage {
   @Prop userName: string = 'Default';
   @State pageParam: Map<string, string> = new Map();
