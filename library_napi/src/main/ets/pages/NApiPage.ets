@@ -1,9 +1,9 @@
 import { NodeContent } from "@kit.ArkUI";
 import nativeNode from 'liblibrary_napi.so';
 
-@Entry({ routeName: 'Index' })
+@Entry({ routeName: 'NApiPage' })
 @Component
-struct Index {
+struct NApiPage {
   @State message: string = 'NApi 绘制UI';
   @State @Watch('changeNativeFlag') showNative: boolean = false;
   // 初始化NodeContent对象。
@@ -35,4 +35,4 @@ struct Index {
   }
 }
 
-export { Index }; // 添加这行导出语句
+export { NApiPage}; // 添加这行导出语句
