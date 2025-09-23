@@ -1,27 +1,38 @@
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import testNapi from 'liblibrary_napi.so';
+import { NodeContent } from "@kit.ArkUI";
+import nativeNode from 'liblibrary_napi.so';
 
-const DOMAIN = 0x0000;
-
-@Entry({routeName: 'Index'})
+@Entry({ routeName: 'Index' })
 @Component
 struct Index {
   @State message: string = 'NApi 绘制UI';
+  @State @Watch('changeNativeFlag') showNative: boolean = false;
+  // 初始化NodeContent对象。
+  private rootSlot = new NodeContent();
+
+  changeNativeFlag(): void {
+    if (this.showNative) {
+      // 传递NodeContent对象用于Native创建组件的挂载显示
+      nativeNode.createNativeRoot(this.rootSlot)
+    } else {
+      // 销毁NativeModule组件
+      nativeNode.destroyNativeRoot()
+    }
+  }
 
   build() {
-    Row() {
-      Column() {
-        Text(this.message)
-          .fontSize($r('app.float.page_text_font_size'))
-          .fontWeight(FontWeight.Bold)
-          .onClick(() => {
-            this.message = 'Welcome';
-            hilog.info(DOMAIN, 'testTag', 'Test NAPI 2 + 3 = %{public}d', testNapi.add(2, 3));
-          })
-      }
-      .width('100%')
+    Column({ space: 10 }) {
+      Text(this.message)
+      Button(this.showNative ? "NativeUI已显示 点击隐藏" : "NativeUI已隐藏 点击显示").onClick(() => {
+        this.showNative = !this.showNative
+      })
+      Row() {
+        // 将NodeContent和ContentSlot占位组件绑定
+        ContentSlot(this.rootSlot)
+      }.layoutWeight(1).width('100%')
     }
+    .width('100%')
     .height('100%')
   }
 }
+
 export { Index }; // 添加这行导出语句
