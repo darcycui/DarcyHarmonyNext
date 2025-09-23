@@ -23,9 +23,9 @@ struct NApiPage {
           let sum = nativeAdd(1, 2);
           promptAction.showToast({ message: `NApiPage sum=${sum}` });
         })
-      Button('启动 NApiUIAbility').width('100%')
+      Button('启动 LibNapiAbility').width('100%')
         .onClick(() => {
-          AbilityHelper.startAbility(this.context, "NApiUIAbility", {}, 'entry')
+          AbilityHelper.startAbility(this.context, "LibNapiAbility", {}, 'entry')
         })
     }
     .height('100%')

@@ -12,7 +12,7 @@
     "installationFree": false,
     "abilities": [
       {
-        "name": "NApiUIAbility",
+        "name": "LibNapiAbility",
         "srcEntry": "./ets/lib_napiability/LibNapiAbility.ets",
         "description": "$string:Lib_napiAbility_desc",
         "icon": "$media:layered_image",
@@ -20,7 +20,7 @@
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
         "exported": true
-      }
+      },
     ]
   }
 }

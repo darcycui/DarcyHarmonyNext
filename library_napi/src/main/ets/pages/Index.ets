@@ -3,7 +3,7 @@ import testNapi from 'liblibrary_napi.so';
 
 const DOMAIN = 0x0000;
 
-@Entry
+@Entry({routeName: 'Index'})
 @Component
 struct Index {
   @State message: string = 'NApi 绘制UI';
@@ -24,3 +24,4 @@ struct Index {
     .height('100%')
   }
 }
+export { Index }; // 添加这行导出语句
