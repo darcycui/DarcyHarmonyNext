@@ -1,6 +1,6 @@
 import { common } from '@kit.AbilityKit';
 import { uiObserver } from '@kit.ArkUI';
-import { Log } from 'static_library_common';
+import { Log, ToastHelper } from 'static_library_common';
 import { AbilityHelper } from 'static_library_common/src/main/ets/utils/AbilityHelper';
 
 let TAG = "[Home Struct] ";
@@ -10,19 +10,19 @@ let TAG2 = "[textComponent Struct] ";
 @Component
 struct ColumnPage {
   @State messageHome: string = 'Hello World';
-  context = getContext(this) as common.UIAbilityContext;
+  context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
 
-  // 生命周期回调:页面显示 只限入口组件
+  // 生命周期回调:页面显示 // darcyRefactor: 只限入口组件
   onPageShow(): void {
     Log.info(TAG + "onPageShow");
   }
 
-  // 生命周期回调:页面隐藏 只限入口组件
+  // 生命周期回调:页面隐藏 // darcyRefactor: 只限入口组件
   onPageHide(): void {
     Log.info(TAG + "onPageHide")
   }
 
-  // 生命周期回调:返回键 只限入口组件
+  // 生命周期回调:返回键 // darcyRefactor: 只限入口组件
   onBackPress(): boolean | void {
     Log.info(TAG + "onBackPress");
     return false; // 返回false不消费回退事件
@@ -46,9 +46,15 @@ struct ColumnPage {
   build() {
     Column() {
       // TODO:使用另一个自定义组件 并传递参数 注意这里的参数需要{}包裹
-      textComponent({ text: "Home Page" }).backgroundColor(Color.Gray)
+      textComponent({ text: "Home Page" })
+      Button('直接启动EntryAbility')
+        .margin({ top: 10 })
+        .onClick(() => {
+          this.startEntryAbility(this.context)
+        })
       buttonComponentParent({
-        text: "Go EntryAbility",
+        context: this.context,
+        text: "父Component 启动EntryAbility",
         clickCallback: this.startEntryAbility
       })
     }.justifyContent(FlexAlign.Start)
@@ -57,8 +63,12 @@ struct ColumnPage {
     .width('100%')
   }
 
-  startEntryAbility() {
-    AbilityHelper.startAbility(this.context, "EntryAbility", {})
+  startEntryAbility(context: common.UIAbilityContext | undefined) {
+    if (context == undefined || !context) {
+      ToastHelper.showToast("context is undefined or null")
+      return
+    }
+    AbilityHelper.startAbility(context, "EntryAbility", {})
   }
 }
 
@@ -79,17 +89,17 @@ struct textComponent {
     }
   }
 
-  // 生命周期回调:页面显示 只限入口组件
+  // 生命周期回调:页面显示 只限入口组件 这里不生效
   onPageShow(): void {
     Log.info(TAG2 + "onPageShow");
   }
 
-  // 生命周期回调:页面隐藏 只限入口组件
+  // 生命周期回调:页面隐藏 只限入口组件 这里不生效
   onPageHide(): void {
     Log.info(TAG2 + "onPageHide")
   }
 
-  // 生命周期回调:返回键 只限入口组件
+  // 生命周期回调:返回键 只限入口组件 这里不生效
   onBackPress(): boolean | void {
     Log.info(TAG2 + "onBackPress");
     return false; // 返回false不消费回退事件
@@ -123,9 +133,10 @@ struct textComponent {
 
 @Component
 struct buttonComponentParent {
+  context: common.UIAbilityContext | undefined
   // 自定义组件的参数
   text: string = "";
-  clickCallback?: () => void
+  clickCallback?: (context: common.UIAbilityContext | undefined) => void
 
   build() {
     Column() {
@@ -135,11 +146,14 @@ struct buttonComponentParent {
           // this.clickCallback?.call;
           // 调用lambda 函数
           if (this.clickCallback) {
-            this.clickCallback();
+            this.clickCallback(this.context);
           }
         })
       // 将lambda 函数传递给子组件
-      buttonComponentSub({ clickCallback: this.clickCallback })
+      buttonComponentSub({
+        context: this.context,
+        clickCallback: this.clickCallback
+      })
     }
     .width('auto')
     .height('auto')
@@ -148,16 +162,17 @@ struct buttonComponentParent {
 
 @Component
 struct buttonComponentSub {
-  clickCallback?: () => void
+  context: common.UIAbilityContext | undefined
+  clickCallback?: (context: common.UIAbilityContext | undefined) => void
 
   build() {
-    Button("Sub Button").width('100%')
+    Button("子Component 启动EntryAbility").width('100%')
       .margin({ top: 10 })
       .onClick(() => {
         // this.callback?.call
         // 调用lambda 函数
         if (this.clickCallback) {
-          this.clickCallback();
+          this.clickCallback(this.context);
         }
       })
   }

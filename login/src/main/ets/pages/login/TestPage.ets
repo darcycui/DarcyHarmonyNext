@@ -15,7 +15,7 @@ struct TestPage {
         .fontWeight(FontWeight.Bold)
       Button($r("app.string.HomePage")).width('100%').onClick(()=>{
         // TODO entry module页面跳转 使用want
-        AbilityHelper.startAbility(this.context, "HomeAbility", {})
+        AbilityHelper.startAbility(this.context, "HomeAbility", {}, 'entry')
       })
     }
     .height('100%')

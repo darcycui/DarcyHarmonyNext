@@ -20,7 +20,9 @@
     // 引用chat库源码
     "library_chat": "file:../library_chat",
     // 引用contract库源码
-    "library_contract": "file:../library_contact"
+    "library_contract": "file:../library_contact",
+    // 引用napi库源码
+    "library_napi": "file:../library_napi",
 //
 //    // 2.本地文件依赖
 //    // 引用本地静态库文件

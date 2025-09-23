@@ -1,0 +1,26 @@
+{
+  "module": {
+    "name": "library_napi",
+    "type": "har",
+    "description": "$string:module_desc",
+    "mainElement": "Lib_napiAbility",
+    "deviceTypes": [
+      "phone",
+      "tablet",
+      "2in1"
+    ],
+    "installationFree": false,
+    "abilities": [
+      {
+        "name": "NApiUIAbility",
+        "srcEntry": "./ets/lib_napiability/LibNapiAbility.ets",
+        "description": "$string:Lib_napiAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:LibNapiAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true
+      }
+    ]
+  }
+}

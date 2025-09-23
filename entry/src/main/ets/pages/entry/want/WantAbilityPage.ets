@@ -83,7 +83,7 @@ struct WantAbilityPage {
       .id("LoginFeatureButton")
       .onClick((event: ClickEvent) => {
         // TODO feature module页面跳转 使用want
-        AbilityHelper.startAbility(this.context, "LoginAbility", {})
+        AbilityHelper.startAbility(this.context, "LoginAbility", {}, 'login')
       })
   }
 

@@ -130,6 +130,7 @@
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background"
       }
+      // har/hsp 中的 UiAbility 需在主模块entry中配置
     ],
     "extensionAbilities": [
       {

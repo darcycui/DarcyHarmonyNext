@@ -1,6 +1,13 @@
 {
   "apiType": "stageMode",
   "buildOption": {
+    "externalNativeOptions": {
+      "path": "./src/main/cpp/CMakeLists.txt",
+      "arguments": "",
+      "cppFlags": "",
+      // 设置构建 abiFilters 解决 9568347:解析本地so文件失败 (error: install parse native so failed.)
+      "abiFilters": ["arm64-v8a", "x86_64"]
+    }
   },
   "buildOptionSet": [
     {
@@ -12,10 +19,7 @@
             "files": [
               "./obfuscation-rules.txt"
             ]
-          },
-          "consumerFiles": [
-            "./consumer-rules.txt"
-          ]
+          }
         }
       },
       "nativeLib": {
@@ -31,7 +35,7 @@
       "name": "default"
     },
     {
-      "name": "ohosTest"
+      "name": "ohosTest",
     }
   ]
 }

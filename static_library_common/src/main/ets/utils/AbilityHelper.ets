@@ -5,10 +5,12 @@ export class AbilityHelper {
   static startAbility(
     context: common.UIAbilityContext,
     abilityName: string,
-    parameters: Record<string, string | number>) {
+    parameters: Record<string, string | number>,
+    moduleName: string = context.abilityInfo.moduleName,) {
     let want: Want = {
       deviceId: "", // TODO deviceId为空表示当前设备
       bundleName: context.abilityInfo.bundleName,
+      moduleName: moduleName,
       abilityName: abilityName,
       parameters: parameters
     };

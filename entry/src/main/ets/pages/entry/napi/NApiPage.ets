@@ -1,26 +1,31 @@
-import { nativeAdd } from 'library_camera';
+import { nativeAdd } from 'library_napi';
 import { promptAction } from '@kit.ArkUI';
-import { Log } from 'static_library_common';
+import { AbilityHelper, Log } from 'static_library_common';
 import { Student } from '../../../network/models/HttpBean';
+import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component
 struct NApiPage {
+  context = getContext(this) as common.UIAbilityContext;
   @State message: string = '调用NApi Click';
-
   @State stu: Student | undefined = new Student("Tom", 7);
 
   build() {
     Column({ space: 10 }) {
-      Button('调用function Click').width('100%')
+      Button('调用function').width('100%')
         // TODO 传递函数 包一层 ()=>{}
         .onClick(() => {
           this.callFunction()
         })
-      Button('调用NApi Click').width('100%')
+      Button('调用NApi').width('100%')
         .onClick(() => {
           let sum = nativeAdd(1, 2);
           promptAction.showToast({ message: `NApiPage sum=${sum}` });
+        })
+      Button('启动 NApiUIAbility').width('100%')
+        .onClick(() => {
+          AbilityHelper.startAbility(this.context, "NApiUIAbility", {}, 'entry')
         })
     }
     .height('100%')

@@ -106,6 +106,18 @@
     {
       "name": "library_contact",
       "srcPath": "./library_contact",
+    },
+    {
+      "name": "library_napi",
+      "srcPath": "./library_napi",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     }
   ]
 }

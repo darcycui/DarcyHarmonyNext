@@ -42,12 +42,12 @@ static napi_module demoModule = {
     .nm_flags = 0,
     .nm_filename = nullptr,
     .nm_register_func = Init,
-    .nm_modname = "library_camera",
+    .nm_modname = "library_napi",
     .nm_priv = ((void*)0),
     .reserved = { 0 },
 };
 
-extern "C" __attribute__((constructor)) void RegisterLibrary_cameraModule(void)
+extern "C" __attribute__((constructor)) void RegisterLib_napiModule(void)
 {
     napi_module_register(&demoModule);
 }

@@ -53,7 +53,7 @@ struct LoginIndex {
       .margin({ top: 10 })// 外边距
       .onClick((event: ClickEvent) => {
         // TODO entry module页面跳转 使用want
-        AbilityHelper.startAbility(this.context, "HomeAbility", {})
+        AbilityHelper.startAbility(this.context, "HomeAbility", {}, 'entry')
       })
   }
 }

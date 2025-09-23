@@ -1,0 +1,14 @@
+{
+  "name": "library_napi",
+  "version": "1.0.0",
+  "description": "NAPI and NAPI-UI",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    // 依赖 Napi 接口
+    "liblibrary_napi.so": "file:./src/main/cpp/types/library_napi",
+    // 源码依赖 common
+    "static_library_common": "file:../static_library_common"
+  }
+}

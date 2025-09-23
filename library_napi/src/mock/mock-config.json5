@@ -1,0 +1,5 @@
+{
+  "liblib_napi.so": {
+    "source": "src/mock/Liblib_napi.mock.ets"
+  }
+}

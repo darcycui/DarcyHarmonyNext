@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "Lib_napiAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "LibNapiAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "ModuleUIAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "ModuleUIAbility_label",
+      "value": "label"
+    }
+  ]
+}
