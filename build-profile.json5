@@ -5,13 +5,13 @@
         "name": "build",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "C:\\Users\\lenovo\\.ohos\\config\\build_HarmonyNextDemo_g1WkcAKMyUSYqXQ5ulJwAR5Z5PjKDVmoqfh3-PswIXc=.cer",
-          "storePassword": "0000001B2B83789DA4D1A45BED7736517066380B1E62B85039A47C681CAF8DD8366CE3178BB4814C797C7D",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001B781CF3E7E472EF5F6B45E0512DB6513957560F40C99C5FFF1C92DF5001955139939967766ACB4D",
-          "profile": "C:\\Users\\lenovo\\.ohos\\config\\build_HarmonyNextDemo_g1WkcAKMyUSYqXQ5ulJwAR5Z5PjKDVmoqfh3-PswIXc=.p7b",
+          "storeFile": "D:/Harmony/darcy_harmony_build.p12",
+          "storePassword": "0000001DFA98A4A74BF14EEB9845FED271783A8518064B328225A62ED6AD8580B042D4B056B984EC095DA99FEB",
+          "keyAlias": "darcy",
+          "keyPassword": "0000001DF70335E9C79EE83D145BA333983438482D2CC29C644B13180C1C7E3B0CCA4379673E5A89AF329B6CB6",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\lenovo\\.ohos\\config\\build_HarmonyNextDemo_g1WkcAKMyUSYqXQ5ulJwAR5Z5PjKDVmoqfh3-PswIXc=.p12"
+          "profile": "D:/Harmony/download/调试ProfileDebug.p7b",
+          "certpath": "D:/Harmony/download/调试证书.cer"
         }
       }
     ],

@@ -32,26 +32,27 @@
         },
         "reason": "$string:CAMERA"
       },
-      {
-        "name": "ohos.permission.READ_IMAGEVIDEO",
-        "usedScene": {
-          "abilities": [
-            "EntryAbility"
-          ],
-          "when": "inuse"
-        },
-        "reason": "$string:CAMERA"
-      },
-      {
-        "name": "ohos.permission.WRITE_IMAGEVIDEO",
-        "usedScene": {
-          "abilities": [
-            "EntryAbility"
-          ],
-          "when": "inuse"
-        },
-        "reason": "$string:CAMERA"
-      },
+//      受限权限 需要单独到华为官网申请
+//      {
+//        "name": "ohos.permission.READ_IMAGEVIDEO",
+//        "usedScene": {
+//          "abilities": [
+//            "EntryAbility"
+//          ],
+//          "when": "inuse"
+//        },
+//        "reason": "$string:CAMERA"
+//      },
+//      {
+//        "name": "ohos.permission.WRITE_IMAGEVIDEO",
+//        "usedScene": {
+//          "abilities": [
+//            "EntryAbility"
+//          ],
+//          "when": "inuse"
+//        },
+//        "reason": "$string:CAMERA"
+//      },
       {
         "name": "ohos.permission.KEEP_BACKGROUND_RUNNING",
         "usedScene": {
