@@ -20,6 +20,7 @@ import { GenericClass } from '../main/ets/learn/GenericClass';
 import { Teacher, School } from '../main/ets/learn/School'
 import { Log } from 'static_library_common';
 import { Point } from '@ohos.UiTest';
+import { JSON } from '@kit.ArkTS';
 
 export default function localUnitTest() {
   describe('localUnitTest', () => {
@@ -165,7 +166,7 @@ export default function localUnitTest() {
       let myStr: MyString = "ABC";
       Log.log("myStr=" + myStr)
 
-    })
+    });
 
     //TODO 学习笔记运算符 条件语句 循环语句
     it("learnSymbol", 0, () => {
@@ -254,7 +255,7 @@ export default function localUnitTest() {
         x++;
       } while (x < 10)
       Log.log("x=" + x);
-    })
+    });
 
     //TODO 学习笔记 函数
     it("learnFunction", 0, () => {
@@ -297,7 +298,7 @@ export default function localUnitTest() {
       foo(101);
       foo("Tom")
 
-    })
+    });
 
     //TODO 学习笔记 类
     it("learnClass", 0, () => {
@@ -363,7 +364,7 @@ export default function localUnitTest() {
       constPerson.setName('三三')
       // 编译错误: 常量实例不能被重新赋值
       // constPerson = new Person('四', '李')
-    })
+    });
 
     //TODO 学习笔记 泛型
     it("learnGeneric", 0, () => {
@@ -378,7 +379,7 @@ export default function localUnitTest() {
       Log.log("lastn=" + lastn);
       let laststr = last<string>(["Hello", "World", "Welcome"])
       Log.log("laststr=" + laststr);
-    })
+    });
     //TODO 学习笔记 类
     it("learnMapRecord", 0, () => {
       // Record(map) 使用对象字面量初始化
@@ -432,7 +433,7 @@ export default function localUnitTest() {
       map2.forEach((value, key) => {
         Log.log(`遍历map3: Key: ${key}, Value: ${value}`);
       })
-    })
+    });
     // TODO 学习笔记 数组
     it("learnArray", 0, () => {
       let array: number[] | null = null
@@ -458,7 +459,7 @@ export default function localUnitTest() {
       // TODO:从头部移除元素 shift
       array.shift()
       Log.log("array=" + array)
-    })
+    });
 
     //TODO 学习笔记 空安全
     it("learnNullSafety", 0, () => {
@@ -501,6 +502,85 @@ export default function localUnitTest() {
       school.setTeacher(new Teacher("Teacher Tom"))
       let name2 = school.getTeacherName()
       Log.log("teacher name2=" + name2)
+    });
+    // TODO 学习笔记 Proxy
+    it("learnProxy", 0, () => {
+      class Child {
+        name: string
+
+        constructor(name: string) {
+          this.name = name
+        }
+      }
+
+      class Parent {
+        x: number
+        y: number
+        son: Child
+
+        constructor(x: number, y: number, son: Child) {
+          this.x = x
+          this.y = y
+          this.son = son
+        }
+      }
+
+      // 创建 Proxy 代理
+      class ChildProxyHandler implements ProxyHandler<Child> {
+        get(target: Child, property: string, receiver: Object | object): Object | object {
+          Log.log(`代理Child Get: ${property}`);
+          // 使用 Reflect.get 获取原始值
+          return Reflect.get(target, property, receiver);
+        }
+
+        set(target: Child, property: string, value: number | Child, receiver: Object | object): boolean {
+          Log.log(`代理Child Set: ${property} to ${value}`);
+          // 使用 Reflect.set 设置值
+          return Reflect.set(target, property, value, receiver);
+        }
+      }
+
+      // 创建 Proxy 代理
+      class ParentProxyHandler implements ProxyHandler<Parent> {
+        get(target: Parent, property: string, receiver: Object | object): Object | object {
+          Log.log(`代理Parent Get: ${property}`);
+          // 使用 Reflect.get 获取原始值
+          let value: Object | object = Reflect.get(target, property, receiver);
+          if (value != null && typeof value === 'object' && value instanceof Child) {
+            return new Proxy(value, new ChildProxyHandler());
+          } else {
+            return value;
+          }
+        }
+
+        set(target: Parent, property: string, value: number | Child, receiver: Object | object): boolean {
+          Log.log(`代理Parent Set: ${property} to ${value}`);
+          // 使用 Reflect.set 设置值
+          return Reflect.set(target, property, value, receiver);
+        }
+      }
+
+      // 使用示例
+      let child = new Child("Tom");
+      let parent = new Parent(10, 20, child);
+      let proxy = new Proxy(parent, new ParentProxyHandler());
+
+      // 测试
+      Log.log('属性获取')
+      Log.log(`parent.x = ${proxy.x}`); // 正常访问 触发 get 拦截
+      proxy.y = 30; // 正常设置 触发 set 拦截
+      Log.log(`parent.y = ${proxy.y}`);
+
+      Log.log('直接属性更新')
+      Log.log(`1.parent.son = ${proxy.son.name}`);
+      proxy.son = new Child("Jerry");
+      Log.log(`2.parent.son = ${proxy.son.name}`);
+
+      Log.log(`嵌套属性更新`);
+      Log.log(`3.parent.son.name = ${proxy.son.name}`);
+      proxy.son.name = "Lucas"; // darcyRefactor: 嵌套属性更新 不触发 set 拦截
+      Log.log(`4.parent.son.name = ${proxy.son.name}`);
     })
-  });
+  })
 }
+
