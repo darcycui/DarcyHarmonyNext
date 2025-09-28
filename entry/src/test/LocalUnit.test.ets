@@ -546,6 +546,7 @@ export default function localUnitTest() {
           Log.log(`代理Parent Get: ${property}`);
           // 使用 Reflect.get 获取原始值
           let value: Object | object = Reflect.get(target, property, receiver);
+          // darcyRefactor: 嵌套 proxy 如果是获取的属性是 Child 对象，则创建 Child 的 proxy
           if (value != null && typeof value === 'object' && value instanceof Child) {
             return new Proxy(value, new ChildProxyHandler());
           } else {
@@ -578,7 +579,7 @@ export default function localUnitTest() {
 
       Log.log(`嵌套属性更新`);
       Log.log(`3.parent.son.name = ${proxy.son.name}`);
-      proxy.son.name = "Lucas"; // darcyRefactor: 嵌套属性更新 不触发 set 拦截
+      proxy.son.name = "Lucas"; // darcyRefactor: 嵌套属性更新 需要嵌套 proxy 否则不触发 set 拦截
       Log.log(`4.parent.son.name = ${proxy.son.name}`);
     })
   })
