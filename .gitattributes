@@ -1,0 +1,6 @@
+# 以下目录不参与编程语言统计
+library_napi/** linguist-vendored
+library_napi/** linguist-vendored
+
+# 把 ArkTS/TS 相关扩展强制归到 TypeScript 语言
+*.ets linguist-language=TypeScript

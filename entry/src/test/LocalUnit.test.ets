@@ -380,7 +380,7 @@ export default function localUnitTest() {
       let laststr = last<string>(["Hello", "World", "Welcome"])
       Log.log("laststr=" + laststr);
     });
-    //TODO 学习笔记 类
+    //TODO 学习笔记 map
     it("learnMapRecord", 0, () => {
       // Record(map) 使用对象字面量初始化
       let record: Record<string, number> = {
@@ -581,6 +581,11 @@ export default function localUnitTest() {
       Log.log(`3.parent.son.name = ${proxy.son.name}`);
       proxy.son.name = "Lucas"; // darcyRefactor: 嵌套属性更新 需要嵌套 proxy 否则不触发 set 拦截
       Log.log(`4.parent.son.name = ${proxy.son.name}`);
+    })
+
+    // TODO 学习笔记 基于原型的继承
+    it("learnPrototype", 0, () => {
+      
     })
   })
 }
