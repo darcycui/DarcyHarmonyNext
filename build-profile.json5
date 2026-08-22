@@ -5,13 +5,13 @@
         "name": "build",
         "type": "HarmonyOS",
         "material": {
-          "storeFile": "D:/Harmony/darcy_harmony_build.p12",
-          "storePassword": "0000001DFA98A4A74BF14EEB9845FED271783A8518064B328225A62ED6AD8580B042D4B056B984EC095DA99FEB",
+          "storeFile": "C:/Users/DarcyCH/Documents/KMPHarmony/keystore/KmpHarmony.p12",
+          "storePassword": "0000001F2E408CF7720B5F0CF8821EF612BBFC08A2921E8F735D34A1B6E00E23D5343852FCE4155A3A47865D3661E8",
           "keyAlias": "darcy",
-          "keyPassword": "0000001DF70335E9C79EE83D145BA333983438482D2CC29C644B13180C1C7E3B0CCA4379673E5A89AF329B6CB6",
+          "keyPassword": "0000001FE6A71E08E835C4B14ADAC666C3846E6B9FD2A48105E4C3E422B20B23420B645617C2B4A6BBC9D67F427501",
           "signAlg": "SHA256withECDSA",
-          "profile": "D:/Harmony/download/调试ProfileDebug.p7b",
-          "certpath": "D:/Harmony/download/调试证书.cer"
+          "profile": "C:/Users/DarcyCH/Documents/KMPHarmony/keystore/harmonyNext/DarcyHarmonyProfile-debugDebug.p7b",
+          "certpath": "C:/Users/DarcyCH/Documents/KMPHarmony/keystore/harmonyNext/HarmonyNext.cer"
         }
       }
     ],
@@ -27,6 +27,7 @@
         "signingConfig": "build",
         "compatibleSdkVersion": "5.0.5(17)",
         "runtimeOS": "HarmonyOS",
+        "targetSdkVersion": "5.0.5(17)"
       }
     ],
     "buildModeSet": [
