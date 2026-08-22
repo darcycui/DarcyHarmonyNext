@@ -1,10 +1,12 @@
 import { Log } from 'static_library_common';
 import test_async_wait from './AsyncWait.test';
 import localUnitTest from './LocalUnit.test';
+import localUnitTest2 from './LocalUnit2.test';
 import test_promise from './Promise.test';
 
 export default function testsuite() {
   localUnitTest();
+  localUnitTest2()
   test_promise();
   test_async_wait();
 }
