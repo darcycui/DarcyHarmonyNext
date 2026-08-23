@@ -49,7 +49,7 @@ import { inspector, LengthUnit } from '@kit.ArkUI';
 import { Log, NavigationHelper, ToastHelper } from 'static_library_common';
 import { ItemBean } from '../models/ItemBean';
 
-@Entry
+// @Entry
 @Component
 export struct StartPage {
   @State message: string = 'Hello World';
@@ -232,37 +232,39 @@ export struct StartPage {
       })
   }
 
+  pageName = "StartPage"
   // 生命周期方法
+  //
   onPageShow(): void {
-    Log.log('-->onPageShow')
+    Log.log(`-->${this.pageName} onPageShow`)
   }
 
   onPageHide(): void {
-    Log.log('-->onPageHide')
+    Log.log(`-->${this.pageName} onPageHide`)
   }
 
   onBackPress(): boolean | void {
-    Log.log('-->onBackPress')
+    Log.log(`-->${this.pageName} onBackPress`)
   }
 
   aboutToAppear(): void {
-    Log.log('-->aboutToAppear')
+    Log.log(`-->${this.pageName} aboutToAppear`)
     this.observer.on('layout', this.onLayout);
     this.observer.on('draw', this.onDraw)
   }
 
   aboutToDisappear(): void {
-    Log.log('-->aboutToDisappear')
+    Log.log(`-->${this.pageName} aboutToDisappear`)
     this.observer.off('layout', this.onLayout)
     this.observer.off('draw', this.onDraw)
   }
 
   onDidBuild(): void {
-    Log.log('-->onDidBuild')
+    Log.log(`-->${this.pageName} onDidBuild`)
   }
 }
 
 function getTextStr(): string {
-  Log.log('-->build getTextStr')
+  Log.log(`-->StartPage build getTextStr`)
   return 'This is a Harmony api test page.'
 }

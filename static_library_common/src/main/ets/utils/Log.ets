@@ -1,4 +1,7 @@
 // library/src/main/ts/test.ets
+
+let LOG_TAG = "DarcyLog";
+
 export class Log {
   // private static showLog: boolean = false;
   private static showLog: boolean = true;
@@ -13,31 +16,31 @@ export class Log {
 
   static info(msg: string) {
     if (Log.isShowLog()) {
-      console.info(msg);
+      console.info(`${LOG_TAG} ${msg}`);
     }
   }
 
   static debug(msg: string) {
     if (Log.isShowLog()) {
-      console.debug(msg);
+      console.debug(`${LOG_TAG} ${msg}`);
     }
   }
 
   static log(msg: string) {
     if (Log.isShowLog()) {
-      console.log(msg);
+      console.log(`${LOG_TAG} ${msg}`);
     }
   }
 
   static warn(msg: string) {
     if (Log.isShowLog()) {
-      console.warn(msg);
+      console.warn(`${LOG_TAG} ${msg}`);
     }
   }
 
   static error(msg: string) {
     if (Log.isShowLog()) {
-      console.error(msg);
+      console.error(`${LOG_TAG} ${msg}`);
     }
   }
 }

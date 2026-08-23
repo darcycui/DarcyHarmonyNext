@@ -1,4 +1,5 @@
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import { add } from 'shared_library_context';
 import { Log } from 'static_library_common';
 
 function compare(x: number, y: number) {
@@ -26,20 +27,35 @@ let compareFunctionImpl: CompareFunction = (x: number, y: number): boolean => {
 }
 
 class Person {
-  public name: string
-  public age: number
+  public static address: string = "北京"
+  private _name: string
+  private _age: number
 
+  // 构造函数 支持重载 (先声明再实现)
   constructor(name: string)
 
   constructor(name: string, age: number)
 
   constructor(name: string = "", age: number = 0) {
-    this.name = name
-    this.age = age
+    this._name = name
+    this._age = age
+  }
+
+  // get 和 set 函数
+  get name(): string {
+    return this._name
+  }
+
+  set name(name: string) {
+    this._name = name
   }
 
   info(): string {
-    return "name:" + this.name + " age:" + this.age
+    return "name:" + this._name + " age:" + this._age
+  }
+
+  static getAddress(): string {
+    return Person.address
   }
 }
 
@@ -178,7 +194,7 @@ export default function localUnitTest2() {
       } finally {
         Log.log("finally 语句执行")
       }
-
+      // 对象字面量
       let person: ObjectLiteral = { name: "张三", age: 18 }
       Log.log("person: " + person.name + " " + person.age)
 

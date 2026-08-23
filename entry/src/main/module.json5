@@ -69,8 +69,8 @@
         "name": "EntryAbility",
         "srcEntry": "./ets/entryability/EntryAbility.ets",
         // TODO:启动模式 栈内唯一
-        //        "launchType": "singleton",
-        "launchType": "standard",
+        "launchType": "singleton",
+        // "launchType": "standard",
         "description": "$string:EntryAbility_desc",
         // 页面图标
         //        "icon": "$media:layered_image",

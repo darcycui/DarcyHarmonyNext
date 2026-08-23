@@ -1,5 +1,6 @@
 import { ChatEntryPage } from 'library_chat';
 import { ContractPage } from 'library_contract';
+import { Log } from 'static_library_common';
 import { StartPage } from './StartPage';
 
 @Entry
@@ -53,5 +54,31 @@ struct Index {
     .hideToolBar(true)
     .mode(NavigationMode.Stack)
 
+  }
+
+  pageName = "IndexPage"
+  // 生命周期方法
+  onPageShow(): void {
+    Log.debug(`-->${this.pageName} onPageShow`)
+  }
+
+  onPageHide(): void {
+    Log.warn(`-->${this.pageName} onPageHide`)
+  }
+
+  onBackPress(): boolean | void {
+    Log.log(`-->${this.pageName} onBackPress`)
+  }
+
+  aboutToAppear(): void {
+    Log.log(`-->${this.pageName} aboutToAppear`)
+  }
+
+  aboutToDisappear(): void {
+    Log.error(`-->${this.pageName} aboutToDisappear`)
+  }
+
+  onDidBuild(): void {
+    Log.log(`-->${this.pageName} onDidBuild`)
   }
 }

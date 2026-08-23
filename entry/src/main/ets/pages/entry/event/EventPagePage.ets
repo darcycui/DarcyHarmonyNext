@@ -1,4 +1,5 @@
 import { common } from '@kit.AbilityKit';
+import { Log } from 'static_library_common';
 import { EntryEvent } from '../../../event/EventName';
 
 @Entry
@@ -19,5 +20,32 @@ struct EventPagePage {
     }
     .height('100%')
     .width('100%')
+  }
+
+  pageName = "EventPage"
+
+  // 生命周期方法
+  onPageShow(): void {
+    Log.debug(`-->${this.pageName} onPageShow`)
+  }
+
+  onPageHide(): void {
+    Log.warn(`-->${this.pageName} onPageHide`)
+  }
+
+  onBackPress(): boolean | void {
+    Log.log(`-->${this.pageName} onBackPress`)
+  }
+
+  aboutToAppear(): void {
+    Log.log(`-->${this.pageName} aboutToAppear`)
+  }
+
+  aboutToDisappear(): void {
+    Log.error(`-->${this.pageName} aboutToDisappear`)
+  }
+
+  onDidBuild(): void {
+    Log.log(`-->${this.pageName} onDidBuild`)
   }
 }

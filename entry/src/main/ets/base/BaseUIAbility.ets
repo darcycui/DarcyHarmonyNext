@@ -21,12 +21,12 @@ export abstract class BaseUIAbility extends UIAbility {
 
   onBackground(): void {
     super.onBackground()
-    HiLog.info(this.TAG + 'Ability onBackground')
+    HiLog.warn(this.TAG + 'Ability onBackground')
   }
 
   onDestroy(): void {
     super.onDestroy()
-    HiLog.info(this.TAG + 'Ability onDestroy')
+    HiLog.error(this.TAG + 'Ability onDestroy')
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
@@ -77,7 +77,7 @@ export abstract class BaseUIAbility extends UIAbility {
 
   onWindowStageDestroy(): void {
     super.onWindowStageDestroy()
-    HiLog.info(this.TAG + 'Ability onWindowStageDestroy')
+    HiLog.warn(this.TAG + 'Ability onWindowStageDestroy')
     // TODO 移除监听???
     // Error message:state abnormally
     // if (this.windowStage) {
@@ -96,7 +96,7 @@ export abstract class BaseUIAbility extends UIAbility {
 
   onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     super.onNewWant(want, launchParam)
-    HiLog.info(this.TAG + 'Ability onNewWant')
+    HiLog.warn(this.TAG + 'Ability onNewWant')
   }
 
   onConfigurationUpdate(newConfig: Configuration): void {

@@ -3,7 +3,6 @@
     "pages/entry/basepage/RelativePage",
     "pages/entry/basepage/InputPage",
     "pages/entry/basepage/ColumnPage",
-    "pages/StartPage",
     "pages/entry/basepage/ImagePage",
     "pages/entry/har_hsp/StaticLibraryPage",
     "pages/entry/har_hsp/SharedLibraryPage",
