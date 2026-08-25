@@ -56,7 +56,7 @@ export struct StartPage {
   // navigation 栈控制器
   pathStack: NavPathStack = new NavPathStack();
   // 获取上下文context
-  context = getContext(this) as common.UIAbilityContext;
+  context = this.getUIContext().getHostContext() as common.UIAbilityContext;
   // 监听组件渲染步骤
   observer: inspector.ComponentObserver = this.getUIContext().getUIInspector().createComponentObserver('scroll');
   onLayout = () => {
@@ -129,7 +129,8 @@ export struct StartPage {
             }
           }) {
             this.buildItems()
-          }.width('100%').height('100%')
+          }.width('100%')
+          // .height('100%')
         }.width('100%')
         // .height('100%') // Scroll的子组件 不能设置height为100% 否则无法滚动
       }
