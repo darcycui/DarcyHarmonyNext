@@ -397,6 +397,14 @@
       "value": "Event"
     },
     {
+      "name": "TestRepeatPage",
+      "value": "Repeat"
+    },
+    {
+      "name": "TestRepeatVirtualPage",
+      "value": "RepeatVirtual"
+    },
+    {
       "name": "TestNApiPage",
       "value": "NApi"
     },

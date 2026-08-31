@@ -57,7 +57,14 @@ struct RelativePage {
         .alignRules({
           // 相对位置
           center: { anchor: '__container__', align: VerticalAlign.Center },
-          middle: { anchor: '__container__', align: HorizontalAlign.Center }
+          middle: { anchor: '__container__', align: HorizontalAlign.Center },
+          // 偏移量 百分比
+          bias: { vertical: 0.3 }
+        })
+        // 偏移量 绝对值
+        .offset({
+          top: 10,
+          left: 10
         })
         .textAlign(TextAlign.Start)// 文字对齐方式
         .constraintSize({ maxWidth: 200 }) // TODO 其他宽高约束
@@ -134,7 +141,7 @@ struct RelativePage {
   buildButton() {
     Button("Click Me")
       .id("Button")// .width('auto')// 宽度自适应wrap
-        // .height('auto')// 高度自适应wrap
+      // .height('auto')// 高度自适应wrap
       .size({ width: 'auto', height: 'auto' })// 宽高自适应wrap
       .alignRules({
         top: { anchor: 'HelloWorld', align: VerticalAlign.Bottom },

@@ -72,10 +72,11 @@ struct ColumnPage {
   }
 }
 
+@Preview
 @Component
 struct textComponent {
   // 自定义组件的参数
-  text: string = ""
+  text: string = "预览文本"
   // TODO 非入口组件 监听入口组件的生命周期
   // 定义回调函数
   listener: (info: uiObserver.RouterPageInfo) => void = (info: uiObserver.RouterPageInfo) => {
@@ -89,21 +90,21 @@ struct textComponent {
     }
   }
 
-  // 生命周期回调:页面显示 只限入口组件 这里不生效
-  onPageShow(): void {
-    Log.info(TAG2 + "onPageShow");
-  }
-
-  // 生命周期回调:页面隐藏 只限入口组件 这里不生效
-  onPageHide(): void {
-    Log.info(TAG2 + "onPageHide")
-  }
-
-  // 生命周期回调:返回键 只限入口组件 这里不生效
-  onBackPress(): boolean | void {
-    Log.info(TAG2 + "onBackPress");
-    return false; // 返回false不消费回退事件
-  }
+  // // 生命周期回调:页面显示 只限入口组件 这里不生效
+  // onPageShow(): void {
+  //   Log.info(TAG2 + "onPageShow");
+  // }
+  //
+  // // 生命周期回调:页面隐藏 只限入口组件 这里不生效
+  // onPageHide(): void {
+  //   Log.info(TAG2 + "onPageHide")
+  // }
+  //
+  // // 生命周期回调:返回键 只限入口组件 这里不生效
+  // onBackPress(): boolean | void {
+  //   Log.info(TAG2 + "onBackPress");
+  //   return false; // 返回false不消费回退事件
+  // }
 
   // 生命周期回调:页面即将显示 所有组件
   aboutToAppear(): void {
@@ -133,7 +134,7 @@ struct textComponent {
 
 @Component
 struct buttonComponentParent {
-  context: common.UIAbilityContext | undefined
+  context: common.UIAbilityContext | undefined = undefined
   // 自定义组件的参数
   text: string = "";
   clickCallback?: (context: common.UIAbilityContext | undefined) => void
@@ -162,7 +163,7 @@ struct buttonComponentParent {
 
 @Component
 struct buttonComponentSub {
-  context: common.UIAbilityContext | undefined
+  context: common.UIAbilityContext | undefined = undefined
   clickCallback?: (context: common.UIAbilityContext | undefined) => void
 
   build() {

@@ -41,7 +41,9 @@ import {
   PAGE_BUILDER_ENTRY,
   PAGE_FREEZE_ENTRY,
   PAGE_RENDER_ENTRY,
-  PAGE_LAYOUT
+  PAGE_LAYOUT,
+  PAGE_REPEAT_LIST,
+  PAGE_REPEAT_VIRTUAL_LIST
 } from './PageName';
 import { RouterHelper } from 'static_library_common/src/main/ets/utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -116,9 +118,9 @@ export struct StartPage {
             wrap: FlexWrap.Wrap,
             // 主轴对齐方式
             justifyContent: FlexAlign.Start,
-            // 交叉轴对齐方式(单行)
+            // 交叉轴对齐方式(子组件)
             alignItems: ItemAlign.Start,
-            // 交叉轴对齐方式(多行)
+            // 交叉轴对齐方式(多行 剩余空间对齐)
             alignContent: FlexAlign.Start,
             // 间距
             space: {
@@ -160,6 +162,8 @@ export struct StartPage {
   }
 
   pageNameArray: ItemBean[] = [
+    new ItemBean(PAGE_REPEAT_LIST, $r('app.string.TestRepeatPage')),
+    new ItemBean(PAGE_REPEAT_VIRTUAL_LIST, $r('app.string.TestRepeatVirtualPage')),
     new ItemBean(PAGE_EVENT, $r('app.string.TestEventPage')),
     new ItemBean(PAGE_NAPI, $r('app.string.TestNApiPage')),
     new ItemBean(PAGE_WANT_ABILITY, $r('app.string.TestWantAbilityPage')),

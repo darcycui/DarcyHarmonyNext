@@ -7,6 +7,10 @@
     {
       "name": "page_text_font_size_normal",
       "value": "20fp"
+    },
+    {
+      "name": "logo_image_size",
+      "value": "78vp"
     }
   ]
 }

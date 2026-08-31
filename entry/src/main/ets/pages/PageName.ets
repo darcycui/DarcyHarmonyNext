@@ -131,3 +131,5 @@ export let PAGE_MONITOR_CLASS = "pages/entry/statusv2/monitor/MonitorClassPage";
 export let PAGE_COMPUTED = "pages/entry/statusv2/computed/ComputedPage";
 export let PAGE_COMPUTED_CLASS = "pages/entry/statusv2/computed/ComputedClassPage";
 
+export let PAGE_REPEAT_LIST = "pages/entry/render_control/RepeatPage";
+export let PAGE_REPEAT_VIRTUAL_LIST = "pages/entry/render_control/RepeatVirtualScrollPage";
