@@ -98,7 +98,8 @@
         "icon": "$media:layered_image",
         "label": "$string:HomeAbility_label",
         "startWindowIcon": "$media:startIcon",
-        "startWindowBackground": "$color:start_window_background"
+        "startWindowBackground": "$color:start_window_background",
+        "removeMissionAfterTerminate": true // 生命周期结束后从最近任务移除
       },
       {
         "name": "OtherAbility",
