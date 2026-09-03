@@ -1,17 +1,3 @@
-export class ResultBean<T> {
-  resultcode: number = -1
-  reason: string = ""
-  result?: T | null | undefined = null
-  error_code: number = -1
-}
-
-export class IPBean {
-  Country: string = ""
-  Province: string = ""
-  City: string = "苏州"
-  District: string = ""
-  Isp: string = "联通"
-}
 
 export class Student {
   name: string = ""

@@ -1,7 +1,7 @@
 import { Log } from 'static_library_common'
 import { webSocket } from "@kit.NetworkKit"
 import { BusinessError } from "@kit.BasicServicesKit"
-import { MessageBean } from "./models/MessageBean"
+import { MessageBean } from "../models/bean/MessageBean"
 import { clearPongTimeout, startHeartbeat } from './Heartbeat'
 
 export const self = "Harmony"

@@ -3,7 +3,6 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { InitCommon } from 'static_library_common';
 import { AppInfo } from '../utils/AppInfo';
-import BuildProfile from 'BuildProfile';
 
 const TAG: string = '[LoginAbility]';
 const DOMAIN_NUMBER: number = 0xFF00;

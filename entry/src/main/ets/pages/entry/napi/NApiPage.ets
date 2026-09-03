@@ -1,8 +1,8 @@
 import { nativeAdd } from 'library_napi';
 import { promptAction } from '@kit.ArkUI';
 import { AbilityHelper, Log } from 'static_library_common';
-import { Student } from '../../../network/models/HttpBean';
 import { common } from '@kit.AbilityKit';
+import { Student } from '../../../network/models/bean/StudentBean';
 
 @Entry
 @Component

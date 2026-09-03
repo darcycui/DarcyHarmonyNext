@@ -1,6 +1,6 @@
 import { func, func2, Log, NavigationHelper, StaticMainPage } from 'static_library_common';
 import { PAGE_STATIC_INNER } from '../../PageName';
-import { getResourceString } from '../../../utils/ResourceHelper';
+import { getResourceString } from '../../../utils/ResourceUtil';
 import { RouterHelper } from 'static_library_common/src/main/ets/utils/RouterHelper';
 import { JSON } from '@kit.ArkTS';
 

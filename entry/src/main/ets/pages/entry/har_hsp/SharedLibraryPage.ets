@@ -1,5 +1,5 @@
 import { PAGE_SHARED_INNER } from '../../PageName';
-import { getResourceString } from '../../../utils/ResourceHelper';
+import { getResourceString } from '../../../utils/ResourceUtil';
 import { Log, NavigationHelper } from 'static_library_common';
 // import { add, ContextResourceManager, SharedMainPage } from 'shared_library_context';
 

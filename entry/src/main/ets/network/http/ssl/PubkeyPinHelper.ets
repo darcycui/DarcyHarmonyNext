@@ -1,6 +1,6 @@
 import { Log } from 'static_library_common'
-import { base64DecodeToUint8Array, base64Encode } from "../utils/Bese64Util"
-import { hexToUint8Array, uint8ArrayToHexString } from "../utils/StringUnit8ArrayUtil"
+import { base64DecodeToUint8Array, base64Encode } from "../../../utils/Bese64Util"
+import { hexToUint8Array, uint8ArrayToHexString } from "../../../utils/StringUnit8ArrayUtil"
 
 /**
  * 生成公钥hash的base64

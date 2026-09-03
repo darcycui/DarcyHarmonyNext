@@ -1,8 +1,8 @@
 import { Log } from 'static_library_common';
-import { closeWS, connectWS, other, self, sendWS, WSS_URL } from '../../../network/WebSocket';
+import { closeWS, connectWS, other, self, sendWS, WSS_URL } from '../../../network/websocket/WebSocket';
 import { saveByteArrayToFile } from '../../../utils/FileUtil';
 import { common } from '@kit.AbilityKit';
-import { MessageBean } from '../../../network/models/MessageBean';
+import { MessageBean } from '../../../network/models/bean/MessageBean';
 
 let TAG = "[WebsocketsPage] ";
 
@@ -20,7 +20,7 @@ struct WebsocketsPage {
   // 生命周期回调:页面即将显示 所有组件
   aboutToAppear(): void {
     Log.info(TAG + "aboutToAppear");
-    Log.error(`juheCertPath=${this.filePath}`);
+    Log.error(`Websocket 自定义证书路径:${this.filePath}`);
     // 读取rawfile目录下的证书文件
     getContext(this).resourceManager.getRawFileContent(this.certFileName, (_err, value) => {
       saveByteArrayToFile(value, this.filePath);
