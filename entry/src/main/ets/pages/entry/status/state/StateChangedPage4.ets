@@ -1,5 +1,5 @@
 import { UIUtils } from '@kit.ArkUI';
-import { Log, ToastHelper } from 'static_library_common';
+import { Log, ToastUtil } from 'static_library_common';
 
 @Entry
 @Component
@@ -19,7 +19,7 @@ struct StateChangedPage4 {
         } else {
           Log.log(`原始对象DataObj未改变`)
           // 吐司 toast
-          ToastHelper.showToast(this.getUIContext(), "原始对象DataObj未改变")
+          ToastUtil.showToast(this.getUIContext(), "原始对象DataObj未改变")
         }
       })
     }
@@ -36,7 +36,7 @@ struct ConsumerChild {
     // 解决办法2: 获取原始对象DataObj进行比较 相同则不设置新值
     Log.log("dataObj changed");
     // 吐司 toast
-    ToastHelper.showToast(this.getUIContext(), "dataObj changed")
+    ToastUtil.showToast(this.getUIContext(), "dataObj changed")
   }
 
   build() {

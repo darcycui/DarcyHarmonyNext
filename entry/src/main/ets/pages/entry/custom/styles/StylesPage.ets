@@ -1,5 +1,5 @@
 import { promptAction } from '@kit.ArkUI';
-import { ToastHelper } from 'static_library_common';
+import { ToastUtil } from 'static_library_common';
 
 // 定义在全局的@Styles封装的样式 是一个函数
 // TODO 只支持通用属性 不能传参数
@@ -27,7 +27,7 @@ struct StylesPage {
     .backgroundColor(Color.Yellow)
     .onClick(() => {
       this.heightValue = 200
-      ToastHelper.showToast(this.getUIContext(), "点击了内部样式")
+      ToastUtil.showToast(this.getUIContext(), "点击了内部样式")
     })
   }
 

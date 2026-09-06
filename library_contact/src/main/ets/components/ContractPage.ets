@@ -1,5 +1,5 @@
 import { JSON } from "@kit.ArkTS"
-import { ToastHelper } from "static_library_common"
+import { ToastUtil } from "static_library_common"
 
 @Component
 export struct ContractPage {
@@ -36,7 +36,7 @@ export struct ContractPage {
               .clickEffect({ level: ClickEffectLevel.LIGHT })
           }
         }.onClick((event: ClickEvent) => {
-          ToastHelper.showToast(this.getUIContext(), `index:${index} ${item}`)
+          ToastUtil.showToast(this.getUIContext(), `index:${index} ${item}`)
         })
       }, (item: string, index: number) => index + JSON.stringify(item))
 

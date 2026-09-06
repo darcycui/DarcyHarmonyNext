@@ -1,6 +1,6 @@
 import { nativeAdd } from 'library_napi';
 import { promptAction } from '@kit.ArkUI';
-import { AbilityHelper, Log, ToastHelper } from 'static_library_common';
+import { AbilityHelper, Log, ToastUtil } from 'static_library_common';
 import { common } from '@kit.AbilityKit';
 import { Student } from '../../../models/StudentBean';
 
@@ -21,7 +21,7 @@ struct NApiPage {
       Button('调用NApi').width('100%')
         .onClick(() => {
           let sum = nativeAdd(1, 2);
-          ToastHelper.showToast(this.getUIContext(), `NApiPage sum=${sum}`);
+          ToastUtil.showToast(this.getUIContext(), `NApiPage sum=${sum}`);
         })
       Button('启动 LibNapiAbility').width('100%')
         .onClick(() => {

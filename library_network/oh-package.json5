@@ -1,0 +1,11 @@
+{
+  "name": "library_network",
+  "version": "1.0.0",
+  "description": "鸿蒙Next静态库(HAR)，网络请求封装库，提供HTTP、WebSocket、数据模型等服务",
+  "main": "Index.ets",
+  "author": "darcy",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "static_library_common": "file:../static_library_common"
+  }
+}

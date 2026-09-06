@@ -1,4 +1,4 @@
-import { ToastHelper } from 'static_library_common'
+import { ToastUtil } from 'static_library_common'
 
 @Entry
 @ComponentV2
@@ -13,7 +13,7 @@ struct RepeatVirtualScrollPage {
             Text(item.item)
               .fontSize(50)
               .onClick(() => {
-                ToastHelper.showToast(this.getUIContext(), item.item)
+                ToastUtil.showToast(this.getUIContext(), item.item)
               })
           }
         })

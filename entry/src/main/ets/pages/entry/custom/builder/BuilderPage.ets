@@ -1,6 +1,6 @@
 import { showTextBuilderGlobal } from '../Builders';
 import { promptAction } from '@kit.ArkUI';
-import { ToastHelper } from 'static_library_common';
+import { ToastUtil } from 'static_library_common';
 
 class ParamClass {
   message: string = ''
@@ -66,7 +66,7 @@ struct BuilderPage {
         // TODO 禁止@Builder函数内修改参数的值
         param += 'B'
         count += 100
-        ToastHelper.showToast(this.getUIContext(), "@Builder内修改参数值B")
+        ToastUtil.showToast(this.getUIContext(), "@Builder内修改参数值B")
       })
   }
 
@@ -79,7 +79,7 @@ struct BuilderPage {
       .onClick(() => {
         // TODO 禁止@Builder函数内修改参数的值 crash
         // param.message += 'C'
-        ToastHelper.showToast(this.getUIContext(), "@Builder内修改参数值C")
+        ToastUtil.showToast(this.getUIContext(), "@Builder内修改参数值C")
       })
   }
 

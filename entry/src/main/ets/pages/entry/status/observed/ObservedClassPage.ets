@@ -1,6 +1,6 @@
 import { JSON } from '@kit.ArkTS';
 import { promptAction } from '@kit.ArkUI';
-import { ToastHelper } from 'static_library_common';
+import { ToastUtil } from 'static_library_common';
 
 /**
  * @ObjectLink只能接收被@Observed装饰class的实例，
@@ -64,7 +64,7 @@ struct ComponentO {
         .onClick(() => {
           // 运行报错 子组件中 不允许修改整个class对象
           // this.objectLinkParam = new ParentObserved(222, new ChildObserved(-111));
-          ToastHelper.showToast(this.getUIContext(), '不允许子组件 重新赋值ObjectLink')
+          ToastUtil.showToast(this.getUIContext(), '不允许子组件 重新赋值ObjectLink')
         })
     }
   }

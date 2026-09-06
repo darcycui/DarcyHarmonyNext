@@ -1,0 +1,19 @@
+{
+  "module": {
+    "name": "library_network",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet",
+      "2in1"
+    ],
+    // 编译产物设置为ts(默认产物为js文件)
+    "metadata": [
+      {
+        "name": "UseTsHar",
+        "value": "true"
+      }
+    ],
+    "routerMap":"$profile:router_map"
+  }
+}

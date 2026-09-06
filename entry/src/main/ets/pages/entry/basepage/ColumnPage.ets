@@ -1,6 +1,6 @@
 import { common } from '@kit.AbilityKit';
 import { uiObserver } from '@kit.ArkUI';
-import { Log, ToastHelper } from 'static_library_common';
+import { Log, ToastUtil } from 'static_library_common';
 import { AbilityUtil } from 'static_library_common/src/main/ets/utils/AbilityUtil';
 
 let TAG = "[Home Struct] ";
@@ -65,7 +65,7 @@ struct ColumnPage {
 
   startEntryAbility(context: common.UIAbilityContext | undefined) {
     if (context == undefined || !context) {
-      ToastHelper.showToast(this.getUIContext(), "context is undefined or null")
+      ToastUtil.showToast(this.getUIContext(), "context is undefined or null")
       return
     }
     AbilityUtil.startAbility(context, "EntryAbility", {})
