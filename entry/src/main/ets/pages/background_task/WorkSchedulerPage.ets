@@ -7,7 +7,7 @@ import { Log } from 'static_library_common';
 @Component
 struct WorkSchedulerPage {
   @State message: string = '测试 WorkerSchedulerExtension';
-  context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
+  context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
   // 创建workInfo
   workInfo: workScheduler.WorkInfo = {
     workId: 1,

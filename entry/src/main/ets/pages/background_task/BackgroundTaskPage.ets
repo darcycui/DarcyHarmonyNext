@@ -1,5 +1,5 @@
 import { RouterHelper } from 'static_library_common/src/main/ets/utils/RouterHelper';
-import { AbilityHelper } from 'static_library_common/src/main/ets/utils/AbilityHelper';
+import { AbilityUtil } from 'static_library_common/src/main/ets/utils/AbilityUtil';
 import { PAGE_LONG_TASK, PAGE_SHORT_TASK, PAGE_WORK_SCHEDULER } from '../PageName';
 import { common } from '@kit.AbilityKit';
 import { JSON } from '@kit.ArkTS';
@@ -8,7 +8,7 @@ import { JSON } from '@kit.ArkTS';
 @Component
 struct BackgroundTaskPage {
   @State message: string = 'Test BackgroundTask';
-  context = getContext(this) as common.UIAbilityContext;
+  context = this.getUIContext().getHostContext() as common.UIAbilityContext;
   @State params: Map<string, string> = new Map();
 
   aboutToAppear(): void {
@@ -27,7 +27,7 @@ struct BackgroundTaskPage {
       })
       Button('长任务').width('100%').onClick(() => {
         this.message = '长任务';
-        AbilityHelper.startAbility(this.context, "LongTaskAbility", {})
+        AbilityUtil.startAbility(this.context, "LongTaskAbility", {})
       })
       Button('延迟任务').width('100%').onClick(() => {
         this.message = '延迟任务';

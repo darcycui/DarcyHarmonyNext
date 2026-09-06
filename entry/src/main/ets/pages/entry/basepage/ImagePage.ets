@@ -3,7 +3,7 @@ import { cameraPicker as picker } from '@kit.CameraKit';
 import { camera } from '@kit.CameraKit';
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { Log } from 'static_library_common';
+import { Log, ToastHelper } from 'static_library_common';
 
 @Entry
 @Component
@@ -24,13 +24,13 @@ struct ImagePage {
         .objectFit(ImageFit.Contain)
         .margin({ top: 10 })
         .onClick(() => {
-          promptAction.showToast({ message: "Image Click" })
+          ToastHelper.showToast(this.getUIContext(), "Image Click")
         })
       Button($r('app.string.TakeImage')).width('100%')
         .margin({ top: 10 })
         .onClick(() => {
-        promptAction.showToast({ message: "Take Image" })
-        startCameraPreview((resultUri: string) => {
+          ToastHelper.showToast(this.getUIContext(), "Take Image")
+          startCameraPreview((resultUri: string) => {
           // Get image URI
           this.uri = resultUri;
         })
@@ -41,7 +41,7 @@ struct ImagePage {
   }
 }
 
-let mContext = getContext(this) as common.Context;
+let mContext = getContext() as common.Context;
 
 async function startCameraPreview(callback: (resultUri: string) => void) {
   try {

@@ -1,6 +1,6 @@
 import { InitCommon, Log, } from 'static_library_common';
 import { process, taskpool } from '@kit.ArkTS';
-import { AppInfo } from '../../../utils/AppInfo';
+import { AppInfo } from '../../../utils/AppInfoUtil';
 
 @Entry
 @Component
@@ -14,7 +14,7 @@ struct TaskPoolPage {
       Text(this.value)
       Button('TaskPool并行计算')
         .width('100%').onClick(() => {
-          concurrentFunc((value)=>{
+          concurrentFunc(this.getUIContext().getHostContext()!, (value)=>{
             this.value = `${value}`
           })
         })
@@ -26,8 +26,8 @@ struct TaskPoolPage {
 
 // 多线程计算 使用@Concurrent注解
 @Concurrent
-function add(x: number, y: number): number {
-  InitCommon.init(AppInfo.isDebug()) // 多线程环境下 重新初始化 Log日志开关
+function add(uiContext:Context, x: number, y: number): number {
+  InitCommon.init(uiContext, AppInfo.isDebug()) // 多线程环境下 重新初始化 Log日志开关
   Log.log(`task add x=${x} y=${y}`);
   // a(); // 编译错误:不能在多线程中调用当前类中的函数和变量 (import进来的可以)
   let uid = process.uid
@@ -39,12 +39,12 @@ function add(x: number, y: number): number {
   return x + y
 }
 
-async function concurrentFunc(callback: (value: number) => void): Promise<void> {
+async function concurrentFunc(uiContext: Context, callback: (value: number) => void): Promise<void> {
   try {
     let tid = process.tid
     Log.log(`主线程tid: ${tid}`) // 线程id
     // 创建task
-    let task: taskpool.Task = new taskpool.Task(add, 1, 2);
+    let task: taskpool.Task = new taskpool.Task(add, uiContext, 1, 2);
     // 执行task 设置优先级
     let result = await taskpool.execute(task, taskpool.Priority.MEDIUM);
     Log.log(`concurrentFunc result=${result}`)

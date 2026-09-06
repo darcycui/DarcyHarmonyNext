@@ -1,12 +1,14 @@
+import { Contexts } from './utils/Contexts';
 import { HiLog } from './utils/HiLog';
 import { Log } from './utils/Log';
 
 export class InitCommon {
   static hasInit: boolean = false;
-  static init(debug: boolean) {
+  static init(context: Context, debug: boolean) {
     if (InitCommon.hasInit) {
       return
     }
+    Contexts.setContext(context)
     Log.setShowLog(debug)
     HiLog.setShowLog(debug)
     Log.info('InitCommon.init()');

@@ -1,13 +1,13 @@
 import { AbilityConstant, AbilityStage, Configuration, Want } from '@kit.AbilityKit'
 import { InitCommon, Log } from 'static_library_common'
-import { AppInfo } from '../utils/AppInfo'
+import { AppInfo } from '../utils/AppInfoUtil'
 
 export default class EntryAbilityStage extends AbilityStage {
   // 获取类名
   TAG: string = this.constructor.name
 
   onCreate() {
-    initLibraryCommon()
+    this.initLibraryCommon(this.context)
     Log.log(`${this.TAG} onCreate`)
   }
 
@@ -36,8 +36,8 @@ export default class EntryAbilityStage extends AbilityStage {
 
   onDestroy(): void {
   }
-}
 
-function initLibraryCommon() {
-  InitCommon.init(AppInfo.isDebug())
+  initLibraryCommon(stageContext: Context) {
+    InitCommon.init(stageContext, AppInfo.isDebug())
+  }
 }

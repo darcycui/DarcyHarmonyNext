@@ -36,7 +36,7 @@ export struct ContractPage {
               .clickEffect({ level: ClickEffectLevel.LIGHT })
           }
         }.onClick((event: ClickEvent) => {
-          ToastHelper.showToast(`index:${index} ${item}`)
+          ToastHelper.showToast(this.getUIContext(), `index:${index} ${item}`)
         })
       }, (item: string, index: number) => index + JSON.stringify(item))
 

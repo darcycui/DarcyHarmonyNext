@@ -58,7 +58,7 @@ export struct ChatEntryPage {
             Image($r("app.media.mouse")).width(34).height(34).margin({ left: 16 })
               .onClick(() => {
                 // 头像
-                ToastHelper.showToast('头像')
+                ToastHelper.showToast(this.getUIContext(), '头像')
               })
           }.width('100%')
         }.width('100%').height(60).backgroundColor(Color.Blue)

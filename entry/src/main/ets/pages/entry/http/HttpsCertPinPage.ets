@@ -25,7 +25,7 @@ struct HttpsCertPinPage {
   //锁定证书的公钥哈希
   @State fixedCertPubKeyHash: string = ""
   scroller: Scroller = new Scroller()
-  // private context = getContext(this) as common.UIAbilityContext;
+  // private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
   private context = getContext(this).getApplicationContext();
   private certFileName = "whyta.crt"
 

@@ -1,4 +1,4 @@
-import { BaseUIAbility } from '../base/BaseUIAbility';
+import { BaseUIAbility } from 'static_library_common';
 import { PAGE_LONG_TASK } from '../pages/PageName';
 
 export default class LongTaskAbility extends BaseUIAbility {

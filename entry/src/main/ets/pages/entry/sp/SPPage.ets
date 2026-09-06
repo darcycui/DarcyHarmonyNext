@@ -7,7 +7,7 @@ import { Log } from 'static_library_common';
 @Component
 struct SPPage {
   @State info: string = 'default';
-  context = getContext(this) as common.UIAbilityContext;
+  context = this.getUIContext().getHostContext() as common.UIAbilityContext;
   // 指定sp名称
   options: preferences.Options = {
     name: 'test.sp',

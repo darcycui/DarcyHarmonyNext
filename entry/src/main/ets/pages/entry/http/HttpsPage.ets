@@ -1,12 +1,7 @@
 import { Log } from 'static_library_common';
-import { HttpResultEntity } from '../../../network/models/HttpResultEntity';
-import { doGet, doPost } from '../../../network/http/HttpHelper';
+import { HttpResultEntity, doPost, UserResponse, HttpErrorEntity, RegisterRequestDTO } from 'library_network';
 import { common } from '@kit.AbilityKit';
 import { saveByteArrayToFile } from '../../../utils/FileUtil';
-import { UserDTO } from '../../../network/models/dto/UserDTO';
-import { HttpErrorEntity } from '../../../network/models/HttpErrorEntity';
-import { JSON } from '@kit.ArkTS';
-import { UserRegisterRequest } from '../../../network/models/request/UserRegisterRequest';
 import { HashUtil } from '../../../utils/HashUtil';
 import { ArrayUtil } from '../../../utils/ArrayUtil';
 
@@ -18,7 +13,7 @@ export let httpsUrl: string = "https://darcycui.com.cn/api/register"
 @Component
 struct HttpsPage {
   @State httpText: string = 'default';
-  private context = getContext(this) as common.UIAbilityContext;
+  private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
   private certFileName = "test2ServerSelf.crt"
   private filePath = this.context.filesDir + "/" + this.certFileName;
 
@@ -63,21 +58,23 @@ struct HttpsPage {
   private postHttp() {
     // TODO 证书路径(沙箱路径)
     Log.warn(`caPath=${this.filePath}`);
-    const userRegisterRequest = new UserRegisterRequest({
+    const userRegisterRequest = new RegisterRequestDTO({
       username: '张三',
       password: HashUtil.sha256FromBytesSync(ArrayUtil.stringToBytes('123456')),
       nickname: 'ZhangSan',
       email: 'zhangsan@email.com',
-      phone:'159000111222',
+      phone: '159000111222',
       gender: "male",
       avatar: 'https://avatars.githubusercontent.com/u/15907?v=4',
-      roles: 'user'
+      roles: 'user',
+      signature: '',
+      settings: ''
     })
     const bodyJson = JSON.stringify(userRegisterRequest)
     doPost(
       httpsUrl,
       bodyJson,
-      (bean: HttpResultEntity<UserDTO>) => {
+      (bean: HttpResultEntity<UserResponse>) => {
         this.httpText = JSON.stringify(bean.result) ?? "请求异常";
         Log.log(`bean=${JSON.stringify(bean)}`);
       },

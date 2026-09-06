@@ -8,7 +8,7 @@ let TAG = "[InputPage] ";
 struct InputPage {
   @State message: string = 'test input text';
   @State inputStr: string = '';
-  private context = getContext(this) as common.UIAbilityContext;
+  private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
   // 生命周期回调:页面显示 只限入口组件
   onPageShow(): void {
@@ -67,7 +67,7 @@ struct InputPage {
         })
         .onSubmit((enterKey: EnterKeyType, event: SubmitEvent) => {
           // 吐司 toast
-          ToastHelper.showToast("完成:" + this.inputStr)
+          ToastHelper.showToast(this.getUIContext(), "完成:" + this.inputStr)
           this.message = "完成:" + this.inputStr
         })
     }

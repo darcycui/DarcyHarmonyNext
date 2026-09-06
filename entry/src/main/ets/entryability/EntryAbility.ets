@@ -1,9 +1,8 @@
 import { AbilityConstant, Want } from '@kit.AbilityKit';
 import { PAGE_INDEX, PAGE_START } from '../pages/PageName';
-import { HiLog, Log } from 'static_library_common';
-import { BaseUIAbility } from '../base/BaseUIAbility';
+import { HiLog, Log, BaseUIAbility, ToastHelper } from 'static_library_common';
 import { EntryEvent } from '../event/EventName';
-import { KeyboardAvoidMode, promptAction, window } from '@kit.ArkUI';
+import { KeyboardAvoidMode, promptAction, UIContext, window } from '@kit.ArkUI';
 import { DataStorage } from '../pages/entry/status/localstorage/LocalStoragePage1';
 
 
@@ -116,9 +115,7 @@ export default class EntryAbility extends BaseUIAbility {
     // eventHub 添加事件监听
     this.context.eventHub.on(EntryEvent.EVENT_CLICK, (data: string) => {
       HiLog.warn(this.TAG + 'EVENT_CLICK=' + data)
-      promptAction.showToast({
-        message: data
-      })
+      ToastHelper.showToast(this.uiContext!, data)
     })
   }
 

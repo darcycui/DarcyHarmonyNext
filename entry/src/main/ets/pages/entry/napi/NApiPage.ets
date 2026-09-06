@@ -1,13 +1,13 @@
 import { nativeAdd } from 'library_napi';
 import { promptAction } from '@kit.ArkUI';
-import { AbilityHelper, Log } from 'static_library_common';
+import { AbilityHelper, Log, ToastHelper } from 'static_library_common';
 import { common } from '@kit.AbilityKit';
-import { Student } from '../../../network/models/bean/StudentBean';
+import { Student } from '../../../models/StudentBean';
 
 @Entry
 @Component
 struct NApiPage {
-  context = getContext(this) as common.UIAbilityContext;
+  context = this.getUIContext().getHostContext() as common.UIAbilityContext;
   @State message: string = '调用NApi Click';
   @State stu: Student | undefined = new Student("Tom", 7);
 
@@ -21,7 +21,7 @@ struct NApiPage {
       Button('调用NApi').width('100%')
         .onClick(() => {
           let sum = nativeAdd(1, 2);
-          promptAction.showToast({ message: `NApiPage sum=${sum}` });
+          ToastHelper.showToast(this.getUIContext(), `NApiPage sum=${sum}`);
         })
       Button('启动 LibNapiAbility').width('100%')
         .onClick(() => {

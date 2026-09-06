@@ -6,7 +6,7 @@ import { Log } from 'static_library_common';
 @Entry
 @Component
 struct LongTaskPage {
-  context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
+  context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
   @State message: string = 'Test Long BackgroundTask';
 
   build() {

@@ -3,13 +3,13 @@ import { common } from '@kit.AbilityKit';
 import { LengthUnit, router } from '@kit.ArkUI';
 import { PAGE_COLUMN } from '../../PageName';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { AbilityHelper } from 'static_library_common/src/main/ets/utils/AbilityHelper';
+import { AbilityUtil } from 'static_library_common/src/main/ets/utils/AbilityUtil';
 
 @Entry
 @Component
 struct WantAbilityPage {
   @State message: string = 'Hello World';
-  context = getContext(this) as common.UIAbilityContext;
+  context = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
   build() {
     RelativeContainer() {
@@ -83,7 +83,7 @@ struct WantAbilityPage {
       .id("LoginFeatureButton")
       .onClick((event: ClickEvent) => {
         // TODO feature module页面跳转 使用want
-        AbilityHelper.startAbility(this.context, "LoginAbility", {}, 'login')
+        AbilityUtil.startAbility(this.context, "LoginAbility", {}, 'login')
       })
   }
 
@@ -93,7 +93,7 @@ struct WantAbilityPage {
       .id("HomeActivityButton")
       .onClick((event: ClickEvent) => {
         // TODO Ability页面跳转 使用 want
-        AbilityHelper.startAbility(this.context, "HomeAbility", { "paramsName": "李四", "paramsId": 2 })
+        AbilityUtil.startAbility(this.context, "HomeAbility", { "paramsName": "李四", "paramsId": 2 })
       })
   }
 
@@ -122,7 +122,7 @@ struct WantAbilityPage {
       .id("TerminateButton")
       .onClick((event: ClickEvent) => {
         // TODO 结束当前页面
-        let context = getContext(this) as common.UIAbilityContext;
+        let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
         context.terminateSelf(() => {
           Log.log("Succeed to terminateSelf")
         })

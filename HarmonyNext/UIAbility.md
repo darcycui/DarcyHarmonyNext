@@ -67,7 +67,7 @@ onNewIntent
 - 设置启动页面 onWindowStageCreate -> loadContent()
 - 上下文Context是UIAbilitityContext类型
     - 在Ability中通过 this.context获取
-    - 在UI组件中通过getContext(this) as common.UIAbilityContext 获取
+    - 在UI组件中通过this.getUIContext().getHostContext() as common.UIAbilityContext 获取
 - 吐司toast 使用 promptAction.showToast(message)
 
 
@@ -77,7 +77,7 @@ onNewIntent
   this.context.eventHub.on('eventName',callback)
 
 - UI组件发送事件 
-  getContext(this) as common.UIAbilityContext.eventHub.emit('eventName',data)
+  this.getUIContext().getHostContext() as common.UIAbilityContext.eventHub.emit('eventName',data)
   
 ## 应用状态管理
 - LocalStorage 

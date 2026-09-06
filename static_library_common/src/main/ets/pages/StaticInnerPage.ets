@@ -1,4 +1,4 @@
-import { NavigationHelper } from "../utils/NavigationHelper"
+import { NavigationUtil } from "../utils/NavigationUtil"
 
 // darcyRefactor: 定义页面路由函数 @Builder
 @Builder
@@ -20,7 +20,7 @@ export struct StaticInnerPage {
         Text(JSON.stringify(this.params))
         Button("返回").width('100%')
           .onClick(() => {
-            NavigationHelper.back(this.pathStack)
+            NavigationUtil.back(this.pathStack)
           })
       }
       .width("100%")

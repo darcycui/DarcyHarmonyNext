@@ -8,7 +8,7 @@ struct EventPagePage {
   @State message: string = '点击发送消息给Ability'
 
   // 获取上下文context
-  context = getContext(this) as common.UIAbilityContext;
+  context = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
   build() {
     Column() {

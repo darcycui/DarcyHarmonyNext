@@ -1,3 +1,4 @@
+import { Context } from '@kit.AbilityKit';
 import { ErrorEvent, MessageEvents, process, worker } from '@kit.ArkTS';
 import { Log } from 'static_library_common';
 
@@ -24,7 +25,7 @@ struct WorkerPage {
       Text(this.value)
       Button('Worker并行计算')
         .width('100%').onClick(() => {
-          workerFunc(this.workerInstance, (value) => {
+          workerFunc(this.workerInstance, this.getUIContext().getHostContext() as Context, (value) => {
             this.value = `${value}`
           })
         })
@@ -34,7 +35,7 @@ struct WorkerPage {
   }
 }
 
-function workerFunc(workerInstance: worker.ThreadWorker, callback: (value: number) => void) {
+function workerFunc(workerInstance: worker.ThreadWorker, context: Context, callback: (value: number) => void) {
   Log.log(`宿主线程: ${process.tid}`)
   workerInstance.onmessage = (event: MessageEvents) => {
     Log.log(`WorkerPage onmessage event=${event.type} ${event.data}`);
@@ -45,5 +46,5 @@ function workerFunc(workerInstance: worker.ThreadWorker, callback: (value: numbe
   }
   let date = Date.now()
   Log.log(`WorkerPage 发送消息 ${date}`)
-  workerInstance.postMessage(`${date + 1000}`)
+  workerInstance.postMessage({ context: context, value: `${date + 1000}` })
 }

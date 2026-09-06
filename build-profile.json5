@@ -119,6 +119,18 @@
           ]
         }
       ]
+    },
+    {
+      "name": "library_network",
+      "srcPath": "./library_network",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     }
   ]
 }

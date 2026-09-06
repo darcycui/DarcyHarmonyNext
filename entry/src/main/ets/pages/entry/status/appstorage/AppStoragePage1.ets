@@ -1,5 +1,5 @@
 import { common } from '@kit.AbilityKit';
-import { AbilityHelper } from 'static_library_common/src/main/ets/utils/AbilityHelper';
+import { AbilityUtil } from 'static_library_common/src/main/ets/utils/AbilityUtil';
 
 class DataAppStorage {
   code: number;
@@ -17,7 +17,7 @@ class DataAppStorage {
 struct AppStoragePage1 {
   @StorageLink('PropA') storageLink: number = -1;
   @StorageProp('PropB') storageLinkObject: DataAppStorage = new DataAppStorage(-100);
-  context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext
+  context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext
 
   build() {
     Column({ space: 20 }) {
@@ -39,5 +39,5 @@ struct AppStoragePage1 {
 }
 
 function startOtherAbility(context: common.UIAbilityContext) {
-  AbilityHelper.startAbility(context, "OtherAbility", {"name": "张三", "id": 100})
+  AbilityUtil.startAbility(context, "OtherAbility", {"name": "张三", "id": 100})
 }

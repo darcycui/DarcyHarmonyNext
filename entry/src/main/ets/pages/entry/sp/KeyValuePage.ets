@@ -10,7 +10,7 @@ const VALUE_ = 'value_test_string';
 @Component
 struct KeyValuePage {
   @State info: string = 'default';
-  context = getContext(this) as common.UIAbilityContext;
+  context = this.getUIContext().getHostContext() as common.UIAbilityContext;
   // kvManager配置
   kvManagerConfig: distributedKVStore.KVManagerConfig = {
     context: this.context,

@@ -76,7 +76,7 @@ export struct StartPage {
     icon: $r('app.media.yes'),
     isEnabled: true,
     action: () => {
-      ToastHelper.showToast($r('app.string.start_menu_1'))
+      ToastHelper.showToast(this.getUIContext(),$r('app.string.start_menu_1'))
     }
   }
   menuItem2: NavigationMenuItem = {
@@ -84,7 +84,7 @@ export struct StartPage {
     icon: $r('app.media.no'),
     isEnabled: true,
     action: () => {
-      ToastHelper.showToast($r('app.string.start_menu_2'))
+      ToastHelper.showToast(this.getUIContext(), $r('app.string.start_menu_2'))
     }
   }
   // 工具栏(底部)
@@ -93,7 +93,7 @@ export struct StartPage {
     icon: $r('app.media.yes'),
     status: ToolbarItemStatus.ACTIVE,
     action: () => {
-      ToastHelper.showToast($r('app.string.start_toolbar_1'))
+      ToastHelper.showToast(this.getUIContext(), $r('app.string.start_toolbar_1'))
     }
   }
   toolbarItem2: ToolbarItem = {
@@ -101,7 +101,7 @@ export struct StartPage {
     icon: $r('app.media.yes'),
     status: ToolbarItemStatus.NORMAL,
     action: () => {
-      ToastHelper.showToast($r('app.string.start_toolbar_2'))
+      ToastHelper.showToast(this.getUIContext(), $r('app.string.start_toolbar_2'))
       NavigationHelper.startPage(this.pathStack, PAGE_CHAT, { "key": "value" })
     }
   }

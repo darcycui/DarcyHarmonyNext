@@ -1,8 +1,7 @@
 import { Log } from 'static_library_common';
-import { closeWS, connectWS, other, self, sendWS, WSS_URL } from '../../../network/websocket/WebSocket';
+import { closeWS, connectWS, other, self, sendWS, WSS_URL } from 'library_network';
 import { saveByteArrayToFile } from '../../../utils/FileUtil';
 import { common } from '@kit.AbilityKit';
-import { MessageBean } from '../../../network/models/bean/MessageBean';
 
 let TAG = "[WebsocketsPage] ";
 
@@ -11,7 +10,7 @@ let TAG = "[WebsocketsPage] ";
 struct WebsocketsPage {
   @State count: number = 0;
   @State wsText: string = 'default';
-  private context = getContext(this) as common.UIAbilityContext;
+  private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
   // private certFileName = "test2IPSelf137.crt"
   private certFileName = "test2IPSelf241.crt"
   // private certFileName = "test2ServerSelf.crt"

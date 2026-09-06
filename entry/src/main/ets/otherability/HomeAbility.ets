@@ -1,8 +1,6 @@
-import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { window } from '@kit.ArkUI';
+import { AbilityConstant, Want } from '@kit.AbilityKit';
 import { PAGE_COLUMN } from '../pages/PageName';
-import { BaseUIAbility } from '../base/BaseUIAbility';
+import { HiLog, BaseUIAbility } from 'static_library_common';
 
 const TAG: string = '[HomeAbility]';
 const DOMAIN_NUMBER: number = 0xFF00;
@@ -21,10 +19,10 @@ export default class HomeAbility extends BaseUIAbility {
     // 获取want参数
     let name = want.parameters?.["paramsName"];
     let id = want.parameters?.["paramsId"];
-    hilog.debug(DOMAIN_NUMBER, TAG, 'paramsName=' + name + ' paramsId=' + id);
+    HiLog.debug(TAG + 'paramsName=' + name + ' paramsId=' + id);
     // 遍历want.parameters，获取参数
     Object.keys(want.parameters ?? {}).forEach(key => {
-      hilog.info(DOMAIN_NUMBER, TAG, 'key=' + key + ' value=' + want.parameters?.[key]);
+      HiLog.info(TAG + 'key=' + key + ' value=' + want.parameters?.[key]);
     })
   }
 }

@@ -6,7 +6,7 @@ import { AbilityHelper, RouterHelper } from 'static_library_common';
 struct LoginIndex {
   @State userName: string = '';
   @State password: string = '';
-  context = getContext(this) as common.UIAbilityContext;
+  context = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
   build() {
     Column() {

@@ -34,7 +34,7 @@ export class CameraHelper {
   async initCamera(surfaceId: string): Promise<void> {
     // 1.输入配置
     // 获取cameraManager对象
-    this.cameraManager = camera.getCameraManager(getContext(this) as common.UIAbilityContext);
+    this.cameraManager = camera.getCameraManager(getContext() as common.UIAbilityContext);
     // 获取当前设备支持的相机列表
     let cameras: Array<camera.CameraDevice> = this.cameraManager.getSupportedCameras();
     for (let index = 0; index < cameras.length; index++) {
@@ -214,7 +214,7 @@ export class CameraHelper {
   // 保存byte数组为图片
   async savePicture(buffer: ArrayBuffer): Promise<void> {
     let photoHelper: photoAccessHelper.PhotoAccessHelper =
-      photoAccessHelper.getPhotoAccessHelper(getContext(this) as common.UIAbilityContext);
+      photoAccessHelper.getPhotoAccessHelper(getContext() as common.UIAbilityContext);
     let options: photoAccessHelper.CreateOptions = {
       title: Date.now().toString()
     };

@@ -1,7 +1,7 @@
 import { common } from '@kit.AbilityKit';
 import { uiObserver } from '@kit.ArkUI';
 import { Log, ToastHelper } from 'static_library_common';
-import { AbilityHelper } from 'static_library_common/src/main/ets/utils/AbilityHelper';
+import { AbilityUtil } from 'static_library_common/src/main/ets/utils/AbilityUtil';
 
 let TAG = "[Home Struct] ";
 let TAG2 = "[textComponent Struct] ";
@@ -10,7 +10,7 @@ let TAG2 = "[textComponent Struct] ";
 @Component
 struct ColumnPage {
   @State messageHome: string = 'Hello World';
-  context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
+  context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
   // 生命周期回调:页面显示 // darcyRefactor: 只限入口组件
   onPageShow(): void {
@@ -65,10 +65,10 @@ struct ColumnPage {
 
   startEntryAbility(context: common.UIAbilityContext | undefined) {
     if (context == undefined || !context) {
-      ToastHelper.showToast("context is undefined or null")
+      ToastHelper.showToast(this.getUIContext(), "context is undefined or null")
       return
     }
-    AbilityHelper.startAbility(context, "EntryAbility", {})
+    AbilityUtil.startAbility(context, "EntryAbility", {})
   }
 }
 

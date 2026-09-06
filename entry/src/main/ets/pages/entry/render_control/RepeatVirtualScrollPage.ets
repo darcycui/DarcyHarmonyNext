@@ -13,7 +13,7 @@ struct RepeatVirtualScrollPage {
             Text(item.item)
               .fontSize(50)
               .onClick(() => {
-                ToastHelper.showToast(item.item)
+                ToastHelper.showToast(this.getUIContext(), item.item)
               })
           }
         })

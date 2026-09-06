@@ -10,7 +10,7 @@ import { TodoListComponent } from '../../views/TodoListComponent';
 struct TodoList {
   // 在列表页面 观察列表页对应的ViewModel
   @State thingsTodo: TodoListViewModel = new TodoListViewModel();
-  private context = getContext(this) as common.UIAbilityContext;
+  private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
   // 在aboutToAppear()中 加载数据
   async aboutToAppear() {

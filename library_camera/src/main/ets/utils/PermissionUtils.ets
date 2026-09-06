@@ -3,10 +3,9 @@ import { abilityAccessCtrl, PermissionRequestResult, Permissions, bundleManager,
 const TAG: string = '[PermissionUtils] ';
 const PERMISSIONS: Array<Permissions> =
   ['ohos.permission.CAMERA', "ohos.permission.READ_IMAGEVIDEO", "ohos.permission.WRITE_IMAGEVIDEO"];
-const context = getContext(this) as common.UIAbilityContext;
-
 export default async function grantPermission(): Promise<boolean> {
   try {
+    let context = getContext() as common.UIAbilityContext;
     let bundleInfo: bundleManager.BundleInfo =
       await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
     let appInfo: bundleManager.ApplicationInfo = bundleInfo.appInfo;
@@ -20,8 +19,7 @@ export default async function grantPermission(): Promise<boolean> {
       }
     }
     if (pems.length > 0) {
-      let ctx = context
-      let result: PermissionRequestResult = await atManager.requestPermissionsFromUser(ctx, pems);
+      let result: PermissionRequestResult = await atManager.requestPermissionsFromUser(context, pems);
       let grantStatus: Array<number> = result.authResults;
       let length: number = grantStatus.length;
       for (let i = 0; i < length; i++) {

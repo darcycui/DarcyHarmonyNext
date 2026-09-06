@@ -5,7 +5,8 @@ import { AbilityHelper, RouterHelper } from 'static_library_common';
 @Component
 struct TestPage {
   @State message: string = 'Hello World';
-  context = getContext(this) as common.UIAbilityContext;
+  // context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+  context = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
   build() {
     Column() {

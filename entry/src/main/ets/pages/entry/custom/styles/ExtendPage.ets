@@ -1,4 +1,5 @@
 import { promptAction } from '@kit.ArkUI'
+import { ToastHelper } from 'static_library_common'
 
 @Entry
 @Component
@@ -10,15 +11,15 @@ struct ExtendPage {
     Column({ space: 10 }) {
       Text(`${this.label}`)
         .fancyText(this.sizes, 100, Color.Blue, () => {
-          promptAction.showToast({message: '1'})
+          ToastHelper.showToast(this.getUIContext(), '1')
         })
       Text(`${this.label}`)
         .fancyText(this.sizes, 200, Color.Pink, () => {
-        promptAction.showToast({message: '2'})
+          ToastHelper.showToast(this.getUIContext(), '2')
       })
       Text(`${this.label}`)
         .fancyText(this.sizes, 300, Color.Orange,() => {
-          promptAction.showToast({message: '3'})
+          ToastHelper.showToast(this.getUIContext(), '3')
         })
       //
       Button('Click change size').width('100%').onClick(() => {

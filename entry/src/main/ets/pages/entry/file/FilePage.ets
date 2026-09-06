@@ -7,7 +7,7 @@ import { buffer } from '@kit.ArkTS';
 @Component
 struct FilePage {
   @State fileInfo: string = 'default';
-  context = getContext(this) as common.UIAbilityContext;
+  context = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
   build() {
     Column({ space: 5 }) {

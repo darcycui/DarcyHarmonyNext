@@ -1,6 +1,7 @@
+import { Context } from '@kit.AbilityKit';
 import { ErrorEvent, MessageEvents, ThreadWorkerGlobalScope, worker, process } from '@kit.ArkTS';
 import { InitCommon, Log } from 'static_library_common';
-import { AppInfo } from '../utils/AppInfo';
+import { AppInfo } from '../utils/AppInfoUtil';
 
 // worker线程 接口
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
@@ -12,9 +13,10 @@ const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
  * @param event message data
  */
 workerPort.onmessage = (event: MessageEvents) => {
-  InitCommon.init(AppInfo.isDebug())
+  const data = event.data as Record<string, Object>
+  InitCommon.init(data.context as Context, AppInfo.isDebug())
   Log.log(`Worker线程: ${process.tid}`)
-  Log.log(`Worker received message: ${event.type} ${event.data}`);
+  Log.log(`Worker received message: ${event.type} ${data.value}`);
   // 发送消息
   workerPort.postMessage(Date.now())
 
