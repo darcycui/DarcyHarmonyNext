@@ -42,7 +42,7 @@ export class TodoListRepository extends BaseRepository {
 
       Log.log(`[TodoListRepository] fetchTasksFromRawFile end`);
 
-      // ⚠️ 必须使用 new ThingsModel() 创建实例，而非 JSON.parse 直接转换
+      // todo ⚠️ 必须使用 new ThingsModel() 创建实例，而非 JSON.parse 直接转换
       // JSON.parse 返回的普通对象不具备 @ObservedV2 + @Trace 观测能力，
       // 直接用 as 断言得到的普通对象无法触发 UI 刷新（属性变化不会被观测到）
       const rawArray: ThingsEntity[] = JSON.parse(jsonString);
