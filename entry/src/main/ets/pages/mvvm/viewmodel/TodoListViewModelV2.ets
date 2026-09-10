@@ -18,8 +18,8 @@
  * ```typescript
  * @Entry
  * @ComponentV2
- * struct TodoListPageV2 {
- *   @Local viewModel: TodoListViewModelV2 = new TodoListViewModelV2();
+* struct TodoListPageV2 {
+ * @Local viewModel: TodoListViewModelV2 = new TodoListViewModelV2();
  *
  *   aboutToAppear(): void {
  *     this.viewModel.onInit();
@@ -41,22 +41,24 @@ import { BaseViewModel } from 'static_library_common/src/main/ets/base/mvvm/Base
 import { GetTasksUseCase } from '../usecase/GetTasksUseCase';
 import ThingsModel from '../../../models/ThingsModel';
 import { common } from '@kit.AbilityKit';
-import { TodoListIntent } from '../intent/TodoListIntent';
-import { BaseIntent } from 'static_library_common';
+import {
+  LoadTasksIntent,
+  ToggleChooseAllIntent,
+  ToggleTaskFinishIntent,
+  AddNameSuffixIntent
+} from '../intent/TodoListIntent';
+import { BaseIntent, Log } from 'static_library_common';
 
 @ObservedV2
 export default class TodoListViewModelV2 extends BaseViewModel {
   // ─── 页面状态字段（@Trace 实现细粒度刷新） ─────────────
 
   /** 是否全选 */
-  @Trace isChoosen: boolean = true;
-
+  @Trace isChoosen: boolean = false;
   /** 事项列表 */
   @Trace things: ThingsModel[] = [];
-
   /** UIAbility 上下文（由 View 层注入） */
   private context: common.UIAbilityContext | null = null;
-
   // ─── 依赖注入（简洁起见使用手动构造，正式项目可用 DI 框架） ──
 
   private getTasksUseCase: GetTasksUseCase = new GetTasksUseCase();
@@ -68,7 +70,26 @@ export default class TodoListViewModelV2 extends BaseViewModel {
     this.context = context;
   }
 
-  // ─── 模式一：独立方法模式（简单直观） ─────────────────
+  // ─── MVI dispatch 模式（统一入口） ────────────
+  /**
+   * 重写基类 dispatch 方法
+   * 使用 switch-case 根据 intent 类型 分发到对应处理方法
+   *
+   * @param intent - 意图
+   */
+  dispatch(intent: BaseIntent): void {
+    if (intent instanceof LoadTasksIntent) {
+      this.loadTasks()
+    } else if (intent instanceof ToggleChooseAllIntent) {
+      this.chooseAll()
+    } else if (intent instanceof ToggleTaskFinishIntent) {
+      this.toggleTaskFinish(intent.thingsName)
+    } else if (intent instanceof AddNameSuffixIntent) {
+      this.addNameSuffix(intent.thingsName)
+    } else {
+      Log.warn(`[TodoListViewModelV2] 未处理的 Intent: ${intent}`)
+    }
+  }
 
   /**
    * 加载任务列表
@@ -121,48 +142,6 @@ export default class TodoListViewModelV2 extends BaseViewModel {
         item.thingsName = item.thingsName + '啦';
         break;
       }
-    }
-  }
-
-  // ─── 模式二：MVI dispatch 模式（统一入口） ────────────
-
-  /**
-   * 重写基类 dispatch 方法
-   * 所有页面事件通过此方法分发，便于统一追踪
-   */
-  dispatch(intent: string, payload?: Record<string, string>): void {
-    switch (intent) {
-      case BaseIntent.LOAD:
-      case TodoListIntent.LOAD_TASKS:
-        this.loadTasks();
-        break;
-
-      case TodoListIntent.TOGGLE_CHOOSE_ALL:
-        this.chooseAll();
-        break;
-
-      case TodoListIntent.TOGGLE_TASK_FINISH:
-        if (payload !== undefined && payload['thingsName'] !== undefined) {
-          this.toggleTaskFinish(payload['thingsName']);
-        }
-        break;
-
-      case TodoListIntent.ADD_NAME_SUFFIX:
-        if (payload !== undefined && payload['thingsName'] !== undefined) {
-          this.addNameSuffix(payload['thingsName']);
-        }
-        break;
-
-      case BaseIntent.RESET:
-        this.reset();
-        break;
-
-      case BaseIntent.CLEAR_ERROR:
-        this.clearError();
-        break;
-
-      default:
-        console.warn(`[TodoListViewModelV2] 未处理的 Intent: ${intent}`);
     }
   }
 

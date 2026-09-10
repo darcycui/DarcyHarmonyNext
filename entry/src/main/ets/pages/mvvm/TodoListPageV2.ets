@@ -7,12 +7,19 @@
  *   - 加载完成 → 渲染列表、全选、事项交互
  *   - 加载失败 → 显示错误信息
  *
- * ─── 架构流向 ─────────────────────────────────────
- *   @ComponentV2 View → @ObservedV2 ViewModel → UseCase → Repository
+ * ─── MVI 架构流向 ─────────────────────────────────────
+ *   @ComponentV2 View → dispatch(intent) → @ObservedV2 ViewModel → UseCase → Repository
+ *   View 层不直接调用 ViewModel 方法，统一通过 dispatch 发送 Intent
  */
 import { common } from '@kit.AbilityKit';
 
 import TodoListViewModelV2 from './viewmodel/TodoListViewModelV2';
+import {
+  LoadTasksIntent,
+  ToggleChooseAllIntent,
+  ToggleTaskFinishIntent,
+  AddNameSuffixIntent
+} from './intent/TodoListIntent';
 import { TodoComponentV2 } from './views/v2/TodoComponentV2';
 import { AllChooseComponentV2 } from './views/v2/AllChooseComponentV2';
 import { TodoListComponentV2 } from './views/v2/TodoListComponentV2';
@@ -34,11 +41,11 @@ struct TodoListPageV2 {
   /**
    * 页面初始化生命周期
    * 1. 将 Context 注入 ViewModel
-   * 2. 调用 onInit() 触发首次数据加载（由 BaseViewModel 管理）
+   * 2. 通过 dispatch 触发首次数据加载（MVI 统一入口）
    */
   aboutToAppear(): void {
     this.viewModel.setContext(this.context);
-    this.viewModel.onInit();
+    this.viewModel.dispatch(new LoadTasksIntent());
   }
 
   build() {
@@ -58,7 +65,7 @@ struct TodoListPageV2 {
           AllChooseComponentV2({
             isChoosen: this.viewModel.isChoosen,
             onChooseAll: () => {
-              this.viewModel.chooseAll();
+              this.viewModel.dispatch(new ToggleChooseAllIntent());
             }
           })
         }
@@ -77,10 +84,12 @@ struct TodoListPageV2 {
           TodoListComponentV2({
             things: this.viewModel.things,
             onToggleFinish: (name: string) => {
-              this.viewModel.toggleTaskFinish(name);
+              const intent = new ToggleTaskFinishIntent(name);
+              this.viewModel.dispatch(intent);
             },
             onAddSuffix: (name: string) => {
-              this.viewModel.addNameSuffix(name);
+              const intent = new AddNameSuffixIntent(name);
+              this.viewModel.dispatch(intent);
             }
           })
         }

@@ -17,7 +17,7 @@ export struct AllChooseComponentV2 {
    * 与 V1 的 @Link 相比，V2 使用 @Param 实现单向数据流，
    * 子组件不直接修改父组件状态，而是通过回调通知
    */
-  @Param isChoosen: boolean = true;
+  @Param isChoosen: boolean = false;
 
   /**
    * 点击全选按钮的回调函数
@@ -27,7 +27,7 @@ export struct AllChooseComponentV2 {
 
   build() {
     Row() {
-      Button(`${this.isChoosen ? '全选' : '取消全选'}`, { type: ButtonType.Capsule })
+      Button(`${this.isChoosen ? '取消全选' : '全选'}`, { type: ButtonType.Capsule })
         .onClick(() => {
           this.onChooseAll();
         })
