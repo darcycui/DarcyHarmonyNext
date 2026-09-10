@@ -1,5 +1,5 @@
 @Observed
-export class Article {
+export class ArticleEntity {
   id: string;
   title: string;
   brief: string;

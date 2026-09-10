@@ -1,5 +1,5 @@
 
-export class Student {
+export class StudentEntity {
   name: string = ""
   age: number = 0
 

@@ -11,6 +11,7 @@
  *   ✅ @ObservedV2 + @Trace → 支持深层嵌套属性追踪
  *   ✅ 通过 UseCase → Repository 分层，ViewModel 不再直接依赖 Model
  *   ✅ 可选的 MVI dispatch 模式，便于复杂页面状态追踪
+ *   ✅ 状态统一封装到 TodoListState，由 TodoListReducer 负责修改
  *
  * ─── View 层使用示例 ─────────────────────────────────────
  * 注意：V2 ViewModel 需要配合 @ComponentV2 + @Local/@Param 使用
@@ -18,8 +19,8 @@
  * ```typescript
  * @Entry
  * @ComponentV2
-* struct TodoListPageV2 {
- * @Local viewModel: TodoListViewModelV2 = new TodoListViewModelV2();
+ * struct TodoListPageV2 {
+ *   @Local viewModel: TodoListViewModelV2 = new TodoListViewModelV2();
  *
  *   aboutToAppear(): void {
  *     this.viewModel.onInit();
@@ -30,16 +31,26 @@
  *       if (this.viewModel.isLoading) {
  *         LoadingProgress();
  *       } else {
- *         // 渲染列表...
+ *         // 通过 state 读取数据
+ *         AllChooseComponentV2({
+ *           isChoosen: this.viewModel.state.isChoosen,
+ *           ...
+ *         })
  *       }
  *     }
  *   }
  * }
  * ```
+ *
+ * ─── 架构流向 ─────────────────────────────────────
+ *   View (@ComponentV2)
+ *     → ViewModel (@ObservedV2) 持有 @Trace state: TodoListState
+ *     → ViewModel 方法委托 Reducer 修改 state
+ *     → Reducer 原地修改 @Trace 属性触发 UI 重渲染
  */
 import { BaseViewModel } from 'static_library_common/src/main/ets/base/mvvm/BaseViewModel';
 import { GetTasksUseCase } from '../usecase/GetTasksUseCase';
-import ThingsModel from '../../../models/ThingsModel';
+import ThingsEntity from '../../../models/ThingsEntity';
 import { common } from '@kit.AbilityKit';
 import {
   LoadTasksIntent,
@@ -48,20 +59,24 @@ import {
   AddNameSuffixIntent
 } from '../intent/TodoListIntent';
 import { BaseIntent, Log } from 'static_library_common';
+import TodoListState from '../state/TodoListState';
+import TodoListReducer from '../reducer/TodoListReducer';
 
 @ObservedV2
 export default class TodoListViewModelV2 extends BaseViewModel {
-  // ─── 页面状态字段（@Trace 实现细粒度刷新） ─────────────
+  // ─── 页面统一状态对象（@Trace 实现细粒度刷新） ────────
 
-  /** 是否全选 */
-  @Trace isChoosen: boolean = false;
-  /** 事项列表 */
-  @Trace things: ThingsModel[] = [];
+  /** 统一状态：封装 isChoosen + things */
+  @Trace state: TodoListState = new TodoListState();
   /** UIAbility 上下文（由 View 层注入） */
   private context: common.UIAbilityContext | null = null;
   // ─── 依赖注入（简洁起见使用手动构造，正式项目可用 DI 框架） ──
 
   private getTasksUseCase: GetTasksUseCase = new GetTasksUseCase();
+
+  // ─── Reducer（负责状态修改） ──────────────────────
+
+  private reducer: TodoListReducer = new TodoListReducer();
 
   /**
    * 设置上下文（由 View 层在 aboutToAppear 中调用）
@@ -101,48 +116,33 @@ export default class TodoListViewModelV2 extends BaseViewModel {
       return;
     }
     await this.safeLoad(async (): Promise<void> => {
-      const tasks: ThingsModel[] = await this.getTasksUseCase.execute(this.context as common.UIAbilityContext);
-      this.things = tasks;
+      const tasks: ThingsEntity[] = await this.getTasksUseCase.execute(this.context as common.UIAbilityContext);
+      this.reducer.setTasks(this.state, tasks);
     });
   }
 
   /**
    * 切换全选状态
-   * 利用 @ObservedV2 + @Trace 的细粒度响应能力，直接原地修改属性
+   * 委托 Reducer 修改 TodoListState，利用 @Trace 触发 UI 重渲染
    */
   chooseAll(): void {
-    this.isChoosen = !this.isChoosen;
-    for (let i = 0; i < this.things.length; i++) {
-      this.things[i].isFinish = this.isChoosen;
-    }
+    this.reducer.chooseAll(this.state);
   }
 
   /**
    * 切换单个事项完成状态
-   * 利用 @ObservedV2 + @Trace 的细粒度响应能力，直接原地修改属性
+   * 委托 Reducer 修改 TodoListState，利用 @Trace 触发 UI 重渲染
    */
   toggleTaskFinish(thingsName: string): void {
-    for (let i = 0; i < this.things.length; i++) {
-      const item: ThingsModel = this.things[i];
-      if (item.thingsName === thingsName) {
-        item.isFinish = !item.isFinish;
-        break;
-      }
-    }
+    this.reducer.toggleTaskFinish(this.state, thingsName);
   }
 
   /**
    * 给事项名称添加后缀
-   * 利用 @ObservedV2 + @Trace 的细粒度响应能力，直接原地修改属性
+   * 委托 Reducer 修改 TodoListState，利用 @Trace 触发 UI 重渲染
    */
   addNameSuffix(thingsName: string): void {
-    for (let i = 0; i < this.things.length; i++) {
-      const item: ThingsModel = this.things[i];
-      if (item.thingsName === thingsName) {
-        item.thingsName = item.thingsName + '啦';
-        break;
-      }
-    }
+    this.reducer.addNameSuffix(this.state, thingsName);
   }
 
   // ─── 生命周期 ─────────────────────────────────────────

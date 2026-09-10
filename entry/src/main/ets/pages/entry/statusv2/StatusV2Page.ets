@@ -1,5 +1,5 @@
 import { NavigationHelper } from 'static_library_common';
-import { ItemBean } from '../../../models/ItemBean';
+import { ItemEntity } from '../../../models/ItemEntity';
 import {
   PAGE_COMPUTED,
   PAGE_COMPUTED_CLASS,
@@ -16,30 +16,30 @@ import {
 struct StatusV2Page {
   @Local params: Map<string, string> = new Map();
   pathStack: NavPathStack = new NavPathStack();
-  itemList: Array<ItemBean> = [
-    new ItemBean(PAGE_OBSERVED_V2, $r('app.string.observer_v2_page')),
-    new ItemBean(PAGE_LOCAL, $r('app.string.local_page')),
-    new ItemBean(PAGE_PARAM, $r('app.string.param_page')),
-    new ItemBean(PAGE_ONCE, $r('app.string.once_page')),
-    new ItemBean(PAGE_EVENT_CALLBACK, $r('app.string.event_callback_page')),
-    new ItemBean(PAGE_PROVIDER, $r('app.string.provider_page')),
-    new ItemBean(PAGE_PROVIDER_FUNCTION, $r('app.string.provider_function_page')),
-    new ItemBean(PAGE_MONITOR, $r('app.string.monitor_page')),
-    new ItemBean(PAGE_MONITOR_CLASS, $r('app.string.monitor_class_page')),
-    new ItemBean(PAGE_COMPUTED, $r('app.string.computed_page')),
-    new ItemBean(PAGE_COMPUTED_CLASS, $r('app.string.computed_class_page')),
+  itemList: Array<ItemEntity> = [
+    new ItemEntity(PAGE_OBSERVED_V2, $r('app.string.observer_v2_page')),
+    new ItemEntity(PAGE_LOCAL, $r('app.string.local_page')),
+    new ItemEntity(PAGE_PARAM, $r('app.string.param_page')),
+    new ItemEntity(PAGE_ONCE, $r('app.string.once_page')),
+    new ItemEntity(PAGE_EVENT_CALLBACK, $r('app.string.event_callback_page')),
+    new ItemEntity(PAGE_PROVIDER, $r('app.string.provider_page')),
+    new ItemEntity(PAGE_PROVIDER_FUNCTION, $r('app.string.provider_function_page')),
+    new ItemEntity(PAGE_MONITOR, $r('app.string.monitor_page')),
+    new ItemEntity(PAGE_MONITOR_CLASS, $r('app.string.monitor_class_page')),
+    new ItemEntity(PAGE_COMPUTED, $r('app.string.computed_page')),
+    new ItemEntity(PAGE_COMPUTED_CLASS, $r('app.string.computed_class_page')),
   ];
 
   build() {
     Navigation(this.pathStack) {
       List() {
-        ForEach(this.itemList, (item: ItemBean, index: number) => {
+        ForEach(this.itemList, (item: ItemEntity, index: number) => {
           ListItem() {
             Text(item.text).width('100%').textAlign(TextAlign.Center).padding(10)
           }.width('100%').onClick(() => {
             NavigationHelper.startPage(this.pathStack, item.pageName, { 'keyHello': 'Value Hello World' })
           })
-        }, (item: ItemBean, index: number) => {
+        }, (item: ItemEntity, index: number) => {
           return `${index} ${JSON.stringify(item)}`
         })
       }.divider({ strokeWidth: 1, color: Color.Gray })

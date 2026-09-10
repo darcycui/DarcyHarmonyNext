@@ -1,4 +1,4 @@
-export class MessageBean {
+export class MessageEntity {
   private from: string = "";
   private to: string = "";
   private message: string = "";

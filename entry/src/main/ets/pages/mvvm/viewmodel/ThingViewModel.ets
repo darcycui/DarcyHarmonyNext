@@ -1,4 +1,4 @@
-import ThingsModel from "../../../models/ThingsModel";
+import ThingsEntity from "../../../models/ThingsEntity";
 
 // TODO ViewModel 添加@Observed注解
 @Observed
@@ -7,7 +7,7 @@ export default class ThingsViewModel {
   @Track thingsName: string = 'Todo';
   @Track isFinish: boolean = false;
 
-  initViewModel(things: ThingsModel) {
+  initViewModel(things: ThingsEntity) {
     this.thingsName = things.thingsName;
     this.isFinish = things.isFinish;
   }

@@ -63,7 +63,7 @@ struct TodoListPageV2 {
           TodoComponentV2()
           // 全选按钮：传入 isChoosen 状态 + 切换回调
           AllChooseComponentV2({
-            isChoosen: this.viewModel.isChoosen,
+            isChoosen: this.viewModel.state.isChoosen,
             onChooseAll: () => {
               this.viewModel.dispatch(new ToggleChooseAllIntent());
             }
@@ -82,7 +82,7 @@ struct TodoListPageV2 {
           // ── 待办事项列表 ──
           // 传入 things 数组及事项交互回调
           TodoListComponentV2({
-            things: this.viewModel.things,
+            things: this.viewModel.state.things,
             onToggleFinish: (name: string) => {
               const intent = new ToggleTaskFinishIntent(name);
               this.viewModel.dispatch(intent);

@@ -12,7 +12,7 @@
  * @Param onToggleFinish : (name: string) => void - 切换完成状态回调
  * @Param onAddSuffix    : (name: string) => void - 添加名称后缀回调
  */
-import ThingsModel from '../../../../models/ThingsModel';
+import ThingsEntity from '../../../../models/ThingsEntity';
 import { Log } from 'static_library_common';
 
 @ComponentV2
@@ -21,7 +21,7 @@ export struct ThingComponentV2 {
    * @Param 接收单个待办事项数据
    * ThingsModel 使用 @ObservedV2 + @Trace，配合父组件替换整个数组触发刷新
    */
-  @Param item: ThingsModel = new ThingsModel();
+  @Param item: ThingsEntity = new ThingsEntity();
 
   /**
    * 切换完成状态回调

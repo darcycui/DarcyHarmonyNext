@@ -1,11 +1,11 @@
 import { Log } from 'static_library_common';
-import { Article } from '../../../models/Article';
+import { ArticleEntity } from '../../../models/ArticleEntity';
 
 @Entry
 @Component
 struct ArticleListPage {
   @State message: string = '这是文章列表页面';
-  @State articleList: Array<Article> = []
+  @State articleList: Array<ArticleEntity> = []
   @State isListReachEnd: boolean = false;
   @State isLoadingMore: boolean = false;
 
@@ -14,7 +14,7 @@ struct ArticleListPage {
 
   aboutToAppear(): void {
     for (let index = 0; index < 20; index++) {
-      this.articleList.push(new Article(`${index + 1}`, `第${index + 1}篇文章`, '文章简介内容', false, 100))
+      this.articleList.push(new ArticleEntity(`${index + 1}`, `第${index + 1}篇文章`, '文章简介内容', false, 100))
     }
   }
 
@@ -29,7 +29,7 @@ struct ArticleListPage {
     setTimeout(() => {
       Log.log(`loadMoreArticles ${this.count}`)
       for (let index = 0; index < 10; index++) {
-        this.articleList.push(new Article(`${this.count + 1}`, `第${this.count + 1}篇文章`, '文章简介内容', false,
+        this.articleList.push(new ArticleEntity(`${this.count + 1}`, `第${this.count + 1}篇文章`, '文章简介内容', false,
           100));
         this.count++
       }
@@ -47,7 +47,7 @@ struct ArticleListPage {
       Log.log('refreshArticles');
       this.articleList = []; // 清空现有数据
       for (let index = -1; index >- 20; index--) {
-        this.articleList.push(new Article(`${index + 1}`, `第${index + 1}篇文章`, '文章简介内容', false, 100));
+        this.articleList.push(new ArticleEntity(`${index + 1}`, `第${index + 1}篇文章`, '文章简介内容', false, 100));
       }
       this.isRefreshing = false;
       this.isListReachStart = false;
@@ -69,7 +69,7 @@ struct ArticleListPage {
           }
         }
         ForEach(this.articleList,
-          (item: Article) => {
+          (item: ArticleEntity) => {
             ListItem() {
               ArticleCard({ article: item }).margin({ top: 20 })
             }
@@ -78,7 +78,7 @@ struct ArticleListPage {
               Log.log(`列表item onClick ${item.title}`)
             })
           },
-          (item: Article) => {
+          (item: ArticleEntity) => {
             Log.log(`item key: ${item.hash()}`)
             return item.hash()
           })
@@ -157,7 +157,7 @@ struct ArticleListPage {
 @Component
 struct ArticleCard {
   // @Prop article: Article;
-  @ObjectLink @Watch('initItem') article: Article;
+  @ObjectLink @Watch('initItem') article: ArticleEntity;
 
   build() {
     Row() {

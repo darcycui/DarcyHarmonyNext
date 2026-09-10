@@ -50,7 +50,7 @@ import { RouterHelper } from 'static_library_common/src/main/ets/utils/RouterHel
 import { common } from '@kit.AbilityKit';
 import { inspector, LengthUnit } from '@kit.ArkUI';
 import { Log, NavigationHelper, ToastUtil } from 'static_library_common';
-import { ItemBean } from '../models/ItemBean';
+import { ItemEntity } from '../models/ItemEntity';
 
 // @Entry
 @Component
@@ -144,52 +144,52 @@ export struct StartPage {
     })
   }
 
-  pageNameArray: ItemBean[] = [
-    new ItemBean(PAGE_REPEAT_LIST, $r('app.string.TestRepeatPage')),
-    new ItemBean(PAGE_REPEAT_VIRTUAL_LIST, $r('app.string.TestRepeatVirtualPage')),
-    new ItemBean(PAGE_EVENT, $r('app.string.TestEventPage')),
-    new ItemBean(PAGE_NAPI, $r('app.string.TestNApiPage')),
-    new ItemBean(PAGE_WANT_ABILITY, $r('app.string.TestWantAbilityPage')),
-    new ItemBean(PAGE_LAYOUT, $r('app.string.TestLayoutPage')),
-    new ItemBean(PAGE_STATIC_CAMERA, $r('app.string.CameraPage')),
-    new ItemBean(PAGE_STATIC_LIBRARY, $r('app.string.StaticLibraryPage')),
-    new ItemBean(PAGE_SHARED_LIBRARY, $r('app.string.SharedLibraryPage')),
-    new ItemBean(PAGE_HTTPS_CERT_PIN, $r("app.string.TestHttpsCertPinPage")),
-    new ItemBean(PAGE_HTTPS, $r("app.string.TestHttpsPage")),
-    new ItemBean(PAGE_WEBSOCKETS, $r("app.string.TestWebsocketsPage")),
-    new ItemBean(PAGE_FILE, $r("app.string.TestFilePage")),
-    new ItemBean(PAGE_SP, $r("app.string.TestSPPage")),
-    new ItemBean(PAGE_KEY_VALUE, $r("app.string.TestKeyValuePage")),
-    new ItemBean(PAGE_PROMISE_ASYNC_WAIT, $r("app.string.TestPromiseSyncWaitPage")),
-    new ItemBean(PAGE_TASK_POOL, $r('app.string.TestTaskPoolPage')),
-    new ItemBean(PAGE_WORKER, $r('app.string.TestWorkerPage')),
-    new ItemBean(PAGE_UTD, $r('app.string.TestUTDPage')),
-    new ItemBean(PAGE_DATABASE, $r('app.string.TestDatabasePage')),
-    new ItemBean(PAGE_STATUS_V1, $r('app.string.TestStatusV1Page')),
-    new ItemBean(PAGE_EMIT_PAGE, $r('app.string.TestEmitPage1')),
-    new ItemBean(PAGE_LOCAL_APP_STORAGE_PAGE, $r('app.string.TestLocalAppStoragePage')),
-    new ItemBean(PAGE_FREEZE_ENTRY, $r('app.string.TestFreezeEntryPage')),
-    new ItemBean(PAGE_RENDER_ENTRY, $r('app.string.TestRenderEntryPage')),
-    new ItemBean(PAGE_MVVM_TEST, $r('app.string.TestMVVMPage')),
-    new ItemBean(PAGE_MVVM_V2_TEST, $r('app.string.TestMVVMV2Page')),
-    new ItemBean(PAGE_TEST_LIST, $r("app.string.TestListPage")),
-    new ItemBean(PAGE_ARTICLE_LIST, $r("app.string.TestForEachPage1")),
-    new ItemBean(PAGE_ANIMATE_TO, $r("app.string.TestAnimateToPage")),
-    new ItemBean(PAGE_BUILDER_ENTRY, $r("app.string.TestBuilderEntryPage")),
-    new ItemBean(PAGE_STYLES_PAGE, $r("app.string.TestStylesPage")),
-    new ItemBean(PAGE_EXTEND_PAGE, $r("app.string.TestExtendPage")),
-    new ItemBean(PAGE_STATE_STYLES_PAGE, $r("app.string.TestStateStylesPage")),
-    new ItemBean(PAGE_MODIFIER_PAGE, $r("app.string.TestModifierPage")),
-    new ItemBean(PAGE_MODIFIER_UPDATER_PAGE, $r("app.string.TestModifierUpdaterPage")),
-    new ItemBean(PAGE_MODIFIER_UPDATER_WEIXIN_PAGE, $r("app.string.TestModifierUpdaterWeiXinPage")),
-    new ItemBean(PAGE_TASK_PAGE, $r("app.string.TestTaskPage")),
-    new ItemBean(PAGE_STATUS_V2, $r("app.string.StatusV2Page")),
+  pageNameArray: ItemEntity[] = [
+    new ItemEntity(PAGE_REPEAT_LIST, $r('app.string.TestRepeatPage')),
+    new ItemEntity(PAGE_REPEAT_VIRTUAL_LIST, $r('app.string.TestRepeatVirtualPage')),
+    new ItemEntity(PAGE_EVENT, $r('app.string.TestEventPage')),
+    new ItemEntity(PAGE_NAPI, $r('app.string.TestNApiPage')),
+    new ItemEntity(PAGE_WANT_ABILITY, $r('app.string.TestWantAbilityPage')),
+    new ItemEntity(PAGE_LAYOUT, $r('app.string.TestLayoutPage')),
+    new ItemEntity(PAGE_STATIC_CAMERA, $r('app.string.CameraPage')),
+    new ItemEntity(PAGE_STATIC_LIBRARY, $r('app.string.StaticLibraryPage')),
+    new ItemEntity(PAGE_SHARED_LIBRARY, $r('app.string.SharedLibraryPage')),
+    new ItemEntity(PAGE_HTTPS_CERT_PIN, $r("app.string.TestHttpsCertPinPage")),
+    new ItemEntity(PAGE_HTTPS, $r("app.string.TestHttpsPage")),
+    new ItemEntity(PAGE_WEBSOCKETS, $r("app.string.TestWebsocketsPage")),
+    new ItemEntity(PAGE_FILE, $r("app.string.TestFilePage")),
+    new ItemEntity(PAGE_SP, $r("app.string.TestSPPage")),
+    new ItemEntity(PAGE_KEY_VALUE, $r("app.string.TestKeyValuePage")),
+    new ItemEntity(PAGE_PROMISE_ASYNC_WAIT, $r("app.string.TestPromiseSyncWaitPage")),
+    new ItemEntity(PAGE_TASK_POOL, $r('app.string.TestTaskPoolPage')),
+    new ItemEntity(PAGE_WORKER, $r('app.string.TestWorkerPage')),
+    new ItemEntity(PAGE_UTD, $r('app.string.TestUTDPage')),
+    new ItemEntity(PAGE_DATABASE, $r('app.string.TestDatabasePage')),
+    new ItemEntity(PAGE_STATUS_V1, $r('app.string.TestStatusV1Page')),
+    new ItemEntity(PAGE_EMIT_PAGE, $r('app.string.TestEmitPage1')),
+    new ItemEntity(PAGE_LOCAL_APP_STORAGE_PAGE, $r('app.string.TestLocalAppStoragePage')),
+    new ItemEntity(PAGE_FREEZE_ENTRY, $r('app.string.TestFreezeEntryPage')),
+    new ItemEntity(PAGE_RENDER_ENTRY, $r('app.string.TestRenderEntryPage')),
+    new ItemEntity(PAGE_MVVM_TEST, $r('app.string.TestMVVMPage')),
+    new ItemEntity(PAGE_MVVM_V2_TEST, $r('app.string.TestMVVMV2Page')),
+    new ItemEntity(PAGE_TEST_LIST, $r("app.string.TestListPage")),
+    new ItemEntity(PAGE_ARTICLE_LIST, $r("app.string.TestForEachPage1")),
+    new ItemEntity(PAGE_ANIMATE_TO, $r("app.string.TestAnimateToPage")),
+    new ItemEntity(PAGE_BUILDER_ENTRY, $r("app.string.TestBuilderEntryPage")),
+    new ItemEntity(PAGE_STYLES_PAGE, $r("app.string.TestStylesPage")),
+    new ItemEntity(PAGE_EXTEND_PAGE, $r("app.string.TestExtendPage")),
+    new ItemEntity(PAGE_STATE_STYLES_PAGE, $r("app.string.TestStateStylesPage")),
+    new ItemEntity(PAGE_MODIFIER_PAGE, $r("app.string.TestModifierPage")),
+    new ItemEntity(PAGE_MODIFIER_UPDATER_PAGE, $r("app.string.TestModifierUpdaterPage")),
+    new ItemEntity(PAGE_MODIFIER_UPDATER_WEIXIN_PAGE, $r("app.string.TestModifierUpdaterWeiXinPage")),
+    new ItemEntity(PAGE_TASK_PAGE, $r("app.string.TestTaskPage")),
+    new ItemEntity(PAGE_STATUS_V2, $r("app.string.StatusV2Page")),
   ]
 
   @Builder
   buildItems() {
     ForEach(this.pageNameArray,
-      (item: ItemBean, index: number) => {
+      (item: ItemEntity, index: number) => {
         if (item.pageName === PAGE_STATIC_CAMERA || item.pageName === PAGE_STATIC_LIBRARY ||
           item.pageName === PAGE_SHARED_LIBRARY) {
           this.buildOneItem(item.pageName, item.text, { 'keyHello': 'Hello World' }, () => {

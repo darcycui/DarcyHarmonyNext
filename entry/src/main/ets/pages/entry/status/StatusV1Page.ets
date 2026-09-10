@@ -1,4 +1,4 @@
-import { ItemBean } from '../../../models/ItemBean';
+import { ItemEntity } from '../../../models/ItemEntity';
 import { JSON } from '@kit.ArkTS';
 import { RouterHelper } from 'static_library_common';
 import { common } from '@kit.AbilityKit';
@@ -32,41 +32,41 @@ import {
 struct StatusV1Page {
   @State params: Map<string, string> = new Map();
   pathStack: NavPathStack = new NavPathStack();
-  @State itemList: Array<ItemBean> = [
-    new ItemBean(PAGE_COMPONENT_STATUS, $r('app.string.TestComponentStatusPage')),
-    new ItemBean(PAGE_STATE, $r('app.string.TestStatePage')),
-    new ItemBean(PAGE_STATE_CHANGED_1, $r('app.string.TestStateChangedPage1')),
-    new ItemBean(PAGE_STATE_CHANGED_2, $r('app.string.TestStateChangedPage2')),
-    new ItemBean(PAGE_STATE_CHANGED_3, $r('app.string.TestStateChangedPage3')),
-    new ItemBean(PAGE_STATE_CHANGED_4, $r('app.string.TestStateChangedPage4')),
-    new ItemBean(PAGE_STATE_CHANGED_5, $r('app.string.TestStateChangedPage5')),
-    new ItemBean(PAGE_PROP_CHANGED_1, $r('app.string.TestPropPage1')),
-    new ItemBean(PAGE_PROP_CHANGED_2, $r('app.string.TestPropPage2')),
-    new ItemBean(PAGE_LINK, $r('app.string.TestLinkPage')),
-    new ItemBean(PAGE_PROVIDE_CONSUME, $r('app.string.TestProvidePage')),
-    new ItemBean(PAGE_PROVIDE_CONSUME_2, $r('app.string.TestProvidePage2')),
-    new ItemBean(PAGE_PROVIDE_CONSUME_3, $r('app.string.TestProvidePage3')),
-    new ItemBean(PAGE_OBSERVED_CLASS_PAGE, $r('app.string.TestObservedClassPage')),
-    new ItemBean(PAGE_OBSERVED_CLASS_PAGE_2, $r('app.string.TestObservedClassPage2')),
-    new ItemBean(PAGE_OBSERVED_ARRAY_PAGE, $r('app.string.TestObservedArrayPage')),
-    new ItemBean(PAGE_OBSERVED_ARRAY_PAGE_2, $r('app.string.TestObservedArrayPage2')),
-    new ItemBean(PAGE_WATCH_PAGE, $r('app.string.TestWatchPage')),
-    new ItemBean(PAGE_WATCH_LINK_PAGE, $r('app.string.TestWatchLinkPage')),
-    new ItemBean(PAGE_WATCH_CHANGE_TIME_PAGE, $r('app.string.TestWatchChangeTimePage')),
-    new ItemBean(PAGE_$$_PAGE, $r('app.string.TestDollarDollarPage')),
-    new ItemBean(PAGE_TRACK_PAGE, $r('app.string.TestTrackPage')),
+  @State itemList: Array<ItemEntity> = [
+    new ItemEntity(PAGE_COMPONENT_STATUS, $r('app.string.TestComponentStatusPage')),
+    new ItemEntity(PAGE_STATE, $r('app.string.TestStatePage')),
+    new ItemEntity(PAGE_STATE_CHANGED_1, $r('app.string.TestStateChangedPage1')),
+    new ItemEntity(PAGE_STATE_CHANGED_2, $r('app.string.TestStateChangedPage2')),
+    new ItemEntity(PAGE_STATE_CHANGED_3, $r('app.string.TestStateChangedPage3')),
+    new ItemEntity(PAGE_STATE_CHANGED_4, $r('app.string.TestStateChangedPage4')),
+    new ItemEntity(PAGE_STATE_CHANGED_5, $r('app.string.TestStateChangedPage5')),
+    new ItemEntity(PAGE_PROP_CHANGED_1, $r('app.string.TestPropPage1')),
+    new ItemEntity(PAGE_PROP_CHANGED_2, $r('app.string.TestPropPage2')),
+    new ItemEntity(PAGE_LINK, $r('app.string.TestLinkPage')),
+    new ItemEntity(PAGE_PROVIDE_CONSUME, $r('app.string.TestProvidePage')),
+    new ItemEntity(PAGE_PROVIDE_CONSUME_2, $r('app.string.TestProvidePage2')),
+    new ItemEntity(PAGE_PROVIDE_CONSUME_3, $r('app.string.TestProvidePage3')),
+    new ItemEntity(PAGE_OBSERVED_CLASS_PAGE, $r('app.string.TestObservedClassPage')),
+    new ItemEntity(PAGE_OBSERVED_CLASS_PAGE_2, $r('app.string.TestObservedClassPage2')),
+    new ItemEntity(PAGE_OBSERVED_ARRAY_PAGE, $r('app.string.TestObservedArrayPage')),
+    new ItemEntity(PAGE_OBSERVED_ARRAY_PAGE_2, $r('app.string.TestObservedArrayPage2')),
+    new ItemEntity(PAGE_WATCH_PAGE, $r('app.string.TestWatchPage')),
+    new ItemEntity(PAGE_WATCH_LINK_PAGE, $r('app.string.TestWatchLinkPage')),
+    new ItemEntity(PAGE_WATCH_CHANGE_TIME_PAGE, $r('app.string.TestWatchChangeTimePage')),
+    new ItemEntity(PAGE_$$_PAGE, $r('app.string.TestDollarDollarPage')),
+    new ItemEntity(PAGE_TRACK_PAGE, $r('app.string.TestTrackPage')),
   ];
 
   build() {
     Navigation(this.pathStack) {
       List() {
-        ForEach(this.itemList, (item: ItemBean, index: number) => {
+        ForEach(this.itemList, (item: ItemEntity, index: number) => {
           ListItem() {
             Text(item.text).fontSize(20).fontWeight(FontWeight.Bold).padding(10)
           }.onClick(() => {
             RouterHelper.startPage(this.getUIContext(), item.pageName, {})
           }).width('100%')
-        }, (item: ItemBean, index: number) => {
+        }, (item: ItemEntity, index: number) => {
           return `${index} ${JSON.stringify(item)}`
         })
       }.divider({strokeWidth:1, color:Color.Gray})

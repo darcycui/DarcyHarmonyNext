@@ -12,7 +12,7 @@
  * @Param onToggleFinish : (name: string) => void - 切换完成状态回调
  * @Param onAddSuffix    : (name: string) => void - 添加名称后缀回调
  */
-import ThingsModel from '../../../../models/ThingsModel';
+import ThingsEntity from '../../../../models/ThingsEntity';
 import { ThingComponentV2 } from './ThingComponentV2';
 
 @ComponentV2
@@ -22,7 +22,7 @@ export struct TodoListComponentV2 {
    * 当父组件中 viewModel.things 被替换为新数组时，
    * @Trace 触发父组件重渲染，此处自动获取最新数据
    */
-  @Param things: ThingsModel[] = [];
+  @Param things: ThingsEntity[] = [];
 
   /**
    * 切换完成状态回调
@@ -38,7 +38,7 @@ export struct TodoListComponentV2 {
     Column() {
       List() {
         ForEach(this.things,
-          (item: ThingsModel) => {
+          (item: ThingsEntity) => {
             ListItem() {
               ThingComponentV2({
                 item: item,
@@ -51,7 +51,7 @@ export struct TodoListComponentV2 {
               }).margin(5)
             }
           },
-          (item: ThingsModel) => {
+          (item: ThingsEntity) => {
             return item.thingsName;
           })
       }

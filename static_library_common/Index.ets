@@ -41,4 +41,4 @@ export { BaseViewModel } from './src/main/ets/base/mvvm/BaseViewModel';
 export { BaseIntent } from './src/main/ets/base/mvvm/BaseIntent';
 export { BaseUseCase, BaseNoParamUseCase } from './src/main/ets/base/mvvm/BaseUseCase';
 export { BaseRepository } from './src/main/ets/base/mvvm/BaseRepository';
-
+export { BaseReducer } from './src/main/ets/base/mvvm/BaseReducer';
