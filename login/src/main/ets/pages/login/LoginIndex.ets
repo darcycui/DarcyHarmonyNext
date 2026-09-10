@@ -45,15 +45,14 @@ struct LoginIndex {
 
   @Builder
   startPage() {
-    Button($r("app.string.HomePage")).width('100%')
-      .alignRules({
-        top: { anchor: '__container__', align: VerticalAlign.Top },
-        left: { anchor: '__container__', align: HorizontalAlign.Start }
-      })
+    Button($r("app.string.Login")).width('100%')
       .margin({ top: 10 })// 外边距
       .onClick((event: ClickEvent) => {
         // TODO entry module页面跳转 使用want
-        AbilityHelper.startAbility(this.context, "HomeAbility", {}, 'entry')
+        AbilityHelper.startAbility(this.context, "EntryAbility", {}, 'entry')
+        setTimeout(() => {
+          this.context.terminateSelf()
+        }, 200)
       })
   }
 }

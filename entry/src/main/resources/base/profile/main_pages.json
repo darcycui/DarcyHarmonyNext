@@ -56,6 +56,7 @@
     "pages/entry/freeze/NavigationFreezePage",
     "pages/entry/want/WantAbilityPage",
     "pages/mvvm/TodoListPage",
+    "pages/mvvm/TodoListPageV2",
     "pages/entry/list/ListA1",
     "pages/entry/render_control/If_ElsePage",
     "pages/entry/render_control/If_Else_StatePage",

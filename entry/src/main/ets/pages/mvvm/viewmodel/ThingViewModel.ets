@@ -1,4 +1,4 @@
-import ThingsModel from "../models/ThingsModel";
+import ThingsModel from "../../../models/ThingsModel";
 
 // TODO ViewModel 添加@Observed注解
 @Observed

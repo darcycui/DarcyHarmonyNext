@@ -1,6 +1,6 @@
 import ThingsViewModel from "./ThingViewModel";
 import { common } from "@kit.AbilityKit";
-import TodoListModel from "../models/TodoListModel";
+import TodoListModel from "../../../models/TodoListModel";
 
 // 自定义类型 添加 @Observed注解
 @Observed
@@ -15,9 +15,9 @@ export default class TodoListViewModel {
   @Track things: ThingsViewModelArray = new ThingsViewModelArray();
 
   async loadTasks(context: common.UIAbilityContext) {
-    let todoList = new TodoListModel([]);
-    await todoList.loadTasks(context);
-    for(let things of todoList.things) {
+    let todoListModel = new TodoListModel([]);
+    await todoListModel.loadTasks(context);
+    for(let things of todoListModel.things) {
       let thingsViewModel = new ThingsViewModel();
       thingsViewModel.initViewModel(things);
       this.things.push(thingsViewModel);

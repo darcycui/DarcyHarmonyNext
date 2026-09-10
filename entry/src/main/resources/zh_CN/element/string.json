@@ -2,47 +2,47 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "模块介绍"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "描述EntryAbility"
     },
     {
       "name": "EntryAbility_label",
-      "value": "HarmonyNextEn"
+      "value": "标签EntryAbility"
     },
     {
       "name": "Left",
-      "value": "Left"
+      "value": "左"
     },
     {
       "name": "Back",
-      "value": "Back"
+      "value": "返回"
     },
     {
       "name": "Next",
-      "value": "Next"
+      "value": "右"
     },
     {
       "name": "HomeAbility_desc",
-      "value": "description"
+      "value": "描述HomeAbility"
     },
     {
       "name": "HomeAbility_label",
-      "value": "HomeAbility"
+      "value": "标签HomeAbility"
     },
     {
       "name": "LoginFeatureAbility",
-      "value": "LoginFeatureAbility"
+      "value": "LoginFeatureAbilityy"
     },
     {
       "name": "HomePage",
-      "value": "Home"
+      "value": "首页"
     },
     {
       "name": "Terminate",
-      "value": "Terminate"
+      "value": "结束"
     },
     {
       "name": "HomeAbility2",
@@ -50,79 +50,79 @@
     },
     {
       "name": "RelativePage",
-      "value": "Relative"
+      "value": "相对布局"
     },
     {
       "name": "InputPage",
-      "value": "Input"
+      "value": "输入"
     },
     {
       "name": "ColumnPage",
-      "value": "Column"
+      "value": "列"
     },
     {
       "name": "ImagePage",
-      "value": "Image"
+      "value": "图片"
     },
     {
       "name": "TakeImage",
-      "value": "TakeImage"
+      "value": "拍照"
     },
     {
       "name": "StaticLibraryPage",
-      "value": "StaticLibrary"
+      "value": "静态库"
     },
     {
       "name": "StaticLibraryPageTest",
-      "value": "This is a static library page"
+      "value": "静态库页面"
     },
     {
       "name": "SharedLibraryPageTest",
-      "value": "Thi is Shared library test page"
+      "value": "动态库页面"
     },
     {
       "name": "SharedLibraryPage",
-      "value": "SharedLibrary"
+      "value": "动态库"
     },
     {
       "name": "StaticLibraryCommonFunc",
-      "value": "StaticLibraryCommonFunc"
+      "value": "静态库函数"
     },
     {
       "name": "SharedLibraryCommonFunc",
-      "value": "SharedLibraryCommonFunc"
+      "value": "动态库函数"
     },
     {
       "name": "TestEventHub",
-      "value": "EventHub"
+      "value": "EventHub通信"
     },
     {
       "name": "CameraPage",
-      "value": "Camera"
+      "value": "相机"
     },
     {
       "name": "TestCallFunction",
-      "value": "CallFunction"
+      "value": "调用函数"
     },
     {
       "name": "HttpTest",
-      "value": "httpTest"
+      "value": "Http测试"
     },
     {
       "name": "TestHttpsCertPinPage",
-      "value": "HttpsCertPin"
+      "value": "Https证书固定"
     },
     {
       "name": "TestHttpsPage",
-      "value": "Https"
+      "value": "Https测试"
     },
     {
       "name": "WebsocketConnect",
-      "value": "Connect"
+      "value": "连接"
     },
     {
       "name": "WebsocketDisconnect",
-      "value": "Disconnect"
+      "value": "断开"
     },
     {
       "name": "TestWebsocketsPage",
@@ -130,35 +130,27 @@
     },
     {
       "name": "WebsocketSend",
-      "value": "Send"
+      "value": "发送"
     },
     {
       "name": "UserFile",
-      "value": "UserFile"
+      "value": "用户文件"
     },
     {
       "name": "AppFile",
-      "value": "AppFile"
+      "value": "应用文件"
     },
     {
       "name": "TestFilePage",
-      "value": "File"
+      "value": "文件"
     },
     {
       "name": "TestSPPage",
-      "value": "SP"
-    },
-    {
-      "name": "TextSP",
-      "value": "TextSP"
-    },
-    {
-      "name": "AnotherSP",
-      "value": "AnotherSP"
+      "value": "键值存储"
     },
     {
       "name": "TestPromiseSyncWaitPage",
-      "value": "PromiseAsync"
+      "value": "Promise和Async"
     },
     {
       "name": "TestTaskPoolPage",
@@ -170,19 +162,19 @@
     },
     {
       "name": "TestUTDPage",
-      "value": "UTD"
+      "value": "UTD标准化数据"
     },
     {
       "name": "TestKeyValuePage",
-      "value": "KeyValue"
+      "value": "键值"
     },
     {
       "name": "TestDatabasePage",
-      "value": "Database"
+      "value": "数据库"
     },
     {
       "name": "TestComponentStatusPage",
-      "value": "ComponentState"
+      "value": "组件状态"
     },
     {
       "name": "TestStatePage",
@@ -190,31 +182,31 @@
     },
     {
       "name": "TestStateChangedPage1",
-      "value": "StateChanged1"
+      "value": "State变化1"
     },
     {
       "name": "TestStateChangedPage2",
-      "value": "StateChanged2"
+      "value": "State变化2"
     },
     {
       "name": "TestStateChangedPage3",
-      "value": "StateChanged3"
+      "value": "State变化3"
     },
     {
       "name": "TestStateChangedPage4",
-      "value": "StateChanged4"
+      "value": "State变化4"
     },
     {
       "name": "TestStateChangedPage5",
-      "value": "StateChanged5"
+      "value": "State变化5"
     },
     {
       "name": "TestPropPage1",
-      "value": "PropChanged1"
+      "value": "Prop变化1"
     },
     {
       "name": "TestPropPage2",
-      "value": "PropChanged2"
+      "value": "Prop变化2"
     },
     {
       "name": "TestLinkPage",
@@ -222,7 +214,7 @@
     },
     {
       "name": "TestProvidePage",
-      "value": "Provide"
+      "value": "Provide1"
     },
     {
       "name": "TestProvidePage2",
@@ -234,19 +226,19 @@
     },
     {
       "name": "TestObservedClassPage",
-      "value": "ObservedClass"
+      "value": "Observed类"
     },
     {
       "name": "TestObservedClassPage2",
-      "value": "ObservedClass2"
+      "value": "Observed类2"
     },
     {
       "name": "TestObservedArrayPage",
-      "value": "ObservedArray"
+      "value": "Observed数组"
     },
     {
       "name": "TestObservedArrayPage2",
-      "value": "ObservedArray2"
+      "value": "Observed数组2"
     },
     {
       "name": "TestLocalStoragePage1",
@@ -274,23 +266,23 @@
     },
     {
       "name": "OtherAbility_desc",
-      "value": "description"
+      "value": "描述"
     },
     {
       "name": "OtherAbility_label",
-      "value": "label"
+      "value": "标签"
     },
     {
       "name": "TestEmitPage1",
-      "value": "Emit1"
+      "value": "Emit页面"
     },
     {
       "name": "TestPersistentPage",
-      "value": "Persistent"
+      "value": "Persistent持久化"
     },
     {
       "name": "TestEnvironmentPage",
-      "value": "Environment"
+      "value": "Environment环境"
     },
     {
       "name": "TestWatchPage",
@@ -334,11 +326,15 @@
     },
     {
       "name": "TestMVVMPage",
-      "value": "MVVM"
+      "value": "MVVM架构"
+    },
+    {
+      "name": "TestMVVMV2Page",
+      "value": "MVVM-V2"
     },
     {
       "name": "TestListPage",
-      "value": "TestList"
+      "value": "List测试"
     },
     {
       "name": "TestTest2",
@@ -394,15 +390,15 @@
     },
     {
       "name": "TestEventPage",
-      "value": "Event"
+      "value": "Event事件"
     },
     {
       "name": "TestRepeatPage",
-      "value": "Repeat"
+      "value": "Repeat重复"
     },
     {
       "name": "TestRepeatVirtualPage",
-      "value": "RepeatVirtual"
+      "value": "RepeatVirtual重复"
     },
     {
       "name": "TestNApiPage",
@@ -434,15 +430,15 @@
     },
     {
       "name": "TestStylesPage",
-      "value": "Styles"
+      "value": "Styles样式"
     },
     {
       "name": "TestExtendPage",
-      "value": "Extend"
+      "value": "Extend继承"
     },
     {
       "name": "TestStateStylesPage",
-      "value": "StateStyles"
+      "value": "StateStyles样式"
     },
     {
       "name": "TestModifierPage",
@@ -458,39 +454,31 @@
     },
     {
       "name": "TestTaskPage",
-      "value": "TaskPage"
+      "value": "任务页面"
     },
     {
       "name": "KeepRunning",
-      "value": "KeepRunning in background"
+      "value": "保持后台运行"
     },
     {
       "name": "start_menu_1",
-      "value": "Menu1"
+      "value": "菜单1"
     },
     {
       "name": "start_menu_2",
-      "value": "Menu2"
-    },
-    {
-      "name": "start_toolbar_1",
-      "value": "Home"
-    },
-    {
-      "name": "start_toolbar_2",
-      "value": "Chat"
+      "value": "菜单2"
     },
     {
       "name": "tab_bar_title_chat",
-      "value": "Chat"
+      "value": "聊天"
     },
     {
       "name": "tab_bar_title_contract",
-      "value": "Contract"
+      "value": "联系人"
     },
     {
       "name": "tab_bar_title_me",
-      "value": "Me"
+      "value": "我的"
     },
     {
       "name": "StatusV2Page",
@@ -518,7 +506,7 @@
     },
     {
       "name": "TestLayoutPage",
-      "value": "Layout"
+      "value": "Layout容器"
     },
     {
       "name": "observer_v2_page",
@@ -563,6 +551,30 @@
     {
       "name": "computed_class_page",
       "value": "Computed Class"
+    },
+    {
+      "name": "ChatPage",
+      "value": "聊天页"
+    },
+    {
+      "name": "LongTaskDetailAbility_label",
+      "value": "标签"
+    },
+    {
+      "name": "LongTaskDetailAbility_desc",
+      "value": "描述"
+    },
+    {
+      "name": "LongTaskAbility_label",
+      "value": "标签"
+    },
+    {
+      "name": "LongTaskAbility_desc",
+      "value": "描述"
+    },
+    {
+      "name": "start_page",
+      "value": "起始页"
     }
   ]
 }

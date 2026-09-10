@@ -78,6 +78,7 @@ export let PAGE_SHARED_LIBRARY = "pages/entry/har_hsp/SharedLibraryPage";
 export let PAGE_SHARED_INNER = "pages/shared/context/SharedInnerPage";
 
 export let PAGE_MVVM_TEST = "pages/mvvm/TodoListPage";
+export let PAGE_MVVM_V2_TEST = "pages/mvvm/TodoListPageV2";
 export let PAGE_TEST_LIST = "pages/entry/list/ListA1";
 export let PAGE_ARTICLE_LIST = "pages/entry/list/ArticleListPage";
 

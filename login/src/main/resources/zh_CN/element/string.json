@@ -6,11 +6,11 @@
     },
     {
       "name": "LoginAbility_desc",
-      "value": "description"
+      "value": "描述"
     },
     {
       "name": "LoginAbility_label",
-      "value": "label"
+      "value": "标签"
     },
     {
       "name": "password_tip",
@@ -26,15 +26,19 @@
     },
     {
       "name": "HomePage",
-      "value": "Home"
+      "value": "首页"
     },
     {
       "name": "TestAbility_desc",
-      "value": "description"
+      "value": "描述"
     },
     {
       "name": "TestAbility_label",
-      "value": "label"
+      "value": "标签"
+    },
+    {
+      "name": "Login",
+      "value": "登录"
     }
   ]
 }

@@ -22,6 +22,7 @@ import {
   PAGE_EMIT_PAGE,
   PAGE_WANT_ABILITY,
   PAGE_MVVM_TEST,
+  PAGE_MVVM_V2_TEST,
   PAGE_TEST_LIST,
   PAGE_ANIMATE_TO,
   PAGE_ARTICLE_LIST,
@@ -87,24 +88,6 @@ export struct StartPage {
       ToastUtil.showToast(this.getUIContext(), $r('app.string.start_menu_2'))
     }
   }
-  // 工具栏(底部)
-  toolbarItem1: ToolbarItem = {
-    value: $r('app.string.start_toolbar_1'),
-    icon: $r('app.media.yes'),
-    status: ToolbarItemStatus.ACTIVE,
-    action: () => {
-      ToastUtil.showToast(this.getUIContext(), $r('app.string.start_toolbar_1'))
-    }
-  }
-  toolbarItem2: ToolbarItem = {
-    value: $r('app.string.start_toolbar_2'),
-    icon: $r('app.media.yes'),
-    status: ToolbarItemStatus.NORMAL,
-    action: () => {
-      ToastUtil.showToast(this.getUIContext(), $r('app.string.start_toolbar_2'))
-      NavigationHelper.startPage(this.pathStack, PAGE_CHAT, { "key": "value" })
-    }
-  }
 
   build() {
     Navigation(this.pathStack) {
@@ -149,7 +132,7 @@ export struct StartPage {
       })
     }
     .mode(NavigationMode.Auto)
-    .title("StartPage")
+    .title($r('app.string.start_page'))
     .hideBackButton(true)
     .titleMode(NavigationTitleMode.Mini)
     // 菜单栏(右上角)
@@ -188,6 +171,7 @@ export struct StartPage {
     new ItemBean(PAGE_FREEZE_ENTRY, $r('app.string.TestFreezeEntryPage')),
     new ItemBean(PAGE_RENDER_ENTRY, $r('app.string.TestRenderEntryPage')),
     new ItemBean(PAGE_MVVM_TEST, $r('app.string.TestMVVMPage')),
+    new ItemBean(PAGE_MVVM_V2_TEST, $r('app.string.TestMVVMV2Page')),
     new ItemBean(PAGE_TEST_LIST, $r("app.string.TestListPage")),
     new ItemBean(PAGE_ARTICLE_LIST, $r("app.string.TestForEachPage1")),
     new ItemBean(PAGE_ANIMATE_TO, $r("app.string.TestAnimateToPage")),

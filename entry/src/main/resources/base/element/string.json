@@ -106,7 +106,7 @@
     },
     {
       "name": "HttpTest",
-      "value": "httpTest"
+      "value": "HttpTest"
     },
     {
       "name": "TestHttpsCertPinPage",
@@ -147,14 +147,6 @@
     {
       "name": "TestSPPage",
       "value": "SP"
-    },
-    {
-      "name": "TextSP",
-      "value": "TextSP"
-    },
-    {
-      "name": "AnotherSP",
-      "value": "AnotherSP"
     },
     {
       "name": "TestPromiseSyncWaitPage",
@@ -222,7 +214,7 @@
     },
     {
       "name": "TestProvidePage",
-      "value": "Provide"
+      "value": "Provide1"
     },
     {
       "name": "TestProvidePage2",
@@ -335,6 +327,10 @@
     {
       "name": "TestMVVMPage",
       "value": "MVVM"
+    },
+    {
+      "name": "TestMVVMV2Page",
+      "value": "MVVM-V2"
     },
     {
       "name": "TestListPage",
@@ -482,7 +478,7 @@
     },
     {
       "name": "ChatPage",
-      "value": "Chat"
+      "value": "ChatPage"
     },
     {
       "name": "start_menu_1",
@@ -491,14 +487,6 @@
     {
       "name": "start_menu_2",
       "value": "Menu2"
-    },
-    {
-      "name": "start_toolbar_1",
-      "value": "Home"
-    },
-    {
-      "name": "start_toolbar_2",
-      "value": "Chat"
     },
     {
       "name": "tab_bar_title_chat",
@@ -583,6 +571,10 @@
     {
       "name": "computed_class_page",
       "value": "Computed Class"
+    },
+    {
+      "name": "start_page",
+      "value": "start_page"
     }
   ]
 }

@@ -106,7 +106,7 @@
     },
     {
       "name": "HttpTest",
-      "value": "httpTest"
+      "value": "HttpTest"
     },
     {
       "name": "TestHttpsCertPinPage",
@@ -147,14 +147,6 @@
     {
       "name": "TestSPPage",
       "value": "SP"
-    },
-    {
-      "name": "TextSP",
-      "value": "TextSP"
-    },
-    {
-      "name": "AnotherSP",
-      "value": "AnotherSP"
     },
     {
       "name": "TestPromiseSyncWaitPage",
@@ -222,7 +214,7 @@
     },
     {
       "name": "TestProvidePage",
-      "value": "Provide"
+      "value": "Provide1"
     },
     {
       "name": "TestProvidePage2",
@@ -282,7 +274,7 @@
     },
     {
       "name": "TestEmitPage1",
-      "value": "Emit1"
+      "value": "EmitPage"
     },
     {
       "name": "TestPersistentPage",
@@ -335,6 +327,10 @@
     {
       "name": "TestMVVMPage",
       "value": "MVVM"
+    },
+    {
+      "name": "TestMVVMV2Page",
+      "value": "MVVM-V2"
     },
     {
       "name": "TestListPage",
@@ -473,14 +469,6 @@
       "value": "Menu2"
     },
     {
-      "name": "start_toolbar_1",
-      "value": "Home"
-    },
-    {
-      "name": "start_toolbar_2",
-      "value": "Chat"
-    },
-    {
       "name": "tab_bar_title_chat",
       "value": "Chat"
     },
@@ -563,6 +551,30 @@
     {
       "name": "computed_class_page",
       "value": "Computed Class"
+    },
+    {
+      "name": "LongTaskAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "LongTaskAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "LongTaskDetailAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "LongTaskDetailAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "ChatPage",
+      "value": "ChatPage"
+    },
+    {
+      "name": "start_page",
+      "value": "start_page"
     }
   ]
 }

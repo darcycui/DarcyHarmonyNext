@@ -35,6 +35,10 @@
     {
       "name": "TestAbility_label",
       "value": "label"
+    },
+    {
+      "name": "Login",
+      "value": "Login"
     }
   ]
 }
