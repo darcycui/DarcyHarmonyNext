@@ -26,10 +26,10 @@ export class TodoListRepository extends BaseRepository {
    * 从 Rawfile 获取任务列表
    * 使用基类 safeCall 包装，统一异常处理
    *
-   * @param context UIAbility 上下文
+   * @param context Context 上下文
    * @returns 任务模型数组
    */
-  async fetchTasksFromRawFile(context: common.UIAbilityContext): Promise<ThingsEntity[]> {
+  async fetchTasksFromRawFile(context: common.Context): Promise<ThingsEntity[]> {
     return this.safeCall(async () => {
       Log.log(`[TodoListRepository] fetchTasksFromRawFile start`);
 

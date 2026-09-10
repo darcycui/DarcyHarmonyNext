@@ -58,7 +58,7 @@ import {
   ToggleTaskFinishIntent,
   AddNameSuffixIntent
 } from '../intent/TodoListIntent';
-import { BaseIntent, Log } from 'static_library_common';
+import { BaseIntent, Contexts, Log } from 'static_library_common';
 import TodoListState from '../state/TodoListState';
 import TodoListReducer from '../reducer/TodoListReducer';
 
@@ -68,22 +68,12 @@ export default class TodoListViewModelV2 extends BaseViewModel {
 
   /** 统一状态：封装 isChoosen + things */
   @Trace state: TodoListState = new TodoListState();
-  /** UIAbility 上下文（由 View 层注入） */
-  private context: common.UIAbilityContext | null = null;
-  // ─── 依赖注入（简洁起见使用手动构造，正式项目可用 DI 框架） ──
 
+  // ─── 依赖注入（简洁起见使用手动构造，正式项目可用 DI 框架） ──
   private getTasksUseCase: GetTasksUseCase = new GetTasksUseCase();
 
   // ─── Reducer（负责状态修改） ──────────────────────
-
   private reducer: TodoListReducer = new TodoListReducer();
-
-  /**
-   * 设置上下文（由 View 层在 aboutToAppear 中调用）
-   */
-  setContext(context: common.UIAbilityContext): void {
-    this.context = context;
-  }
 
   // ─── MVI dispatch 模式（统一入口） ────────────
   /**
@@ -111,12 +101,8 @@ export default class TodoListViewModelV2 extends BaseViewModel {
    * 使用基类提供的 safeLoad 自动管理 loading/error 状态
    */
   async loadTasks(): Promise<void> {
-    if (this.context === null) {
-      this.errorMessage = 'Context 未设置';
-      return;
-    }
     await this.safeLoad(async (): Promise<void> => {
-      const tasks: ThingsEntity[] = await this.getTasksUseCase.execute(this.context as common.UIAbilityContext);
+      const tasks: ThingsEntity[] = await this.getTasksUseCase.execute(Contexts.getContext());
       this.reducer.setTasks(this.state, tasks);
     });
   }

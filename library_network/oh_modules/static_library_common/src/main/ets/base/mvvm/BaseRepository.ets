@@ -1,4 +1,5 @@
 import { Log } from "../../utils/Log";
+import { JSON } from "@kit.ArkTS";
 
 /**
  * BaseRepository - 数据仓库基类
@@ -34,8 +35,8 @@ export abstract class BaseRepository {
   protected async safeCall<T>(action: () => Promise<T>): Promise<T> {
     try {
       return await action();
-    } catch {
-      Log.error(`[BaseRepository] 操作失败`);
+    } catch (e) {
+      Log.error(`[BaseRepository] 操作失败: ${JSON.stringify(e)}`);
       throw new Error('操作失败');
     }
   }

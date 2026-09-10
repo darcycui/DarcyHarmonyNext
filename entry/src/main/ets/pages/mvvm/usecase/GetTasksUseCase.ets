@@ -38,10 +38,10 @@ export class GetTasksUseCase extends BaseUseCase<common.UIAbilityContext, Things
    * 实际执行逻辑
    * 可以在此处添加缓存判断、数据转换、权限校验等
    *
-   * @param context UIAbility 上下文
+   * @param context Context 上下文
    * @returns 校验后的任务列表
    */
-  async execute(context: common.UIAbilityContext): Promise<ThingsEntity[]> {
+  async execute(context: common.Context): Promise<ThingsEntity[]> {
     return this.safeExecute(async () => {
       // Step 1: 尝试从缓存获取（示例）
       // const cached = CacheManager.getTasks();

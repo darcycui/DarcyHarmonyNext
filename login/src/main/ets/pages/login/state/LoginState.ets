@@ -1,0 +1,22 @@
+/**
+ * LoginState - 登录页面统一状态类
+ *
+ * 封装登录页面的所有可观察状态，配合 @ObservedV2 + @Trace 实现细粒度响应式。
+ * ViewModel 通过持有此状态实例，并由 Reducer 统一修改状态值，实现状态与行为分离。
+ *
+ * ─── 架构定位 ─────────────────────────────────────
+ *   ViewModel 持有 @Trace state: LoginState
+ *   Reducer 负责修改 state 的属性值（mutate in-place）
+ *   View 层通过 state.userName / state.password 读取数据
+ *
+ * @ObservedV2 - 标记为可观察类
+ * @Trace     - 标记属性为可观察，属性变化时触发关联组件重渲染
+ */
+
+@ObservedV2
+export default class LoginState {
+  /** 用户名 */
+  @Trace userName: string = '';
+  /** 密码 */
+  @Trace password: string = '';
+}

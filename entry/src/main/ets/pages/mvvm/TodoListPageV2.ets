@@ -40,11 +40,9 @@ struct TodoListPageV2 {
 
   /**
    * 页面初始化生命周期
-   * 1. 将 Context 注入 ViewModel
-   * 2. 通过 dispatch 触发首次数据加载（MVI 统一入口）
+   * 通过 dispatch 触发首次数据加载（MVI 统一入口）
    */
   aboutToAppear(): void {
-    this.viewModel.setContext(this.context);
     this.viewModel.dispatch(new LoadTasksIntent());
   }
 

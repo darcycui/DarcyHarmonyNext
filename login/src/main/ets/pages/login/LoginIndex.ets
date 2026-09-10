@@ -1,15 +1,49 @@
+/**
+ * LoginIndex - V2 版登录页面
+ *
+ * 使用 @ComponentV2 + @Local 配合 LoginViewModelV2（@ObservedV2）
+ * 展示 V2 状态管理的标准用法：
+ *   - 加载中 → LoadingProgress
+ *   - 登录完成 → 跳转主页
+ *   - 登录失败 → 显示错误信息
+ *
+ * ─── MVI 架构流向 ─────────────────────────────────────
+ *   @ComponentV2 View → dispatch(intent) → @ObservedV2 ViewModel → UseCase → Repository
+ *   View 层不直接调用 ViewModel 方法，统一通过 dispatch 发送 Intent
+ */
 import { common } from '@kit.AbilityKit';
-import { AbilityHelper, RouterHelper } from 'static_library_common';
+import { AbilityHelper } from 'static_library_common';
+
+import LoginViewModelV2 from './viewmodel/LoginViewModelV2';
+import {
+  DoLoginIntent,
+  UpdateUserNameIntent,
+  UpdatePasswordIntent
+} from './intent/LoginIntent';
 
 @Entry
-@Component
+@ComponentV2
 struct LoginIndex {
-  @State userName: string = '';
-  @State password: string = '';
-  context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+  /**
+   * @Local 持有 ViewModel（V2 版 @State）
+   * ViewModel 内部使用 @ObservedV2 + @Trace 实现细粒度响应式
+   */
+  @Local viewModel: LoginViewModelV2 = new LoginViewModelV2();
+
+  /**
+   * 获取 UIAbilityContext，供 ViewModel 登录使用
+   */
+  private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+
+  /**
+   * 页面初始化生命周期
+   */
+  aboutToAppear(): void {
+  }
 
   build() {
     Column() {
+      // ── 用户名提示 ──
       Text($r('app.string.user_name_tip'))
         .id('UserNameTip')
         .fontSize(16)
@@ -17,13 +51,19 @@ struct LoginIndex {
         .width('100%')
         .align(Alignment.TopStart)
         .textAlign(TextAlign.Start)
-      TextInput({ placeholder: $r('app.string.user_name_placeholder'), text: this.userName })
+
+      // ── 用户名输入框 ──
+      TextInput({
+        placeholder: $r('app.string.user_name_placeholder'),
+        text: this.viewModel.state.userName
+      })
         .id('UserNameInput')
         .type(InputType.Normal)
         .onChange((value: string) => {
-          this.userName = value;
+          this.viewModel.dispatch(new UpdateUserNameIntent(value));
         })
 
+      // ── 密码提示 ──
       Text($r('app.string.password_tip'))
         .id('PasswordTip')
         .fontSize(16)
@@ -31,28 +71,52 @@ struct LoginIndex {
         .width('100%')
         .align(Alignment.TopStart)
         .textAlign(TextAlign.Start)
-      TextInput({ placeholder: $r('app.string.user_name_placeholder'), text: this.password })
+
+      // ── 密码输入框 ──
+      TextInput({
+        placeholder: $r('app.string.user_name_placeholder'),
+        text: this.viewModel.state.password
+      })
         .id('PasswordInput')
         .type(InputType.Password)
         .onChange((value: string) => {
-          this.password = value;
+          this.viewModel.dispatch(new UpdatePasswordIntent(value));
         })
-      this.startPage();
+
+      // ── 登录按钮 ──
+      Button($r("app.string.Login"))
+        .width('100%')
+        .margin({ top: 10 })
+        .onClick(async () => {
+          // 通过 dispatch 发送登录 Intent（MVI 统一入口）
+          await this.viewModel.dispatch(new DoLoginIntent());
+
+          // 登录成功后跳转主页
+          if (this.viewModel.isLoaded && !this.viewModel.errorMessage) {
+            AbilityHelper.startAbility(this.context, "EntryAbility", {}, 'entry');
+            setTimeout(() => {
+              this.context.terminateSelf();
+            }, 200);
+          }
+        })
+
+      // ── 加载中：显示 LoadingProgress ──
+      if (this.viewModel.isLoading) {
+        LoadingProgress()
+          .width(50)
+          .height(50)
+          .layoutWeight(1)
+      }
+
+      // ── 登录失败：显示错误信息 ──
+      if (this.viewModel.errorMessage) {
+        Text(this.viewModel.errorMessage)
+          .fontColor(Color.Red)
+          .fontSize(16)
+          .margin({ top: 10, bottom: 10 })
+      }
     }
     .height('100%')
     .width('100%')
-  }
-
-  @Builder
-  startPage() {
-    Button($r("app.string.Login")).width('100%')
-      .margin({ top: 10 })// 外边距
-      .onClick((event: ClickEvent) => {
-        // TODO entry module页面跳转 使用want
-        AbilityHelper.startAbility(this.context, "EntryAbility", {}, 'entry')
-        setTimeout(() => {
-          this.context.terminateSelf()
-        }, 200)
-      })
   }
 }
