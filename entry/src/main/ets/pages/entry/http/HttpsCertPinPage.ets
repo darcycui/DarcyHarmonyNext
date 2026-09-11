@@ -5,10 +5,9 @@ import { http } from '@kit.NetworkKit';
 import { cert } from '@kit.DeviceCertificateKit';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { util } from '@kit.ArkTS';
-import { Log } from 'static_library_common';
-import { uint8ArrayToString } from '../../../utils/StringUnit8ArrayUtil';
-import { base64DecodeToString } from '../../../utils/Bese64Util';
-import { saveByteArrayToFile } from '../../../utils/FileUtil';
+import { FileUtil, Log } from 'static_library_common';
+import { StringUnit8ArrayUtil, Base64Util } from 'static_library_common';
+import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component
@@ -25,8 +24,8 @@ struct HttpsCertPinPage {
   //锁定证书的公钥哈希
   @State fixedCertPubKeyHash: string = ""
   scroller: Scroller = new Scroller()
-  // private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-  private context = getContext(this).getApplicationContext();
+  private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+  private appContext = this.context.getApplicationContext();
   private certFileName = "whyta.crt"
 
   private filePath = this.context.filesDir + "/" + this.certFileName;
@@ -34,8 +33,8 @@ struct HttpsCertPinPage {
   aboutToAppear(): void {
     Log.error(`CertPath=${this.filePath}`);
     // 读取rawfile目录下的证书文件
-    getContext(this).resourceManager.getRawFileContent(this.certFileName, (_err, value) => {
-      saveByteArrayToFile(value, this.filePath)
+    this.context.resourceManager.getRawFileContent(this.certFileName, (_err, value) => {
+      FileUtil.saveByteArrayToFile(value, this.filePath)
     });
   }
 
@@ -232,13 +231,13 @@ struct HttpsCertPinPage {
           //公钥摘要计算结果
           let mdResult = mdSHA256.digestSync();
           Log.info(`mdResult.data=${mdResult.data}`)
-          let pubKeyHash = uint8ArrayToString(mdResult.data)
+          let pubKeyHash = StringUnit8ArrayUtil.uint8ArrayToString(mdResult.data)
           Log.info(`pubKeyHash=${pubKeyHash}`)
           let tool = new util.Base64Helper()
           //公钥摘要转换为base64编码字符串
           result = tool.encodeToStringSync(mdResult.data)
           Log.info(`pubKeyHashBase64=${result}`)
-          let pubHashDecode = base64DecodeToString(result)
+          let pubHashDecode = Base64Util.base64DecodeToString(result)
           Log.info(`pubKeyHashDecode=${pubHashDecode}`)
         } catch (e) {
           this.msgHistory += '获取公钥摘要失败 ' + e.message + "\r\n";

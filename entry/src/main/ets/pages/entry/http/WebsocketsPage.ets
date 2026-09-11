@@ -1,6 +1,5 @@
-import { Log } from 'static_library_common';
+import { FileUtil, Log } from 'static_library_common';
 import { closeWS, connectWS, other, self, sendWS, WSS_URL } from 'library_network';
-import { saveByteArrayToFile } from '../../../utils/FileUtil';
 import { common } from '@kit.AbilityKit';
 
 let TAG = "[WebsocketsPage] ";
@@ -21,8 +20,8 @@ struct WebsocketsPage {
     Log.info(TAG + "aboutToAppear");
     Log.error(`Websocket 自定义证书路径:${this.filePath}`);
     // 读取rawfile目录下的证书文件
-    getContext(this).resourceManager.getRawFileContent(this.certFileName, (_err, value) => {
-      saveByteArrayToFile(value, this.filePath);
+    this.context.resourceManager.getRawFileContent(this.certFileName, (_err, value) => {
+      FileUtil.saveByteArrayToFile(value, this.filePath);
     });
   }
 

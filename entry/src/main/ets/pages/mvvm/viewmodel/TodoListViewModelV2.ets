@@ -28,7 +28,7 @@
  *
  *   build() {
  *     Column() {
- *       if (this.viewModel.isLoading) {
+ *       if (this.viewModel.baseState.isLoading) {
  *         LoadingProgress();
  *       } else {
  *         // 通过 state 读取数据

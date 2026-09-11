@@ -3,12 +3,11 @@ import { http } from '@kit.NetworkKit';
 import { Log } from 'static_library_common';
 import { HttpErrorEntity } from '../models/HttpErrorEntity';
 import { HttpResultEntity } from '../models/HttpResultEntity';
-import { parseResultBean as parseResultBean } from '../parser/JsonParser';
+import { JsonParser } from '../parser/JsonParser';
 import { generatePubkeyHashBase64 } from './ssl/PubkeyPinHelper';
 
-export const BASE_HTTP_URL = "https://apis.juhe.cn"
-
-export const CHECK_IP_PATH = "/ip/ipNewV3"
+// export const BASE_JUHE_URL = "https://apis.juhe.cn"
+export const BASE_HTTP_URL = "https://darcycui.com.cn"
 
 /**
  * http get请求
@@ -17,7 +16,7 @@ export const CHECK_IP_PATH = "/ip/ipNewV3"
 export async function doGet<T>(
   httpsUrl: string,
   onSuccess: (data: HttpResultEntity<T>) => void,
-  onFailure: (data: HttpErrorEntity) => void,
+  onFailure: (data: HttpResultEntity<HttpErrorEntity>) => void,
   certPath: string = ""
 ) {
   Log.log(`request ==> doGet: ${httpsUrl}`)
@@ -81,17 +80,18 @@ export async function doGet<T>(
         Log.warn("cookies:" + data.cookies)
         Log.warn("Result:" + data.result)
         // 将message解析为对象
-        parseResultBean(message, onSuccess, onFailure)
+        JsonParser.parseResultBean(message, onSuccess, onFailure)
         // 销毁http请求
         httpRequest.destroy()
       } else {
-        let error = "Error:" + JSON.stringify(err)
-        Log.warn("error message=" + error)
+        let errorMessage = "Error:" + JSON.stringify(err)
+        Log.warn("error message=" + errorMessage)
         //parseBean(testJson, onSuccess, onFailure)
-        onFailure(new HttpErrorEntity({
-          message: error,
-          status: -1,
-        }))
+        onFailure(new HttpResultEntity<HttpErrorEntity>(
+          -3, new HttpErrorEntity({
+          message: errorMessage,
+          status: -3,
+        })))
         // 取消订阅Response Header事件
         httpRequest.off("headersReceive")
         // 销毁http请求
@@ -109,7 +109,7 @@ export async function doPost<T>(
   httpsUrl: string,
   body: string,
   onSuccess: (data: HttpResultEntity<T>) => void,
-  onFailure: (data: HttpErrorEntity) => void,
+  onFailure: (data: HttpResultEntity<HttpErrorEntity>) => void,
   certPath: string = ""
 ) {
   Log.log(`request ==> doPost: ${httpsUrl}`)
@@ -164,16 +164,17 @@ export async function doPost<T>(
         Log.warn("cookies:" + data.cookies)
         Log.warn("Result:" + data.result)
         // 将message解析为对象
-        parseResultBean(message, onSuccess, onFailure)
+        JsonParser.parseResultBean(message, onSuccess, onFailure)
         // 销毁http请求
         httpRequest.destroy()
       } else {
-        let error = "Error:" + JSON.stringify(err)
-        Log.warn("error message=" + error)
-        onFailure(new HttpErrorEntity({
-          message: error,
+        let errorMessage = "Error:" + JSON.stringify(err)
+        Log.warn("error message=" + errorMessage)
+        onFailure(new HttpResultEntity<HttpErrorEntity>(
+          -1, new HttpErrorEntity({
+          message: errorMessage,
           status: -1,
-        }))
+        })))
         // 取消订阅Response Header事件
         httpRequest.off("headersReceive")
         // 销毁http请求

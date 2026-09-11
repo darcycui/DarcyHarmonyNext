@@ -22,6 +22,16 @@ export { BasicDataSource } from './src/main/ets/datasource/BasicDataSource'
 
 export { BaseUIAbility } from './src/main/ets/base/BaseUIAbility'
 
+export { FileUtil } from './src/main/ets/utils/FileUtil'
+
+export { ArrayUtil } from './src/main/ets/utils/ArrayUtil'
+export { HashUtil } from './src/main/ets/utils/HashUtil'
+export { HexUtil } from './src/main/ets/utils/HexUtil'
+export { Base64Util } from './src/main/ets/utils/Base64Util'
+export { StringUnit8ArrayUtil } from './src/main/ets/utils/StringUnit8ArrayUtil'
+
+export { BaseAbilityState } from './src/main/ets/base/BaseAbilityState'
+
 export { Contexts } from './src/main/ets/utils/Contexts'
 
 // TODO 导出函数 在Index.ets导出文件中声明
@@ -42,3 +52,4 @@ export { BaseIntent } from './src/main/ets/base/mvvm/BaseIntent';
 export { BaseUseCase, BaseNoParamUseCase } from './src/main/ets/base/mvvm/BaseUseCase';
 export { BaseRepository } from './src/main/ets/base/mvvm/BaseRepository';
 export { BaseReducer } from './src/main/ets/base/mvvm/BaseReducer';
+export { default as BaseState } from './src/main/ets/base/mvvm/BaseState';

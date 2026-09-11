@@ -3,7 +3,7 @@
  * 提供计算 SHA256 摘要的同步和异步静态方法
  */
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
-import { Log } from 'static_library_common';
+import { Log } from './Log';
 import { HexUtil } from './HexUtil';
 
 export class HashUtil {
@@ -35,7 +35,7 @@ export class HashUtil {
     try {
       let mdAlgName = 'SHA256';
       let md = cryptoFramework.createMd(mdAlgName);
-      md.updateSync({ data: data });
+      md.update({ data: data });
       let mdResult = md.digestSync();
       return HexUtil.bytesToHex(mdResult.data);
     } catch (error) {

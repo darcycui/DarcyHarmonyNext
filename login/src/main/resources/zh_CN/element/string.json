@@ -39,6 +39,66 @@
     {
       "name": "Login",
       "value": "登录"
+    },
+    {
+      "name": "register",
+      "value": "注册"
+    },
+    {
+      "name": "register_title",
+      "value": "用户注册"
+    },
+    {
+      "name": "register_username_tip",
+      "value": "用户名"
+    },
+    {
+      "name": "register_username_placeholder",
+      "value": "请输入用户名"
+    },
+    {
+      "name": "register_password_tip",
+      "value": "密码"
+    },
+    {
+      "name": "register_password_placeholder",
+      "value": "请输入密码"
+    },
+    {
+      "name": "register_phone_tip",
+      "value": "手机号"
+    },
+    {
+      "name": "register_phone_placeholder",
+      "value": "请输入手机号"
+    },
+    {
+      "name": "register_nickname_tip",
+      "value": "昵称"
+    },
+    {
+      "name": "register_nickname_placeholder",
+      "value": "请输入昵称"
+    },
+    {
+      "name": "register_email_tip",
+      "value": "邮箱"
+    },
+    {
+      "name": "register_email_placeholder",
+      "value": "请输入邮箱"
+    },
+    {
+      "name": "register_error_empty",
+      "value": "所有字段均为必填"
+    },
+    {
+      "name": "register_success",
+      "value": "注册成功"
+    },
+    {
+      "name": "login_title",
+      "value": "登录"
     }
   ]
 }

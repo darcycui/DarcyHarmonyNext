@@ -12,7 +12,7 @@
  *   View 层不直接调用 ViewModel 方法，统一通过 dispatch 发送 Intent
  */
 import { common } from '@kit.AbilityKit';
-import { AbilityHelper } from 'static_library_common';
+import { AbilityHelper, RouterHelper } from 'static_library_common';
 
 import LoginViewModelV2 from './viewmodel/LoginViewModelV2';
 import {
@@ -43,6 +43,16 @@ struct LoginIndex {
 
   build() {
     Column() {
+      // ── 登录标题 ──
+      Text($r('app.string.login_title'))
+        .id('LoginTitle')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+        .align(Alignment.TopStart)
+        .textAlign(TextAlign.Start)
+        .margin({ bottom: 16 })
+
       // ── 用户名提示 ──
       Text($r('app.string.user_name_tip'))
         .id('UserNameTip')
@@ -92,7 +102,7 @@ struct LoginIndex {
           await this.viewModel.dispatch(new DoLoginIntent());
 
           // 登录成功后跳转主页
-          if (this.viewModel.isLoaded && !this.viewModel.errorMessage) {
+          if (this.viewModel.baseState.isLoaded && !this.viewModel.baseState.errorMessage) {
             AbilityHelper.startAbility(this.context, "EntryAbility", {}, 'entry');
             setTimeout(() => {
               this.context.terminateSelf();
@@ -100,8 +110,16 @@ struct LoginIndex {
           }
         })
 
+      // ── 注册按钮：跳转到注册页面 ──
+      Button($r("app.string.register"))
+        .width('100%')
+        .margin({ top: 10 })
+        .onClick(() => {
+          RouterHelper.startPage(this.getUIContext(), 'pages/register/RegisterPage');
+        })
+
       // ── 加载中：显示 LoadingProgress ──
-      if (this.viewModel.isLoading) {
+      if (this.viewModel.baseState.isLoading) {
         LoadingProgress()
           .width(50)
           .height(50)
@@ -109,8 +127,8 @@ struct LoginIndex {
       }
 
       // ── 登录失败：显示错误信息 ──
-      if (this.viewModel.errorMessage) {
-        Text(this.viewModel.errorMessage)
+      if (this.viewModel.baseState.errorMessage) {
+        Text(this.viewModel.baseState.errorMessage)
           .fontColor(Color.Red)
           .fontSize(16)
           .margin({ top: 10, bottom: 10 })
@@ -118,5 +136,6 @@ struct LoginIndex {
     }
     .height('100%')
     .width('100%')
+    .padding(16)
   }
 }

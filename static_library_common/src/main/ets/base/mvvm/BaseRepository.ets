@@ -36,8 +36,9 @@ export abstract class BaseRepository {
     try {
       return await action();
     } catch (e) {
-      Log.error(`[BaseRepository] 操作失败: ${JSON.stringify(e)}`);
-      throw new Error('操作失败');
+      const errorMsg = `操作失败: ${(e instanceof Error) ? e.message : JSON.stringify(e)}`
+      Log.error(`[BaseRepository] ${errorMsg}`);
+      throw new Error(errorMsg);
     }
   }
 

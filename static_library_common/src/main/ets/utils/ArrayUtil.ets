@@ -1,5 +1,5 @@
 import { buffer } from '@kit.ArkTS';
-import { Log } from 'static_library_common';
+import { Log } from './Log';
 
 export class ArrayUtil {
   static isEmpty(array: Array<object>[]): boolean {

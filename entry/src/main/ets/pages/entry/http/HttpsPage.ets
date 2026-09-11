@@ -1,9 +1,7 @@
-import { Log } from 'static_library_common';
+import { FileUtil, Log } from 'static_library_common';
 import { HttpResultEntity, doPost, UserResponse, HttpErrorEntity, RegisterRequestDTO } from 'library_network';
 import { common } from '@kit.AbilityKit';
-import { saveByteArrayToFile } from '../../../utils/FileUtil';
-import { HashUtil } from '../../../utils/HashUtil';
-import { ArrayUtil } from '../../../utils/ArrayUtil';
+import { HashUtil, ArrayUtil } from 'static_library_common';
 
 let TAG = "[HttpPage] ";
 
@@ -22,8 +20,8 @@ struct HttpsPage {
     Log.info(TAG + "aboutToAppear");
     Log.error(`Https 自定义证书路径=${this.filePath}`);
     // 读取rawfile目录下的证书文件
-    getContext(this).resourceManager.getRawFileContent(this.certFileName, (_err, value) => {
-      saveByteArrayToFile(value, this.filePath);
+    this.context.resourceManager.getRawFileContent(this.certFileName, (_err, value) => {
+      FileUtil.saveByteArrayToFile(value, this.filePath);
     });
   }
 
@@ -78,7 +76,7 @@ struct HttpsPage {
         this.httpText = JSON.stringify(bean.result) ?? "请求异常";
         Log.log(`bean=${JSON.stringify(bean)}`);
       },
-      (data: HttpErrorEntity) => {
+      (data: HttpResultEntity<HttpErrorEntity>) => {
         this.httpText = JSON.stringify(data);
       },
       this.filePath

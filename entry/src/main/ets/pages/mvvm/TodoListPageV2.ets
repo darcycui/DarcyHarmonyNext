@@ -49,7 +49,7 @@ struct TodoListPageV2 {
   build() {
     Column() {
       // ── 首次加载中：显示 LoadingProgress ──
-      if (this.viewModel.isLoading && !this.viewModel.isLoaded) {
+      if (this.viewModel.baseState.isLoading && !this.viewModel.baseState.isLoaded) {
         LoadingProgress()
           .width(50)
           .height(50)
@@ -70,8 +70,8 @@ struct TodoListPageV2 {
 
         Column() {
           // ── 错误提示 ──
-          if (this.viewModel.errorMessage) {
-            Text(this.viewModel.errorMessage)
+          if (this.viewModel.baseState.errorMessage) {
+            Text(this.viewModel.baseState.errorMessage)
               .fontColor(Color.Red)
               .fontSize(16)
               .margin({ top: 10, bottom: 10 })

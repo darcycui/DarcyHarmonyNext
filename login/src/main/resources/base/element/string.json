@@ -39,6 +39,66 @@
     {
       "name": "Login",
       "value": "Login"
+    },
+    {
+      "name": "register",
+      "value": "Register"
+    },
+    {
+      "name": "register_title",
+      "value": "User Registration"
+    },
+    {
+      "name": "register_username_tip",
+      "value": "Username"
+    },
+    {
+      "name": "register_username_placeholder",
+      "value": "Please enter username"
+    },
+    {
+      "name": "register_password_tip",
+      "value": "Password"
+    },
+    {
+      "name": "register_password_placeholder",
+      "value": "Please enter password"
+    },
+    {
+      "name": "register_phone_tip",
+      "value": "Phone"
+    },
+    {
+      "name": "register_phone_placeholder",
+      "value": "Please enter phone number"
+    },
+    {
+      "name": "register_nickname_tip",
+      "value": "Nickname"
+    },
+    {
+      "name": "register_nickname_placeholder",
+      "value": "Please enter nickname"
+    },
+    {
+      "name": "register_email_tip",
+      "value": "Email"
+    },
+    {
+      "name": "register_email_placeholder",
+      "value": "Please enter email"
+    },
+    {
+      "name": "register_error_empty",
+      "value": "All fields are required"
+    },
+    {
+      "name": "register_success",
+      "value": "Registration successful"
+    },
+    {
+      "name": "login_title",
+      "value": "Login"
     }
   ]
 }

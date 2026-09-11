@@ -14,7 +14,7 @@ const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
  */
 workerPort.onmessage = (event: MessageEvents) => {
   const data = event.data as Record<string, Object>
-  InitCommon.init(data.context as Context, AppInfo.isDebug())
+  InitCommon.init(data.context as Context, AppInfo.isDebug()) // worker环境下重新初始化 common
   Log.log(`Worker线程: ${process.tid}`)
   Log.log(`Worker received message: ${event.type} ${data.value}`);
   // 发送消息
