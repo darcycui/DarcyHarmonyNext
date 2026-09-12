@@ -15,7 +15,8 @@ import {
   HttpErrorEntity,
   RegisterRequestDTO,
   UserResponse,
-  HttpCertHelper
+  HttpCertHelper,
+  RegisterResponse
 } from 'library_network';
 import { Urls } from '../../../http/Urls';
 
@@ -31,10 +32,8 @@ export interface RegisterResult {
  * 注册响应数据容器——用于在异步回调间安全传递数据
  */
 class RegisterResponseHolder {
-  data: RegisterResult = {
-    success: false,
-    message: ''
-  };
+  data: RegisterResponse = new RegisterResponse();
+  message: string = '';
   errorMessage: string = '';
 }
 
@@ -55,7 +54,7 @@ export class RegisterRepository extends BaseRepository {
     phone: string,
     nickname: string,
     email: string
-  ): Promise<RegisterResult> {
+  ): Promise<RegisterResponse> {
     return this.safeCall(async () => {
       // 构建请求 DTO
       const dto: RegisterRequestDTO = new RegisterRequestDTO({
@@ -78,15 +77,12 @@ export class RegisterRepository extends BaseRepository {
       const holder: RegisterResponseHolder = new RegisterResponseHolder();
 
       await new Promise<void>((resolve: () => void): void => {
-        doPost<UserResponse>(
+        doPost<RegisterResponse>(
           url,
           body,
-          (data: HttpResultEntity<UserResponse>): void => {
-            if (data.resultcode === 0 || data.error_code === 0) {
-              holder.data = {
-                success: true,
-                message: '注册成功'
-              };
+          (data: HttpResultEntity<RegisterResponse>): void => {
+            if (data.result != null && data.result != undefined && data.error_code === 0) {
+              holder.data = data.result
             } else {
               holder.errorMessage = data.reason || '注册失败';
             }

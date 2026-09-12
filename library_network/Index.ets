@@ -5,7 +5,6 @@
 
 // ---------- HTTP ----------
 export { BASE_HTTP_URL, doGet, doPost } from './src/main/ets/network/http/HttpHelper'
-export { generatePubkeyHashBase64 } from './src/main/ets/network/http/ssl/PubkeyPinHelper'
 
 // ---------- Models (基础) ----------
 export { HttpErrorEntity } from './src/main/ets/network/models/HttpErrorEntity'
@@ -64,6 +63,9 @@ export { Base64Util, StringUnit8ArrayUtil } from 'static_library_common'
 
 // ---------- Models ----------
 export { MessageBean } from './src/main/ets/models/MessageBean'
+
+// ---------- Memory ----------
+export { DHSecretManager } from './src/main/ets/memory/DHSecretManager'
 
 // ---------- SSL ----------
 export { HttpCertHelper } from './src/main/ets/network/http/ssl/HttpCertHelper'

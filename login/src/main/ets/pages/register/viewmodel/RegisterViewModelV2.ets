@@ -29,6 +29,8 @@ import RegisterState from '../state/RegisterState';
 import RegisterReducer from '../reducer/RegisterReducer';
 import { RegisterUseCase, RegisterParams } from '../usecase/RegisterUseCase';
 import { RegisterRepository } from '../repository/RegisterRepository';
+import { ServerDHExchangeUseCase } from '../../dh/usecase/ServerDHExchangeUseCase';
+import { ServerDHExchangeRepository } from '../../dh/repository/ServerDHExchangeRepository';
 import {
   RegisterIntent,
   DoRegisterIntent,
@@ -48,6 +50,9 @@ export default class RegisterViewModelV2 extends BaseViewModel {
 
   // ─── 依赖注入 ──────────────────────────────────
   private registerUseCase: RegisterUseCase = new RegisterUseCase(new RegisterRepository());
+
+  /** DH 密钥交换用例 */
+  private serverDHExchangeUseCase: ServerDHExchangeUseCase = new ServerDHExchangeUseCase(new ServerDHExchangeRepository());
 
   // ─── Reducer（负责状态修改） ──────────────────────
   private reducer: RegisterReducer = new RegisterReducer();
@@ -134,8 +139,17 @@ export default class RegisterViewModelV2 extends BaseViewModel {
       };
       Log.log(`RegisterViewModelV2 doRegister: ${JSON.stringify(params)}`);
       const result = await this.registerUseCase.execute(params);
-      if (result.success) {
-        Log.info(`[RegisterViewModelV2] 注册成功: ${result.message}`);
+      if (result) {
+        Log.info(`[RegisterViewModelV2] 注册成功: ${JSON.stringify(result)}`);
+        // 注册成功后触发 DH 密钥交换
+        try {
+          await this.serverDHExchangeUseCase.execute({ userId: result.id });
+          Log.info(`[RegisterViewModelV2] DH 密钥交换完成`);
+        } catch (dhError) {
+          Log.error(`[RegisterViewModelV2] DH 密钥交换失败: ${dhError}`);
+        }
+      } else {
+        Log.error(`[RegisterViewModelV2] 注册失败: ${JSON.stringify(result)}`);
       }
     });
   }

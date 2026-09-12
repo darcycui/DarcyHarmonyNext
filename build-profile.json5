@@ -131,6 +131,18 @@
           ]
         }
       ]
+    },
+    {
+      "name": "library_crypto",
+      "srcPath": "./library_crypto",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     }
   ]
 }

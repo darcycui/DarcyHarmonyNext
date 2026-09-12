@@ -38,6 +38,8 @@ import LoginState from '../state/LoginState';
 import LoginReducer from '../reducer/LoginReducer';
 import { LoginUseCase, LoginParams } from '../usecase/LoginUseCase';
 import { LoginRepository } from '../repository/LoginRepository';
+import { ServerDHExchangeUseCase } from '../../dh/usecase/ServerDHExchangeUseCase';
+import { ServerDHExchangeRepository } from '../../dh/repository/ServerDHExchangeRepository';
 import {
   LoginIntent,
   DoLoginIntent,
@@ -54,6 +56,9 @@ export default class LoginViewModelV2 extends BaseViewModel {
 
   // ─── 依赖注入（简洁起见使用手动构造，正式项目可用 DI 框架） ──
   private loginUseCase: LoginUseCase = new LoginUseCase(new LoginRepository());
+
+  /** DH 密钥交换用例 */
+  private serverDHExchangeUseCase: ServerDHExchangeUseCase = new ServerDHExchangeUseCase(new ServerDHExchangeRepository());
 
   // ─── Reducer（负责状态修改） ──────────────────────
   private reducer: LoginReducer = new LoginReducer();
@@ -110,6 +115,13 @@ export default class LoginViewModelV2 extends BaseViewModel {
       const result = await this.loginUseCase.execute(params);
       if (result.success) {
         Log.info(`[LoginViewModelV2] 登录成功: ${result.message}`);
+        // 登录成功后触发 DH 密钥交换
+        try {
+          await this.serverDHExchangeUseCase.execute({ userId: result.userId });
+          Log.info(`[LoginViewModelV2] DH 密钥交换完成`);
+        } catch (dhError) {
+          Log.error(`[LoginViewModelV2] DH 密钥交换失败: ${dhError}`);
+        }
       }
     });
   }

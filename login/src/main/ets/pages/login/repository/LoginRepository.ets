@@ -17,6 +17,8 @@ import { BusinessError } from '@kit.BasicServicesKit';
 export interface LoginResult {
   success: boolean;
   message: string;
+  /** 用户 ID（登录成功后由服务端返回，用于后续 DH 密钥交换等操作） */
+  userId: number;
 }
 
 export class LoginRepository extends BaseRepository {
@@ -42,10 +44,11 @@ export class LoginRepository extends BaseRepository {
         }, 500);
       });
 
-      // 模拟登录成功（后续对接真实 API）
+      // 模拟登录成功（后续对接真实 API，服务端返回用户 ID）
       return {
         success: true,
-        message: '登录成功'
+        message: '登录成功',
+        userId: 1
       } as LoginResult;
     });
   }

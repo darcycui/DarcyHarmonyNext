@@ -21,6 +21,7 @@
  * });
  * ```
  */
+import { RegisterResponse } from 'library_network';
 import { BaseUseCase } from 'static_library_common';
 import { RegisterRepository, RegisterResult } from '../repository/RegisterRepository';
 
@@ -45,7 +46,7 @@ export interface RegisterParams {
  * 入参：RegisterParams
  * 出参：RegisterResult
  */
-export class RegisterUseCase extends BaseUseCase<RegisterParams, RegisterResult> {
+export class RegisterUseCase extends BaseUseCase<RegisterParams, RegisterResponse> {
   private repository: RegisterRepository;
 
   constructor(repository: RegisterRepository) {
@@ -53,7 +54,7 @@ export class RegisterUseCase extends BaseUseCase<RegisterParams, RegisterResult>
     this.repository = repository;
   }
 
-  async execute(params: RegisterParams): Promise<RegisterResult> {
+  async execute(params: RegisterParams): Promise<RegisterResponse> {
     // 校验：用户名不能为空
     if (!params.userName) {
       throw new Error('请输入用户名');

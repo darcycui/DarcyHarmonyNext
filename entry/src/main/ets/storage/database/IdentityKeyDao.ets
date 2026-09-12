@@ -53,13 +53,17 @@ const STORE_CONFIG: relationalStore.StoreConfig = {
  * @returns   转换后的实体对象
  */
 function rowToEntity(rs: relationalStore.ResultSet): IdentityKeyEntity {
-  return new IdentityKeyEntity(
-    rs.getLong(rs.getColumnIndex(COL_ID)),
-    rs.getString(rs.getColumnIndex(COL_KEY_ID)),
-    rs.getLong(rs.getColumnIndex(COL_USER_ID)),
-    rs.getString(rs.getColumnIndex(COL_PRIVATE_KEY)),
-    rs.getString(rs.getColumnIndex(COL_PUBLIC_KEY)),
-  );
+  try {
+    return new IdentityKeyEntity(
+      rs.getLong(rs.getColumnIndex(COL_ID)),
+      rs.getString(rs.getColumnIndex(COL_KEY_ID)),
+      rs.getLong(rs.getColumnIndex(COL_USER_ID)),
+      rs.getString(rs.getColumnIndex(COL_PRIVATE_KEY)),
+      rs.getString(rs.getColumnIndex(COL_PUBLIC_KEY)),
+    );
+  } catch (error) {
+    throw new Error('IdentityKeyDao rowToEntity 转换失败: ' + JSON.stringify(error));
+  }
 }
 
 /**

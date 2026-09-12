@@ -23,9 +23,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `shared_library_context/`：HSP 动态库（共享上下文，`packageType: InterfaceHar`）。
 - `library_chat/` `library_camera/` `library_contact/`：HAR，各自导出一张可内嵌的首页（ChatEntryPage 等，被 entry 的 Tabs 引用）。
 - `library_napi/`：HAR + C++ 原生（`src/main/cpp/`，CMake 编 `library_napi.so`），TS 包装在 `ets/napi/`，演示 N-API 与 C/C++ 调用。
+- `library_network/`：HAR，网络封装（HTTP/证书锁定/WebSocket/DTO），entry 与 login 均依赖。
+- `library_crypto/`：HAR，加解密工具（`CryptoUtil` AES-256-GCM、`DHExchangeUtil` X25519），从 entry `utils/` 迁入，barrel 导出在 `Index.ets`。
 - `HarmonyNext/`：ArkTS/状态管理/多线程/持久化等学习笔记（markdown），改代码前先查对应笔记。
 
-依赖方向：`entry → static_library_common, shared_library_context, library_*`；`login → static_library_common`；各 `library_* → static_library_common`。模块间引用用 `import { X } from '模块名'` 或显式深路径。
+依赖方向：`entry → static_library_common, shared_library_context, library_*`；`login → static_library_common, library_network`；各 `library_* → static_library_common`。模块间引用用 `import { X } from '模块名'` 或显式深路径。
 
 ## 关键入口与页面骨架
 

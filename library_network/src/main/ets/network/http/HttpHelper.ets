@@ -1,10 +1,9 @@
 import { JSON } from '@kit.ArkTS';
 import { http } from '@kit.NetworkKit';
-import { Log } from 'static_library_common';
+import { Base64Util, HexUtil, Log } from 'static_library_common';
 import { HttpErrorEntity } from '../models/HttpErrorEntity';
 import { HttpResultEntity } from '../models/HttpResultEntity';
 import { JsonParser } from '../parser/JsonParser';
-import { generatePubkeyHashBase64 } from './ssl/PubkeyPinHelper';
 
 // export const BASE_JUHE_URL = "https://apis.juhe.cn"
 export const BASE_HTTP_URL = "https://darcycui.com.cn"
@@ -28,7 +27,7 @@ export async function doGet<T>(
   })
   // base64
   let pubHashInHexJuhe: string = "bd1f92d844aa586bfa4311d079535c99a2632df7613b8055cd2dc682b154d010"
-  let pubHashBase64Juhe: string = generatePubkeyHashBase64(pubHashInHexJuhe)
+  let pubHashBase64Juhe: string = Base64Util.base64Encode(HexUtil.hexToBytes(pubHashInHexJuhe))
 
   // 请求参数
   let requestOptions: http.HttpRequestOptions = {

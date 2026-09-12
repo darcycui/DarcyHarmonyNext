@@ -1,6 +1,6 @@
 import { ArkTSUtils } from '@kit.ArkTS';
 import { Log } from 'static_library_common'
-import { UserResponse } from 'library_network';
+import { UserResponse } from '../../../../Index';
 
 export class UserManager {
   private static user: UserResponse = new UserResponse()

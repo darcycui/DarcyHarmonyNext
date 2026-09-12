@@ -25,6 +25,8 @@
     "library_napi": "file:../library_napi",
     // 引用network网络库源码
     "library_network": "file:../library_network",
+    // 引用crypto加解密库源码
+    "library_crypto": "file:../library_crypto",
 //
 //    // 2.本地文件依赖
 //    // 引用本地静态库文件

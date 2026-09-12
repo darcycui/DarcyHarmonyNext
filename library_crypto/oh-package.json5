@@ -1,0 +1,12 @@
+{
+  "name": "library_crypto",
+  "version": "1.0.0",
+  "description": "鸿蒙Next静态库(HAR)，加解密工具库：AES-256-GCM 加解密（CryptoUtil）、X25519 DH 密钥交换（DHExchangeUtil）",
+  "main": "Index.ets",
+  "author": "darcy",
+  "license": "Apache-2.0",
+  "dependencies": {
+    // 源码依赖 common
+    "static_library_common": "file:../static_library_common"
+  }
+}
