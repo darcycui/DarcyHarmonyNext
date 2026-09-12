@@ -69,6 +69,16 @@
       "name": "pages/entry/statusv2/computed/ComputedClassPage",
       "pageSourceFile": "src/main/ets/pages/entry/statusv2/computed/ComputedClassPage.ets",
       "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/login/LoginIndex",
+      "pageSourceFile": "src/main/ets/pages/login/LoginIndex.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/register/RegisterPage",
+      "pageSourceFile": "src/main/ets/pages/register/RegisterPage.ets",
+      "buildFunction": "NavigationBuilder"
     }
   ]
 }

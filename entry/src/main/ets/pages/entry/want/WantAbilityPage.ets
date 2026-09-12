@@ -82,8 +82,10 @@ struct WantAbilityPage {
     Button($r("app.string.LoginFeatureAbility"))
       .id("LoginFeatureButton")
       .onClick((event: ClickEvent) => {
-        // TODO feature module页面跳转 使用want
-        AbilityUtil.startAbility(this.context, "LoginAbility", {}, 'login')
+        // 跳转到登录页面（library_login 模块中的页面）
+        router.pushUrl({ url: 'pages/login/LoginIndex' }).catch((err: BusinessError) => {
+          Log.error(`push login page failed: ${JSON.stringify(err)}`)
+        })
       })
   }
 

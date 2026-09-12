@@ -23,7 +23,7 @@
 DarcyHarmonyNext/
 ├── AppScope/              # 应用级配置（app.json5：bundleName/版本/图标/应用名）
 ├── entry/                 # 主 HAP（入口，110+ 演示页面）
-├── login/                 # 特性 HAP（独立登录/注册演示，MVVM V2）
+├── library_login/         # HAR（登录注册模块，MVVM V2，提供 Login/Register 页面与 DH 密钥交换）
 ├── static_library_common/ # HAR 静态库（公共底座：工具类、MVVM 基类、BaseUIAbility）
 ├── shared_library_context/# HSP 动态库（共享上下文/资源，packageType: InterfaceHar）
 ├── library_chat/          # HAR（聊天功能，Tab 1）
@@ -45,12 +45,12 @@ DarcyHarmonyNext/
 
 ```
 entry → static_library_common, shared_library_context, library_chat, library_camera,
-        library_contact, library_napi, library_network, library_crypto
-login → static_library_common, library_network
+        library_contact, library_napi, library_network, library_crypto, library_login
+library_login → static_library_common, library_network, library_crypto
 library_chat / library_camera / library_contact / library_napi / library_network / library_crypto → static_library_common
 ```
 
-- 模块间引用用 `import { X } from '模块名'`（barrel 导出）或显式深路径 `'static_library_common/src/main/ets/utils/xxx'`。注意：contacts 库目录叫 `library_contact`，但依赖 key 与 import 名是 `library_contract`（`"library_contract": "file:../library_contact"`）。
+- 模块间引用用 `import { X } from '模块名'`（barrel 导出）或显式深路径 `'static_library_common/src/main/ets/utils/xxx'`。
 - 新增依赖方式：目标模块 `oh-package.json5` 的 `dependencies` 加 `"模块名": "file:../模块目录"`，然后 ohpm install 或 IDE Sync。
 
 ## 3. 核心模块/文件及其作用
@@ -71,7 +71,7 @@ library_chat / library_camera / library_contact / library_napi / library_network
 - **路由**：`RouterHelper`（旧 Router）、`NavigationHelper`（NavigationUtil 别名，新 Navigation）——两套并存，见 §6。
 - **工具类**：`ToastUtil`、`AbilityUtil`、`Contexts`、`FileUtil`、`ArrayUtil`、`HashUtil`、`HexUtil`、`Base64Util`、`StringUnit8ArrayUtil`、`ErrorUtil`、`BasicDataSource`（LazyForEach 数据源基类）。
 - **Ability 基类**：`BaseUIAbility`（抽象基类，模板化生命周期日志 + WindowStage 事件监听；子类须实现 `getInitPageName()`/`getLocalStorage()`）、`BaseAbilityState`（AbilityStage 基类，子类实现 `onStageCreate()`）。
-- **MVVM 基类**（`base/mvvm/`）：`BaseViewModel`、`BaseIntent`、`BaseUseCase`（含 `BaseNoParamUseCase`）、`BaseRepository`、`BaseReducer`、`BaseState`；entry 的 TodoList MVVM 与 login 的 Login/Register MVVM V2 均基于此套基类。
+- **MVVM 基类**（`base/mvvm/`）：`BaseViewModel`、`BaseIntent`、`BaseUseCase`（含 `BaseNoParamUseCase`）、`BaseRepository`、`BaseReducer`、`BaseState`；entry 的 TodoList MVVM 与 library_login 的 Login/Register MVVM V2 均基于此套基类。
 - **演示组件**：`StaticMainPage`、`StaticInnerPage`（验证 HAR 组件跨模块引用）。
 
 ### library_network（网络库）
@@ -89,7 +89,8 @@ library_chat / library_camera / library_contact / library_napi / library_network
 - `library_camera`：`CameraHelper`、`CameraComponent`、`GlobalCameraContext`、`PermissionUtils`（拍照用 `SaveButton` 安全控件保存）。
 - `library_napi`：TS 侧 `ets/napi/NApis.ets`（JS↔C++ 桥）、`LibNapiAbility`、`NApiPage`；C++ 侧 `src/main/cpp/`（`napi_init.cpp`、`NativeEntry.cpp`、`ArkUI*Node.h` 自定义 ArkUI 节点渲染）；`CMakeLists.txt` 编 `library_napi.so`。
 - `shared_library_context`：HSP 示例，`SharedIndex`/`SharedInnerPage`/`ContextResourceManager`（跨模块资源获取）。
-- `library_crypto`：加解密 HAR。`utils/CryptoUtil.ets`（AES-256-GCM 异步/同步加解密，输出 `[IV(12B)+密文+AuthTag(16B)]` 格式）、`utils/DHExchangeUtil.ets`（X25519 密钥对生成/编解码/DH 密钥协商）；从 entry `utils/` 迁入，目前无业务方引用。
+- `library_crypto`：加解密 HAR。`utils/CryptoUtil.ets`（AES-256-GCM 异步/同步加解密，输出 `[IV(12B)+密文+AuthTag(16B)]` 格式）、`utils/DHExchangeUtil.ets`（X25519 密钥对生成/编解码/DH 密钥协商）。
+- `library_login`：登录注册 HAR（MVVM V2 架构）。barrel 导出 `LoginViewModelV2`/`RegisterViewModelV2`/`ServerDHExchangeRepository` 等；entry 的 `pages/login/` 和 `pages/register/` 通过 `import ... from 'library_login'` 引用。依赖 `library_network`（HTTP）和 `library_crypto`（DH 密钥交换）。
 
 ### entry 关键目录
 
@@ -122,7 +123,7 @@ hvigorw clean
 ohpm install
 ```
 
-- **测试**：框架 hypium 1.0.18 + hamock 1.0.0（根 `oh-package.json5` devDependencies）。本地单元测试在 `src/test/`（entry 最全面：`LocalUnit.test.ets` 汇总 suite，覆盖 Promise/AsyncWait/ThreadPool/Worker 等），仪器化测试在 `src/ohosTest/`（`List.test.ets` 聚合 `Ability.test.ets`）。login 同结构。测试在 DevEco Studio 内运行（无 CLI 单测入口）；`entry/build-profile.json5` 的 targets 含 `ohosTest`。
+- **测试**：框架 hypium 1.0.18 + hamock 1.0.0（根 `oh-package.json5` devDependencies）。本地单元测试在 `src/test/`（entry 最全面：`LocalUnit.test.ets` 汇总 suite，覆盖 Promise/AsyncWait/ThreadPool/Worker 等），仪器化测试在 `src/ohosTest/`（`List.test.ets` 聚合 `Ability.test.ets`）。library_login 同结构。测试在 DevEco Studio 内运行（无 CLI 单测入口）；`entry/build-profile.json5` 的 targets 含 `ohosTest`。
   - **本地单测环境限制**：`cryptoFramework` 等系统 API 在本地单测（src/test）中是桩实现（密钥生成返回非空对象但 getEncoded/generateSecret/cipher.update 返回空），加解密类代码必须在模拟器/真机上用仪器化测试验证。
   - **HAR 无法独立跑仪器化测试**：HAR 模块的 `@ohosTest` 目标只是打包 test 版 HAR（无 HAP 可安装），HAR 代码的仪器化测试须经宿主 HAP（entry）执行。
   - **测试归库 + 宿主聚合模式**（library_crypto 采用）：测试源码放在被测库 `library_crypto/src/ohosTest/ets/test/`（CryptoUtil 16 例 + DHExchangeUtil 10 例），宿主 `entry/src/ohosTest/ets/test/List.test.ets` 通过 `import xxx from 'library_crypto/src/ohosTest/ets/test/Xxx.test'` 聚合执行。注意：库内测试文件自身不能 `import 'library_crypto'` 自引用（类型退化为 any，ArkTS 报 arkts-no-any-unknown），必须用相对路径 `../../../main/ets/...` 导入被测类。
@@ -139,7 +140,7 @@ ohpm install
 - **混淆**：`static_library_common` release 启用混淆（`obfuscation-rules.txt` + `consumer-rules.txt`）；entry release 启用（`obfuscation-rules.txt`）；library_napi release 关闭混淆但 strip 原生调试符号；其余库可选。
 - **编译产物**：`static_library_common` 通过 module metadata `UseTsHar: true` 产出 TS 版 HAR。
 - **product 配置**：唯一 product `default`（compatible/target 5.0.5(17)），buildMode 有 debug/release。`shared_library_context` 为 HSP（`packageType: InterfaceHar`），构建产物随 entry 一起打包进应用。
-- **mock**：`entry/src/mock/`、`login/src/mock/`、`library_chat/src/mock/`、`library_napi/src/mock/` 提供 Preview 模拟数据（`mock-config.json5`）。
+- **mock**：`entry/src/mock/`、`library_login/src/mock/`、`library_chat/src/mock/`、`library_napi/src/mock/` 提供 Preview 模拟数据（`mock-config.json5`）。
 
 ## 6. 开发流程和注意事项
 

@@ -1,0 +1,13 @@
+{
+  "name": "library_login",
+  "version": "1.0.0",
+  "description": "鸿蒙Next静态库(HAR)，登录注册模块，提供登录/注册页面及DH密钥交换功能",
+  "main": "Index.ets",
+  "author": "darcy",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "static_library_common": "file:../static_library_common",
+    "library_network": "file:../library_network",
+    "library_crypto": "file:../library_crypto"
+  }
+}

@@ -1,5 +1,5 @@
 import { ChatEntryPage } from 'library_chat';
-import { ContractPage } from 'library_contract';
+import { ContractPage } from 'library_contact';
 import { Log } from 'static_library_common';
 import { StartPage } from './StartPage';
 

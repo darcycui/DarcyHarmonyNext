@@ -44,7 +44,9 @@ import {
   PAGE_RENDER_ENTRY,
   PAGE_LAYOUT,
   PAGE_REPEAT_LIST,
-  PAGE_REPEAT_VIRTUAL_LIST
+  PAGE_REPEAT_VIRTUAL_LIST,
+  PAGE_LOGIN,
+  PAGE_REGISTER
 } from './PageName';
 import { RouterHelper } from 'static_library_common/src/main/ets/utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
@@ -145,6 +147,8 @@ export struct StartPage {
   }
 
   pageNameArray: ItemEntity[] = [
+    new ItemEntity(PAGE_LOGIN, $r('app.string.Login')),
+    new ItemEntity(PAGE_REGISTER, $r('app.string.register')),
     new ItemEntity(PAGE_REPEAT_LIST, $r('app.string.TestRepeatPage')),
     new ItemEntity(PAGE_REPEAT_VIRTUAL_LIST, $r('app.string.TestRepeatVirtualPage')),
     new ItemEntity(PAGE_EVENT, $r('app.string.TestEventPage')),
@@ -191,7 +195,7 @@ export struct StartPage {
     ForEach(this.pageNameArray,
       (item: ItemEntity, index: number) => {
         if (item.pageName === PAGE_STATIC_CAMERA || item.pageName === PAGE_STATIC_LIBRARY ||
-          item.pageName === PAGE_SHARED_LIBRARY) {
+          item.pageName === PAGE_SHARED_LIBRARY || item.pageName === PAGE_LOGIN || item.pageName === PAGE_REGISTER) {
           this.buildOneItem(item.pageName, item.text, { 'keyHello': 'Hello World' }, () => {
             // 使用 Navigation 跳转 支持相同模块、不同模块
             NavigationHelper.startPage(this.pathStack, item.pageName, { 'keyHello': 'Hello World' })

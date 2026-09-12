@@ -1,0 +1,11 @@
+{
+  "module": {
+    "name": "library_login_test",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet",
+      "2in1"
+    ]
+  }
+}

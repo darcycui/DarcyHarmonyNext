@@ -134,3 +134,6 @@ export let PAGE_COMPUTED_CLASS = "pages/entry/statusv2/computed/ComputedClassPag
 
 export let PAGE_REPEAT_LIST = "pages/entry/render_control/RepeatPage";
 export let PAGE_REPEAT_VIRTUAL_LIST = "pages/entry/render_control/RepeatVirtualScrollPage";
+
+export let PAGE_LOGIN = "pages/login/LoginIndex";
+export let PAGE_REGISTER = "pages/register/RegisterPage";

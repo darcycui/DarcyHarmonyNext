@@ -112,5 +112,6 @@
     "pages/preview/PreviewPage",
     "pages/entry/render_control/RepeatPage",
     "pages/entry/render_control/RepeatVirtualScrollPage"
-  ]
+  ],
+  "window": {}
 }

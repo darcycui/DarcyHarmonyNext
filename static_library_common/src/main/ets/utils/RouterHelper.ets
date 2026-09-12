@@ -1,7 +1,11 @@
 import { router } from '@kit.ArkUI';
 import { Log } from './Log';
 import { BusinessError } from '@kit.BasicServicesKit';
-
+/**
+ * 路由辅助类，提供页面跳转、命名路由、返回等操作
+ * 已弃用 请使用 NavigationHelper 类进行页面跳转，RouterHelper 将在后续版本中移除
+ * @deprecated 请使用 NavigationHelper（NavigationUtil）替代。
+ */
 export class RouterHelper {
   /**
    * 页面跳转

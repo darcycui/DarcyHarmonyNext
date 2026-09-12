@@ -53,16 +53,8 @@
       ]
     },
     {
-      "name": "login",
-      "srcPath": "./login",
-      "targets": [
-        {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
-        }
-      ]
+      "name": "library_login",
+      "srcPath": "./library_login",
     },
     {
       "name": "static_library_common",
