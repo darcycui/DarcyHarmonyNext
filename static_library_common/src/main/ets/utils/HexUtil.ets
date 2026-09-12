@@ -16,11 +16,18 @@ export class HexUtil {
   }
 
   /**
-   * 将字符串转换为 Uint8Array（UTF-8 编码）
-   * @param str - 输入字符串
+   * 将十六进制字符串转换为 Uint8Array
+   * @param hex - 十六进制字符串（如 "1a2b3c" 或 "1A2B3C"）
    * @returns Uint8Array 字节数组
    */
-  static stringToBytes(str: string): Uint8Array {
-    return new Uint8Array(buffer.from(str, 'utf-8').buffer);
+  static hexToBytes(hex: string): Uint8Array {
+    const len = hex.length;
+    const byteCount = len / 2;
+    const bytes = new Uint8Array(byteCount);
+    for (let i = 0; i < byteCount; i++) {
+      const index = i * 2;
+      bytes[i] = parseInt(hex.substring(index, index + 2), 16);
+    }
+    return bytes;
   }
 }
