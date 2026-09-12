@@ -1,4 +1,4 @@
-import { Log } from "../../utils/Log";
+import { Log } from "../../../utils/Log";
 import { JSON } from "@kit.ArkTS";
 
 /**

@@ -14,10 +14,10 @@
  *   this.reducer.updateUserName(this.state, 'admin');
  *   this.reducer.updatePassword(this.state, '123456');
  */
-import { BaseReducer } from 'static_library_common';
+import { IReducer } from 'static_library_common';
 import LoginState from '../state/LoginState';
 
-export default class LoginReducer extends BaseReducer {
+export default class LoginReducer implements IReducer {
   /**
    * 更新用户名
    * 直接原地修改 LoginState 的属性，利用 @Trace 触发 UI 重渲染

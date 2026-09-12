@@ -113,7 +113,7 @@ struct LoginIndex {
           await this.viewModel.dispatch(new DoLoginIntent());
 
           // 登录成功后跳转主页
-          if (this.viewModel.baseState.isLoaded && !this.viewModel.baseState.errorMessage) {
+          if (this.viewModel.isLoaded && !this.viewModel.errorMessage) {
             AbilityHelper.startAbility(this.context, "EntryAbility", {}, 'entry');
             setTimeout(() => {
               this.context.terminateSelf();
@@ -130,7 +130,7 @@ struct LoginIndex {
         })
 
       // ── 加载中：显示 LoadingProgress ──
-      if (this.viewModel.baseState.isLoading) {
+      if (this.viewModel.isLoading) {
         LoadingProgress()
           .width(50)
           .height(50)
@@ -138,8 +138,8 @@ struct LoginIndex {
       }
 
       // ── 登录失败：显示错误信息 ──
-      if (this.viewModel.baseState.errorMessage) {
-        Text(this.viewModel.baseState.errorMessage)
+      if (this.viewModel.errorMessage) {
+        Text(this.viewModel.errorMessage)
           .fontColor(Color.Red)
           .fontSize(16)
           .margin({ top: 10, bottom: 10 })

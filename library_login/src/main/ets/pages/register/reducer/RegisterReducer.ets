@@ -17,10 +17,10 @@
  *   this.reducer.updateNickname(this.state, 'nick');
  *   this.reducer.updateEmail(this.state, 'user@example.com');
  */
-import { BaseReducer } from 'static_library_common';
+import { IReducer } from 'static_library_common';
 import RegisterState from '../state/RegisterState';
 
-export default class RegisterReducer extends BaseReducer {
+export default class RegisterReducer implements IReducer {
   /**
    * 更新用户名
    *

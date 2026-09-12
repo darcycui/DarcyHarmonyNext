@@ -1,4 +1,4 @@
-import { Log } from "../../utils/Log";
+import { Log } from "../../../utils/Log";
 
 /**
  * BaseUseCase - 业务用例基类
@@ -55,7 +55,7 @@ export abstract class BaseUseCase<T, R> {
  * 无参用例的便捷基类
  * 适用于无需参数的查询场景
  */
-export abstract class BaseNoParamUseCase<R> extends BaseUseCase<void, R> {
+export abstract class NoParamUseCase<R> extends BaseUseCase<void, R> {
   execute(params: void): Promise<R> {
     return this.build();
   }

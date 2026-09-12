@@ -12,9 +12,9 @@
  *   dispatch(new UpdateNicknameIntent('nick'))
  *   dispatch(new UpdateEmailIntent('user@example.com'))
  */
-import { BaseIntent } from 'static_library_common';
+import { IIntent } from 'static_library_common';
 
-export class RegisterIntent extends BaseIntent {
+export class RegisterIntent implements IIntent {
 }
 
 /**

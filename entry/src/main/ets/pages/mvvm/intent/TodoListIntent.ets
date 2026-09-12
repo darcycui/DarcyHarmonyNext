@@ -9,9 +9,9 @@
  *   dispatch(new ToggleTaskFinishIntent(taskName))
  *   dispatch(new AddNameSuffixIntent(taskName))
  */
-import { BaseIntent } from 'static_library_common';
+import { IIntent } from 'static_library_common';
 
-export class TodoListIntent extends BaseIntent {
+export class TodoListIntent implements IIntent {
 }
 
 /**

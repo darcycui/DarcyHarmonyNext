@@ -15,7 +15,7 @@
  * const tasks = await useCase.execute(context);
  * ```
  */
-import { BaseUseCase } from 'static_library_common/src/main/ets/base/mvvm/BaseUseCase';
+import { BaseUseCase } from 'static_library_common/src/main/ets/base/mvvm/usecase/BaseUseCase';
 import { TodoListRepository } from '../../../repository/TodoListRepository';
 import ThingsEntity from '../../../models/ThingsEntity';
 import { common } from '@kit.AbilityKit';

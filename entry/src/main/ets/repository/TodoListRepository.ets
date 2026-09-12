@@ -15,7 +15,7 @@
  * const tasks = await repo.fetchTasks(context);
  * ```
  */
-import { BaseRepository } from 'static_library_common/src/main/ets/base/mvvm/BaseRepository';
+import { BaseRepository } from 'static_library_common/src/main/ets/base/mvvm/repository/BaseRepository';
 import ThingsEntity from '../models/ThingsEntity';
 import { common } from '@kit.AbilityKit';
 import util from '@ohos.util';

@@ -39,17 +39,10 @@ export { func, func2 } from './src/main/ets/utils/Log'
 
 /**
  * base 模块统一导出入口
- *
- * 使用方式：
- * ```typescript
- * import { BaseViewModel, BaseIntent } from '../base';
- * import { BaseUseCase } from '../base';
- * import { BaseRepository } from '../base';
- * ```
  */
-export { BaseViewModel } from './src/main/ets/base/mvvm/BaseViewModel';
-export { BaseIntent } from './src/main/ets/base/mvvm/BaseIntent';
-export { BaseUseCase, BaseNoParamUseCase } from './src/main/ets/base/mvvm/BaseUseCase';
-export { BaseRepository } from './src/main/ets/base/mvvm/BaseRepository';
-export { BaseReducer } from './src/main/ets/base/mvvm/BaseReducer';
-export { default as BaseState } from './src/main/ets/base/mvvm/BaseState';
+export { BaseViewModel } from './src/main/ets/base/mvvm/viewmodel/BaseViewModel';
+export { IIntent } from './src/main/ets/base/mvvm/intent/IIntent';
+export { IState } from './src/main/ets/base/mvvm/state/IState';
+export { IReducer } from './src/main/ets/base/mvvm/reducer/IReducer';
+export { BaseUseCase, NoParamUseCase } from './src/main/ets/base/mvvm/usecase/BaseUseCase';
+export { BaseRepository } from './src/main/ets/base/mvvm/repository/BaseRepository';

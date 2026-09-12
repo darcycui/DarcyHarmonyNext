@@ -9,9 +9,9 @@
  *   dispatch(new UpdateUserNameIntent('admin'))
  *   dispatch(new UpdatePasswordIntent('123456'))
  */
-import { BaseIntent } from 'static_library_common';
+import { IIntent } from 'static_library_common';
 
-export class LoginIntent extends BaseIntent {
+export class LoginIntent implements IIntent {
 }
 
 /**

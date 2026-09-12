@@ -132,6 +132,6 @@ export default class LoginViewModelV2 extends BaseViewModel {
    */
   resetState(): void {
     this.reducer.clearFields(this.state);
-    this.baseState.errorMessage = '';
+    this.errorMessage = '';
   }
 }

@@ -17,5 +17,5 @@
  * }
  * ```
  */
-export class BaseReducer {
+export interface IReducer {
 }

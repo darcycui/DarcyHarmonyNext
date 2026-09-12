@@ -28,7 +28,7 @@
  *
  *   build() {
  *     Column() {
- *       if (this.viewModel.baseState.isLoading) {
+ *       if (this.viewModel.isLoading) {
  *         LoadingProgress();
  *       } else {
  *         // 通过 state 读取数据
@@ -48,7 +48,7 @@
  *     → ViewModel 方法委托 Reducer 修改 state
  *     → Reducer 原地修改 @Trace 属性触发 UI 重渲染
  */
-import { BaseViewModel } from 'static_library_common/src/main/ets/base/mvvm/BaseViewModel';
+import { BaseViewModel } from 'static_library_common/src/main/ets/base/mvvm/viewmodel/BaseViewModel';
 import { GetTasksUseCase } from '../usecase/GetTasksUseCase';
 import ThingsEntity from '../../../models/ThingsEntity';
 import { common } from '@kit.AbilityKit';
@@ -58,7 +58,7 @@ import {
   ToggleTaskFinishIntent,
   AddNameSuffixIntent
 } from '../intent/TodoListIntent';
-import { BaseIntent, Contexts, Log } from 'static_library_common';
+import { IIntent, Contexts, Log } from 'static_library_common';
 import TodoListState from '../state/TodoListState';
 import TodoListReducer from '../reducer/TodoListReducer';
 
@@ -82,7 +82,7 @@ export default class TodoListViewModelV2 extends BaseViewModel {
    *
    * @param intent - 意图
    */
-  dispatch(intent: BaseIntent): void {
+  dispatch(intent: IIntent): void {
     if (intent instanceof LoadTasksIntent) {
       this.loadTasks()
     } else if (intent instanceof ToggleChooseAllIntent) {

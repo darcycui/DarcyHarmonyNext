@@ -14,11 +14,11 @@
  *   this.reducer.chooseAll(this.state);
  *   this.reducer.toggleTaskFinish(this.state, thingsName);
  */
-import { BaseReducer } from 'static_library_common';
+import { IReducer } from 'static_library_common';
 import TodoListState from '../state/TodoListState';
 import ThingsEntity from '../../../models/ThingsEntity';
 
-export default class TodoListReducer extends BaseReducer {
+export default class TodoListReducer implements IReducer {
   /**
    * 切换全选状态
    * 直接原地修改 TodoListState 的属性，利用 @Trace 触发 UI 重渲染

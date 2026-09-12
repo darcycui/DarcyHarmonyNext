@@ -1,5 +1,4 @@
-import { Log } from "../../utils/Log";
-import BaseState from "./BaseState";
+import { Log } from "../../../utils/Log";
 
 /**
  * BaseViewModel - ViewModel 基类
@@ -64,10 +63,14 @@ import BaseState from "./BaseState";
  */
 @ObservedV2
 export abstract class BaseViewModel {
-  // ─── 全局状态字段（封装为 BaseState） ─────────────────────
+  // ─── 全局状态字段 ──────────────────────────────────────────
 
-  /** 基础状态：统一管理 isLoading / errorMessage / isLoaded */
-  @Trace baseState: BaseState = new BaseState();
+  /** 页面是否正在加载（显示 Loading 指示器） */
+  @Trace isLoading: boolean = false;
+  /** 错误信息（非空时显示错误提示） */
+  @Trace errorMessage: string = '';
+  /** 是否加载完成（用于区分首次加载与刷新） */
+  @Trace isLoaded: boolean = false;
 
   /** 首次加载完成标记（避免重复触发 aboutToAppear 逻辑） */
   private _initialized: boolean = false;
@@ -97,44 +100,26 @@ export abstract class BaseViewModel {
   // ─── 状态管理工具方法 ─────────────────────────────────────
 
   /**
-   * 安全加载包装器
-   * 自动管理 isLoading / errorMessage / isLoaded 状态
+   * 安全加载数据 异步
    *
    * @param action 实际的异步加载逻辑
    */
   protected async safeLoad(action: () => Promise<void>): Promise<void> {
-    if (this.baseState.isLoading) {
+    if (this.isLoading) {
       return; // 防止重复请求
     }
 
-    this.baseState.isLoading = true;
-    this.baseState.errorMessage = '';
+    this.isLoading = true;
+    this.errorMessage = '';
 
     try {
       await action();
-      this.baseState.isLoaded = true;
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      this.baseState.errorMessage = message;
+      this.errorMessage = message;
       Log.error(`[BaseViewModel] 加载失败: ${message}`);
     } finally {
-      this.baseState.isLoading = false;
-    }
-  }
-
-  /**
-   * 带 Loading 状态的操作包装器（适用于非首次加载的刷新/提交）
-   *
-   * @param action 实际的异步操作
-   */
-  protected async safeAction(action: () => Promise<void>): Promise<void> {
-    this.baseState.errorMessage = '';
-    try {
-      await action();
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      this.baseState.errorMessage = message;
-      Log.error(`[BaseViewModel] 操作失败: ${message}`);
+      this.isLoading = false;
     }
   }
 
@@ -142,16 +127,16 @@ export abstract class BaseViewModel {
    * 重置错误状态
    */
   clearError(): void {
-    this.baseState.errorMessage = '';
+    this.errorMessage = '';
   }
 
   /**
    * 重置 ViewModel 到初始状态
    */
   reset(): void {
-    this.baseState.isLoading = false;
-    this.baseState.errorMessage = '';
-    this.baseState.isLoaded = false;
+    this.isLoading = false;
+    this.errorMessage = '';
+    this.isLoaded = false;
     this._initialized = false;
   }
 
