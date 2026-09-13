@@ -15,9 +15,9 @@
  * const result = await useCase.execute({ userName: 'admin', password: '123456' });
  * ```
  */
+import { LoginResponse } from 'library_network';
 import { BaseUseCase } from 'static_library_common';
-import { common } from '@kit.AbilityKit';
-import { LoginRepository, LoginResult } from '../repository/LoginRepository';
+import { LoginRepository } from '../repository/LoginRepository';
 
 /**
  * 登录用例入参
@@ -34,7 +34,7 @@ export interface LoginParams {
  * 入参：LoginParams
  * 出参：LoginResult
  */
-export class LoginUseCase extends BaseUseCase<LoginParams, LoginResult> {
+export class LoginUseCase extends BaseUseCase<LoginParams, LoginResponse> {
   private repository: LoginRepository;
 
   constructor(repository: LoginRepository) {
@@ -42,7 +42,7 @@ export class LoginUseCase extends BaseUseCase<LoginParams, LoginResult> {
     this.repository = repository;
   }
 
-  async execute(params: LoginParams): Promise<LoginResult> {
+  async execute(params: LoginParams): Promise<LoginResponse> {
     // 校验：用户名不能为空
     if (!params.userName) {
       throw new Error('请输入用户名');

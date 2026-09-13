@@ -1,5 +1,5 @@
 
-export class StudentEntity {
+export class StudentBean {
   name: string = ""
   age: number = 0
 

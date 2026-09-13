@@ -2,14 +2,14 @@ import { nativeAdd } from 'library_napi';
 import { promptAction } from '@kit.ArkUI';
 import { AbilityHelper, Log, ToastUtil } from 'static_library_common';
 import { common } from '@kit.AbilityKit';
-import { StudentEntity } from '../../../models/StudentEntity';
+import { StudentBean } from '../../../models/ui/learn/StudentBean';
 
 @Entry
 @Component
 struct NApiPage {
   context = this.getUIContext().getHostContext() as common.UIAbilityContext;
   @State message: string = '调用NApi Click';
-  @State stu: StudentEntity | undefined = new StudentEntity("Tom", 7);
+  @State stu: StudentBean | undefined = new StudentBean("Tom", 7);
 
   build() {
     Column({ space: 10 }) {

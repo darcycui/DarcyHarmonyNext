@@ -23,7 +23,7 @@
  */
 import { RegisterResponse } from 'library_network';
 import { BaseUseCase } from 'static_library_common';
-import { RegisterRepository, RegisterResult } from '../repository/RegisterRepository';
+import { RegisterRepository } from '../repository/RegisterRepository';
 
 /**
  * 注册用例入参

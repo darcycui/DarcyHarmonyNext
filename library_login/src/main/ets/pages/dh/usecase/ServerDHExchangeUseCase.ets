@@ -64,12 +64,12 @@ export class ServerDHExchangeUseCase extends BaseUseCase<ServerDHExchangeParams,
     if (pubKeyBytes.length === 0) {
       throw new Error('获取公钥字节失败');
     }
-    const publicKeyBase64: string = Base64Util.base64Encode(pubKeyBytes);
+    const publicKeyHex: string = HexUtil.bytesToHex(pubKeyBytes);
 
     // 4. 调用服务端 DH 交换接口
     const response: DHExchangeResponse = await this.repository.doExchange(
       params.userId,
-      publicKeyBase64
+      publicKeyHex
     );
 
     // 5. 校验响应中的服务端公钥

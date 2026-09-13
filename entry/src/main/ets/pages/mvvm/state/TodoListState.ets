@@ -15,7 +15,7 @@
  * @Trace     - 标记属性为可观察，属性变化时触发关联组件重渲染
  */
 import { IState, ScreenState } from 'static_library_common';
-import ThingsEntity from '../../../models/ThingsEntity';
+import ThingsBean from '../../../models/ui/learn/ThingsBean';
 
 @ObservedV2
 export default class TodoListState implements IState {
@@ -24,5 +24,5 @@ export default class TodoListState implements IState {
   /** 是否全选 */
   @Trace isChoosen: boolean = false;
   /** 事项列表 */
-  @Trace things: ThingsEntity[] = [];
+  @Trace things: ThingsBean[] = [];
 }

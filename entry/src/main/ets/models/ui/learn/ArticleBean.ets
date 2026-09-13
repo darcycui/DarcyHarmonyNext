@@ -1,5 +1,5 @@
 @Observed
-export class ArticleEntity {
+export class ArticleBean {
   id: string
   title: string
   brief: string

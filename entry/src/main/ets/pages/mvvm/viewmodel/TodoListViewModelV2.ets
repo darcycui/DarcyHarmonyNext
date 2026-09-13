@@ -50,7 +50,7 @@
  */
 import { BaseViewModel } from 'static_library_common/src/main/ets/base/mvvm/viewmodel/BaseViewModel';
 import { GetTasksUseCase } from '../usecase/GetTasksUseCase';
-import ThingsEntity from '../../../models/ThingsEntity';
+import ThingsBean from '../../../models/ui/learn/ThingsBean';
 import { common } from '@kit.AbilityKit';
 import {
   LoadTasksIntent,
@@ -102,7 +102,7 @@ export default class TodoListViewModelV2 extends BaseViewModel {
    */
   async loadTasks(): Promise<void> {
     await this.safeLoad(this.state.screenState, async (): Promise<void> => {
-      const tasks: ThingsEntity[] = await this.getTasksUseCase.execute(Contexts.getContext());
+      const tasks: ThingsBean[] = await this.getTasksUseCase.execute(Contexts.getContext());
       this.reducer.setTasks(this.state, tasks);
     });
   }

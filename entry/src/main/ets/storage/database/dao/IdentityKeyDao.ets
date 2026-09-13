@@ -1,6 +1,6 @@
 import { relationalStore } from '@kit.ArkData';
-import { common } from '@kit.AbilityKit';
-import { IdentityKeyEntity } from './tables/IdentityKeyEntity';
+import ErrorUtil from 'static_library_common/src/main/ets/utils/ErrorUtil';
+import { IdentityKeyEntity } from '../tables/IdentityKeyEntity';
 
 /**
  * 数据库表名
@@ -20,27 +20,6 @@ const COL_PUBLIC_KEY: string = 'public_key';
  * 查询所需的所有列（按顺序：id, key_id, user_id, private_key, public_key）
  */
 const ALL_COLUMNS: string[] = [COL_ID, COL_KEY_ID, COL_USER_ID, COL_PRIVATE_KEY, COL_PUBLIC_KEY];
-
-/**
- * 建表 SQL
- */
-const CREATE_TABLE_SQL: string =
-  'CREATE TABLE IF NOT EXISTS ' + TABLE_NAME + ' (' +
-  COL_ID + ' INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-  COL_KEY_ID + ' TEXT NOT NULL, ' +
-  COL_USER_ID + ' INTEGER NOT NULL, ' +
-  COL_PRIVATE_KEY + ' TEXT NOT NULL, ' +
-  COL_PUBLIC_KEY + ' TEXT NOT NULL' +
-  ')';
-
-/**
- * 数据库配置
- */
-const STORE_CONFIG: relationalStore.StoreConfig = {
-  name: 'IdentityKey.db',
-  securityLevel: relationalStore.SecurityLevel.S3,
-  encrypt: false,
-};
 
 // ══════════════════════════════════════════════
 //  内部工具函数
@@ -115,43 +94,10 @@ function resultSetToEntityList(resultSet: relationalStore.ResultSet): IdentityKe
 // ══════════════════════════════════════════════
 
 export class IdentityKeyDao {
-  private rdbStore: relationalStore.RdbStore | null = null;
-  private context: common.Context;
+  private readonly rdbStore: relationalStore.RdbStore;
 
-  constructor(context: common.Context) {
-    this.context = context;
-  }
-
-  // ────────────────────────────────────────────
-  //  数据库初始化
-  // ────────────────────────────────────────────
-
-  /**
-   * 初始化数据库 & 建表
-   *
-   * 使用方式（在 UIAbility 或页面中）：
-   * ```ts
-   * const dao = new IdentityKeyDao(getContext(this));
-   * await dao.initDatabase();
-   * ```
-   */
-  async initDatabase(): Promise<void> {
-    try {
-      this.rdbStore = await relationalStore.getRdbStore(this.context, STORE_CONFIG);
-      await this.rdbStore.executeSql(CREATE_TABLE_SQL);
-    } catch (err) {
-      throw new Error('IdentityKeyDao 数据库初始化失败: ' + JSON.stringify(err));
-    }
-  }
-
-  /**
-   * 获取内部的 RdbStore 实例（若未初始化则抛出异常）
-   */
-  private getRdbStore(): relationalStore.RdbStore {
-    if (this.rdbStore === null) {
-      throw new Error('RdbStore 尚未初始化，请先调用 initDatabase 方法');
-    }
-    return this.rdbStore!;
+  constructor(rdbStore: relationalStore.RdbStore) {
+    this.rdbStore = rdbStore;
   }
 
   // ────────────────────────────────────────────
@@ -173,7 +119,7 @@ export class IdentityKeyDao {
    */
   async insert(entity: IdentityKeyEntity): Promise<number> {
     try {
-      const store = this.getRdbStore();
+      const store = this.rdbStore;
       const bucket: relationalStore.ValuesBucket = entityToBucket(entity, false);
       const rowId: number = await store.insert(TABLE_NAME, bucket);
       return rowId;
@@ -189,10 +135,10 @@ export class IdentityKeyDao {
    * @returns 插入成功的数量
    */
   async insertBatch(entities: IdentityKeyEntity[]): Promise<number> {
-    const store = this.getRdbStore();
+    const store = this.rdbStore;
     let successCount = 0;
-    store.beginTransaction();
     try {
+      store.beginTransaction();
       for (const entity of entities) {
         const bucket: relationalStore.ValuesBucket = entityToBucket(entity, false);
         await store.insert(TABLE_NAME, bucket);
@@ -200,8 +146,12 @@ export class IdentityKeyDao {
       }
       store.commit();
     } catch (err) {
-      store.rollBack();
-      throw new Error('IdentityKeyDao 批量插入失败: ' + JSON.stringify(err));
+      try {
+        store.rollBack();
+      } catch (error) {
+        ErrorUtil.logError(error)
+      }
+      throw new Error('IdentityKeyDao 批量插入失败: ' + ErrorUtil.getErrorMessage(err));
     }
     return successCount;
   }
@@ -218,13 +168,13 @@ export class IdentityKeyDao {
    */
   async deleteById(id: number): Promise<number> {
     try {
-      const store = this.getRdbStore();
+      const store = this.rdbStore;
       const predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates(TABLE_NAME);
       predicates.equalTo(COL_ID, id);
       const rows: number = await store.delete(predicates);
       return rows;
     } catch (err) {
-      throw new Error('IdentityKeyDao deleteById 删除记录失败 (id=' + id + '): ' + JSON.stringify(err));
+      throw new Error('IdentityKeyDao deleteById 删除记录失败 (id=' + id + '): ' + ErrorUtil.getErrorMessage(err));
     }
   }
 
@@ -236,13 +186,13 @@ export class IdentityKeyDao {
    */
   async deleteByKeyId(keyId: string): Promise<number> {
     try {
-      const store = this.getRdbStore();
+      const store = this.rdbStore;
       const predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates(TABLE_NAME);
       predicates.equalTo(COL_KEY_ID, keyId);
       const rows: number = await store.delete(predicates);
       return rows;
     } catch (err) {
-      throw new Error('IdentityKeyDao deleteByKeyId 删除记录失败 (keyId=' + keyId + '): ' + JSON.stringify(err));
+      throw new Error('IdentityKeyDao deleteByKeyId 删除记录失败 (keyId=' + keyId + '): ' + ErrorUtil.getErrorMessage(err));
     }
   }
 
@@ -254,13 +204,13 @@ export class IdentityKeyDao {
    */
   async deleteByUserId(userId: number): Promise<number> {
     try {
-      const store = this.getRdbStore();
+      const store = this.rdbStore;
       const predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates(TABLE_NAME);
       predicates.equalTo(COL_USER_ID, userId);
       const rows: number = await store.delete(predicates);
       return rows;
     } catch (err) {
-      throw new Error('IdentityKeyDao deleteByUserId 删除记录失败 (userId=' + userId + '): ' + JSON.stringify(err));
+      throw new Error('IdentityKeyDao deleteByUserId 删除记录失败 (userId=' + userId + '): ' + ErrorUtil.getErrorMessage(err));
     }
   }
 
@@ -271,12 +221,12 @@ export class IdentityKeyDao {
    */
   async deleteAll(): Promise<number> {
     try {
-      const store = this.getRdbStore();
+      const store = this.rdbStore;
       const predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates(TABLE_NAME);
       const rows: number = await store.delete(predicates);
       return rows;
     } catch (err) {
-      throw new Error('IdentityKeyDao deleteAll 清空记录失败: ' + JSON.stringify(err));
+      throw new Error('IdentityKeyDao deleteAll 清空记录失败: ' + ErrorUtil.getErrorMessage(err));
     }
   }
 
@@ -298,14 +248,14 @@ export class IdentityKeyDao {
    */
   async update(entity: IdentityKeyEntity): Promise<number> {
     try {
-      const store = this.getRdbStore();
+      const store = this.rdbStore;
       const bucket: relationalStore.ValuesBucket = entityToBucket(entity, false);
       const predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates(TABLE_NAME);
       predicates.equalTo(COL_ID, entity.id);
       const rows: number = await store.update(bucket, predicates);
       return rows;
     } catch (err) {
-      throw new Error('IdentityKeyDao update 更新记录失败 (id=' + entity.id + '): ' + JSON.stringify(err));
+      throw new Error('IdentityKeyDao update 更新记录失败 (id=' + entity.id + '): ' + ErrorUtil.getErrorMessage(err));
     }
   }
 
@@ -318,14 +268,14 @@ export class IdentityKeyDao {
    */
   async updateByKeyId(keyId: string, entity: IdentityKeyEntity): Promise<number> {
     try {
-      const store = this.getRdbStore();
+      const store = this.rdbStore;
       const bucket: relationalStore.ValuesBucket = entityToBucket(entity, false);
       const predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates(TABLE_NAME);
       predicates.equalTo(COL_KEY_ID, keyId);
       const rows: number = await store.update(bucket, predicates);
       return rows;
     } catch (err) {
-      throw new Error('IdentityKeyDao updateByKeyId 更新记录失败 (keyId=' + keyId + '): ' + JSON.stringify(err));
+      throw new Error('IdentityKeyDao updateByKeyId 更新记录失败 (keyId=' + keyId + '): ' + ErrorUtil.getErrorMessage(err));
     }
   }
 
@@ -341,7 +291,7 @@ export class IdentityKeyDao {
    */
   async queryById(id: number): Promise<IdentityKeyEntity | undefined> {
     try {
-      const store = this.getRdbStore();
+      const store = this.rdbStore;
       const predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates(TABLE_NAME);
       predicates.equalTo(COL_ID, id);
       const resultSet: relationalStore.ResultSet = await store.query(predicates, ALL_COLUMNS);
@@ -354,7 +304,7 @@ export class IdentityKeyDao {
         resultSet.close();
       }
     } catch (err) {
-      throw new Error('IdentityKeyDao queryById 查询记录失败 (id=' + id + '): ' + JSON.stringify(err));
+      throw new Error('IdentityKeyDao queryById 查询记录失败 (id=' + id + '): ' + ErrorUtil.getErrorMessage(err));
     }
   }
 
@@ -366,7 +316,7 @@ export class IdentityKeyDao {
    */
   async queryByKeyId(keyId: string): Promise<IdentityKeyEntity | undefined> {
     try {
-      const store = this.getRdbStore();
+      const store = this.rdbStore;
       const predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates(TABLE_NAME);
       predicates.equalTo(COL_KEY_ID, keyId);
       const resultSet: relationalStore.ResultSet = await store.query(predicates, ALL_COLUMNS);
@@ -379,7 +329,7 @@ export class IdentityKeyDao {
         resultSet.close();
       }
     } catch (err) {
-      throw new Error('IdentityKeyDao queryByKeyId 查询记录失败 (keyId=' + keyId + '): ' + JSON.stringify(err));
+      throw new Error('IdentityKeyDao queryByKeyId 查询记录失败 (keyId=' + keyId + '): ' + ErrorUtil.getErrorMessage(err));
     }
   }
 
@@ -391,13 +341,13 @@ export class IdentityKeyDao {
    */
   async queryByUserId(userId: number): Promise<IdentityKeyEntity[]> {
     try {
-      const store = this.getRdbStore();
+      const store = this.rdbStore;
       const predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates(TABLE_NAME);
       predicates.equalTo(COL_USER_ID, userId);
       const resultSet: relationalStore.ResultSet = await store.query(predicates, ALL_COLUMNS);
       return resultSetToEntityList(resultSet);
     } catch (err) {
-      throw new Error('IdentityKeyDao queryByUserId 查询记录失败 (userId=' + userId + '): ' + JSON.stringify(err));
+      throw new Error('IdentityKeyDao queryByUserId 查询记录失败 (userId=' + userId + '): ' + ErrorUtil.getErrorMessage(err));
     }
   }
 
@@ -408,12 +358,12 @@ export class IdentityKeyDao {
    */
   async queryAll(): Promise<IdentityKeyEntity[]> {
     try {
-      const store = this.getRdbStore();
+      const store = this.rdbStore;
       const predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates(TABLE_NAME);
       const resultSet: relationalStore.ResultSet = await store.query(predicates, ALL_COLUMNS);
       return resultSetToEntityList(resultSet);
     } catch (err) {
-      throw new Error('IdentityKeyDao queryAll 查询全部记录失败: ' + JSON.stringify(err));
+      throw new Error('IdentityKeyDao queryAll 查询全部记录失败: ' + ErrorUtil.getErrorMessage(err));
     }
   }
 
@@ -428,13 +378,14 @@ export class IdentityKeyDao {
       return [];
     }
     try {
-      const store = this.getRdbStore();
+      const store = this.rdbStore;
       const predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates(TABLE_NAME);
       predicates.in(COL_KEY_ID, keyIds);
       const resultSet: relationalStore.ResultSet = await store.query(predicates, ALL_COLUMNS);
       return resultSetToEntityList(resultSet);
     } catch (err) {
-      throw new Error('IdentityKeyDao queryByKeyIds 批量查询失败 (count=' + keyIds.length + '): ' + JSON.stringify(err));
+      throw new Error(
+        'IdentityKeyDao queryByKeyIds 批量查询失败 (count=' + keyIds.length + '): ' + ErrorUtil.getErrorMessage(err));
     }
   }
 
@@ -447,7 +398,7 @@ export class IdentityKeyDao {
    */
   async queryByUserIdAndKeyId(userId: number, keyId: string): Promise<IdentityKeyEntity | undefined> {
     try {
-      const store = this.getRdbStore();
+      const store = this.rdbStore;
       const predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates(TABLE_NAME);
       predicates.equalTo(COL_USER_ID, userId);
       predicates.equalTo(COL_KEY_ID, keyId);
@@ -461,7 +412,9 @@ export class IdentityKeyDao {
         resultSet.close();
       }
     } catch (err) {
-      throw new Error('IdentityKeyDao queryByUserIdAndKeyId 组合查询失败 (userId=' + userId + ', keyId=' + keyId + '): ' + JSON.stringify(err));
+      throw new Error(
+        'IdentityKeyDao queryByUserIdAndKeyId 组合查询失败 (userId=' + userId + ', keyId=' + keyId + '): ' +
+          JSON.stringify(err));
     }
   }
 
@@ -474,11 +427,11 @@ export class IdentityKeyDao {
    */
   async queryBySql(sql: string, params: relationalStore.ValueType[]): Promise<IdentityKeyEntity[]> {
     try {
-      const store = this.getRdbStore();
+      const store = this.rdbStore;
       const resultSet: relationalStore.ResultSet = await store.querySql(sql, params);
       return resultSetToEntityList(resultSet);
     } catch (err) {
-      throw new Error('IdentityKeyDao queryBySql 执行SQL查询失败 (sql=' + sql + '): ' + JSON.stringify(err));
+      throw new Error('IdentityKeyDao queryBySql 执行SQL查询失败 (sql=' + sql + '): ' + ErrorUtil.getErrorMessage(err));
     }
   }
 }

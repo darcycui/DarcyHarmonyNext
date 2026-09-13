@@ -24,13 +24,13 @@
  *     → ViewModel 方法委托 Reducer 修改 state
  *     → Reducer 原地修改 @Trace 属性触发 UI 重渲染
  */
+import { common } from '@kit.AbilityKit';
+import { SignedPreKeyDao, OneTimePreKeyDao, SignedPreKeyEntity, OneTimePreKeyEntity } from 'library_network';
 import { BaseViewModel, Log } from 'static_library_common';
 import RegisterState from '../state/RegisterState';
 import RegisterReducer from '../reducer/RegisterReducer';
 import { RegisterUseCase, RegisterParams } from '../usecase/RegisterUseCase';
 import { RegisterRepository } from '../repository/RegisterRepository';
-import { ServerDHExchangeUseCase } from '../../dh/usecase/ServerDHExchangeUseCase';
-import { ServerDHExchangeRepository } from '../../dh/repository/ServerDHExchangeRepository';
 import {
   RegisterIntent,
   DoRegisterIntent,
@@ -51,11 +51,34 @@ export default class RegisterViewModelV2 extends BaseViewModel {
   // ─── 依赖注入 ──────────────────────────────────
   private registerUseCase: RegisterUseCase = new RegisterUseCase(new RegisterRepository());
 
-  /** DH 密钥交换用例 */
-  private serverDHExchangeUseCase: ServerDHExchangeUseCase = new ServerDHExchangeUseCase(new ServerDHExchangeRepository());
+  // ─── 数据库 DAO ──────────────────────────────
+
+  /** 已签名预密钥 DAO */
+  private signedPreKeyDao: SignedPreKeyDao | null = null;
+
+  /** 一次性预密钥 DAO */
+  private oneTimePreKeyDao: OneTimePreKeyDao | null = null;
 
   // ─── Reducer（负责状态修改） ──────────────────────
   private reducer: RegisterReducer = new RegisterReducer();
+
+  // ─── 数据库初始化 ──────────────────────────────
+
+  /**
+   * 初始化数据库 DAO 实例
+   *
+   * 在 UIAbility/Page 层获取 context 后调用：
+   * ```ts
+   * viewModel.initDaos(getContext(this));
+   * ```
+   *
+   * @param context UIAbilityContext
+   */
+  initDaos(context: common.Context): void {
+    this.signedPreKeyDao = new SignedPreKeyDao(context);
+    this.oneTimePreKeyDao = new OneTimePreKeyDao(context);
+    Log.info(`[RegisterViewModelV2] SignedPreKeyDao / OneTimePreKeyDao 已初始化`);
+  }
 
   // ─── MVI dispatch 模式（统一入口） ────────────
   /**
@@ -141,17 +164,63 @@ export default class RegisterViewModelV2 extends BaseViewModel {
       const result = await this.registerUseCase.execute(params);
       if (result) {
         Log.info(`[RegisterViewModelV2] 注册成功: ${JSON.stringify(result)}`);
-        // 注册成功后触发 DH 密钥交换
+        // 注册成功后（Repository 已完成 DH 密钥交换），初始化预密钥数据库并持久化
         try {
-          await this.serverDHExchangeUseCase.execute({ userId: result.id });
-          Log.info(`[RegisterViewModelV2] DH 密钥交换完成`);
-        } catch (dhError) {
-          Log.error(`[RegisterViewModelV2] DH 密钥交换失败: ${dhError}`);
+          await this.persistPreKeys(result.id);
+        } catch (err) {
+          Log.error(`[RegisterViewModelV2] 预密钥持久化失败: ${err}`);
         }
       } else {
         Log.error(`[RegisterViewModelV2] 注册失败: ${JSON.stringify(result)}`);
       }
     });
+  }
+
+  // ─── 预密钥持久化 ────────────────────────────
+
+  /**
+   * 在注册 & DH 交换完成后，初始化预密钥数据库并持久化预密钥数据
+   *
+   * @param userId 已注册用户的 ID
+   */
+  private async persistPreKeys(userId: number): Promise<void> {
+    try {
+      if (this.signedPreKeyDao === null || this.oneTimePreKeyDao === null) {
+        Log.warn(`[RegisterViewModelV2] DAO 尚未初始化，跳过预密钥持久化`);
+        return;
+      }
+
+      // 1. 初始化数据库（建表）
+      await this.signedPreKeyDao.initDatabase();
+      await this.oneTimePreKeyDao.initDatabase();
+      Log.info(`[RegisterViewModelV2] 预密钥数据库初始化完成`);
+
+      // 2. 创建并持久化 SignedPreKey（已签名预密钥）
+      const signedPreKey = new SignedPreKeyEntity(
+        undefined,
+        `spk-${userId}-${Date.now()}`,
+        `ik-${userId}`,
+        userId,
+        'signed-private-key-placeholder',
+        'signed-public-key-placeholder',
+        'signature-placeholder',
+      );
+      const signedPreKeyId = await this.signedPreKeyDao.insert(signedPreKey);
+      Log.info(`[RegisterViewModelV2] SignedPreKey 持久化成功, id=${signedPreKeyId}`);
+
+      // 3. 创建并持久化 OneTimePreKey（一次性预密钥）
+      const oneTimePreKey = new OneTimePreKeyEntity(
+        undefined,
+        `otpk-${userId}-${Date.now()}`,
+        userId,
+        'one-time-private-key-placeholder',
+        'one-time-public-key-placeholder',
+      );
+      const oneTimePreKeyId = await this.oneTimePreKeyDao.insert(oneTimePreKey);
+      Log.info(`[RegisterViewModelV2] OneTimePreKey 持久化成功, id=${oneTimePreKeyId}`);
+    } catch (err) {
+      Log.error(`[RegisterViewModelV2] 预密钥持久化失败: ${JSON.stringify(err)}`);
+    }
   }
 
   /**

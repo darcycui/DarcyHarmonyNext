@@ -47,3 +47,4 @@ export { default as ScreenState, ScreenPhase } from './src/main/ets/base/mvvm/st
 export { IReducer } from './src/main/ets/base/mvvm/reducer/IReducer';
 export { BaseUseCase, NoParamUseCase } from './src/main/ets/base/mvvm/usecase/BaseUseCase';
 export { BaseRepository } from './src/main/ets/base/mvvm/repository/BaseRepository';
+export { ResponseHolder } from './src/main/ets/base/mvvm/repository/ResponseHolder';

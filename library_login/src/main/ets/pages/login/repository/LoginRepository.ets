@@ -2,54 +2,86 @@
  * LoginRepository - 登录数据仓库
  *
  * 继承 BaseRepository，统一封装登录相关的数据访问层。
- * 当前为模拟实现，后续可对接真实网络 API。
+ * 通过 httpHelper.doPost 调用登录 API，成功后触发 DH 密钥交换。
  *
  * 架构流向：
- *   LoginUseCase → LoginRepository → HttpUtil / API
+ *   LoginUseCase → LoginRepository → httpHelper.doPost → ServerDHExchangeUseCase
  */
-import { BaseRepository } from 'static_library_common';
-import { common } from '@kit.AbilityKit';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { ArrayUtil, BaseRepository, HashUtil, Log, ResponseHolder } from 'static_library_common';
+import {
+  doPost,
+  HttpCertHelper,
+  HttpErrorEntity,
+  HttpResultEntity,
+  LoginRequestDTO,
+  LoginResponse
+} from 'library_network';
+import { Urls } from '../../../http/Urls';
+import { ServerDHExchangeUseCase } from '../../dh/usecase/ServerDHExchangeUseCase';
+import { ServerDHExchangeRepository } from '../../dh/repository/ServerDHExchangeRepository';
 
 /**
- * 登录响应结果
+ * 登录响应数据容器——用于在异步回调间安全传递数据
  */
-export interface LoginResult {
-  success: boolean;
-  message: string;
-  /** 用户 ID（登录成功后由服务端返回，用于后续 DH 密钥交换等操作） */
-  userId: number;
-}
+class LoginResponseHolder extends ResponseHolder <LoginResponse>{}
 
 export class LoginRepository extends BaseRepository {
+  /** DH 密钥交换用例 */
+  private serverDHExchangeUseCase: ServerDHExchangeUseCase = new ServerDHExchangeUseCase(new ServerDHExchangeRepository());
+
   /**
    * 执行登录请求
    *
-   * @param userName - 用户名
+   * @param userName - 用户名（手机号）
    * @param password - 密码
    * @returns 登录结果
    */
-  async doLogin(userName: string, password: string): Promise<LoginResult> {
+  async doLogin(userName: string, password: string): Promise<LoginResponse> {
     return this.safeCall(async () => {
-      // TODO: 替换为真实网络请求
-      // 模拟登录校验
-      if (!userName || !password) {
-        throw new Error('用户名或密码不能为空');
-      }
-
-      // 模拟网络延迟
-      await new Promise<void>((resolve) => {
-        setTimeout(() => {
-          resolve();
-        }, 500);
+      // 构建请求 DTO
+      const dto: LoginRequestDTO = new LoginRequestDTO({
+        phone: userName,
+        password: HashUtil.sha256FromBytesSync(ArrayUtil.stringToBytes(password))
       });
 
-      // 模拟登录成功（后续对接真实 API，服务端返回用户 ID）
-      return {
-        success: true,
-        message: '登录成功',
-        userId: 1
-      } as LoginResult;
+      const url: string = Urls.LOGIN_URL;
+      const body: string = JSON.stringify(dto);
+
+      // 使用容器对象在回调间传递数据，避免 Promise reject 中的 any 类型
+      const holder: LoginResponseHolder = new LoginResponseHolder();
+
+      await new Promise<void>((resolve: () => void): void => {
+        doPost<LoginResponse>(
+          url,
+          body,
+          (data: HttpResultEntity<LoginResponse>): void => {
+            if (data.result != null && data.result != undefined && data.error_code === 0) {
+              holder.data = data.result
+            } else {
+              holder.errorMessage = data.reason || '登录失败';
+            }
+            resolve();
+          },
+          (error: HttpResultEntity<HttpErrorEntity>): void => {
+            holder.errorMessage = error.result?.message || '网络请求失败';
+            resolve();
+          },
+          HttpCertHelper.getCertPath()
+        );
+      });
+
+      if (holder.errorMessage) {
+        throw new Error(holder.errorMessage);
+      }
+
+      // 登录成功后触发 DH 密钥交换
+      try {
+        await this.serverDHExchangeUseCase.execute({ userId: holder.data.id });
+        Log.info(`[LoginRepository] DH 密钥交换完成`);
+      } catch (dhError) {
+        Log.error(`[LoginRepository] DH 密钥交换失败: ${dhError}`);
+      }
+      return holder.data;
     });
   }
 }

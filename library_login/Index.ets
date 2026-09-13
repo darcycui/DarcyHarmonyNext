@@ -10,11 +10,16 @@ export { Urls } from './src/main/ets/http/Urls'
 export { ServerDHExchangeRepository } from './src/main/ets/pages/dh/repository/ServerDHExchangeRepository'
 export { ServerDHExchangeUseCase } from './src/main/ets/pages/dh/usecase/ServerDHExchangeUseCase'
 
+// ---------- Key Generation UseCases ----------
+export { GenerateIdentityKeyUseCase, GenerateIdentityKeyParams } from './src/main/ets/pages/dh/usecase/GenerateIdentityKeyUseCase'
+export { GenerateSignedPreKeyUseCase, GenerateSignedPreKeyParams } from './src/main/ets/pages/dh/usecase/GenerateSignedPreKeyUseCase'
+export { GenerateOneTimePreKeyUseCase, GenerateOneTimePreKeyParams } from './src/main/ets/pages/dh/usecase/GenerateOneTimePreKeyUseCase'
+
 // ---------- Login ----------
 export { default as LoginState } from './src/main/ets/pages/login/state/LoginState'
 export { LoginIntent, DoLoginIntent, UpdateUserNameIntent, UpdatePasswordIntent } from './src/main/ets/pages/login/intent/LoginIntent'
 export { default as LoginReducer } from './src/main/ets/pages/login/reducer/LoginReducer'
-export { LoginRepository, LoginResult } from './src/main/ets/pages/login/repository/LoginRepository'
+export { LoginRepository } from './src/main/ets/pages/login/repository/LoginRepository'
 export { LoginUseCase } from './src/main/ets/pages/login/usecase/LoginUseCase'
 export { default as LoginViewModelV2 } from './src/main/ets/pages/login/viewmodel/LoginViewModelV2'
 
@@ -22,7 +27,7 @@ export { default as LoginViewModelV2 } from './src/main/ets/pages/login/viewmode
 export { default as RegisterState } from './src/main/ets/pages/register/state/RegisterState'
 export { RegisterIntent, DoRegisterIntent, UpdateRegisterUserNameIntent, UpdateRegisterPasswordIntent, UpdatePhoneIntent, UpdateNicknameIntent, UpdateEmailIntent } from './src/main/ets/pages/register/intent/RegisterIntent'
 export { default as RegisterReducer } from './src/main/ets/pages/register/reducer/RegisterReducer'
-export { RegisterRepository, RegisterResult } from './src/main/ets/pages/register/repository/RegisterRepository'
+export { RegisterRepository } from './src/main/ets/pages/register/repository/RegisterRepository'
 export { RegisterUseCase } from './src/main/ets/pages/register/usecase/RegisterUseCase'
 export { default as RegisterViewModelV2 } from './src/main/ets/pages/register/viewmodel/RegisterViewModelV2'
 

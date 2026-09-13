@@ -24,6 +24,11 @@ import {
   UpdateEmailIntent
 } from './intent/RegisterIntent';
 
+@Builder
+export function NavigationBuilder () {
+  RegisterPage()
+}
+
 @Entry
 @ComponentV2
 struct RegisterPage {
@@ -42,163 +47,168 @@ struct RegisterPage {
    * 页面初始化生命周期
    */
   aboutToAppear(): void {
+    // 传递 context 给 ViewModel，用于初始化数据库 DAO
+    this.viewModel.initDaos(this.context);
   }
 
   build() {
-    Column() {
-      // ── 注册标题 ──
-      Text($r('app.string.register_title'))
-        .id('RegisterTitle')
-        .fontSize(20)
-        .fontWeight(FontWeight.Bold)
-        .width('100%')
-        .align(Alignment.TopStart)
-        .textAlign(TextAlign.Start)
-        .margin({ bottom: 16 })
-
-      // ── 用户名提示 ──
-      Text($r('app.string.register_username_tip'))
-        .id('RegisterUserNameTip')
-        .fontSize(16)
-        .fontWeight(FontWeight.Bold)
-        .width('100%')
-        .align(Alignment.TopStart)
-        .textAlign(TextAlign.Start)
-
-      // ── 用户名输入框 ──
-      TextInput({
-        placeholder: $r('app.string.register_username_placeholder'),
-        text: this.viewModel.state.userName || '王老吉'
-      })
-        .id('RegisterUserNameInput')
-        .type(InputType.Normal)
-        .onChange((value: string) => {
-          this.viewModel.dispatch(new UpdateRegisterUserNameIntent(value));
-        })
-
-      // ── 密码提示 ──
-      Text($r('app.string.register_password_tip'))
-        .id('RegisterPasswordTip')
-        .fontSize(16)
-        .fontWeight(FontWeight.Bold)
-        .width('100%')
-        .align(Alignment.TopStart)
-        .textAlign(TextAlign.Start)
-
-      // ── 密码输入框 ──
-      TextInput({
-        placeholder: $r('app.string.register_password_placeholder'),
-        text: this.viewModel.state.password || '123456'
-      })
-        .id('RegisterPasswordInput')
-        .type(InputType.Password)
-        .onChange((value: string) => {
-          this.viewModel.dispatch(new UpdateRegisterPasswordIntent(value));
-        })
-
-      // ── 手机号提示 ──
-      Text($r('app.string.register_phone_tip'))
-        .id('RegisterPhoneTip')
-        .fontSize(16)
-        .fontWeight(FontWeight.Bold)
-        .width('100%')
-        .align(Alignment.TopStart)
-        .textAlign(TextAlign.Start)
-
-      // ── 手机号输入框 ──
-      TextInput({
-        placeholder: $r('app.string.register_phone_placeholder'),
-        text: this.viewModel.state.phone || '13800138000'
-      })
-        .id('RegisterPhoneInput')
-        .type(InputType.Normal)
-        .onChange((value: string) => {
-          this.viewModel.dispatch(new UpdatePhoneIntent(value));
-        })
-
-      // ── 昵称提示 ──
-      Text($r('app.string.register_nickname_tip'))
-        .id('RegisterNicknameTip')
-        .fontSize(16)
-        .fontWeight(FontWeight.Bold)
-        .width('100%')
-        .align(Alignment.TopStart)
-        .textAlign(TextAlign.Start)
-
-      // ── 昵称输入框 ──
-      TextInput({
-        placeholder: $r('app.string.register_nickname_placeholder'),
-        text: this.viewModel.state.nickname || 'WangLaoJi'
-      })
-        .id('RegisterNicknameInput')
-        .type(InputType.Normal)
-        .onChange((value: string) => {
-          this.viewModel.dispatch(new UpdateNicknameIntent(value));
-        })
-
-      // ── 邮箱提示 ──
-      Text($r('app.string.register_email_tip'))
-        .id('RegisterEmailTip')
-        .fontSize(16)
-        .fontWeight(FontWeight.Bold)
-        .width('100%')
-        .align(Alignment.TopStart)
-        .textAlign(TextAlign.Start)
-
-      // ── 邮箱输入框 ──
-      TextInput({
-        placeholder: $r('app.string.register_email_placeholder'),
-        text: this.viewModel.state.email || 'zhangsan@example.com'
-      })
-        .id('RegisterEmailInput')
-        .type(InputType.Normal)
-        .onChange((value: string) => {
-          this.viewModel.dispatch(new UpdateEmailIntent(value));
-        })
-
-      // ── 注册按钮 ──
-      Button($r("app.string.register"))
-        .width('100%')
-        .margin({ top: 10 })
-        .onClick(async () => {
-          // 通过 dispatch 发送注册 Intent（MVI 统一入口）
-          await this.viewModel.dispatch(new DoRegisterIntent());
-        })
-
-      // ── 加载中：显示 LoadingProgress ──
-      if (this.viewModel.state.screenState.isLoadingPhase) {
-        LoadingProgress()
-          .width(50)
-          .height(50)
-          .layoutWeight(1)
-      }
-
-      Blank().height(16).width('100%')
-
-      // ── 注册失败：显示错误信息 ──
-      if (this.viewModel.state.screenState.errorMessage) {
-        Text(this.viewModel.state.screenState.errorMessage)
-          .id('RegisterErrorText')
-          .fontSize(14)
-          .fontColor(Color.Red)
+    NavDestination() {
+      Column() {
+        // ── 注册标题 ──
+        Text($r('app.string.register_title'))
+          .id('RegisterTitle')
+          .fontSize(20)
+          .fontWeight(FontWeight.Bold)
           .width('100%')
           .align(Alignment.TopStart)
           .textAlign(TextAlign.Start)
-      }
+          .margin({ bottom: 16 })
 
-      // ── 注册成功：显示成功信息 ──
-      if (this.viewModel.state.screenState.is(ScreenPhase.SUCCESS)) {
-        Text($r('app.string.register_success'))
-          .id('RegisterSuccessText')
-          .fontSize(14)
-          .fontColor(Color.Green)
+        // ── 用户名提示 ──
+        Text($r('app.string.register_username_tip'))
+          .id('RegisterUserNameTip')
+          .fontSize(16)
+          .fontWeight(FontWeight.Bold)
           .width('100%')
           .align(Alignment.TopStart)
           .textAlign(TextAlign.Start)
+
+        // ── 用户名输入框 ──
+        TextInput({
+          placeholder: $r('app.string.register_username_placeholder'),
+          text: this.viewModel.state.userName || '王老吉'
+        })
+          .id('RegisterUserNameInput')
+          .type(InputType.Normal)
+          .onChange((value: string) => {
+            this.viewModel.dispatch(new UpdateRegisterUserNameIntent(value));
+          })
+
+        // ── 密码提示 ──
+        Text($r('app.string.register_password_tip'))
+          .id('RegisterPasswordTip')
+          .fontSize(16)
+          .fontWeight(FontWeight.Bold)
+          .width('100%')
+          .align(Alignment.TopStart)
+          .textAlign(TextAlign.Start)
+
+        // ── 密码输入框 ──
+        TextInput({
+          placeholder: $r('app.string.register_password_placeholder'),
+          text: this.viewModel.state.password || '123456'
+        })
+          .id('RegisterPasswordInput')
+          .type(InputType.Password)
+          .onChange((value: string) => {
+            this.viewModel.dispatch(new UpdateRegisterPasswordIntent(value));
+          })
+
+        // ── 手机号提示 ──
+        Text($r('app.string.register_phone_tip'))
+          .id('RegisterPhoneTip')
+          .fontSize(16)
+          .fontWeight(FontWeight.Bold)
+          .width('100%')
+          .align(Alignment.TopStart)
+          .textAlign(TextAlign.Start)
+
+        // ── 手机号输入框 ──
+        TextInput({
+          placeholder: $r('app.string.register_phone_placeholder'),
+          text: this.viewModel.state.phone || '13800138000'
+        })
+          .id('RegisterPhoneInput')
+          .type(InputType.Normal)
+          .onChange((value: string) => {
+            this.viewModel.dispatch(new UpdatePhoneIntent(value));
+          })
+
+        // ── 昵称提示 ──
+        Text($r('app.string.register_nickname_tip'))
+          .id('RegisterNicknameTip')
+          .fontSize(16)
+          .fontWeight(FontWeight.Bold)
+          .width('100%')
+          .align(Alignment.TopStart)
+          .textAlign(TextAlign.Start)
+
+        // ── 昵称输入框 ──
+        TextInput({
+          placeholder: $r('app.string.register_nickname_placeholder'),
+          text: this.viewModel.state.nickname || 'WangLaoJi'
+        })
+          .id('RegisterNicknameInput')
+          .type(InputType.Normal)
+          .onChange((value: string) => {
+            this.viewModel.dispatch(new UpdateNicknameIntent(value));
+          })
+
+        // ── 邮箱提示 ──
+        Text($r('app.string.register_email_tip'))
+          .id('RegisterEmailTip')
+          .fontSize(16)
+          .fontWeight(FontWeight.Bold)
+          .width('100%')
+          .align(Alignment.TopStart)
+          .textAlign(TextAlign.Start)
+
+        // ── 邮箱输入框 ──
+        TextInput({
+          placeholder: $r('app.string.register_email_placeholder'),
+          text: this.viewModel.state.email || 'zhangsan@example.com'
+        })
+          .id('RegisterEmailInput')
+          .type(InputType.Normal)
+          .onChange((value: string) => {
+            this.viewModel.dispatch(new UpdateEmailIntent(value));
+          })
+
+        // ── 注册按钮 ──
+        Button($r("app.string.register"))
+          .width('100%')
+          .margin({ top: 10 })
+          .onClick(async () => {
+            // 通过 dispatch 发送注册 Intent（MVI 统一入口）
+            await this.viewModel.dispatch(new DoRegisterIntent());
+          })
+
+        // ── 加载中：显示 LoadingProgress ──
+        if (this.viewModel.state.screenState.isLoadingPhase) {
+          LoadingProgress()
+            .width(50)
+            .height(50)
+            .layoutWeight(1)
+        }
+
+        Blank().height(16).width('100%')
+
+        // ── 注册失败：显示错误信息 ──
+        if (this.viewModel.state.screenState.errorMessage) {
+          Text(this.viewModel.state.screenState.errorMessage)
+            .id('RegisterErrorText')
+            .fontSize(14)
+            .fontColor(Color.Red)
+            .width('100%')
+            .align(Alignment.TopStart)
+            .textAlign(TextAlign.Start)
+        }
+
+        // ── 注册成功：显示成功信息 ──
+        if (this.viewModel.state.screenState.is(ScreenPhase.SUCCESS)) {
+          Text($r('app.string.register_success'))
+            .id('RegisterSuccessText')
+            .fontSize(14)
+            .fontColor(Color.Green)
+            .width('100%')
+            .align(Alignment.TopStart)
+            .textAlign(TextAlign.Start)
+        }
       }
+      .height('100%')
+      .width('100%')
+      .padding(16)
     }
-    .height('100%')
-    .width('100%')
-    .padding(16)
   }
+
 }

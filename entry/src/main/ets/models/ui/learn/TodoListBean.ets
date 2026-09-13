@@ -2,12 +2,12 @@
 import { common } from '@kit.AbilityKit';
 import util from '@ohos.util';
 import { Log } from 'static_library_common';
-import ThingsEntity from './ThingsEntity';
+import ThingsBean from './ThingsBean';
 
-export default class TodoListEntity {
-  things: Array<ThingsEntity> = [];
+export default class TodoListBean {
+  things: Array<ThingsBean> = [];
 
-  constructor(things: Array<ThingsEntity>) {
+  constructor(things: Array<ThingsBean>) {
     this.things = things;
   }
 

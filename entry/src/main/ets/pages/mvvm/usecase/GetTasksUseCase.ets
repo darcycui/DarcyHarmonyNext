@@ -17,7 +17,7 @@
  */
 import { BaseUseCase } from 'static_library_common/src/main/ets/base/mvvm/usecase/BaseUseCase';
 import { TodoListRepository } from '../../../repository/TodoListRepository';
-import ThingsEntity from '../../../models/ThingsEntity';
+import ThingsBean from '../../../models/ui/learn/ThingsBean';
 import { common } from '@kit.AbilityKit';
 
 /**
@@ -25,7 +25,7 @@ import { common } from '@kit.AbilityKit';
  * 入参：common.UIAbilityContext
  * 出参：ThingsModel[]
  */
-export class GetTasksUseCase extends BaseUseCase<common.UIAbilityContext, ThingsEntity[]> {
+export class GetTasksUseCase extends BaseUseCase<common.UIAbilityContext, ThingsBean[]> {
   private repository: TodoListRepository;
 
   constructor(repository?: TodoListRepository) {
@@ -41,7 +41,7 @@ export class GetTasksUseCase extends BaseUseCase<common.UIAbilityContext, Things
    * @param context Context 上下文
    * @returns 校验后的任务列表
    */
-  async execute(context: common.Context): Promise<ThingsEntity[]> {
+  async execute(context: common.Context): Promise<ThingsBean[]> {
     return this.safeExecute(async () => {
       // Step 1: 尝试从缓存获取（示例）
       // const cached = CacheManager.getTasks();
@@ -64,7 +64,7 @@ export class GetTasksUseCase extends BaseUseCase<common.UIAbilityContext, Things
    * 数据校验
    * 过滤掉无效数据
    */
-  private validateTasks(tasks: ThingsEntity[]): ThingsEntity[] {
+  private validateTasks(tasks: ThingsBean[]): ThingsBean[] {
     return tasks.filter(task => {
       return task.thingsName !== undefined && task.thingsName.trim().length > 0;
     });

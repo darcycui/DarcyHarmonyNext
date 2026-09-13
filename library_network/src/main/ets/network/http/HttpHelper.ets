@@ -4,6 +4,7 @@ import { Base64Util, HexUtil, Log } from 'static_library_common';
 import { HttpErrorEntity } from '../models/HttpErrorEntity';
 import { HttpResultEntity } from '../models/HttpResultEntity';
 import { JsonParser } from '../parser/JsonParser';
+import { HttpCertHelper } from './ssl/HttpCertHelper';
 
 // export const BASE_JUHE_URL = "https://apis.juhe.cn"
 export const BASE_HTTP_URL = "https://darcycui.com.cn"
@@ -16,7 +17,7 @@ export async function doGet<T>(
   httpsUrl: string,
   onSuccess: (data: HttpResultEntity<T>) => void,
   onFailure: (data: HttpResultEntity<HttpErrorEntity>) => void,
-  certPath: string = ""
+  certPath: string = HttpCertHelper.getCertPath()
 ) {
   Log.log(`request ==> doGet: ${httpsUrl}`)
   // 创建http请求
@@ -109,7 +110,7 @@ export async function doPost<T>(
   body: string,
   onSuccess: (data: HttpResultEntity<T>) => void,
   onFailure: (data: HttpResultEntity<HttpErrorEntity>) => void,
-  certPath: string = ""
+  certPath: string = HttpCertHelper.getCertPath()
 ) {
   Log.log(`request ==> doPost: ${httpsUrl}`)
   Log.log(`body: ${body}`)

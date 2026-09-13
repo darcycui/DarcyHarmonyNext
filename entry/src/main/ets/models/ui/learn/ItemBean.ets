@@ -1,5 +1,5 @@
 
-export class ItemEntity {
+export class ItemBean {
   private _pageName: string;
 
   public set pageName(value: string) {

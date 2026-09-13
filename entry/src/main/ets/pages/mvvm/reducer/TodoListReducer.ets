@@ -16,7 +16,7 @@
  */
 import { IReducer } from 'static_library_common';
 import TodoListState from '../state/TodoListState';
-import ThingsEntity from '../../../models/ThingsEntity';
+import ThingsBean from '../../../models/ui/learn/ThingsBean';
 
 export default class TodoListReducer implements IReducer {
   /**
@@ -40,7 +40,7 @@ export default class TodoListReducer implements IReducer {
    */
   toggleTaskFinish(state: TodoListState, thingsName: string): void {
     for (let i = 0; i < state.things.length; i++) {
-      const item: ThingsEntity = state.things[i];
+      const item: ThingsBean = state.things[i];
       if (item.thingsName === thingsName) {
         item.isFinish = !item.isFinish;
         break;
@@ -56,7 +56,7 @@ export default class TodoListReducer implements IReducer {
    */
   addNameSuffix(state: TodoListState, thingsName: string): void {
     for (let i = 0; i < state.things.length; i++) {
-      const item: ThingsEntity = state.things[i];
+      const item: ThingsBean = state.things[i];
       if (item.thingsName === thingsName) {
         item.thingsName = item.thingsName + '啦';
         break;
@@ -70,7 +70,7 @@ export default class TodoListReducer implements IReducer {
    * @param state - TodoList 页面状态对象
    * @param tasks - 新的事项列表
    */
-  setTasks(state: TodoListState, tasks: ThingsEntity[]): void {
+  setTasks(state: TodoListState, tasks: ThingsBean[]): void {
     state.things = tasks;
   }
 }

@@ -1,0 +1,14 @@
+{
+  "routerMap": [
+    {
+      "name": "pages/static/login/LoginPage",
+      "pageSourceFile": "src/main/ets/pages/login/LoginPage.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/static/login/RegisterPage",
+      "pageSourceFile": "src/main/ets/pages/register/RegisterPage.ets",
+      "buildFunction": "NavigationBuilder"
+    }
+  ]
+}

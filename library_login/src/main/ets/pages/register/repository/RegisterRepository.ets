@@ -7,7 +7,7 @@
  * 架构流向：
  *   RegisterUseCase → RegisterRepository → httpHelper.doPost
  */
-import { ArrayUtil, BaseRepository, HashUtil } from 'static_library_common';
+import { ArrayUtil, BaseRepository, HashUtil, Log, ResponseHolder } from 'static_library_common';
 import {
   doPost,
   HttpCertHelper,
@@ -17,25 +17,20 @@ import {
   RegisterResponse
 } from 'library_network';
 import { Urls } from '../../../http/Urls';
-
-/**
- * 注册响应结果
- */
-export interface RegisterResult {
-  success: boolean;
-  message: string;
-}
+import { ServerDHExchangeUseCase } from '../../dh/usecase/ServerDHExchangeUseCase';
+import { ServerDHExchangeRepository } from '../../dh/repository/ServerDHExchangeRepository';
 
 /**
  * 注册响应数据容器——用于在异步回调间安全传递数据
  */
-class RegisterResponseHolder {
-  data: RegisterResponse = new RegisterResponse();
-  message: string = '';
-  errorMessage: string = '';
+class RegisterResponseHolder extends ResponseHolder<RegisterResponse> {
 }
 
 export class RegisterRepository extends BaseRepository {
+  /** DH 密钥交换用例 */
+  private serverDHExchangeUseCase: ServerDHExchangeUseCase =
+    new ServerDHExchangeUseCase(new ServerDHExchangeRepository());
+
   /**
    * 执行注册请求
    *
@@ -98,7 +93,15 @@ export class RegisterRepository extends BaseRepository {
         throw new Error(holder.errorMessage);
       }
 
-      return holder.data;
+      // 注册成功后触发 DH 密钥交换
+      try {
+        await this.serverDHExchangeUseCase.execute({ userId: holder.data.id });
+        Log.info(`[RegisterRepository] DH 密钥交换完成`);
+      } catch (dhError) {
+        Log.error(`[RegisterRepository] DH 密钥交换失败: ${dhError}`);
+      }
+
+      return holder.data ?? new RegisterResponse();
     });
   }
 }

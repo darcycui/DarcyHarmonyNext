@@ -23,12 +23,12 @@ import {
 
 @Builder
 export function NavigationBuilder() {
-  LoginIndex()
+  LoginPage()
 }
 
 @Entry
 @ComponentV2
-struct LoginIndex {
+struct LoginPage {
   /**
    * @Local 持有 ViewModel（V2 版 @State）
    * ViewModel 内部使用 @ObservedV2 + @Trace 实现细粒度响应式
@@ -126,7 +126,7 @@ struct LoginIndex {
         .width('100%')
         .margin({ top: 10 })
         .onClick(() => {
-          NavigationHelper.startPage(this.pathStack, 'pages/register/RegisterPage');
+          NavigationHelper.startPage(this.pathStack, 'pages/static/login/RegisterPage');
         })
 
       // ── 加载中：显示 LoadingProgress ──
@@ -149,5 +149,8 @@ struct LoginIndex {
     .width('100%')
     .padding(16)
     }
+    .onReady((context: NavDestinationContext) => {
+      this.pathStack = context.pathStack
+    })
   }
 }

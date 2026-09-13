@@ -1,6 +1,6 @@
 import ThingsViewModel from "./ThingViewModel";
 import { common } from "@kit.AbilityKit";
-import TodoListEntity from "../../../models/TodoListEntity";
+import TodoListBean from "../../../models/ui/learn/TodoListBean";
 
 // 自定义类型 添加 @Observed注解
 @Observed
@@ -15,7 +15,7 @@ export default class TodoListViewModel {
   @Track things: ThingsViewModelArray = new ThingsViewModelArray();
 
   async loadTasks(context: common.UIAbilityContext) {
-    let todoListModel = new TodoListEntity([]);
+    let todoListModel = new TodoListBean([]);
     await todoListModel.loadTasks(context);
     for(let things of todoListModel.things) {
       let thingsViewModel = new ThingsViewModel();
