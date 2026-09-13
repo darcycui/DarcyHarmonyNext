@@ -43,6 +43,7 @@ export { func, func2 } from './src/main/ets/utils/Log'
 export { BaseViewModel } from './src/main/ets/base/mvvm/viewmodel/BaseViewModel';
 export { IIntent } from './src/main/ets/base/mvvm/intent/IIntent';
 export { IState } from './src/main/ets/base/mvvm/state/IState';
+export { default as ScreenState, ScreenPhase } from './src/main/ets/base/mvvm/state/substate/ScreenState';
 export { IReducer } from './src/main/ets/base/mvvm/reducer/IReducer';
 export { BaseUseCase, NoParamUseCase } from './src/main/ets/base/mvvm/usecase/BaseUseCase';
 export { BaseRepository } from './src/main/ets/base/mvvm/repository/BaseRepository';

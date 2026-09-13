@@ -12,7 +12,7 @@
  *   View 层不直接调用 ViewModel 方法，统一通过 dispatch 发送 Intent
  */
 import { common } from '@kit.AbilityKit';
-import { NavigationHelper } from 'static_library_common';
+import { NavigationHelper, ScreenPhase } from 'static_library_common';
 import {
   RegisterViewModelV2,
   DoRegisterIntent,
@@ -176,7 +176,7 @@ struct RegisterPage {
         })
 
       // ── 加载中：显示 LoadingProgress ──
-      if (this.viewModel.isLoading) {
+      if (this.viewModel.state.screenState.isLoadingPhase) {
         LoadingProgress()
           .width(50)
           .height(50)
@@ -186,8 +186,8 @@ struct RegisterPage {
       Blank().height(16).width('100%')
 
       // ── 注册失败：显示错误信息 ──
-      if (this.viewModel.errorMessage) {
-        Text(this.viewModel.errorMessage)
+      if (this.viewModel.state.screenState.errorMessage) {
+        Text(this.viewModel.state.screenState.errorMessage)
           .id('RegisterErrorText')
           .fontSize(14)
           .fontColor(Color.Red)
@@ -197,7 +197,7 @@ struct RegisterPage {
       }
 
       // ── 注册成功：显示成功信息 ──
-      if (this.viewModel.isLoaded && !this.viewModel.errorMessage) {
+      if (this.viewModel.state.screenState.is(ScreenPhase.SUCCESS)) {
         Text($r('app.string.register_success'))
           .id('RegisterSuccessText')
           .fontSize(14)

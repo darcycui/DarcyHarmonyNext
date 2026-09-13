@@ -1,4 +1,5 @@
 import { Log } from "../../../utils/Log";
+import ScreenState, { ScreenPhase } from "../state/substate/ScreenState";
 
 /**
  * BaseViewModel - ViewModel 基类
@@ -6,10 +7,10 @@ import { Log } from "../../../utils/Log";
  * 装饰器：@ObservedV2 + @Trace（V2 状态管理）
  *
  * 职责：
- *  - 统一管理页面级状态（加载中、错误、空数据）
  *  - 提供 MVI 风格的 dispatch(intent) 统一入口（可选）
  *  - 支持纯函数状态转换（局部 Reducer 理念）
  *  - 编排异步副作用（调用 UseCase → Repository）
+ *  - safeLoad 统一管理 loading/error/success 状态流转（screenState 由子类自己的 State 持有）
  *
  * 架构流向：
  *   View (@ComponentV2) → ViewModel (@ObservedV2) → UseCase → Repository
@@ -18,25 +19,18 @@ import { Log } from "../../../utils/Log";
  * ```typescript
  * @ObservedV2
  * export class TaskViewModel extends BaseViewModel {
- *   @Trace tasks: TaskModel[] = [];
+ *   @Trace state: TaskState = new TaskState();
  *
  *   async loadTasks(): Promise<void> {
- *     await this.safeLoad(async () => {
+ *     await this.safeLoad(this.state.screenState, async () => {
  *       this.tasks = await this.getTasksUseCase.execute();
  *     });
- *   }
- *
- *   toggleTask(id: string): void {
- *     this.tasks = this.tasks.map(t =>
- *       t.id === id ? { ...t, done: !t.done } : t
- *     );
  *   }
  * }
  * ```
  *
  * 使用示例（MVI 模式 - dispatch）：
  * ```typescript
- * // 定义页面 Intent
  * class TaskIntent {
  *   static readonly LOAD = 'LOAD';
  *   static readonly TOGGLE_TASK = 'TOGGLE_TASK';
@@ -44,12 +38,12 @@ import { Log } from "../../../utils/Log";
  *
  * @ObservedV2
  * export class TaskViewModel extends BaseViewModel {
- *   @Trace tasks: TaskModel[] = [];
+ *   @Trace state: TaskState = new TaskState();
  *
  *   dispatch(intent: string, payload?: any): void {
  *     switch (intent) {
  *       case TaskIntent.LOAD:
- *         this.safeLoad(async () => {
+ *         this.safeLoad(this.state.screenState, async () => {
  *           this.tasks = await this.getTasksUseCase.execute();
  *         });
  *         break;
@@ -63,15 +57,6 @@ import { Log } from "../../../utils/Log";
  */
 @ObservedV2
 export abstract class BaseViewModel {
-  // ─── 全局状态字段 ──────────────────────────────────────────
-
-  /** 页面是否正在加载（显示 Loading 指示器） */
-  @Trace isLoading: boolean = false;
-  /** 错误信息（非空时显示错误提示） */
-  @Trace errorMessage: string = '';
-  /** 是否加载完成（用于区分首次加载与刷新） */
-  @Trace isLoaded: boolean = false;
-
   /** 首次加载完成标记（避免重复触发 aboutToAppear 逻辑） */
   private _initialized: boolean = false;
 
@@ -102,41 +87,33 @@ export abstract class BaseViewModel {
   /**
    * 安全加载数据 异步
    *
+   * @param screenState 子类 State 中持有的 ScreenState 实例
    * @param action 实际的异步加载逻辑
    */
-  protected async safeLoad(action: () => Promise<void>): Promise<void> {
-    if (this.isLoading) {
+  protected async safeLoad(screenState: ScreenState, action: () => Promise<void>): Promise<void> {
+    if (screenState.isLoadingPhase) {
       return; // 防止重复请求
     }
 
-    this.isLoading = true;
-    this.errorMessage = '';
+    screenState.phase = ScreenPhase.LOADING;
 
     try {
       await action();
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      this.errorMessage = message;
+      screenState.setError(0, message);
       Log.error(`[BaseViewModel] 加载失败: ${message}`);
     } finally {
-      this.isLoading = false;
+      if (!screenState.isError) {
+        screenState.phase = ScreenPhase.SUCCESS;
+      }
     }
   }
 
   /**
-   * 重置错误状态
+   * 重置 _initialized 标记（子类可调用以支持重新初始化）
    */
-  clearError(): void {
-    this.errorMessage = '';
-  }
-
-  /**
-   * 重置 ViewModel 到初始状态
-   */
-  reset(): void {
-    this.isLoading = false;
-    this.errorMessage = '';
-    this.isLoaded = false;
+  protected resetInitialized(): void {
     this._initialized = false;
   }
 
@@ -156,4 +133,3 @@ export abstract class BaseViewModel {
     Log.warn(`[BaseViewModel] dispatch 未实现: intent=${intent}`);
   }
 }
-

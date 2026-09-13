@@ -28,7 +28,7 @@
  *
  *   build() {
  *     Column() {
- *       if (this.viewModel.isLoading) {
+ *       if (this.viewModel.state.screenState.isLoadingPhase) {
  *         LoadingProgress();
  *       } else {
  *         // 通过 state 读取数据
@@ -101,7 +101,7 @@ export default class TodoListViewModelV2 extends BaseViewModel {
    * 使用基类提供的 safeLoad 自动管理 loading/error 状态
    */
   async loadTasks(): Promise<void> {
-    await this.safeLoad(async (): Promise<void> => {
+    await this.safeLoad(this.state.screenState, async (): Promise<void> => {
       const tasks: ThingsEntity[] = await this.getTasksUseCase.execute(Contexts.getContext());
       this.reducer.setTasks(this.state, tasks);
     });
@@ -129,6 +129,21 @@ export default class TodoListViewModelV2 extends BaseViewModel {
    */
   addNameSuffix(thingsName: string): void {
     this.reducer.addNameSuffix(this.state, thingsName);
+  }
+
+  /**
+   * 重置错误状态
+   */
+  clearError(): void {
+    this.state.screenState.reset();
+  }
+
+  /**
+   * 重置 ViewModel 到初始状态
+   */
+  reset(): void {
+    this.state.screenState.reset();
+    this.resetInitialized();
   }
 
   // ─── 生命周期 ─────────────────────────────────────────

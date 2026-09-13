@@ -107,7 +107,7 @@ export default class LoginViewModelV2 extends BaseViewModel {
    */
   async doLogin(): Promise<void> {
 
-    await this.safeLoad(async () => {
+    await this.safeLoad(this.state.screenState, async () => {
       const params: LoginParams = {
         userName: this.state.userName,
         password: this.state.password
@@ -132,6 +132,21 @@ export default class LoginViewModelV2 extends BaseViewModel {
    */
   resetState(): void {
     this.reducer.clearFields(this.state);
-    this.errorMessage = '';
+    this.state.screenState.reset();
+  }
+
+  /**
+   * 重置错误状态
+   */
+  clearError(): void {
+    this.state.screenState.reset();
+  }
+
+  /**
+   * 重置 ViewModel 到初始状态
+   */
+  reset(): void {
+    this.state.screenState.reset();
+    this.resetInitialized();
   }
 }

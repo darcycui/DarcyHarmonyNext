@@ -129,7 +129,7 @@ export default class RegisterViewModelV2 extends BaseViewModel {
    * 使用 BaseViewModel.safeLoad 统一管理 loading/error 状态
    */
   async doRegister(): Promise<void> {
-    await this.safeLoad(async (): Promise<void> => {
+    await this.safeLoad(this.state.screenState, async (): Promise<void> => {
       const params: RegisterParams = {
         userName: this.state.userName,
         password: this.state.password,
@@ -152,5 +152,20 @@ export default class RegisterViewModelV2 extends BaseViewModel {
         Log.error(`[RegisterViewModelV2] 注册失败: ${JSON.stringify(result)}`);
       }
     });
+  }
+
+  /**
+   * 重置错误状态
+   */
+  clearError(): void {
+    this.state.screenState.reset();
+  }
+
+  /**
+   * 重置 ViewModel 到初始状态
+   */
+  reset(): void {
+    this.state.screenState.reset();
+    this.resetInitialized();
   }
 }
