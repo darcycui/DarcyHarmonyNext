@@ -1,5 +1,6 @@
 import { Log, FileUtil } from "static_library_common";
 import { JSON } from "@kit.ArkTS";
+import ErrorUtil from "static_library_common/src/main/ets/utils/ErrorUtil";
 
 export class HttpCertHelper {
 
@@ -15,8 +16,7 @@ export class HttpCertHelper {
         FileUtil.saveByteArrayToFile(value, HttpCertHelper.certPath);
       });
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : JSON.stringify(error);
-      Log.error(`Https 自定义证书读取失败=${errorMsg}`)
+      Log.error(`Https 自定义证书读取失败=${ErrorUtil.getErrorMessage(error)}`)
     }
   }
 

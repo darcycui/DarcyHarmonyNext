@@ -20,7 +20,7 @@ import { DHExchangeUtil } from 'library_crypto';
 import { DHExchangeResponse } from 'library_network';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { ServerDHExchangeRepository } from '../repository/ServerDHExchangeRepository';
-import { DHSecretManager } from '../../storage/memory/DHSecretManager';
+import { ServerDHSecretManager } from 'library_crypto/src/main/ets/storage/memory/ServerDHSecretManager';
 
 /**
  * 服务端 DH 密钥交换用例入参
@@ -96,6 +96,6 @@ export class ServerDHExchangeUseCase extends BaseUseCase<ServerDHExchangeParams,
 
     // 8. 将共享密钥编码为 hexStr 并存储到 DHSecretManager
     const sharedSecretBase64: string = HexUtil.bytesToHex(sharedSecret);
-    await DHSecretManager.setDHSecret(sharedSecretBase64);
+    await ServerDHSecretManager.setDHSecret(sharedSecretBase64);
   }
 }

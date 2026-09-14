@@ -4,7 +4,11 @@
 // ============================================================
 
 // ---------- 加解密工具 ----------
-export { CryptoUtil } from './src/main/ets/utils/CryptoUtil'
+export { TransformCryptoUtil } from './src/main/ets/utils/TransformCryptoUtil'
 
 // ---------- DH 密钥交换工具 ----------
 export { DHExchangeUtil } from './src/main/ets/utils/DHExchangeUtil'
+
+export { ServerDHSecretManager } from './src/main/ets/storage/memory/ServerDHSecretManager'
+
+export { AADs } from './src/main/ets/aead/AADs'

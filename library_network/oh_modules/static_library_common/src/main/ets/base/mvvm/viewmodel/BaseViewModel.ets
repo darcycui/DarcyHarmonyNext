@@ -1,3 +1,4 @@
+import ErrorUtil from "../../../utils/ErrorUtil";
 import { Log } from "../../../utils/Log";
 import ScreenState, { ScreenPhase } from "../state/substate/ScreenState";
 
@@ -100,7 +101,7 @@ export abstract class BaseViewModel {
     try {
       await action();
     } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
+      const message = ErrorUtil.getErrorMessage(error);
       screenState.setError(0, message);
       Log.error(`[BaseViewModel] 加载失败: ${message}`);
     } finally {

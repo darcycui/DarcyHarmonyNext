@@ -1,16 +1,15 @@
 import { http } from '@kit.NetworkKit';
-import { Log } from 'static_library_common';
 import { Available } from '@kit.BasicServicesKit';
-import ErrorUtil from 'static_library_common/src/main/ets/utils/ErrorUtil';
 import { IOnRequest } from '../request/IOnRequest';
 import { LogRequestImpl } from '../request/impl/LogRequestImpl';
 import { TokenRequestImpl } from '../request/impl/TokenRequestImpl';
 import { EncryptRequestImpl } from '../request/impl/EncryptRequestImpl';
+import { Log } from 'static_library_common';
 
-const TAG = 'LogRequestInterceptor';
+const TAG = 'RequestInterceptor';
 
 /**
- * 日志拦截器 - 打印请求和响应日志
+ * 日志拦截器 - 打印请求日志
  */
 @Available({ minApiVersion: 'OpenHarmony 22' })
 export class RequestInterceptor implements http.HttpInterceptor {
@@ -22,7 +21,12 @@ export class RequestInterceptor implements http.HttpInterceptor {
   ];
 
   interceptorHandle(reqContext: http.HttpRequestContext, rspContext: http.HttpResponse): Promise<http.ChainContinue> {
-    this.onRequests.forEach(item => item.handleRequest(reqContext, rspContext))
+    reqContext = this.onRequests.reduce((icc, item) => {
+      // Log.info(`[${TAG}] [Chain] before: ${JSON.stringify(icc)}`);
+      const result = item.handleRequest(icc)
+      // Log.info(`[${TAG}] [Chain] after: ${JSON.stringify(result)}`);
+      return result
+    }, reqContext);
     return Promise.resolve(true);
   }
 }

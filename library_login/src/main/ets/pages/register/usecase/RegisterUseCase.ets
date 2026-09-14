@@ -24,6 +24,7 @@
 import { RegisterResponse } from 'library_network';
 import { BaseUseCase } from 'static_library_common';
 import { RegisterRepository } from '../repository/RegisterRepository';
+import { StringResponse } from 'library_network';
 
 /**
  * 注册用例入参
@@ -87,6 +88,51 @@ export class RegisterUseCase extends BaseUseCase<RegisterParams, RegisterRespons
       params.phone,
       params.nickname,
       params.email
+    );
+  }
+}
+
+/**
+ * 删除用户用例入参
+ */
+export interface DeleteUserParams {
+  /** 用户ID */
+  userId: number;
+  /** 用户名 */
+  userName: string;
+  /** 手机号 */
+  phone: string;
+}
+
+/**
+ * 执行删除用户用例
+ * 入参：DeleteUserParams
+ * 出参：StringResponse
+ */
+export class DeleteUserUseCase extends BaseUseCase<DeleteUserParams, StringResponse> {
+  private repository: RegisterRepository;
+
+  constructor(repository: RegisterRepository) {
+    super();
+    this.repository = repository;
+  }
+
+  async execute(params: DeleteUserParams): Promise<StringResponse> {
+    // 校验：用户名不能为空
+    if (!params.userName) {
+      throw new Error('请输入用户名');
+    }
+
+    // 校验：手机号不能为空
+    if (!params.phone) {
+      throw new Error('请输入手机号');
+    }
+
+    // 委托 Repository 执行删除
+    return this.repository.doDeleteUser(
+      params.userId,
+      params.userName,
+      params.phone
     );
   }
 }

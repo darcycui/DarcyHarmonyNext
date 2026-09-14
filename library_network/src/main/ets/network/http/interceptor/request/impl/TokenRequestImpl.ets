@@ -12,8 +12,7 @@ const TAG = 'LogRequestInterceptor';
  */
 @Available({ minApiVersion: 'OpenHarmony 22' })
 export class TokenRequestImpl implements IOnRequest {
-  handleRequest(reqContext: http.HttpRequestContext, rspContext: http.HttpResponse): void {
-    Log.error(`[${TAG}] >>>>>>>>>>>> interceptorHandle 被调用 <<<<<<<<<<<<`);
+  handleRequest(reqContext: http.HttpRequestContext): http.HttpRequestContext {
     const token = TokenManager.getTokenSync();
     Log.log(`[${TAG}] token=${token}`);
     if (token) {
@@ -22,11 +21,12 @@ export class TokenRequestImpl implements IOnRequest {
         reqContext.header = {};
       }
       // 添加 token 到请求头
-      reqContext.header['Authorization'] = `Bearer ${token}`;
+      reqContext.header['Authorization'] = `${token}`;
       Log.info(`[${TAG}] 添加 token 到 Authorization header`);
     } else {
       Log.warn(`[${TAG}] token 为空 跳过`);
     }
+    return reqContext;
   }
 }
 

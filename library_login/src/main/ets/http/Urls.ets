@@ -5,6 +5,7 @@ export class Urls {
   static LOGOUT_URL = `${HttpHelper.BASE_HTTP_URL}/api/logout`
   static REGISTER_URL = `${HttpHelper.BASE_HTTP_URL}/api/register`
   static DH_EXCHANGE_URL = `${HttpHelper.BASE_HTTP_URL}/api/transport/dh/exchange`
+  static DELETE_USER_URL = `${HttpHelper.BASE_HTTP_URL}/api/users/delete`
 
   static SEARCH_FRIEND_URL = `${HttpHelper.BASE_HTTP_URL}/api/users/query/phone`
   static APPLY_FRIEND_URL = `${HttpHelper.BASE_HTTP_URL}/api/friend-requests/create`

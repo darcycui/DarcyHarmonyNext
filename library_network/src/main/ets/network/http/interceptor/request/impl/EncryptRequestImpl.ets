@@ -1,7 +1,9 @@
 import { http } from '@kit.NetworkKit';
-import { Log } from 'static_library_common';
+import { ArrayUtil, HexUtil, Log } from 'static_library_common';
 import { Available } from '@kit.BasicServicesKit';
 import { IOnRequest } from '../IOnRequest';
+import { AADs, ServerDHSecretManager, TransformCryptoUtil } from 'library_crypto';
+import { UrlUtil } from '../../../../../utils/UrlUtil';
 
 const TAG = 'EncryptRequestInterceptor';
 
@@ -10,12 +12,25 @@ const TAG = 'EncryptRequestInterceptor';
  */
 @Available({ minApiVersion: 'OpenHarmony 22' })
 export class EncryptRequestImpl implements IOnRequest {
-  handleRequest(reqContext: http.HttpRequestContext, rspContext: http.HttpResponse): void {
+  handleRequest(reqContext: http.HttpRequestContext): http.HttpRequestContext {
     if (typeof reqContext.body === 'string') {
-      Log.warn(`[${TAG}] ==>Encryped Body: ${reqContext.body}`);
+      if (ServerDHSecretManager.isSecretReady()) {
+        // 对请求体进行加密
+        const cipherBody = TransformCryptoUtil.encryptSync(
+          ArrayUtil.stringToBytes(reqContext.body),
+          HexUtil.hexToBytes(ServerDHSecretManager.getDHSecretSync()),
+          TransformCryptoUtil.getIV(),
+          ArrayUtil.stringToBytes(AADs.AAD_PREFIX_POST + UrlUtil.stripUrlToPath(reqContext.url))
+        )
+        reqContext.body = HexUtil.bytesToHex(cipherBody)
+        Log.warn(`[${TAG}] ==>Encryped Body: ${reqContext.body}`);
+      } else {
+        Log.warn(`[${TAG}] ==>Encryped Body: Server DH密钥未准备好 不加密`)
+      }
     } else {
       Log.warn(`[${TAG}] ==>Encryped Body: 请求体是非文本类型 不加密`)
     }
+    return reqContext;
   }
 }
 

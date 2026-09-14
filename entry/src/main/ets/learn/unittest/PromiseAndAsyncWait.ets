@@ -1,4 +1,5 @@
 import { Log } from 'static_library_common';
+import ErrorUtil from 'static_library_common/src/main/ets/utils/ErrorUtil';
 
 export function test_promise_func() {
   const promise: Promise<number> = new Promise((resolve, reject) => {
@@ -18,7 +19,7 @@ export function test_promise_func() {
   }, (reason: string) => {
     Log.log(`Promise rejected with reason: ${reason}`);
   }).catch((error: Error) => {
-    Log.error(`Promise rejected with error: ${error.message}`);
+    Log.error(`Promise rejected with error: ${ErrorUtil.getErrorMessage(error)}`);
   });
   Log.log(`promise end`);
 }

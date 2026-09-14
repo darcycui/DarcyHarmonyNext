@@ -164,8 +164,10 @@ ohpm install
 - 日志一律用 `static_library_common` 的 `Log`（应用侧）/ `HiLog`（系统侧，hdc 排查）；`InitCommon.init()` 必须在 AbilityStage 或 Ability 的 `onCreate` 调用一次，否则 Context/日志未初始化。
 - 注释用中文；`TODO`/`FIXME` 标注待办。资源文案集中在 `string.json`，页面用 `$r('app.string.xxx')` 引用，少写死字符串。
 - 每个库模块必须保留 `Index.ets` barrel 导出。
-- 状态管理示例：新示例优先参照同系列现有页面（V1 在 `pages/entry/status/`，V2 在 `pages/entry/statusv2/`）。
+- 状态管理示例：新示例优先参照同系列现有页面 V2 在 `pages/entry/statusv2/`，V1 在 `pages/entry/status/`已废弃，不要使用。
 - 学习笔记在 `HarmonyNext/`（ArkTS、UIAbility、组件、MVVM、多线程、数据持久化、HAR/HSP、UDMF、ExtensionAbility、HDC 命令等），改相关代码前先查对应笔记。
+- Http/HTTPS 请求优先使用 `library_network` 的 HttpHelper 工具类，参考 `RegisterRepository`。
+- 响应体为json类型为文本请求，根据url参数可以区分，不需要在 HttpHelper 中添加新的方法。
 
 ### 已知坑
 

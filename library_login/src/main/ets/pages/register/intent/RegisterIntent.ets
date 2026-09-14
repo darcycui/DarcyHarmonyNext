@@ -82,3 +82,9 @@ export class UpdateEmailIntent extends RegisterIntent {
     this.value = value
   }
 }
+
+/**
+ * 删除用户 Intent
+ */
+export class DeleteUserIntent extends RegisterIntent {
+}

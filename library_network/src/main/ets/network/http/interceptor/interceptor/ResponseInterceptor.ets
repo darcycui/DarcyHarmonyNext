@@ -7,24 +7,29 @@ import { LogResponseImpl } from '../response/impl/LogResponseImpl';
 import { NeedAuthResponseImpl } from '../response/impl/NeedAuthResponseImpl';
 import { DecryptResponseImpl } from '../response/impl/DecryptResponseImpl';
 
-const TAG = 'LogResponseInterceptor';
+const TAG = 'ResponseInterceptor';
 
 // ==================== 日志拦截器 ====================
 
 /**
- * 日志拦截器 - 打印请求和响应日志
+ * 日志拦截器 - 打印响应日志
  */
 @Available({ minApiVersion: 'OpenHarmony 22' })
 export class ResponseInterceptor implements http.HttpInterceptor {
   interceptorType: http.InterceptorType = http.InterceptorType.FINAL_RESPONSE;
-  private readonly onRequests: IOnResponse[] = [
+  private readonly onResponses: IOnResponse[] = [
+    new DecryptResponseImpl(),
     new LogResponseImpl(),
     new NeedAuthResponseImpl(),
-    new DecryptResponseImpl(),
   ];
 
   interceptorHandle(reqContext: http.HttpRequestContext, rspContext: http.HttpResponse): Promise<http.ChainContinue> {
-    this.onRequests.forEach(item => item.handleResponse(reqContext, rspContext))
+    rspContext = this.onResponses.reduce((before, after) => {
+      // Log.info(`[${TAG}] [Chain] before: ${JSON.stringify(before)}`);
+      const result = after.handleResponse(reqContext, before);
+      // Log.info(`[${TAG}] [Chain] after: ${JSON.stringify(result)}`);
+      return result;
+    }, rspContext);
     return Promise.resolve(true);
   }
 }

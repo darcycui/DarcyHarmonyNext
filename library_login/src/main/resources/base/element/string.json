@@ -111,6 +111,10 @@
     {
       "name": "login_failed",
       "value": "登录失败"
+    },
+    {
+      "name": "delete_user",
+      "value": "Delete User"
     }
   ]
 }

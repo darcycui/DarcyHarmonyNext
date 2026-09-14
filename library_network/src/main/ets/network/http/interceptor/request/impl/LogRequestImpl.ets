@@ -10,7 +10,7 @@ const TAG = 'LogRequestInterceptor';
  */
 @Available({ minApiVersion: 'OpenHarmony 22' })
 export class LogRequestImpl implements IOnRequest {
-  handleRequest(reqContext: http.HttpRequestContext, rspContext: http.HttpResponse): void {
+  handleRequest(reqContext: http.HttpRequestContext): http.HttpRequestContext {
     Log.info(`[${TAG}] ==========> REQUEST ==========>`);
     Log.info(`[${TAG}] ==>URL: ${reqContext.url}`);
     // Log.info(`[${TAG}] Method: ${reqContext.method}`);
@@ -20,6 +20,7 @@ export class LogRequestImpl implements IOnRequest {
     } else {
       Log.warn(`[${TAG}] ==>Body: 请求体是非文本类型 不打印`)
     }
+    return reqContext;
   }
 }
 

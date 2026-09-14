@@ -10,8 +10,7 @@ const TAG = 'LogRequestInterceptor';
  */
 @Available({ minApiVersion: 'OpenHarmony 22' })
 export class LogResponseImpl implements IOnResponse {
-  handleResponse(reqContext: http.HttpRequestContext, rspContext: http.HttpResponse): void {
-    Log.info(`[${TAG}] <========== RESPONSE <==========`);
+  handleResponse(reqContext: http.HttpRequestContext, rspContext: http.HttpResponse): http.HttpResponse {
     Log.info(`[${TAG}] <==ResponseCode: ${rspContext.responseCode}`);
     Log.warn(`[${TAG}] <==Header: ${JSON.stringify(rspContext.header)}`);
     if (rspContext.resultType === http.HttpDataType.STRING) {
@@ -19,6 +18,7 @@ export class LogResponseImpl implements IOnResponse {
     } else {
       Log.warn(`[${TAG}] <==Body: 请求体是非文本类型 不解密`)
     }
+    return rspContext;
   }
 }
 

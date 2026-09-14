@@ -7,20 +7,22 @@ import { JsonParser } from '../parser/JsonParser';
 import { HttpCertHelper } from './ssl/HttpCertHelper';
 import { Available } from '@kit.BasicServicesKit';
 import { HttpInterceptorManager } from './interceptor/HttpInterceptorManager';
+import ErrorUtil from 'static_library_common/src/main/ets/utils/ErrorUtil';
 
-@Available({ minApiVersion: 'OpenHarmony 22' })
 export class HttpHelper {
   private static readonly BASE_HTTP_URL_TEST: string = "http://192.168.0.110:7443"
   private static readonly BASE_HTTP_URL_RELEASE: string = "https://darcycui.com.cn"
   static readonly BASE_HTTP_URL: string = HttpHelper.BASE_HTTP_URL_TEST
   // static readonly BASE_HTTP_URL: string = HttpHelper.BASE_HTTP_URL_RELEASE
 
+  @Available({ minApiVersion: 'OpenHarmony 22' })
   private static readonly interceptorChain = HttpInterceptorManager.createDefaultInterceptorChain();
 
   /**
    * http get请求
    * https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/http-request-V5
    */
+  @Available({ minApiVersion: 'OpenHarmony 22' })
   static async doGet<T>(
     httpsUrl: string,
     onSuccess: (data: HttpResultEntity<T>) => void,
@@ -30,7 +32,11 @@ export class HttpHelper {
     Log.log(`request ==> doGet: ${httpsUrl}`)
     let httpRequest = http.createHttp()
 
-    HttpHelper.interceptorChain.apply(httpRequest);
+    try {
+      HttpHelper.interceptorChain.apply(httpRequest);
+    } catch (error) {
+      ErrorUtil.logError(error)
+    }
 
     httpRequest.on("headersReceive", (header: object) => {
       // Log.warn("request header ==>" + JSON.stringify(header));
@@ -92,6 +98,7 @@ export class HttpHelper {
    * http post请求——JSON 请求体
    * 结构参考 doGet，请求方式为 POST，body 以 JSON 字符串形式放入请求体
    */
+  @Available({ minApiVersion: 'OpenHarmony 22' })
   static async doPost<T>(
     httpsUrl: string,
     body: string,
@@ -103,7 +110,11 @@ export class HttpHelper {
     Log.log(`body: ${body}`)
     let httpRequest = http.createHttp()
 
-    HttpHelper.interceptorChain.apply(httpRequest);
+    try {
+      HttpHelper.interceptorChain.apply(httpRequest);
+    } catch (error) {
+      ErrorUtil.logError(error)
+    }
 
     httpRequest.on("headersReceive", (header: object) => {
       // Log.warn("request header:" + JSON.stringify(header))
@@ -152,4 +163,5 @@ export class HttpHelper {
       }
     )
   }
+
 }

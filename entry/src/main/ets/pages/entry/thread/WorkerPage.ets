@@ -1,6 +1,7 @@
 import { Context } from '@kit.AbilityKit';
 import { ErrorEvent, MessageEvents, process, worker } from '@kit.ArkTS';
 import { Log } from 'static_library_common';
+import ErrorUtil from 'static_library_common/src/main/ets/utils/ErrorUtil';
 
 // 宿主线程(这里是主线程) 创建worker
 // const workerInstance: worker.ThreadWorker = new worker.ThreadWorker('./src/main/ets/workers/AddWorker.ets');
@@ -42,7 +43,7 @@ function workerFunc(workerInstance: worker.ThreadWorker, context: Context, callb
     callback(event.data.valueOf() as number)
   }
   workerInstance.onerror = (error: ErrorEvent) => {
-    Log.error(`WorkerPage onerror error=${error.type} ${error.message}`);
+    Log.error(`WorkerPage onerror error=${error.type} ${ErrorUtil.getErrorMessage(error)}`);
   }
   let date = Date.now()
   Log.log(`WorkerPage 发送消息 ${date}`)

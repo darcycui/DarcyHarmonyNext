@@ -28,7 +28,7 @@ import { common } from '@kit.AbilityKit';
 import { BaseViewModel, Log } from 'static_library_common';
 import RegisterState from '../state/RegisterState';
 import RegisterReducer from '../reducer/RegisterReducer';
-import { RegisterParams, RegisterUseCase } from '../usecase/RegisterUseCase';
+import { RegisterParams, RegisterUseCase, DeleteUserUseCase, DeleteUserParams } from '../usecase/RegisterUseCase';
 import { RegisterRepository } from '../repository/RegisterRepository';
 import {
   DoRegisterIntent,
@@ -37,7 +37,8 @@ import {
   UpdateNicknameIntent,
   UpdatePhoneIntent,
   UpdateRegisterPasswordIntent,
-  UpdateRegisterUserNameIntent
+  UpdateRegisterUserNameIntent,
+  DeleteUserIntent
 } from '../intent/RegisterIntent';
 import { DarcyIMDatabase, IdentityKeyDao,
   IdentityKeyEntity,
@@ -65,6 +66,8 @@ export default class RegisterViewModelV2 extends BaseViewModel {
 
   //  UseCase 
   private registerUseCase: RegisterUseCase = new RegisterUseCase(new RegisterRepository());
+  /** 删除用户用例 */
+  private deleteUserUseCase: DeleteUserUseCase = new DeleteUserUseCase(new RegisterRepository());
   /** DH 密钥交换用例 */
   private serverDHExchangeUseCase: ServerDHExchangeUseCase = new ServerDHExchangeUseCase(new ServerDHExchangeRepository());
   private darcyImDatabase: DarcyIMDatabase = DarcyIMDatabase.getInstance();
@@ -90,6 +93,8 @@ export default class RegisterViewModelV2 extends BaseViewModel {
   async dispatch(intent: RegisterIntent): Promise<void> {
     if (intent instanceof DoRegisterIntent) {
       await this.doRegister()
+    } else if (intent instanceof DeleteUserIntent) {
+      await this.doDeleteUser()
     } else if (intent instanceof UpdateRegisterUserNameIntent) {
       this.updateUserName(intent.value)
     } else if (intent instanceof UpdateRegisterPasswordIntent) {
@@ -170,6 +175,29 @@ export default class RegisterViewModelV2 extends BaseViewModel {
         await this.exchangeDHPublicKey(result.id);
       } else {
         Log.error(`[RegisterViewModelV2] 注册失败: ${JSON.stringify(result)}`);
+      }
+    });
+  }
+
+  /**
+   * 执行删除用户
+   * 使用 BaseViewModel.safeLoad 统一管理 loading/error 状态
+   */
+  async doDeleteUser(): Promise<void> {
+    await this.safeLoad(this.state.screenState, async (): Promise<void> => {
+      const user = await UserManager.getUser();
+      const params: DeleteUserParams = {
+        userId: user.id,
+        userName: this.state.userName,
+        phone: this.state.phone
+      };
+      Log.log(`RegisterViewModelV2 doDeleteUser: ${JSON.stringify(params)}`);
+      const result = await this.deleteUserUseCase.execute(params);
+      if (result) {
+        Log.info(`[RegisterViewModelV2] 删除用户成功: ${JSON.stringify(result)}`);
+        await UserManager.clearUser();
+      } else {
+        Log.error(`[RegisterViewModelV2] 删除用户失败: ${JSON.stringify(result)}`);
       }
     });
   }

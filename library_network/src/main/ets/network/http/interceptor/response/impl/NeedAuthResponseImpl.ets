@@ -12,7 +12,7 @@ const TAG = 'NeedAuthResponseImpl';
  */
 @Available({ minApiVersion: 'OpenHarmony 22' })
 export class NeedAuthResponseImpl implements IOnResponse {
-  handleResponse(reqContext: http.HttpRequestContext, rspContext: http.HttpResponse): void {
+  handleResponse(reqContext: http.HttpRequestContext, rspContext: http.HttpResponse): http.HttpResponse {
     Log.info(`[${TAG}] response code = ${rspContext.responseCode}`);
 
     // 处理错误码
@@ -21,6 +21,7 @@ export class NeedAuthResponseImpl implements IOnResponse {
     } else if (rspContext.responseCode === 403) {
       Log.error(`[${TAG}] 403 Forbidden`);
     }
+    return rspContext;
   }
 }
 

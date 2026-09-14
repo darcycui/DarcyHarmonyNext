@@ -2,6 +2,7 @@ import { common } from '@kit.AbilityKit';
 import { distributedKVStore } from '@kit.ArkData';
 import { Log } from 'static_library_common';
 import { BusinessError } from '@kit.BasicServicesKit';
+import ErrorUtil from 'static_library_common/src/main/ets/utils/ErrorUtil';
 
 const KEY_ = 'key_test_string';
 const VALUE_ = 'value_test_string';
@@ -37,10 +38,10 @@ struct KeyValuePage {
       this.kvManager.getKVStore<distributedKVStore.SingleKVStore>('storeId', options,
         (err, store: distributedKVStore.SingleKVStore) => {
           if (err) {
-            console.error(`Failed to get KVStore: Code:${err.code},message:${err.message}`);
+            Log.error(`Failed to get KVStore: Code:${err.code},message:${err.message}`);
             return;
           }
-          console.info('Succeeded in getting KVStore.');
+          Log.info('Succeeded in getting KVStore.');
           this.kvStore = store;
           // 请确保获取到键值数据库实例后，再进行相关数据操作
         });
@@ -121,14 +122,14 @@ function closeKV(kvManager: distributedKVStore.KVManager, kvStore: distributedKV
     kvStore = undefined;
     kvManager.closeKVStore('appId', 'storeId', (err: BusinessError) => {
       if (err) {
-        console.error(`Failed to close KVStore.code is ${err.code},message is ${err.message}`);
+        Log.error(`Failed to close KVStore.code is ${err.code},message is ${err.message}`);
         return;
       }
-      console.info('Succeeded in closing KVStore');
+      Log.info('Succeeded in closing KVStore');
     });
   } catch (e) {
     let error = e as BusinessError;
-    console.error(`An unexpected error occurred. Code:${error.code},message:${error.message}`);
+    Log.error(`An unexpected error occurred. Code:${error.code},message:${ErrorUtil.getErrorMessage(error)}`);
   }
 }
 
@@ -136,14 +137,14 @@ function deleteKV(kvStore: distributedKVStore.SingleKVStore) {
   try {
     kvStore.delete(KEY_, (err) => {
       if (err !== undefined) {
-        console.error(`Failed to delete data. Code:${err.code},message:${err.message}`);
+        Log.error(`Failed to delete data. Code:${err.code},message:${err.message}`);
         return;
       }
-      console.info('Succeeded in deleting data.');
+      Log.info('Succeeded in deleting data.');
     });
   } catch (e) {
     let error = e as BusinessError;
-    console.error(`Failed to delete data. Code:${error.code},message:${error.message}`);
+    Log.error(`Failed to delete data. Code:${error.code},message:${ErrorUtil.getErrorMessage(error)}`);
   }
 }
 
@@ -151,14 +152,14 @@ function getKV(kvStore: distributedKVStore.SingleKVStore) {
   try {
     kvStore.get(KEY_, (err, data) => {
       if (err != undefined) {
-        console.error(`Failed to get data. Code:${err.code},message:${err.message}`);
+        Log.error(`Failed to get data. Code:${err.code},message:${ErrorUtil.getErrorMessage(err)}`);
         return;
       }
-      console.info(`Succeeded in getting data. Data:${data}`);
+      Log.info(`Succeeded in getting data. Data:${data}`);
     });
   } catch (e) {
     let error = e as BusinessError;
-    console.error(`Failed to get data. Code:${error.code},message:${error.message}`);
+    Log.error(`Failed to get data. Code:${error.code},message:${ErrorUtil.getErrorMessage(error)}`);
   }
 }
 
@@ -166,13 +167,13 @@ function putKV(kvStore: distributedKVStore.SingleKVStore) {
   try {
     kvStore.put(KEY_, VALUE_, (err) => {
       if (err !== undefined) {
-        console.error(`Failed to put data. Code:${err.code},message:${err.message}`);
+        Log.error(`Failed to put data. Code:${err.code},message:${ErrorUtil.getErrorMessage(err)}`);
         return;
       }
-      console.info('Succeeded in putting data.');
+      Log.info('Succeeded in putting data.');
     });
   } catch (e) {
     let error = e as BusinessError;
-    console.error(`An unexpected error occurred. Code:${error.code},message:${error.message}`);
+    Log.error(`An unexpected error occurred. Code:${error.code},message:${ErrorUtil.getErrorMessage(error)}`);
   }
 }

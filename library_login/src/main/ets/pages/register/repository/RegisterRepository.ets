@@ -14,11 +14,14 @@ import {
   HttpErrorEntity,
   HttpResultEntity,
   RegisterRequestDTO,
-  RegisterResponse
+  RegisterResponse,
+  DeleteUserRequestDTO,
+  StringResponse
 } from 'library_network';
 import { Urls } from '../../../http/Urls';
 import { ServerDHExchangeUseCase } from '../../../dh/usecase/ServerDHExchangeUseCase';
 import { ServerDHExchangeRepository } from '../../../dh/repository/ServerDHExchangeRepository';
+import { Available } from '@kit.BasicServicesKit';
 
 /**
  * 注册响应数据容器——用于在异步回调间安全传递数据
@@ -26,6 +29,13 @@ import { ServerDHExchangeRepository } from '../../../dh/repository/ServerDHExcha
 class RegisterResponseHolder extends ResponseHolder<RegisterResponse> {
 }
 
+/**
+ * 删除用户响应数据容器——用于在异步回调间安全传递数据
+ */
+class DeleteUserResponseHolder extends ResponseHolder<StringResponse> {
+}
+
+@Available({ minApiVersion: 'OpenHarmony 22' })
 export class RegisterRepository extends BaseRepository {
   /**
    * 执行注册请求
@@ -90,6 +100,59 @@ export class RegisterRepository extends BaseRepository {
       }
 
       return holder.data ?? new RegisterResponse();
+    });
+  }
+
+  /**
+   * 执行删除用户请求
+   *
+   * @param userId - 用户ID
+   * @param userName - 用户名
+   * @param phone - 手机号
+   * @returns 删除结果
+   */
+  async doDeleteUser(
+    userId: number,
+    userName: string,
+    phone: string
+  ): Promise<StringResponse> {
+    return this.safeCall(async () => {
+      const dto: DeleteUserRequestDTO = new DeleteUserRequestDTO({
+        userId: userId,
+        userName: userName,
+        phone: phone
+      });
+
+      const url: string = Urls.DELETE_USER_URL;
+      const body: string = JSON.stringify(dto);
+
+      const holder: DeleteUserResponseHolder = new DeleteUserResponseHolder();
+
+      await new Promise<void>((resolve: () => void): void => {
+        HttpHelper.doPost<StringResponse>(
+          url,
+          body,
+          (data: HttpResultEntity<StringResponse>): void => {
+            if (data.result != null && data.result != undefined && data.error_code === 0) {
+              holder.data = data.result
+            } else {
+              holder.errorMessage = data.reason || '删除用户失败';
+            }
+            resolve();
+          },
+          (error: HttpResultEntity<HttpErrorEntity>): void => {
+            holder.errorMessage = error.result?.message || '网络请求失败';
+            resolve();
+          },
+          HttpCertHelper.getCertPath()
+        );
+      });
+
+      if (holder.errorMessage) {
+        throw new Error(holder.errorMessage);
+      }
+
+      return holder.data ?? new StringResponse();
     });
   }
 }

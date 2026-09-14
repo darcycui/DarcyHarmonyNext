@@ -21,7 +21,8 @@ import {
   UpdateRegisterPasswordIntent,
   UpdatePhoneIntent,
   UpdateNicknameIntent,
-  UpdateEmailIntent
+  UpdateEmailIntent,
+  DeleteUserIntent
 } from './intent/RegisterIntent';
 
 @Builder
@@ -169,6 +170,15 @@ struct RegisterPage {
           .onClick(async () => {
             // 通过 dispatch 发送注册 Intent（MVI 统一入口）
             await this.viewModel.dispatch(new DoRegisterIntent());
+          })
+
+        // ── 删除用户按钮 ──
+        Button($r("app.string.delete_user"))
+          .width('100%')
+          .margin({ top: 10 })
+          .backgroundColor(Color.Red)
+          .onClick(async () => {
+            await this.viewModel.dispatch(new DeleteUserIntent());
           })
 
         // ── 加载中：显示 LoadingProgress ──

@@ -1,14 +1,14 @@
 import { ArkTSUtils } from '@kit.ArkTS';
 import { Log } from 'static_library_common'
 
-export class DHSecretManager {
+export class ServerDHSecretManager {
   private static dhSecret: string = ''
   private static lock: ArkTSUtils.locks.AsyncLock = new ArkTSUtils.locks.AsyncLock()
 
   static async getDHSecret(): Promise<string> {
     try {
-      return await DHSecretManager.lock.lockAsync(() => {
-        return DHSecretManager.dhSecret
+      return await ServerDHSecretManager.lock.lockAsync(() => {
+        return ServerDHSecretManager.dhSecret
       })
     } catch (error) {
       Log.error(`DHSecretManager getDHSecret 获取密钥异常: ${JSON.stringify(error)}`)
@@ -16,10 +16,14 @@ export class DHSecretManager {
     }
   }
 
+  static getDHSecretSync(): string {
+    return ServerDHSecretManager.dhSecret
+  }
+
   static async setDHSecret(secret: string): Promise<void> {
     try {
-      await DHSecretManager.lock.lockAsync(() => {
-        DHSecretManager.dhSecret = secret
+      await ServerDHSecretManager.lock.lockAsync(() => {
+        ServerDHSecretManager.dhSecret = secret
       })
     } catch (error) {
       Log.error(`DHSecretManager setDHSecret 设置密钥异常: ${JSON.stringify(error)}`)
@@ -27,6 +31,10 @@ export class DHSecretManager {
   }
 
   static async clearDHSecret(): Promise<void> {
-    await DHSecretManager.setDHSecret('')
+    await ServerDHSecretManager.setDHSecret('')
+  }
+
+  static isSecretReady(): boolean {
+    return ServerDHSecretManager.dhSecret !== ''
   }
 }
