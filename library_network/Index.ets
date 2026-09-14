@@ -59,23 +59,8 @@ export { self, other, WSS_URL, connectWS, sendWS, closeWS } from './src/main/ets
 export { startHeartbeat, stopHeartbeat } from './src/main/ets/network/websocket/Heartbeat'
 
 // ---------- Utils ----------
-export { Base64Util, StringUnit8ArrayUtil } from 'static_library_common'
-
 // ---------- Models ----------
 export { MessageBean } from './src/main/ets/models/MessageBean'
 
-// ---------- Memory ----------
-export { DHSecretManager } from './src/main/ets/memory/DHSecretManager'
-
 // ---------- SSL ----------
 export { HttpCertHelper } from './src/main/ets/network/http/ssl/HttpCertHelper'
-
-// ---------- Database (Entities) ----------
-export { IdentityKeyEntity } from './src/main/ets/storage/database/tables/IdentityKeyEntity'
-export { SignedPreKeyEntity } from './src/main/ets/storage/database/tables/SignedPreKeyEntity'
-export { OneTimePreKeyEntity } from './src/main/ets/storage/database/tables/OneTimePreKeyEntity'
-
-// ---------- Database (DAO) ----------
-export { IdentityKeyDao } from './src/main/ets/storage/database/dao/IdentityKeyDao'
-export { SignedPreKeyDao } from './src/main/ets/storage/database/dao/SignedPreKeyDao'
-export { OneTimePreKeyDao } from './src/main/ets/storage/database/dao/OneTimePreKeyDao'

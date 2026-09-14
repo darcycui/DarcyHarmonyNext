@@ -99,6 +99,18 @@
     {
       "name": "login_title",
       "value": "Login"
+    },
+    {
+      "name": "login_success",
+      "value": "Login Success"
+    },
+    {
+      "name": "user_phone_placeholder",
+      "value": "Enter phone number"
+    },
+    {
+      "name": "login_failed",
+      "value": "登录失败"
     }
   ]
 }

@@ -6,8 +6,11 @@ import { HttpResultEntity } from '../models/HttpResultEntity';
 import { JsonParser } from '../parser/JsonParser';
 import { HttpCertHelper } from './ssl/HttpCertHelper';
 
-// export const BASE_JUHE_URL = "https://apis.juhe.cn"
-export const BASE_HTTP_URL = "https://darcycui.com.cn"
+const BASE_HTTP_URL_TEST = "http://192.168.0.110:7443"
+const BASE_HTTP_URL_RELEASE = "https://darcycui.com.cn"
+
+export const BASE_HTTP_URL = BASE_HTTP_URL_TEST
+// export const BASE_HTTP_URL = BASE_HTTP_URL_RELEASE
 
 /**
  * http get请求

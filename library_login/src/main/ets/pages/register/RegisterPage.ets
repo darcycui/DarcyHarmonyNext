@@ -47,8 +47,6 @@ struct RegisterPage {
    * 页面初始化生命周期
    */
   aboutToAppear(): void {
-    // 传递 context 给 ViewModel，用于初始化数据库 DAO
-    this.viewModel.initDaos(this.context);
   }
 
   build() {

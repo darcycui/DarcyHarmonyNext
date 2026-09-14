@@ -28,8 +28,6 @@ export { ArrayUtil } from './src/main/ets/utils/ArrayUtil'
 export { HashUtil } from './src/main/ets/utils/HashUtil'
 export { HexUtil } from './src/main/ets/utils/HexUtil'
 export { Base64Util } from './src/main/ets/utils/Base64Util'
-export { StringUnit8ArrayUtil } from './src/main/ets/utils/StringUnit8ArrayUtil'
-
 export { BaseAbilityState } from './src/main/ets/base/BaseAbilityState'
 
 export { Contexts } from './src/main/ets/utils/Contexts'

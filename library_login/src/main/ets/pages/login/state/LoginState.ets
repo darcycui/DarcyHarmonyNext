@@ -20,8 +20,8 @@ import { IState, ScreenState } from "static_library_common";
 export default class LoginState implements IState{
   /** 屏幕状态（加载中/错误/成功等） */
   @Trace screenState: ScreenState = new ScreenState();
-  /** 用户名 */
-  @Trace userName: string = '';
+  /** 手机号码 */
+  @Trace phone: string = '';
   /** 密码 */
   @Trace password: string = '';
 }

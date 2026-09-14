@@ -7,13 +7,13 @@
 export { Urls } from './src/main/ets/http/Urls'
 
 // ---------- DH Key Exchange ----------
-export { ServerDHExchangeRepository } from './src/main/ets/pages/dh/repository/ServerDHExchangeRepository'
-export { ServerDHExchangeUseCase } from './src/main/ets/pages/dh/usecase/ServerDHExchangeUseCase'
+export { ServerDHExchangeRepository } from './src/main/ets/dh/repository/ServerDHExchangeRepository'
+export { ServerDHExchangeUseCase } from './src/main/ets/dh/usecase/ServerDHExchangeUseCase'
 
 // ---------- Key Generation UseCases ----------
-export { GenerateIdentityKeyUseCase, GenerateIdentityKeyParams } from './src/main/ets/pages/dh/usecase/GenerateIdentityKeyUseCase'
-export { GenerateSignedPreKeyUseCase, GenerateSignedPreKeyParams } from './src/main/ets/pages/dh/usecase/GenerateSignedPreKeyUseCase'
-export { GenerateOneTimePreKeyUseCase, GenerateOneTimePreKeyParams } from './src/main/ets/pages/dh/usecase/GenerateOneTimePreKeyUseCase'
+export { GenerateIdentityKeyUseCase, GenerateIdentityKeyParams } from './src/main/ets/x3dh/usecase/GenerateIdentityKeyUseCase'
+export { GenerateSignedPreKeyUseCase, GenerateSignedPreKeyParams } from './src/main/ets/x3dh/usecase/GenerateSignedPreKeyUseCase'
+export { GenerateOneTimePreKeyUseCase, GenerateOneTimePreKeyParams } from './src/main/ets/x3dh/usecase/GenerateOneTimePreKeyUseCase'
 
 // ---------- Login ----------
 export { default as LoginState } from './src/main/ets/pages/login/state/LoginState'
@@ -33,3 +33,7 @@ export { default as RegisterViewModelV2 } from './src/main/ets/pages/register/vi
 
 // ---------- Utils ----------
 export { AppInfo } from './src/main/ets/utils/AppInfo'
+
+// ---------- Memory ----------
+export { DHSecretManager } from './src/main/ets/storage/memory/DHSecretManager'
+export { UserManager } from './src/main/ets/storage/memory/UserManager'

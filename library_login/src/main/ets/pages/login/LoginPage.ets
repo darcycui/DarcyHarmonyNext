@@ -12,7 +12,7 @@
  *   View 层不直接调用 ViewModel 方法，统一通过 dispatch 发送 Intent
  */
 import { common } from '@kit.AbilityKit';
-import { AbilityHelper, NavigationHelper, ScreenPhase } from 'static_library_common';
+import { AbilityHelper, NavigationHelper, ScreenPhase, ToastUtil } from 'static_library_common';
 
 import LoginViewModelV2 from './viewmodel/LoginViewModelV2';
 import {
@@ -75,8 +75,8 @@ struct LoginPage {
 
       // ── 用户名输入框 ──
       TextInput({
-        placeholder: $r('app.string.user_name_placeholder'),
-        text: this.viewModel.state.userName || "王老吉"
+        placeholder: $r('app.string.user_phone_placeholder'),
+        text: this.viewModel.state.phone || "13800138000"
       })
         .id('UserNameInput')
         .type(InputType.Normal)
@@ -114,10 +114,9 @@ struct LoginPage {
 
           // 登录成功后跳转主页
           if (this.viewModel.state.screenState.is(ScreenPhase.SUCCESS)) {
-            AbilityHelper.startAbility(this.context, "EntryAbility", {}, 'entry');
-            setTimeout(() => {
-              this.context.terminateSelf();
-            }, 200);
+            ToastUtil.showToast(this.getUIContext(), $r('app.string.login_success'))
+          } else {
+            ToastUtil.showToast(this.getUIContext(), $r('app.string.login_failed'))
           }
         })
 

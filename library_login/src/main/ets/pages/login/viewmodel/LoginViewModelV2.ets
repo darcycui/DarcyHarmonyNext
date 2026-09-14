@@ -17,8 +17,8 @@
  * ```typescript
  * @Entry
  * @ComponentV2
- * struct LoginIndex {
- *   @Local viewModel: LoginViewModelV2 = new LoginViewModelV2();
+* struct LoginIndex {
+ * @Local viewModel: LoginViewModelV2 = new LoginViewModelV2();
  *
  *   aboutToAppear(): void {
  *     this.viewModel.setContext(this.context);
@@ -32,17 +32,14 @@
  *     → ViewModel 方法委托 Reducer 修改 state
  *     → Reducer 原地修改 @Trace 属性触发 UI 重渲染
  */
-import { BaseViewModel, Log } from 'static_library_common';
+import { BaseViewModel, Log, ScreenPhase, ScreenState } from 'static_library_common';
 import { common } from '@kit.AbilityKit';
 import LoginState from '../state/LoginState';
 import LoginReducer from '../reducer/LoginReducer';
 import { LoginUseCase, LoginParams } from '../usecase/LoginUseCase';
 import { LoginRepository } from '../repository/LoginRepository';
 import {
-  LoginIntent,
-  DoLoginIntent,
-  UpdateUserNameIntent,
-  UpdatePasswordIntent
+  LoginIntent, DoLoginIntent, UpdateUserNameIntent, UpdatePasswordIntent
 } from '../intent/LoginIntent';
 
 @ObservedV2
@@ -51,10 +48,8 @@ export default class LoginViewModelV2 extends BaseViewModel {
 
   /** 统一状态：封装 userName + password */
   @Trace state: LoginState = new LoginState();
-
   // ─── 依赖注入（简洁起见使用手动构造，正式项目可用 DI 框架） ──
   private loginUseCase: LoginUseCase = new LoginUseCase(new LoginRepository());
-
   // ─── Reducer（负责状态修改） ──────────────────────
   private reducer: LoginReducer = new LoginReducer();
 
@@ -104,12 +99,13 @@ export default class LoginViewModelV2 extends BaseViewModel {
 
     await this.safeLoad(this.state.screenState, async () => {
       const params: LoginParams = {
-        userName: this.state.userName,
+        userName: this.state.phone,
         password: this.state.password
       };
       const result = await this.loginUseCase.execute(params);
       if (result.username) {
         Log.info(`[LoginViewModelV2] 登录成功: ${result.username}`);
+        this.state.screenState.phase = ScreenPhase.SUCCESS;
       } else {
         Log.error(`[LoginViewModelV2] 登录失败: ${result.username}`);
       }

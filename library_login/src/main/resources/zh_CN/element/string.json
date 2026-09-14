@@ -99,6 +99,18 @@
     {
       "name": "login_title",
       "value": "登录"
+    },
+    {
+      "name": "user_phone_placeholder",
+      "value": "请输入手机号"
+    },
+    {
+      "name": "login_success",
+      "value": "登录成功"
+    },
+    {
+      "name": "login_failed",
+      "value": "Login Failed"
     }
   ]
 }

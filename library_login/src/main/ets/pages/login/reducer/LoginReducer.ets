@@ -26,7 +26,7 @@ export default class LoginReducer implements IReducer {
    * @param value - 新用户名
    */
   updateUserName(state: LoginState, value: string): void {
-    state.userName = value;
+    state.phone = value;
   }
 
   /**
@@ -45,7 +45,7 @@ export default class LoginReducer implements IReducer {
    * @param state - LoginState 实例
    */
   clearFields(state: LoginState): void {
-    state.userName = '';
+    state.phone = '';
     state.password = '';
   }
 }

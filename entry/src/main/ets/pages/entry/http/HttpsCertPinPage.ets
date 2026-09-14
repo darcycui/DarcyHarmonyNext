@@ -5,8 +5,8 @@ import { http } from '@kit.NetworkKit';
 import { cert } from '@kit.DeviceCertificateKit';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { util } from '@kit.ArkTS';
-import { FileUtil, Log } from 'static_library_common';
-import { StringUnit8ArrayUtil, Base64Util } from 'static_library_common';
+import { ArrayUtil, FileUtil, Log } from 'static_library_common';
+import { Base64Util } from 'static_library_common';
 import { common } from '@kit.AbilityKit';
 
 @Entry
@@ -231,7 +231,7 @@ struct HttpsCertPinPage {
           //公钥摘要计算结果
           let mdResult = mdSHA256.digestSync();
           Log.info(`mdResult.data=${mdResult.data}`)
-          let pubKeyHash = StringUnit8ArrayUtil.uint8ArrayToString(mdResult.data)
+          let pubKeyHash = ArrayUtil.bytesToString2(mdResult.data)
           Log.info(`pubKeyHash=${pubKeyHash}`)
           let tool = new util.Base64Helper()
           //公钥摘要转换为base64编码字符串

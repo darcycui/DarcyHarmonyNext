@@ -17,8 +17,8 @@ import {
   LoginResponse
 } from 'library_network';
 import { Urls } from '../../../http/Urls';
-import { ServerDHExchangeUseCase } from '../../dh/usecase/ServerDHExchangeUseCase';
-import { ServerDHExchangeRepository } from '../../dh/repository/ServerDHExchangeRepository';
+import { ServerDHExchangeUseCase } from '../../../dh/usecase/ServerDHExchangeUseCase';
+import { ServerDHExchangeRepository } from '../../../dh/repository/ServerDHExchangeRepository';
 
 /**
  * 登录响应数据容器——用于在异步回调间安全传递数据

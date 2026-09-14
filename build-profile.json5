@@ -135,6 +135,10 @@
           ]
         }
       ]
+    },
+    {
+      "name": "library_database",
+      "srcPath": "./library_database",
     }
   ]
 }
