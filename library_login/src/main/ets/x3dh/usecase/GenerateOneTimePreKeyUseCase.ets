@@ -33,7 +33,7 @@ export interface GenerateOneTimePreKeyParams {
  * 入参：GenerateOneTimePreKeyParams
  * 出参：OneTimePreKeyEntity（已持久化的一次性预密钥实体）
  */
-export class GenerateOneTimePreKeyUseCase extends BaseUseCase<GenerateOneTimePreKeyParams, OneTimePreKeyEntity> {
+export class GenerateOneTimePreKeyUseCase extends BaseUseCase<GenerateOneTimePreKeyParams, OneTimePreKeyEntity[]> {
   private darcyIMDatabase: DarcyIMDatabase;
 
   constructor(darcyIMDatabase: DarcyIMDatabase) {
@@ -41,7 +41,7 @@ export class GenerateOneTimePreKeyUseCase extends BaseUseCase<GenerateOneTimePre
     this.darcyIMDatabase = darcyIMDatabase;
   }
 
-  async execute(params: GenerateOneTimePreKeyParams): Promise<OneTimePreKeyEntity> {
+  async execute(params: GenerateOneTimePreKeyParams): Promise<OneTimePreKeyEntity[]> {
     // 1. 校验：userId 必须有效
     if (!params.userId || params.userId <= 0) {
       throw new Error('无效的用户 ID');
@@ -66,22 +66,26 @@ export class GenerateOneTimePreKeyUseCase extends BaseUseCase<GenerateOneTimePre
     const keyId: string = `otpk-${params.userId}-${Date.now()}`;
 
     // 5. 创建实体并插入数据库
-    const entity = new OneTimePreKeyEntity(
-      undefined,
-      keyId,
-      params.userId,
-      privateKeyHex,
-      publicKeyHex,
-    );
+    const entityList: OneTimePreKeyEntity[] = [];
+    for (let index = 0; index < 100; index++) {
+      const entity = new OneTimePreKeyEntity(
+        undefined,
+        keyId,
+        params.userId,
+        privateKeyHex,
+        publicKeyHex,
+      );
+      entityList.push(entity);
+    }
     const oneTimePreKeyDao = this.darcyIMDatabase.getOneTimePreKeyDao()
-    await oneTimePreKeyDao.insert(entity);
+    await oneTimePreKeyDao.insertBatch(entityList);
     Log.info(`[GenerateOneTimePreKeyUseCase] 一次性预密钥持久化成功, keyId=${keyId}`);
 
     // 6. 从数据库中查询刚插入的记录并返回
-    const entityFromDb = await oneTimePreKeyDao.getByKeyId(keyId);
-    if (entityFromDb == null) {
+    const entityListFromDb = await oneTimePreKeyDao.getByKeyId(keyId);
+    if (entityListFromDb == null) {
       throw new Error('查询刚插入的一次性预密钥失败');
     }
-    return entityFromDb;
+    return entityListFromDb;
   }
 }

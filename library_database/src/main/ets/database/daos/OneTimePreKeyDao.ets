@@ -282,18 +282,19 @@ export class OneTimePreKeyDao {
    * @param keyId 密钥唯一标识
    * @returns 实体对象，未找到时返回 null
    */
-  async getByKeyId(keyId: string): Promise<OneTimePreKeyEntity | null> {
+  async getByKeyId(keyId: string): Promise<OneTimePreKeyEntity[]> {
     try {
       const store = this.rdbStore;
       const predicates = new relationalStore.RdbPredicates(TABLE_NAME);
       predicates.equalTo(COL_KEY_ID, keyId);
       const rs: relationalStore.ResultSet = await store.query(predicates, ALL_COLUMNS);
-      let result: OneTimePreKeyEntity | null = null;
+      let resultList: OneTimePreKeyEntity[] = [];
       if (rs.goToFirstRow()) {
-        result = rowToEntity(rs);
+        while (rs.goToNextRow())
+          resultList.push(rowToEntity(rs));
       }
       rs.close();
-      return result;
+      return resultList;
     } catch (err) {
       throw new Error('OneTimePreKeyDao getByKeyId 查询失败 (keyId=' + keyId + '): ' + ErrorUtil.getErrorMessage(err));
     }

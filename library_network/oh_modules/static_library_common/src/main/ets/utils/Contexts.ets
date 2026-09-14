@@ -1,7 +1,7 @@
 import { Log } from "./Log"
 
 export class Contexts {
-  static context: Context | null = null
+  private static context: Context | null = null
 
   static setContext(context: Context) {
     Contexts.context = context

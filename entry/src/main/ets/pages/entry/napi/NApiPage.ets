@@ -1,6 +1,6 @@
 import { nativeAdd } from 'library_napi';
 import { promptAction } from '@kit.ArkUI';
-import { AbilityHelper, Log, ToastUtil } from 'static_library_common';
+import { AbilityUtil, Log, ToastUtil } from 'static_library_common';
 import { common } from '@kit.AbilityKit';
 import { StudentBean } from '../../../models/ui/learn/StudentBean';
 
@@ -25,7 +25,7 @@ struct NApiPage {
         })
       Button('启动 LibNapiAbility').width('100%')
         .onClick(() => {
-          AbilityHelper.startAbility(this.context, "LibNapiAbility", {}, 'entry')
+          AbilityUtil.startAbility(this.context, "LibNapiAbility", {}, 'entry')
         })
     }
     .height('100%')

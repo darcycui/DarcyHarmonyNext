@@ -28,13 +28,5 @@ export class TokenRequestImpl implements IOnRequest {
       Log.warn(`[${TAG}] token 为空 跳过`);
     }
   }
-
-  private getObjectText(obj: Object): string {
-    if (typeof obj === 'string') {
-      return obj
-    } else {
-      return JSON.stringify(obj);
-    }
-  }
 }
 

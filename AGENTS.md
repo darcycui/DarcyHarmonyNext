@@ -173,3 +173,20 @@ ohpm install
 - Camera 模块用 `SaveButton` 安全控件保存照片；受限媒体权限不可随意申请。
 - `BaseUIAbility.onWindowStageDestroy` 中注销 `windowStage.off('windowStageEvent')` 会报 `state abnormally`，代码中已注释禁用。
 - N-API 新增 .cpp 文件需同步登记到 `CMakeLists.txt` 的 `add_library`；ABI 必须含 `arm64-v8a`/`x86_64`（否则模拟器/真机安装报 `install parse native so failed`）。
+
+## 代码提交
+
+- 提交信息使用英文
+- 逐条陈述修改内容
+- 不同的修改内同 使用不同的模板
+  - fix: 用于修补bug
+  - feat: 用于子女增逻辑、功能
+  - refactor: refact 用于重构
+  - build: 用于打包、上线
+
+## 单元测试要求
+
+- 所有新增代码类，如果名称以`Util`后缀结尾，要满足如下要求
+  - 所有的函数都必须生成单元测试函数
+  - 必须显式调用 try-catch 捕获已知的异常
+  - 满足TDD(Test-Driven Development) 红绿测试规则

@@ -5,30 +5,21 @@ import ErrorUtil from 'static_library_common/src/main/ets/utils/ErrorUtil';
 import { IOnRequest } from '../../request/IOnRequest';
 import { IOnResponse } from '../IOnResponse';
 
-const TAG = 'LogRequestInterceptor';
+const TAG = 'NeedAuthResponseImpl';
 
 /**
- * 日志拦截器 - 打印请求和响应日志
+ * 需要授权的响应拦截器
  */
 @Available({ minApiVersion: 'OpenHarmony 22' })
-export class LogResponseImpl implements IOnResponse {
+export class NeedAuthResponseImpl implements IOnResponse {
   handleResponse(reqContext: http.HttpRequestContext, rspContext: http.HttpResponse): void {
-    Log.info(`[${TAG}] ==========> REQUEST ==========>`);
-    Log.info(`[${TAG}] ==>URL: ${reqContext.url}`);
-    // Log.info(`[${TAG}] Method: ${reqContext.method}`);
-    Log.warn(`[${TAG}] ==>Header: ${JSON.stringify(reqContext.header)}`);
-    if (typeof reqContext.body === 'string') {
-      Log.info(`[${TAG}] ==>Body: ${this.getObjectText(reqContext.body)}`);
-    } else {
-      Log.warn(`[${TAG}] ==>Body: 请求体是非文本类型 不打印`)
-    }
-  }
+    Log.info(`[${TAG}] response code = ${rspContext.responseCode}`);
 
-  private getObjectText(obj: Object): string {
-    if (typeof obj === 'string') {
-      return obj
-    } else {
-      return JSON.stringify(obj);
+    // 处理错误码
+    if (rspContext.responseCode === 401) {
+      Log.error(`[${TAG}] 401 Unauthorized`);
+    } else if (rspContext.responseCode === 403) {
+      Log.error(`[${TAG}] 403 Forbidden`);
     }
   }
 }

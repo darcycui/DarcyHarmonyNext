@@ -12,7 +12,7 @@
  *   View 层不直接调用 ViewModel 方法，统一通过 dispatch 发送 Intent
  */
 import { common } from '@kit.AbilityKit';
-import { AbilityHelper, NavigationHelper, ScreenPhase, ToastUtil } from 'static_library_common';
+import { AbilityUtil, NavigationHelper, ScreenPhase, ToastUtil } from 'static_library_common';
 
 import LoginViewModelV2 from './viewmodel/LoginViewModelV2';
 import {

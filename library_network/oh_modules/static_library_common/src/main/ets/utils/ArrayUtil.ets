@@ -1,4 +1,4 @@
-import { buffer } from '@kit.ArkTS';
+import { buffer, util } from '@kit.ArkTS';
 import { Log } from './Log';
 
 export class ArrayUtil {
@@ -32,5 +32,20 @@ export class ArrayUtil {
       Log.error(`bytesToString 异常: ${JSON.stringify(error)}`)
       return ''
     }
+  }
+
+  /**
+   * 字节流转成可理解的字符串 支持跳过无效字节、忽略 BOM 标记
+   * @param array - 字节数组
+   * @returns 解码后的字符串
+   */
+  static bytesToString2(array: Uint8Array): string {
+    let str: string = util.TextDecoder.create(
+      'utf-8',
+      {
+        fatal: false, // 遇到无效字节不抛异常
+        ignoreBOM: true // 忽略 BOM 标记
+      }).decodeToString(array);
+    return str;
   }
 }

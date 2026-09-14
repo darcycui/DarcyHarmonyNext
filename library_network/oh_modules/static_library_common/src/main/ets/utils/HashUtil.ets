@@ -35,7 +35,7 @@ export class HashUtil {
     try {
       let mdAlgName = 'SHA256';
       let md = cryptoFramework.createMd(mdAlgName);
-      md.update({ data: data });
+      md.updateSync({ data: data });
       let mdResult = md.digestSync();
       return HexUtil.bytesToHex(mdResult.data);
     } catch (error) {
