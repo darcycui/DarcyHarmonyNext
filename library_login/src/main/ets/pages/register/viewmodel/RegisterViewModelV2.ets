@@ -48,7 +48,13 @@ import { DarcyIMDatabase, IdentityKeyDao,
 import { GenerateIdentityKeyUseCase } from '../../../x3dh/usecase/GenerateIdentityKeyUseCase';
 import { GenerateSignedPreKeyUseCase } from '../../../x3dh/usecase/GenerateSignedPreKeyUseCase';
 import { GenerateOneTimePreKeyUseCase } from '../../../x3dh/usecase/GenerateOneTimePreKeyUseCase';
+import { PushX3DHKeysUseCase } from '../../../x3dh/usecase/PushX3DHKeysUseCase';
+import { X3DHPushKeysRepository } from '../../../x3dh/repository/X3DHPushKeysRepository';
 import ErrorUtil from 'static_library_common/src/main/ets/utils/ErrorUtil';
+import { OneTimePreKeyInputDTO, RegisterResponse, TokenManager } from 'library_network';
+import { ServerDHExchangeUseCase } from '../../../dh/usecase/ServerDHExchangeUseCase';
+import { ServerDHExchangeRepository } from '../../../dh/repository/ServerDHExchangeRepository';
+import { UserManager } from '../../../storage/memory/UserManager';
 
 @ObservedV2
 export default class RegisterViewModelV2 extends BaseViewModel {
@@ -59,10 +65,17 @@ export default class RegisterViewModelV2 extends BaseViewModel {
 
   //  UseCase 
   private registerUseCase: RegisterUseCase = new RegisterUseCase(new RegisterRepository());
+  /** DH 密钥交换用例 */
+  private serverDHExchangeUseCase: ServerDHExchangeUseCase = new ServerDHExchangeUseCase(new ServerDHExchangeRepository());
   private darcyImDatabase: DarcyIMDatabase = DarcyIMDatabase.getInstance();
+  /** X3DH 身份密钥生成用例 */
   private generateIdentityKeyUseCase: GenerateIdentityKeyUseCase = new GenerateIdentityKeyUseCase(this.darcyImDatabase);
+  /** X3DH 预签名密钥生成用例 */
   private generateSignedPreKeyUseCase: GenerateSignedPreKeyUseCase = new GenerateSignedPreKeyUseCase(this.darcyImDatabase);
+  /** X3DH 一次性预密钥生成用例 */
   private generateOneTimePreKeyUseCase: GenerateOneTimePreKeyUseCase = new GenerateOneTimePreKeyUseCase(this.darcyImDatabase);
+  /** X3DH 密钥推送用例 */
+  private pushX3DHKeysUseCase: PushX3DHKeysUseCase = new PushX3DHKeysUseCase(new X3DHPushKeysRepository());
 
   //  Reducer（负责状态修改） 
   private reducer: RegisterReducer = new RegisterReducer();
@@ -151,30 +164,66 @@ export default class RegisterViewModelV2 extends BaseViewModel {
       const result = await this.registerUseCase.execute(params);
       if (result) {
         Log.info(`[RegisterViewModelV2] 注册成功: ${JSON.stringify(result)}`);
-        // 注册成功后（Repository 已完成 DH 密钥交换），初始化预密钥数据库并持久化
-        try {
-          await this.generateX3DHKeys(result.id);
-        } catch (err) {
-          Log.error(`[RegisterViewModelV2] 预密钥持久化失败: ${err}`);
-        }
+        await UserManager.setUser(result)
+        await TokenManager.setToken(result.token)
+        // 注册成功后，进行 DH 密钥交换
+        await this.exchangeDHPublicKey(result.id);
       } else {
         Log.error(`[RegisterViewModelV2] 注册失败: ${JSON.stringify(result)}`);
       }
     });
   }
 
-  //  X3DH密钥持久化 
+  private async exchangeDHPublicKey(userId: number) {
+    try {
+      await this.serverDHExchangeUseCase.execute({ userId: userId });
+      Log.info(`[LoginRepository] DH 密钥交换成功`);
+      // DH 密钥交换成功后 初始化预密钥数据库并持久化
+      await this.pushX3DHKeys(userId);
+    } catch (dhError) {
+      Log.error(`[LoginRepository] DH 密钥交换失败: ${dhError}`);
+    }
+  }
+
+  private async pushX3DHKeys(userId: number) {
+    try {
+      const tripleCache = await this.generateX3DHKeys(userId);
+      const identityKey = tripleCache[0];
+      const signedPreKey = tripleCache[1];
+      const oneTimePreKeyDTOList = tripleCache[2];
+      await this.pushX3DHKeysUseCase.execute({
+        userId: userId,
+        identityKey: identityKey.publicKey,
+        signedPreKey: signedPreKey.publicKey,
+        oneTimePreKeys: oneTimePreKeyDTOList
+      });
+      Log.info(`[RegisterViewModelV2] 推送 X3DH 密钥成功`);
+    } catch (err) {
+      Log.error(`[RegisterViewModelV2] 预密钥持久化失败: ${err}`);
+    }
+  }
+
+  //  X3DH密钥持久化
   /**
    * 在注册 & DH 交换完成后，初始化预密钥数据库并持久化预密钥数据
    *
    * @param userId 已注册用户的 ID
    */
-  private async generateX3DHKeys(userId: number): Promise<[IdentityKeyEntity, SignedPreKeyEntity, OneTimePreKeyEntity]> {
+  private async generateX3DHKeys(userId: number): Promise<[IdentityKeyEntity, SignedPreKeyEntity, OneTimePreKeyInputDTO[]]> {
     try {
       const identityKey = await this.generateIdentityKeyUseCase.execute({ userId: userId });
       const signedPreKey = await this.generateSignedPreKeyUseCase.execute({ userId: userId, identityKeyId: identityKey.keyId });
-      const oneTimePreKey = await this.generateOneTimePreKeyUseCase.execute({ userId: userId });
-      return [identityKey, signedPreKey, oneTimePreKey];
+      const oneTimePreKeyList = await this.generateOneTimePreKeyUseCase.execute({ userId: userId });
+
+      // 推送 X3DH 密钥到服务端
+      const oneTimePreKeyDTOList: OneTimePreKeyInputDTO[] = oneTimePreKeyList.map((oneTimePreKey: OneTimePreKeyEntity) => new OneTimePreKeyInputDTO({
+        id: oneTimePreKey.id,
+        keyId: oneTimePreKey.keyId,
+        userId: oneTimePreKey.userId,
+        publicKey: oneTimePreKey.publicKey
+      }));
+
+      return [identityKey, signedPreKey, oneTimePreKeyList];
     } catch (err) {
       Log.error(`[RegisterViewModelV2] X3DH 密钥持久化失败: ${ErrorUtil.getErrorMessage(err)}`);
       throw new Error(`[RegisterViewModelV2] X3DH 密钥持久化失败: ${JSON.stringify(err)}`)

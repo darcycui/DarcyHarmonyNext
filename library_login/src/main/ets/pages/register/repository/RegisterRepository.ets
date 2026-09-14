@@ -9,7 +9,7 @@
  */
 import { ArrayUtil, BaseRepository, HashUtil, Log, ResponseHolder } from 'static_library_common';
 import {
-  doPost,
+  HttpHelper,
   HttpCertHelper,
   HttpErrorEntity,
   HttpResultEntity,
@@ -27,10 +27,6 @@ class RegisterResponseHolder extends ResponseHolder<RegisterResponse> {
 }
 
 export class RegisterRepository extends BaseRepository {
-  /** DH 密钥交换用例 */
-  private serverDHExchangeUseCase: ServerDHExchangeUseCase =
-    new ServerDHExchangeUseCase(new ServerDHExchangeRepository());
-
   /**
    * 执行注册请求
    *
@@ -70,7 +66,7 @@ export class RegisterRepository extends BaseRepository {
       const holder: RegisterResponseHolder = new RegisterResponseHolder();
 
       await new Promise<void>((resolve: () => void): void => {
-        doPost<RegisterResponse>(
+        HttpHelper.doPost<RegisterResponse>(
           url,
           body,
           (data: HttpResultEntity<RegisterResponse>): void => {
@@ -91,14 +87,6 @@ export class RegisterRepository extends BaseRepository {
 
       if (holder.errorMessage) {
         throw new Error(holder.errorMessage);
-      }
-
-      // 注册成功后触发 DH 密钥交换
-      try {
-        await this.serverDHExchangeUseCase.execute({ userId: holder.data.id });
-        Log.info(`[RegisterRepository] DH 密钥交换完成`);
-      } catch (dhError) {
-        Log.error(`[RegisterRepository] DH 密钥交换失败: ${dhError}`);
       }
 
       return holder.data ?? new RegisterResponse();

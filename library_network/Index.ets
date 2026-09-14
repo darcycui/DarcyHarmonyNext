@@ -4,7 +4,8 @@
 // ============================================================
 
 // ---------- HTTP ----------
-export { BASE_HTTP_URL, doGet, doPost } from './src/main/ets/network/http/HttpHelper'
+export { HttpHelper } from './src/main/ets/network/http/HttpHelper'
+export { TokenManager } from './src/main/ets/network/http/TokenManager'
 
 // ---------- Models (基础) ----------
 export { HttpErrorEntity } from './src/main/ets/network/models/HttpErrorEntity'

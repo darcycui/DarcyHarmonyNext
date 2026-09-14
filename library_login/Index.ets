@@ -15,6 +15,14 @@ export { GenerateIdentityKeyUseCase, GenerateIdentityKeyParams } from './src/mai
 export { GenerateSignedPreKeyUseCase, GenerateSignedPreKeyParams } from './src/main/ets/x3dh/usecase/GenerateSignedPreKeyUseCase'
 export { GenerateOneTimePreKeyUseCase, GenerateOneTimePreKeyParams } from './src/main/ets/x3dh/usecase/GenerateOneTimePreKeyUseCase'
 
+// ---------- X3DH Keys Pull ----------
+export { X3DHKeysRepository } from './src/main/ets/x3dh/repository/X3DHKeysRepository'
+export { PullX3DHKeysUseCase, PullX3DHKeysParams } from './src/main/ets/x3dh/usecase/PullX3DHKeysUseCase'
+
+// ---------- X3DH Keys Push ----------
+export { X3DHPushKeysRepository } from './src/main/ets/x3dh/repository/X3DHPushKeysRepository'
+export { PushX3DHKeysUseCase, PushX3DHKeysParams } from './src/main/ets/x3dh/usecase/PushX3DHKeysUseCase'
+
 // ---------- Login ----------
 export { default as LoginState } from './src/main/ets/pages/login/state/LoginState'
 export { LoginIntent, DoLoginIntent, UpdateUserNameIntent, UpdatePasswordIntent } from './src/main/ets/pages/login/intent/LoginIntent'

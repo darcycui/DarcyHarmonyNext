@@ -8,7 +8,7 @@
  *   ServerDHExchangeUseCase → ServerDHExchangeRepository → httpHelper.doPost
  */
 import { BaseRepository } from 'static_library_common';
-import { DHExchangeRequestDTO, DHExchangeResponse, doPost, HttpErrorEntity, HttpResultEntity } from 'library_network';
+import { DHExchangeRequestDTO, DHExchangeResponse, HttpHelper, HttpErrorEntity, HttpResultEntity } from 'library_network';
 import { Urls } from '../../http/Urls';
 
 /**
@@ -43,7 +43,7 @@ export class ServerDHExchangeRepository extends BaseRepository {
       const holder: DHExchangeResponseHolder = new DHExchangeResponseHolder();
 
       await new Promise<void>((resolve: () => void): void => {
-        doPost<DHExchangeResponse>(
+        HttpHelper.doPost<DHExchangeResponse>(
           url,
           body,
           (data: HttpResultEntity<DHExchangeResponse>): void => {

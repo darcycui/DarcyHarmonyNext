@@ -1,5 +1,5 @@
 import { FileUtil, Log } from 'static_library_common';
-import { HttpResultEntity, doPost, UserResponse, HttpErrorEntity, RegisterRequestDTO } from 'library_network';
+import { HttpResultEntity, HttpHelper, UserResponse, HttpErrorEntity, RegisterRequestDTO } from 'library_network';
 import { common } from '@kit.AbilityKit';
 import { HashUtil, ArrayUtil } from 'static_library_common';
 
@@ -69,7 +69,7 @@ struct HttpsPage {
       settings: ''
     })
     const bodyJson = JSON.stringify(userRegisterRequest)
-    doPost(
+    HttpHelper.doPost(
       httpsUrl,
       bodyJson,
       (bean: HttpResultEntity<UserResponse>) => {
