@@ -1,6 +1,6 @@
 export let PAGE_INDEX = "pages/Index";
 export let PAGE_START = "pages/StartPage";
-export let PAGE_START_OTHER = "pages/other/OtherStartPage";
+export let PAGE_START_OTHER = "pages/entry/other/OtherStartPage";
 export let PAGE_LAYOUT = "pages/entry/basepage/LayoutPage";
 export let PAGE_RELATIVE = "pages/entry/basepage/RelativePage";
 export let PAGE_INPUT = "pages/entry/basepage/InputPage";
@@ -77,8 +77,8 @@ export let PAGE_STATIC_CAMERA = "pages/static/camera/CameraEntryPage";
 export let PAGE_SHARED_LIBRARY = "pages/entry/har_hsp/SharedLibraryPage";
 export let PAGE_SHARED_INNER = "pages/shared/context/SharedInnerPage";
 
-export let PAGE_MVVM_TEST = "pages/mvvm/TodoListPage";
-export let PAGE_MVVM_V2_TEST = "pages/mvvm/TodoListPageV2";
+export let PAGE_MVVM_TEST = "pages/entry/mvvm/TodoListPage";
+export let PAGE_MVVM_V2_TEST = "pages/entry/mvvm/TodoListPageV2";
 export let PAGE_TEST_LIST = "pages/entry/list/ListA1";
 export let PAGE_ARTICLE_LIST = "pages/entry/list/ArticleListPage";
 
@@ -110,14 +110,13 @@ export let PAGE_MODIFIER_PAGE = "pages/entry/custom/styles/modifier/ModifierPage
 export let PAGE_MODIFIER_UPDATER_PAGE = "pages/entry/custom/styles/modifier/ModifierUpdaterPage";
 export let PAGE_MODIFIER_UPDATER_WEIXIN_PAGE = "pages/entry/custom/styles/modifier/weixingroup/WeiXinGroupAttributeUpdaterPage";
 
-export let PAGE_ANIMATE_TO = "pages/animate/AnimateToPage";
+export let PAGE_ANIMATE_TO = "pages/entry/animate/AnimateToPage";
 
-export let PAGE_TASK_PAGE = "pages/background_task/BackgroundTaskPage";
-export let PAGE_WORK_SCHEDULER = "pages/background_task/WorkSchedulerPage";
-export let PAGE_SHORT_TASK = "pages/background_task/ShortTaskPage";
-export let PAGE_LONG_TASK = "pages/other/LongTaskPage";
-export let PAGE_LONG_TASK_DETAIL = "pages/other/LongTaskDetailPage";
-export let PAGE_CHAT = "pages/static/chat/ChatEntryPage";
+export let PAGE_TASK_PAGE = "pages/entry/background_task/BackgroundTaskPage";
+export let PAGE_WORK_SCHEDULER = "pages/entry/background_task/WorkSchedulerPage";
+export let PAGE_SHORT_TASK = "pages/entry/background_task/ShortTaskPage";
+export let PAGE_LONG_TASK = "pages/entry/other/LongTaskPage";
+export let PAGE_LONG_TASK_DETAIL = "pages/entry/other/LongTaskDetailPage";
 
 export let PAGE_STATUS_V2 = "pages/entry/statusv2/StatusV2Page";
 export let PAGE_OBSERVED_V2 = "pages/entry/statusv2/observedv2/ObservedV2Page";
@@ -137,3 +136,4 @@ export let PAGE_REPEAT_VIRTUAL_LIST = "pages/entry/render_control/RepeatVirtualS
 
 export let PAGE_LOGIN = "pages/static/login/LoginPage";
 export let PAGE_REGISTER = "pages/static/login/RegisterPage";
+export let PAGE_USER_INFO = "pages/main/chat/UserInfoPage";

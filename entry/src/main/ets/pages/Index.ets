@@ -1,6 +1,6 @@
-import { ChatEntryPage } from 'library_chat';
-import { ContractPage } from 'library_contact';
 import { Log } from 'static_library_common';
+import { ChatEntryPage } from './main/chat/ChatEntryPage';
+import { ContactPage } from './main/contact/ContractPage';
 import { StartPage } from './StartPage';
 
 @Entry
@@ -34,7 +34,7 @@ struct Index {
         }.tabBar(this.tabBuilder(0, $r("app.string.tab_bar_title_chat"), $r('app.media.yes'), $r('app.media.no')))
 
         TabContent() {
-          ContractPage()
+          ContactPage()
         }.tabBar(this.tabBuilder(1, $r("app.string.tab_bar_title_contract"), $r('app.media.yes'), $r('app.media.no')))
 
         TabContent() {

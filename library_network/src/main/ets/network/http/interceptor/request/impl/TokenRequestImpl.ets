@@ -3,7 +3,7 @@ import { Log } from 'static_library_common';
 import { Available } from '@kit.BasicServicesKit';
 import ErrorUtil from 'static_library_common/src/main/ets/utils/ErrorUtil';
 import { IOnRequest } from '../IOnRequest';
-import { TokenManager } from '../../../TokenManager';
+import { TokenManager } from '../../../../../storage/memory/TokenManager';
 
 const TAG = 'LogRequestInterceptor';
 

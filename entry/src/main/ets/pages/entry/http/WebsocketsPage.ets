@@ -11,8 +11,8 @@ struct WebsocketsPage {
   @State wsText: string = 'default';
   private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
   // private certFileName = "test2IPSelf137.crt"
-  private certFileName = "test2IPSelf241.crt"
-  // private certFileName = "test2ServerSelf.crt"
+  // private certFileName = "test2IPSelf241.crt"
+  private certFileName = "test2ServerSelf.crt"
   private filePath = this.context.filesDir + "/" + this.certFileName;
 
   // 生命周期回调:页面即将显示 所有组件

@@ -69,6 +69,11 @@
       "name": "pages/entry/statusv2/computed/ComputedClassPage",
       "pageSourceFile": "src/main/ets/pages/entry/statusv2/computed/ComputedClassPage.ets",
       "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/main/chat/UserInfoPage",
+      "pageSourceFile": "src/main/ets/pages/main/chat/UserInfoPage.ets",
+      "buildFunction": "NavigationBuilder"
     }
   ]
 }

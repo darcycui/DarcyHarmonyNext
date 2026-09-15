@@ -73,18 +73,6 @@
       ]
     },
     {
-      "name": "library_chat",
-      "srcPath": "./library_chat",
-      "targets": [
-        {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
-        }
-      ]
-    },
-    {
       "name": "library_camera",
       "srcPath": "./library_camera",
       "targets": [
@@ -95,10 +83,6 @@
           ]
         }
       ]
-    },
-    {
-      "name": "library_contact",
-      "srcPath": "./library_contact",
     },
     {
       "name": "library_napi",
