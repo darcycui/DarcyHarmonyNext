@@ -15,7 +15,7 @@
  * const entity = await useCase.execute({ userId: 123 });
  * ```
  */
-import { BaseUseCase, HexUtil, Log } from 'static_library_common';
+import { BaseUseCase, HexUtil, Log, UUIDUtil } from 'static_library_common';
 import { DHExchangeUtil } from 'library_crypto';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { DarcyIMDatabase, IdentityKeyDao, IdentityKeyEntity } from 'library_database';
@@ -63,7 +63,7 @@ export class GenerateIdentityKeyUseCase extends BaseUseCase<GenerateIdentityKeyP
     const privateKeyHex: string = HexUtil.bytesToHex(priKeyBytes);
 
     // 4. 生成唯一密钥标识
-    const keyId: string = `ik-${params.userId}-${Date.now()}`;
+    const keyId: string = UUIDUtil.generateIdentityKeyId();
 
     // 5. 创建实体并插入数据库
     const entity = new IdentityKeyEntity(

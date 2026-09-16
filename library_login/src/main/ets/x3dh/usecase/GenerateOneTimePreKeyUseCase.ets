@@ -15,7 +15,7 @@
  * const entity = await useCase.execute({ userId: 123 });
  * ```
  */
-import { BaseUseCase, HexUtil, Log } from 'static_library_common';
+import { BaseUseCase, HexUtil, Log, UUIDUtil } from 'static_library_common';
 import { DHExchangeUtil } from 'library_crypto';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { DarcyIMDatabase, OneTimePreKeyDao, OneTimePreKeyEntity } from 'library_database';
@@ -62,12 +62,11 @@ export class GenerateOneTimePreKeyUseCase extends BaseUseCase<GenerateOneTimePre
     const publicKeyHex: string = HexUtil.bytesToHex(pubKeyBytes);
     const privateKeyHex: string = HexUtil.bytesToHex(priKeyBytes);
 
-    // 4. 生成唯一密钥标识
-    const keyId: string = `otpk-${params.userId}-${Date.now()}`;
-
     // 5. 创建实体并插入数据库
     const entityList: OneTimePreKeyEntity[] = [];
     for (let index = 0; index < 100; index++) {
+      // 4. 再循环内生成唯一密钥标识
+      const keyId: string = UUIDUtil.generateOneTimePreKeyId();
       const entity = new OneTimePreKeyEntity(
         undefined,
         keyId,
@@ -78,11 +77,11 @@ export class GenerateOneTimePreKeyUseCase extends BaseUseCase<GenerateOneTimePre
       entityList.push(entity);
     }
     const oneTimePreKeyDao = this.darcyIMDatabase.getOneTimePreKeyDao()
+    Log.info(`[GenerateOneTimePreKeyUseCase] 一次性预密钥持久化成功`);
     await oneTimePreKeyDao.insertBatch(entityList);
-    Log.info(`[GenerateOneTimePreKeyUseCase] 一次性预密钥持久化成功, keyId=${keyId}`);
 
     // 6. 从数据库中查询刚插入的记录并返回
-    const entityListFromDb = await oneTimePreKeyDao.getByKeyId(keyId);
+    const entityListFromDb = await oneTimePreKeyDao.getByUserId(params.userId);
     if (entityListFromDb == null) {
       throw new Error('查询刚插入的一次性预密钥失败');
     }

@@ -16,7 +16,7 @@
  * const entity = await useCase.execute({ userId: 123, identityKeyId: 'ik-001' });
  * ```
  */
-import { BaseUseCase, HexUtil, Log } from 'static_library_common';
+import { BaseUseCase, HexUtil, Log, UUIDUtil } from 'static_library_common';
 import { DHExchangeUtil } from 'library_crypto';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { DarcyIMDatabase, SignedPreKeyDao, SignedPreKeyEntity } from 'library_database';
@@ -72,7 +72,7 @@ export class GenerateSignedPreKeyUseCase extends BaseUseCase<GenerateSignedPreKe
     const signatureHex: string = HexUtil.bytesToHex(pubKeyBytes);
 
     // 5. 生成唯一密钥标识
-    const keyId: string = `spk-${params.userId}-${Date.now()}`;
+    const keyId: string = UUIDUtil.generateSignedPreKeyId();
 
     // 6. 创建实体并插入数据库
     const entity = new SignedPreKeyEntity(
