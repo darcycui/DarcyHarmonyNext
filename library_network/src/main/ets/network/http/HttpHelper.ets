@@ -145,7 +145,7 @@ export class HttpHelper {
             message = JSON.stringify(data.result)
           }
           // Log.warn("response header <==" + JSON.stringify(data.header))
-          // Log.warn("response <== " + message)
+          Log.warn("response <== " + message)
           // Log.warn("Result:" + data.result)
           JsonParser.parseResultBean(message, onSuccess, onFailure)
           httpRequest.destroy()

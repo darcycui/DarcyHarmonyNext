@@ -24,12 +24,10 @@ export class ResponseInterceptor implements http.HttpInterceptor {
   ];
 
   interceptorHandle(reqContext: http.HttpRequestContext, rspContext: http.HttpResponse): Promise<http.ChainContinue> {
-    rspContext = this.onResponses.reduce((before, after) => {
-      // Log.info(`[${TAG}] [Chain] before: ${JSON.stringify(before)}`);
-      const result = after.handleResponse(reqContext, before);
-      // Log.info(`[${TAG}] [Chain] after: ${JSON.stringify(result)}`);
-      return result;
-    }, rspContext);
-    return Promise.resolve(true);
+    this.onResponses.forEach((item) => {
+      item.handleResponse(reqContext, rspContext);
+    });
+    // 返回false 修改响应体
+    return Promise.resolve(false);
   }
 }

@@ -16,16 +16,23 @@ export class DecryptResponseImpl implements IOnResponse {
     Log.info(`[${TAG}] <========== RESPONSE <==========`);
     if (rspContext.resultType === http.HttpDataType.STRING) {
       if (ServerDHSecretManager.isSecretReady()) {
-        const cipherBytes = HexUtil.hexToBytes(rspContext.result as string)
+        Log.log(`[${TAG}] <==Encrypted Body: ${rspContext.result}`);
+        const resultStr = (rspContext.result as string).replace(/^"|"$/g, '');
+        const cipherBytes = HexUtil.hexToBytes(resultStr)
         const plainBytes = TransformCryptoUtil.decryptSync(
           cipherBytes,
           HexUtil.hexToBytes(ServerDHSecretManager.getDHSecretSync()),
           ArrayUtil.stringToBytes(AADs.AAD_PREFIX_POST + UrlUtil.stripUrlToPath(reqContext.url))
         )
-        if (plainBytes.length > 0) {
-          rspContext.result = ArrayUtil.bytesToString(plainBytes)
+        const plainBytesLength = plainBytes.length
+        if (plainBytesLength > 0) {
+          Log.log(`[${TAG}] <==解密成功`)
+          const newResult = ArrayUtil.bytesToString(plainBytes)
+          Log.log(`[${TAG}] <==Decrypted Body: ${newResult}`)
+          rspContext.result = newResult
+        } else {
+          Log.error(`[${TAG}] <==解密失败`)
         }
-        Log.warn(`[${TAG}] <==Decrypted Body: ${rspContext.result}`);
       } else {
         Log.warn(`[${TAG}] <==Decrypted Body: Server DH密钥未准备好 不解密`)
       }
