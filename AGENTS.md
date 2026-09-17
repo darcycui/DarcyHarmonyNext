@@ -4,18 +4,18 @@
 
 ## 1. 技术栈和框架
 
-| 分类 | 技术 |
-|---|---|
-| 平台 | HarmonyOS NEXT，Stage 模型，compatible/target SDK 5.0.5 (API 17)，编译 SDK 6.1.1 (24) |
-| 语言 | ArkTS（TypeScript 子集）+ ArkUI 声明式 UI；C++（N-API 原生层） |
-| 构建 | hvigor（appTasks 插件，入口 `hvigorfile.ts`），hvigor 6.24.4 / 工具链 6.1.1.125 |
-| 包管理 | ohpm（模块间用 `file:../xxx` 源码依赖） |
-| IDE | DevEco Studio（工程未提交 `hvigorw` 包装脚本，日常在 IDE 中 Run 构建/安装调试） |
-| 状态管理 | V1：`@State/@Prop/@Link/@Provide/@Consume/@Observed/@ObjectLink/@Watch/LocalStorage/AppStorage/PersistentStorage`；V2：`@ObservedV2/@Trace/@Local/@Param/@Once/@Event/@Provider/@Consumer/@Monitor/@Computed` |
-| 架构模式 | MVVM（基类在 `static_library_common`，见 §3） |
-| 原生集成 | N-API（`library_napi`，CMake 编译 C++ 为 .so） |
-| 测试 | `@ohos/hypium` 1.0.18 + `@ohos/hamock` 1.0.0 |
-| C++ 静态分析 | `.clang-tidy` / `.clangd`（检查项见 §5） |
+| 分类 | 技术                                                                                                                                                                                                                         |
+|---|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 平台 | HarmonyOS NEXT，Stage 模型，compatible/target SDK 5.0.5 (API 17)，编译 SDK 6.1.1 (24)                                                                                                                                             |
+| 语言 | ArkTS（TypeScript 子集）+ ArkUI 声明式 UI；C++（N-API 原生层）                                                                                                                                                                          |
+| 构建 | hvigor（appTasks 插件，入口 `hvigorfile.ts`），hvigor 6.24.4 / 工具链 6.1.1.125                                                                                                                                                       |
+| 包管理 | ohpm（模块间用 `file:../xxx` 源码依赖）                                                                                                                                                                                              |
+| IDE | DevEco Studio（工程未提交 `hvigorw` 包装脚本，日常在 IDE 中 Run 构建/安装调试）                                                                                                                                                                  |
+| 状态管理 | V1：已废弃 新增页面统一使用 V2 `@State/@Prop/@Link/@Provide/@Consume/@Observed/@ObjectLink/@Watch/LocalStorage/AppStorage/PersistentStorage`；V2：`@ObservedV2/@Trace/@Local/@Param/@Once/@Event/@Provider/@Consumer/@Monitor/@Computed` |
+| 架构模式 | MVVM（基类在 `static_library_common`，见 §3）                                                                                                                                                                                     |
+| 原生集成 | N-API（`library_napi`，CMake 编译 C++ 为 .so）                                                                                                                                                                                   |
+| 测试 | `@ohos/hypium` 1.0.18 + `@ohos/hamock` 1.0.0                                                                                                                                                                               |
+| C++ 静态分析 | `.clang-tidy` / `.clangd`（检查项见 §5）                                                                                                                                                                                         |
 
 ## 2. 目录结构与各目录职责
 
@@ -51,25 +51,25 @@ library_chat / library_camera / library_contact / library_napi / library_network
 ```
 
 - 模块间引用用 `import { X } from '模块名'`（barrel 导出）或显式深路径 `'static_library_common/src/main/ets/utils/xxx'`。
-- 新增依赖方式：目标模块 `oh-package.json5` 的 `dependencies` 加 `"模块名": "file:../模块目录"`，然后 ohpm install 或 IDE Sync。
+- 新增依赖方式：目标模块 `oh-package.json5` 的 `dependencies` 加 `"模块名": "file:../模块目录"`，然后执行安装依赖命令： ohpm install。
 
 ## 3. 核心模块/文件及其作用
 
 ### 应用入口与生命周期
 
-| 文件 | 作用 |
-|---|---|
-| `AppScope/app.json5` | 应用级配置（bundleName、versionCode 1000003、图标/名称） |
-| `entry/src/main/ets/abilitystage/EntryAbilityStage.ets` | AbilityStage，继承 `BaseAbilityState`；在 `onStageCreate()` 中调 `InitCommon.init(context, isDebug)` 和 `HttpCertHelper.initSelfCert(context)` |
+| 文件 | 作用                                                                                                                                                                       |
+|---|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `AppScope/app.json5` | 应用级配置（bundleName、versionCode 1000003、图标/名称）                                                                                                                              |
+| `entry/src/main/ets/abilitystage/EntryAbilityStage.ets` | AbilityStage，继承 `BaseAbilityState`；在 `onStageCreate()` 中调 `InitCommon.init(context, isDebug)` 和 `HttpCertHelper.initSelfCert(context)`                                   |
 | `entry/src/main/ets/entryability/EntryAbility.ets` | 主 Ability，继承 `BaseUIAbility`；实现 `getInitPageName()`（返回 `PAGE_INDEX`）和 `getLocalStorage()`；演示 want 参数解析、eventHub、LocalStorage/AppStorage/PersistentStorage/Environment 用法 |
-| `entry/src/main/ets/pages/Index.ets` | 主页面：`Navigation` 包裹 `Tabs`（3 个 Tab = ChatEntryPage / ContractPage / StartPage）。根 Navigation 栈用 `@Provide('appPathStack') pathStack` 跨模块下发 |
-| `entry/src/main/ets/pages/StartPage.ets` | 演示菜单（35+ 入口），遍历 `pageNameArray: ItemEntity[]` 渲染按钮 |
+| `entry/src/main/ets/pages/Index.ets` | 主页面：`Navigation` 包裹 `Tabs`（3 个 Tab = ConversationListPage / ContactPage / StartPage）。根 Navigation 栈用 `@Provide('appPathStack') pathStack` 跨模块下发                          |
+| `entry/src/main/ets/pages/StartPage.ets` | 演示菜单（35+ 入口），遍历 `pageNameArray: ItemEntity[]` 渲染按钮                                                                                                                       |
 
 ### static_library_common（公共底座，barrel 文件 `Index.ets`）
 
 - **日志**：`Log`（应用侧）/ `HiLog`（系统侧，hdc 可查）；`InitCommon.init()` 在 AbilityStage/Ability 的 `onCreate` 调用一次，设置全局 Context 与日志开关。
-- **路由**：`RouterHelper`（旧 Router）、`NavigationHelper`（NavigationUtil 别名，新 Navigation）——两套并存，见 §6。
-- **工具类**：`ToastUtil`、`AbilityUtil`、`Contexts`、`FileUtil`、`ArrayUtil`、`HashUtil`、`HexUtil`、`Base64Util`、`StringUnit8ArrayUtil`、`ErrorUtil`、`BasicDataSource`（LazyForEach 数据源基类）。
+- **路由**：`NavigationUtil`（新 Navigation），禁止使用 `RouterHelper`（旧 Router）已废弃 见 §6。
+- **工具类**：`ToastUtil`、`AbilityUtil`、`Contexts`、`FileUtil`、`ArrayUtil`、`HashUtil`、`HexUtil`、`Base64Util`、`ErrorUtil`、`BasicDataSource`（LazyForEach 数据源基类）。
 - **Ability 基类**：`BaseUIAbility`（抽象基类，模板化生命周期日志 + WindowStage 事件监听；子类须实现 `getInitPageName()`/`getLocalStorage()`）、`BaseAbilityState`（AbilityStage 基类，子类实现 `onStageCreate()`）。
 - **MVVM 基类**（`base/mvvm/`）：`BaseViewModel`、`BaseIntent`、`BaseUseCase`（含 `BaseNoParamUseCase`）、`BaseRepository`、`BaseReducer`、`BaseState`；entry 的 TodoList MVVM 与 library_login 的 Login/Register MVVM V2 均基于此套基类。
 - **演示组件**：`StaticMainPage`、`StaticInnerPage`（验证 HAR 组件跨模块引用）。
@@ -82,15 +82,29 @@ library_chat / library_camera / library_contact / library_napi / library_network
 - `network/parser/JsonParser.ets`：JSON 解析封装。
 - `network/models/`：请求 DTO（Login/Register/Conversation/Friend/X3DH 等 20+）与响应实体（Pageable、Sort 等）；`models/MessageBean.ets` 为聊天消息模型。
 
-### 其他库模块
-
-- `library_chat`：`ChatEntryPage`（Tab 1 首页）、`ChatAbility`、`ChatDataSource`（LazyForEach）。
-- `library_contact`：`ContractPage`（Tab 2 首页）。
-- `library_camera`：`CameraHelper`、`CameraComponent`、`GlobalCameraContext`、`PermissionUtils`（拍照用 `SaveButton` 安全控件保存）。
-- `library_napi`：TS 侧 `ets/napi/NApis.ets`（JS↔C++ 桥）、`LibNapiAbility`、`NApiPage`；C++ 侧 `src/main/cpp/`（`napi_init.cpp`、`NativeEntry.cpp`、`ArkUI*Node.h` 自定义 ArkUI 节点渲染）；`CMakeLists.txt` 编 `library_napi.so`。
-- `shared_library_context`：HSP 示例，`SharedIndex`/`SharedInnerPage`/`ContextResourceManager`（跨模块资源获取）。
-- `library_crypto`：加解密 HAR。`utils/CryptoUtil.ets`（AES-256-GCM 异步/同步加解密，输出 `[IV(12B)+密文+AuthTag(16B)]` 格式）、`utils/DHExchangeUtil.ets`（X25519 密钥对生成/编解码/DH 密钥协商）。
-- `library_login`：登录注册 HAR（MVVM V2 架构）。barrel 导出 `LoginViewModelV2`/`RegisterViewModelV2`/`ServerDHExchangeRepository` 等；entry 的 `pages/login/` 和 `pages/register/` 通过 `import ... from 'library_login'` 引用。依赖 `library_network`（HTTP）和 `library_crypto`（DH 密钥交换）。
+### `library_camera`：调用相机拍照
+  - `CameraHelper`、`CameraComponent`、`GlobalCameraContext`、`PermissionUtils`（拍照用 `SaveButton` 安全控件保存）。
+  - 
+### `library_napi`：NApi调用示例
+  - TS 侧 `ets/napi/NApis.ets`（JS↔C++ 桥）、`LibNapiAbility`、`NApiPage`；
+  - C++ 侧 `src/main/cpp/`（`napi_init.cpp`、`NativeEntry.cpp`、`ArkUI*Node.h` 自定义 ArkUI 节点渲染）；
+  - `CMakeLists.txt` 编 `library_napi.so`。
+  - 
+### `shared_library_context`：HSP 示例
+  - `SharedIndex`/`SharedInnerPage`/`ContextResourceManager`（跨模块资源获取）。
+  - 
+### `library_crypto`：加解密 HAR。
+  - `utils/TransformCryptoUtil.ets`（AES-256-GCM 异步/同步加解密，输出 `[IV(12B)+密文+AuthTag(16B)]` 格式）、用于与服务端的传输加密（外层加密）、传输解密（外层解密）
+  - `utils/DHExchangeUtil.ets`（X25519 密钥对生成/编解码/DH 密钥协商）。
+  - `storage/memory/ServerDHSecretManager`（服务器端 DH 密钥管理）。
+  - 
+### `library_login`：登录注册 HAR（MVVM V2 架构）。
+  - barrel 导出 `LoginViewModelV2`/`RegisterViewModelV2`/`ServerDHExchangeRepository` 等；
+  - entry 的 `pages/login/` 和 `pages/register/` 通过 `import ... from 'library_login'` 引用。
+  - 依赖 `library_network`（HTTP）和 `library_crypto`（DH 密钥交换）。
+  - 
+### `library_database`：关系型数据库 HAR。SQLiteDatabase 增删改查
+  - `database/DarcyIMDatabase.ets`。通过 DarcyIMDatabase#getInstance() 获取数据库实例。然后通过getXXXDao()获取对应的数据表DAO 进行数据库操作。
 
 ### entry 关键目录
 
@@ -101,8 +115,8 @@ library_chat / library_camera / library_contact / library_napi / library_network
 
 ### 路由配置
 
-- `entry/src/main/resources/base/profile/main_pages.json`：Router 路由的 `@Entry` 页面登记表（旧路由跳转目标必须在此）。
-- `entry/src/main/resources/base/profile/router_map.json`：Navigation 命名路由映射（`buildFunction: "NavigationBuilder"`），HAR/HSP 跨模块页面与 statusv2 系列子页面在此。
+- 路由配置文件 `entry/src/main/resources/base/profile/router_map.json`：Navigation 命名路由映射（`buildFunction: "NavigationBuilder"`），
+- 新增的所有页面必须在 `router_map.json` 配置，使用Navigation 跳转页面，禁止使用 Router 路由。
 - 各库模块的 `router_map.json` 只用于库内页面。
 
 ## 4. 构建、测试、lint 命令
@@ -148,14 +162,12 @@ ohpm install
 
 同一工程内两套跳转，新页面按目标页面形态选择：
 
-1. **旧 Router**：目标为 `@Entry` 页面，`RouterHelper.startPage(context, url, params)` → `router.pushUrl`。此类页面**必须登记在 `main_pages.json`**。StartPage 菜单中绝大多数按钮走这条路。
-2. **新 Navigation / NavPathStack 命名路由**：目标为 NavDestination 形态页面，`NavigationHelper.startPage(pathStack, PAGE_XXX, params)` → `pushDestination`。跨模块共享 `@Provide('appPathStack')` / `@Consume('appPathStack')`；`name → 组件` 映射声明在 `router_map.json`。HAR/HSP 跨模块页面与 statusv2 系列子页面走这条。
 
 ### 新增一个演示页面的标准流程
 
-1. 在 `entry/src/main/ets/pages/<分类目录>/` 新建页面，沿用目录内同类写法；页面生命周期方法（`aboutToAppear`/`onPageShow`/`onPageHide`/`onBackPress`/`aboutToDisappear`/`onDidBuild` 等）内必须打日志。
+1. 在 `entry/src/main/ets/pages/entry/<分类目录>/` 新建页面，沿用目录内同类写法；页面生命周期方法（`aboutToAppear`/`onPageShow`/`onPageHide`/`onBackPress`/`aboutToDisappear`/`onDidBuild` 等）内必须打日志。
 2. 在 `PageName.ets` 加 `PAGE_XXX = "pages/..."` 常量。
-3. 按跳转方式登记路由：Router 目标加 `main_pages.json`；Navigation 命名路由加 `router_map.json`。
+3. 登记路由：Navigation 命名路由加 `router_map.json`，禁止使用 Router 已废弃。
 4. 在 `string.json` 加菜单标题资源，在 `StartPage.ets` 的 `pageNameArray` 末尾追加 `new ItemEntity(PAGE_XXX, $r('app.string.XXX'))`。
 5. 需要 UI 大块示例的系列（status/freeze/render_control/statusv2 等）采用"聚合入口页 + 子页"结构：入口页加入菜单，子页从入口页再跳转。
 
@@ -164,10 +176,14 @@ ohpm install
 - 日志一律用 `static_library_common` 的 `Log`（应用侧）/ `HiLog`（系统侧，hdc 排查）；`InitCommon.init()` 必须在 AbilityStage 或 Ability 的 `onCreate` 调用一次，否则 Context/日志未初始化。
 - 注释用中文；`TODO`/`FIXME` 标注待办。资源文案集中在 `string.json`，页面用 `$r('app.string.xxx')` 引用，少写死字符串。
 - 每个库模块必须保留 `Index.ets` barrel 导出。
-- 状态管理示例：新示例优先参照同系列现有页面 V2 在 `pages/entry/statusv2/`，V1 在 `pages/entry/status/`已废弃，不要使用。
+- 状态管理：新代码统一参照页面 V2 在 `pages/entry/statusv2/`，禁止使用V1 在 `pages/entry/status/`已废弃。
 - 学习笔记在 `HarmonyNext/`（ArkTS、UIAbility、组件、MVVM、多线程、数据持久化、HAR/HSP、UDMF、ExtensionAbility、HDC 命令等），改相关代码前先查对应笔记。
 - Http/HTTPS 请求优先使用 `library_network` 的 HttpHelper 工具类，参考 `RegisterRepository`。
 - 响应体为json类型为文本请求，根据url参数可以区分，不需要在 HttpHelper 中添加新的方法。
+- 路由：统一使用 **新 Navigation / NavPathStack 命名路由**：目标为 NavDestination 形态页面，`NavigationHelper.startPage(pathStack, PAGE_XXX, params)` → `pushDestination`。跨模块共享 `@Provide('appPathStack')` / `@Consume('appPathStack')`；`name → 组件` 映射声明在 `router_map.json`。HAR/HSP 跨模块页面与 statusv2 系列子页面走这条。
+- 路由：新增代码禁止使用 **旧 Router** （只允许已有代码使用，如 StartPage 菜单中绝大多数按钮的跳转）。
+- 路由：统一使用 工具类 NavigationHelper 示例代码：`NavigationHelper.startPage(this.pathStack, 'pages/static/login/LoginPage', {}, true, false)`
+
 
 ### 已知坑
 
@@ -179,12 +195,14 @@ ohpm install
 ## 代码提交
 
 - 提交信息使用英文
-- 逐条陈述修改内容
-- 不同的修改内同 使用不同的模板
-  - fix: 用于修补bug
-  - feat: 用于子女增逻辑、功能
-  - refactor: refact 用于重构
+- 逐条陈述修改内容，每条开始前要换行
+- 不同的修改内容 使用不同的模板
+  - fix: 用于修复bug
+  - feat: 用于新增逻辑、功能
+  - refactor: refact 用于代码重构
   - build: 用于打包、上线
+- 修改内容超过三条，按不同模块分别提交，根目录视为单独模块
+- 有任何疑问，停下来让我确认
 
 ## 单元测试要求
 
@@ -192,3 +210,13 @@ ohpm install
   - 所有的函数都必须生成单元测试函数
   - 必须显式调用 try-catch 捕获已知的异常
   - 满足TDD(Test-Driven Development) 红绿测试规则
+  - 单元测试需要考虑在 test 目录还是 ohosTest 目录
+
+## 分步执行
+
+- 任务开始前先评估任务复杂程度，如果比较复杂，必须分步执行；
+- 分布执行的任务，必须先给出修改计划，等我确认后再执行；
+- 分布执行的任务，有任何不清楚的点，必须停下来告诉我，等我确认后再执行；
+  - 比如 有多种方案实现同一个效果，要让我选择，不要自己决定；
+  - 比如 你认为我给的要求模糊，要主动提问，不要自己猜；
+  - 比如 我的要求与已有代码风格、已有框架不一致，要主动告诉我，不要直接忽略；
