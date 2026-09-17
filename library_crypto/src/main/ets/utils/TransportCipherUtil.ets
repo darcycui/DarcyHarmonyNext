@@ -123,7 +123,7 @@ export class TransformCryptoUtil {
     try {
       let parts = TransformCryptoUtil.splitAll(data)
       if (parts == null) {
-        Log.error('CryptoUtil.decrypt 异常: 数据长度不足')
+        Log.error('TransformCryptoUtil.decrypt 异常: 数据长度不足')
         return new Uint8Array()
       }
 
@@ -167,7 +167,7 @@ export class TransformCryptoUtil {
       Log.log(`加密key: ${HexUtil.bytesToHex(key)}`)
       Log.log(`加密IV: ${HexUtil.bytesToHex(iv)}`)
       Log.log(`加密aad: ${HexUtil.bytesToHex(aad)}`)
-      Log.log(`加密data: ${HexUtil.bytesToHex(data)}`)
+      // Log.log(`加密data: ${HexUtil.bytesToHex(data)}`)
       let symKey = TransformCryptoUtil.convertKey(key)
 
       let gcmParams: cryptoFramework.GcmParamsSpec = {
@@ -209,7 +209,7 @@ export class TransformCryptoUtil {
       Log.log('TransformCryptoUtil.decryptSync 解密')
       Log.log(`解密key: ${HexUtil.bytesToHex(key)}`)
       Log.log(`解密aad: ${HexUtil.bytesToHex(aad)}`)
-      Log.log(`解密data: ${HexUtil.bytesToHex(data)}`)
+      // Log.log(`解密data: ${HexUtil.bytesToHex(data)}`)
       let parts = TransformCryptoUtil.splitAll(data)
       if (parts == null) {
         Log.error('TransformCryptoUtil.decryptSync 异常: 数据长度不足')

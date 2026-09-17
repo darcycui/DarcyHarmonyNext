@@ -4,11 +4,20 @@
 // ============================================================
 
 // ---------- 加解密工具 ----------
-export { TransformCryptoUtil } from './src/main/ets/utils/TransformCryptoUtil'
+export { TransportCipherUtil } from './src/main/ets/utils/TransportCipherUtil'
+export { MessageCipher } from './src/main/ets/utils/MessageCipher'
 
 // ---------- DH 密钥交换工具 ----------
-export { DHExchangeUtil } from './src/main/ets/utils/DHExchangeUtil'
+export { ECCExchangeUtil } from './src/main/ets/utils/ECCExchangeUtil'
 
 export { ServerDHSecretManager } from './src/main/ets/storage/memory/ServerDHSecretManager'
 
 export { AADs } from './src/main/ets/aead/AADs'
+
+// ---------- X3DH / Double Ratchet 工具 ----------
+
+export { HKDF1 } from './src/main/ets//x3dh/chain/HKDF1'
+
+export { EncryptUtil } from './src/main/ets/utils/EncryptUtil'
+
+export { ChainKey } from './src/main/ets/x3dh/chain/ChainKey'

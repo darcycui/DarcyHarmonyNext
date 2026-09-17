@@ -5,8 +5,10 @@
 // ============================================================
 import testDHExchangeUtil from './DHExchangeUtil.test';
 import transformCryptoUtilTest from './TransformCryptoUtil.test';
+import messageCipherTest from './MessageCipher.test';
 
 export default function testsuite() {
   transformCryptoUtilTest();
   testDHExchangeUtil();
+  messageCipherTest();
 }

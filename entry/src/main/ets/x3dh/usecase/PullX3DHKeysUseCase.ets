@@ -17,7 +17,7 @@
  */
 import { BaseUseCase } from 'static_library_common';
 import { X3DHKeysPullResponse } from 'library_network';
-import { X3DHKeysRepository } from '../repository/X3DHKeysRepository';
+import { X3DHKeysRepository } from 'library_login/src/main/ets/x3dh/repository/X3DHKeysRepository';
 
 /**
  * 拉取 Bob 的 X3DH 密钥入参
