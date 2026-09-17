@@ -15,6 +15,7 @@ export class JsonParser {
     try {
       // 1. 解析 JSON
       let parsed: Record<string, Object> = JSON.parse(message) as Record<string, Object>;
+      Log.warn(`parseResultBean 解析结果: ${parsed}`)
       // 2. 提取 error_code，默认 -1 表示未知错误
       let errorCode: number = (parsed['error_code'] as number) ?? -1;
 

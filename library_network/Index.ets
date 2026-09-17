@@ -34,6 +34,8 @@ export { X3DHPullHelloRequestDTO } from './src/main/ets/network/models/request/X
 export { X3DHPullKeysRequestDTO } from './src/main/ets/network/models/request/X3DHPullKeysRequestDTO'
 export { X3DHPushHelloRequestDTO } from './src/main/ets/network/models/request/X3DHPushHelloRequestDTO'
 export { X3DHPushKeysRequestDTO } from './src/main/ets/network/models/request/X3DHPushKeysRequestDTO'
+export { UserQueryPhoneRequestDTO } from './src/main/ets/network/models/request/UserQueryPhoneRequestDTO'
+export { STOMPMessage } from './src/main/ets/network/models/request/STOMPMessage'
 
 // ---------- Models (Response Entity) ----------
 export { ApplyFriendResponse } from './src/main/ets/network/models/response/ApplyFriendResponse'

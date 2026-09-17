@@ -2,7 +2,7 @@ import { http } from '@kit.NetworkKit';
 import { ArrayUtil, HexUtil, Log } from 'static_library_common';
 import { Available } from '@kit.BasicServicesKit';
 import { IOnRequest } from '../IOnRequest';
-import { AADs, ServerDHSecretManager, TransformCryptoUtil } from 'library_crypto';
+import { AADs, ServerDHSecretManager, TransportCipherUtil } from 'library_crypto';
 import { UrlUtil } from '../../../../../utils/UrlUtil';
 
 const TAG = 'EncryptRequestInterceptor';
@@ -16,10 +16,10 @@ export class EncryptRequestImpl implements IOnRequest {
     if (typeof reqContext.body === 'string') {
       if (ServerDHSecretManager.isSecretReady()) {
         // 对请求体进行加密
-        const cipherBody = TransformCryptoUtil.encryptSync(
+        const cipherBody = TransportCipherUtil.encryptSync(
           ArrayUtil.stringToBytes(reqContext.body),
           HexUtil.hexToBytes(ServerDHSecretManager.getDHSecretSync()),
-          TransformCryptoUtil.getIV(),
+          TransportCipherUtil.getIV(),
           ArrayUtil.stringToBytes(AADs.AAD_PREFIX_POST + UrlUtil.stripUrlToPath(reqContext.url))
         )
         reqContext.body = HexUtil.bytesToHex(cipherBody)

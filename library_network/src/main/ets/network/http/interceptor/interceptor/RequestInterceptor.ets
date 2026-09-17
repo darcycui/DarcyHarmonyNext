@@ -27,6 +27,7 @@ export class RequestInterceptor implements http.HttpInterceptor {
       // Log.info(`[${TAG}] [Chain] after: ${JSON.stringify(result)}`);
       return result
     }, reqContext);
+    // 返回true 修改请求体
     return Promise.resolve(true);
   }
 }
