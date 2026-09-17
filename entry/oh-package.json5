@@ -17,10 +17,6 @@
     "shared_library_context": "file:../shared_library_context",
     // 引用camera库源码
     "library_camera": "file:../library_camera",
-    // 引用chat库源码
-    "library_chat": "file:../library_chat",
-    // 引用contract库源码
-    "library_contact": "file:../library_contact",
     // 引用napi库源码
     "library_napi": "file:../library_napi",
     // 引用network网络库源码
@@ -29,6 +25,8 @@
     "library_crypto": "file:../library_crypto",
     // 引用login登录注册模块
     "library_login": "file:../library_login",
+    // 引用database数据库模块
+    "library_database": "file:../library_database",
 //
 //    // 2.本地文件依赖
 //    // 引用本地静态库文件

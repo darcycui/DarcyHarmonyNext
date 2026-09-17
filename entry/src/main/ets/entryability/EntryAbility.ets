@@ -1,5 +1,5 @@
 import { AbilityConstant, Want } from '@kit.AbilityKit';
-import { PAGE_INDEX, PAGE_START } from '../pages/PageName';
+import { PAGE_HOME, PAGE_INDEX, PAGE_LOGIN, PAGE_START } from '../pages/PageName';
 import { HiLog, Log, BaseUIAbility, ToastUtil } from 'static_library_common';
 import { EntryEvent } from '../event/EventName';
 import { KeyboardAvoidMode, promptAction, UIContext, window } from '@kit.ArkUI';
@@ -21,8 +21,13 @@ export default class EntryAbility extends BaseUIAbility {
   localStorage: LocalStorage = new LocalStorage(this.para1);
 
   getInitPageName(): string {
-    return PAGE_INDEX
+    // return PAGE_INDEX
+    return PAGE_HOME
   }
+
+  // getInitContentByName(): string {
+  //   return PAGE_LOGIN
+  // }
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     super.onCreate(want, launchParam);

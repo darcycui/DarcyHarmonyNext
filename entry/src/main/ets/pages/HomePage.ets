@@ -1,23 +1,27 @@
+import { Log, NavigationUtil, ToastUtil } from 'static_library_common';
+import { PAGE_LOGIN } from './PageName';
+
 @Entry
-@Component
+@ComponentV2
 struct HomePage {
-  @State message: string = 'Hello World';
+  /**
+   * navigation 控制器
+   */
+  @Provider('HomePathStack') pathStack: NavPathStack = new NavPathStack();
+
+  aboutToAppear(): void {
+    NavigationUtil.startPage(this.pathStack, PAGE_LOGIN, {}, true)
+  }
 
   build() {
-    RelativeContainer() {
-      Text(this.message)
-        .id('HomePageHelloWorld')
-        .fontSize($r('app.float.page_text_font_size'))
-        .fontWeight(FontWeight.Bold)
-        .alignRules({
-          center: { anchor: '__container__', align: VerticalAlign.Center },
-          middle: { anchor: '__container__', align: HorizontalAlign.Center }
-        })
-        .onClick(() => {
-          this.message = 'Welcome';
-        })
-    }
-    .height('100%')
-    .width('100%')
+    Navigation(this.pathStack) {
+      RelativeContainer() {
+      }
+      .height('100%')
+      .width('100%')
+    }.hideNavBar(true)
+    .hideTitleBar(true)
+    .hideToolBar(true)
+    .hideBackButton(true)
   }
 }

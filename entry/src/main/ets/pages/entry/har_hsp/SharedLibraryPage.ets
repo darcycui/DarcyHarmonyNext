@@ -1,6 +1,6 @@
 import { PAGE_SHARED_INNER } from '../../PageName';
 import { getResourceString } from '../../../utils/ResourceUtil';
-import { Log, NavigationHelper } from 'static_library_common';
+import { Log, NavigationUtil } from 'static_library_common';
 import { add, ContextResourceManager, SharedMainPage } from 'shared_library_context';
 
 // import { add, ContextResourceManager, SharedMainPage } from 'shared_library_context';
@@ -32,7 +32,7 @@ struct SharedLibraryPage {
           .margin({ bottom: 10 })
           .onClick(() => {
             // 跳转到动态库页面
-            NavigationHelper.startPage(this.pathStack, PAGE_SHARED_INNER, { 'keyHello': 'Hello World' })
+            NavigationUtil.startPage(this.pathStack, PAGE_SHARED_INNER, { 'keyHello': 'Hello World' })
           })
         // 引用static库中的图片
         Image(ContextResourceManager.getIcon())

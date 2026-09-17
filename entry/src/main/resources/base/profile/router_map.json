@@ -1,6 +1,16 @@
 {
   "routerMap": [
     {
+      "name": "pages/Index",
+      "pageSourceFile": "src/main/ets/pages/Index.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/StartPage",
+      "pageSourceFile": "src/main/ets/pages/StartPage.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
       "name": "pages/entry/har_hsp/StaticLibraryPage",
       "pageSourceFile": "src/main/ets/pages/entry/har_hsp/StaticLibraryPage.ets",
       "buildFunction": "NavigationBuilder"
@@ -73,6 +83,21 @@
     {
       "name": "pages/main/chat/UserInfoPage",
       "pageSourceFile": "src/main/ets/pages/main/chat/UserInfoPage.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/main/chat/ChatEntryPage",
+      "pageSourceFile": "src/main/ets/pages/main/chat/ChatEntryPage.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/main/contact/ApplyFriendPage",
+      "pageSourceFile": "src/main/ets/pages/main/contact/ApplyFriendPage.ets",
+      "buildFunction": "NavigationBuilder"
+    },
+    {
+      "name": "pages/main/contact/AcceptFriendPage",
+      "pageSourceFile": "src/main/ets/pages/main/contact/AcceptFriendPage.ets",
       "buildFunction": "NavigationBuilder"
     }
   ]

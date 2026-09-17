@@ -50,13 +50,18 @@ import {
 import { RouterHelper } from 'static_library_common/src/main/ets/utils/RouterHelper';
 import { common } from '@kit.AbilityKit';
 import { inspector, LengthUnit } from '@kit.ArkUI';
-import { Log, NavigationHelper, ToastUtil } from 'static_library_common';
+import { Log, NavigationUtil, ToastUtil } from 'static_library_common';
 import { ItemBean } from '../models/ui/learn/ItemBean';
 
+@Builder
+export function NavigationBuilder() {
+  StartPage();
+}
+
 // @Entry
-@Component
+@ComponentV2
 export struct StartPage {
-  @State message: string = 'Hello World';
+  @Local message: string = 'Hello World';
   // navigation 栈控制器
   pathStack: NavPathStack = new NavPathStack();
   // 获取上下文context
@@ -91,7 +96,7 @@ export struct StartPage {
   }
 
   build() {
-    Navigation(this.pathStack) {
+    NavDestination() {
       Scroll(this.scroller) {
         Column() {
           Text(getTextStr()).visibility(Visibility.None)
@@ -132,12 +137,16 @@ export struct StartPage {
         }, 1_00)
       })
     }
-    .mode(NavigationMode.Auto)
     .title($r('app.string.start_page'))
     .hideBackButton(true)
-    .titleMode(NavigationTitleMode.Mini)
+    // .mode(NavigationMode.Auto)
+    // .titleMode(NavigationTitleMode.Mini)
     // 菜单栏(右上角)
     .menus([this.menuItem1, this.menuItem2])
+    .onReady((context: NavDestinationContext) => {
+      Log.log('StartPage onReady 初始化 pathStack')
+      this.pathStack = context.pathStack
+    })
     // 工具栏(底部)
     // .toolbarConfiguration([this.toolbarItem1, this.toolbarItem2])
     .onAppear(() => {
@@ -197,7 +206,7 @@ export struct StartPage {
           item.pageName === PAGE_SHARED_LIBRARY || item.pageName === PAGE_LOGIN || item.pageName === PAGE_REGISTER) {
           this.buildOneItem(item.pageName, item.text, { 'keyHello': 'Hello World' }, () => {
             // 使用 Navigation 跳转 支持相同模块、不同模块
-            NavigationHelper.startPage(this.pathStack, item.pageName, { 'keyHello': 'Hello World' })
+            NavigationUtil.startPage(this.pathStack, item.pageName, { 'keyHello': 'Hello World' })
           })
         } else {
           this.buildOneItem(item.pageName, item.text, { 'keyHello': 'Hello World' })

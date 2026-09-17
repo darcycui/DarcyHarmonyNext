@@ -15,7 +15,7 @@ import { ArrayUtil, BaseUseCase } from 'static_library_common';
 import { Log } from 'static_library_common';
 import { HexUtil } from 'static_library_common';
 import { DarcyIMDatabase, IdentityKeyEntity } from 'library_database';
-import { ECCExchangeHelper, HKDFUtil, EncryptUtil } from 'library_crypto';
+import { ECCExchangeUtil, HKDFUtil, EncryptUtil } from 'library_crypto';
 import { X3DHKeysPullResponse } from 'library_network';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 
@@ -84,13 +84,13 @@ export class CalculateAliceX3DHKeyUseCase extends BaseUseCase<CalculateAliceX3DH
     const aliceIdentityPublicKey = HexUtil.hexToBytes(aliceIdentityKey.publicKey);
 
     // 生成 Alice 临时密钥对
-    const aliceEphemeralKey = await ECCExchangeHelper.generateKeyPair();
+    const aliceEphemeralKey = await ECCExchangeUtil.generateKeyPair();
     if (aliceEphemeralKey == null) {
       throw new Error('aliceEphemeralKey 生成失败');
     }
 
     Log.log(`$aliceUserId aliceIdentityPublic= ${HexUtil.bytesToHex(aliceIdentityPublicKey)}`);
-    Log.log(`$aliceUserId aliceEphemeralPublic= ${HexUtil.bytesToHex(ECCExchangeHelper.getKeyBytes(aliceEphemeralKey.pubKey))}`);
+    Log.log(`$aliceUserId aliceEphemeralPublic= ${HexUtil.bytesToHex(ECCExchangeUtil.getKeyBytes(aliceEphemeralKey.pubKey))}`);
 
     // 解析 Bob 公钥
     const bobIdentityPublic = HexUtil.hexToBytes(bobKeys.identityKey);
@@ -102,10 +102,10 @@ export class CalculateAliceX3DHKeyUseCase extends BaseUseCase<CalculateAliceX3DH
     Log.log(`$aliceUserId bobOneTimePreKeyPublic= ${HexUtil.bytesToHex(bobOneTimePreKeyPublic)}`);
 
     // 计算 4 个 DH 共享密钥
-    const dh1 = await ECCExchangeHelper.getSharedSecretByUintArrays(aliceIdentityPrivateKey, bobIdentityPublic);
-    const dh2 = await ECCExchangeHelper.getSharedSecretByUintArrays(ECCExchangeHelper.getKeyBytes(aliceEphemeralKey.priKey), bobIdentityPublic);
-    const dh3 = await ECCExchangeHelper.getSharedSecretByUintArrays(ECCExchangeHelper.getKeyBytes(aliceEphemeralKey.priKey), bobSignedPreKeyPublic);
-    const dh4 = await ECCExchangeHelper.getSharedSecretByUintArrays(ECCExchangeHelper.getKeyBytes(aliceEphemeralKey.priKey), bobOneTimePreKeyPublic);
+    const dh1 = await ECCExchangeUtil.getSharedSecretByUintArrays(aliceIdentityPrivateKey, bobIdentityPublic);
+    const dh2 = await ECCExchangeUtil.getSharedSecretByUintArrays(ECCExchangeUtil.getKeyBytes(aliceEphemeralKey.priKey), bobIdentityPublic);
+    const dh3 = await ECCExchangeUtil.getSharedSecretByUintArrays(ECCExchangeUtil.getKeyBytes(aliceEphemeralKey.priKey), bobSignedPreKeyPublic);
+    const dh4 = await ECCExchangeUtil.getSharedSecretByUintArrays(ECCExchangeUtil.getKeyBytes(aliceEphemeralKey.priKey), bobOneTimePreKeyPublic);
 
     // 拼接并派生 X3DH 密钥
     const sharedSecret = EncryptUtil.appendArrays(dh1, dh2, dh3, dh4);

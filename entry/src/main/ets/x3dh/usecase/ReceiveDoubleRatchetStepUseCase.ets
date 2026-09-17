@@ -23,10 +23,10 @@ import {
   SessionRecordEntity,
   SkippedMessageKeyEntity,
 } from 'library_database';
-import { ECCExchangeHelper, EncryptUtil } from 'library_crypto';
-import { MessageKey } from '../model/MessageKey';
-import { HKDF1 } from '../chain/HKDF1';
-import { ChainKey } from '../chain/ChainKey';
+import { ECCExchangeUtil, EncryptUtil } from 'library_crypto';
+import { MessageKey } from 'library_crypto/src/main/ets/x3dh/model/MessageKey';
+import { HKDF1 } from 'library_crypto/src/main/ets/x3dh/chain/HKDF1';
+import { ChainKey } from 'library_crypto/src/main/ets/x3dh/chain/ChainKey';
 
 /**
  * 接收 Double Ratchet 步进入参
@@ -175,7 +175,7 @@ export class ReceiveDoubleRatchetStepUseCase extends BaseUseCase<ReceiveDoubleRa
     EncryptUtil.log(`$localUserId DH 公钥:`, remoteDHKey);
 
     // 计算新的 DH 共享密钥
-    const receivingNewDHSharedSecret = await ECCExchangeHelper.getSharedSecretByUintArrays(
+    const receivingNewDHSharedSecret = await ECCExchangeUtil.getSharedSecretByUintArrays(
       localEphemeralPrivateKey, remoteDHKey,
     );
     Log.log(`$localUserId DH 棘轮步进完成 ${HexUtil.bytesToHex(receivingNewDHSharedSecret)}`);
@@ -256,18 +256,18 @@ export class ReceiveDoubleRatchetStepUseCase extends BaseUseCase<ReceiveDoubleRa
 
     // === 发送端 DH 步进 ===
     Log.warn(`$localUserId DH 棘轮步进开始（发送端）`);
-    const localEphemeralKey = await ECCExchangeHelper.generateKeyPair();
+    const localEphemeralKey = await ECCExchangeUtil.generateKeyPair();
     if (localEphemeralKey == null) {
       throw new Error('本地 ephemeral key 生成失败');
     }
-    const newLocalEphemeralPrivateKey = (ECCExchangeHelper.getKeyBytes(localEphemeralKey!.priKey));
-    const newLocalEphemeralPublicKey = (ECCExchangeHelper.getKeyBytes(localEphemeralKey!.pubKey));
+    const newLocalEphemeralPrivateKey = (ECCExchangeUtil.getKeyBytes(localEphemeralKey!.priKey));
+    const newLocalEphemeralPublicKey = (ECCExchangeUtil.getKeyBytes(localEphemeralKey!.pubKey));
 
     EncryptUtil.log(`$localUserId 本地新公钥:`, newLocalEphemeralPublicKey);
     EncryptUtil.log(`$localUserId DH 新私钥:`, newLocalEphemeralPrivateKey);
     EncryptUtil.log(`$localUserId DH 公钥:`, remoteDHKey);
 
-    const sendingNewDHSharedSecret = await ECCExchangeHelper.getSharedSecretByUintArrays(
+    const sendingNewDHSharedSecret = await ECCExchangeUtil.getSharedSecretByUintArrays(
       newLocalEphemeralPrivateKey, remoteDHKey,
     );
     Log.warn(`$localUserId DH 棘轮步进完成 ${HexUtil.bytesToHex(sendingNewDHSharedSecret)}`);

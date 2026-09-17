@@ -1,5 +1,7 @@
 {
   "src": [
+    "pages/HomePage",
+    "pages/Index",
     "pages/entry/basepage/RelativePage",
     "pages/entry/basepage/InputPage",
     "pages/entry/basepage/ColumnPage",
@@ -88,7 +90,6 @@
     "pages/entry/background_task/WorkSchedulerPage",
     "pages/entry/background_task/BackgroundTaskPage",
     "pages/entry/background_task/ShortTaskPage",
-    "pages/Index",
     "pages/entry/other/LongTaskPage",
     "pages/entry/other/LongTaskDetailPage",
     "pages/entry/statusv2/StatusV2Page",

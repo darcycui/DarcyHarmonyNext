@@ -1,4 +1,4 @@
-import { NavigationHelper, RouterHelper } from 'static_library_common'
+import { NavigationUtil, RouterHelper } from 'static_library_common'
 import { ItemBean } from '../../../models/ui/learn/ItemBean'
 import {
   PAGE_APP_STORAGE_PAGE_1,

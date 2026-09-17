@@ -1,4 +1,4 @@
-import { NavigationHelper } from 'static_library_common';
+import { NavigationUtil } from 'static_library_common';
 import { ItemBean } from '../../../models/ui/learn/ItemBean';
 import {
   PAGE_COMPUTED,
@@ -37,7 +37,7 @@ struct StatusV2Page {
           ListItem() {
             Text(item.text).width('100%').textAlign(TextAlign.Center).padding(10)
           }.width('100%').onClick(() => {
-            NavigationHelper.startPage(this.pathStack, item.pageName, { 'keyHello': 'Value Hello World' })
+            NavigationUtil.startPage(this.pathStack, item.pageName, { 'keyHello': 'Value Hello World' })
           })
         }, (item: ItemBean, index: number) => {
           return `${index} ${JSON.stringify(item)}`

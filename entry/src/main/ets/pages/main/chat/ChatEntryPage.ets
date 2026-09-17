@@ -1,4 +1,4 @@
-import { Log, NavigationHelper, RouterHelper, ToastUtil } from 'static_library_common';
+import { Log, NavigationUtil, RouterHelper, ToastUtil } from 'static_library_common';
 import { ChatItem } from '../../../models/ui/im/ChatItem';
 import { ChatItemComponent } from './views/ChatItemComponent';
 import { ChatDataSource } from './datasource/ChatDataSource';
@@ -11,18 +11,23 @@ export function ChatEntryBuilder() {
   ChatEntryPage()
 }
 
-@Component
+@Builder
+export function NavigationBuilder() {
+  ChatEntryPage()
+}
+
+@ComponentV2
 export struct ChatEntryPage {
-  @State keyboardHeight: number = 0;
-  @State input: string = '';
-  @State private message: string = '消息';
-  @State private chatList: Array<ChatItem> = [
+  @Local keyboardHeight: number = 0;
+  @Local input: string = '';
+  @Local private message: string = '消息';
+  @Local private chatList: Array<ChatItem> = [
     new ChatItem(200, 'Jerry', '你好 我是一只小老鼠'),
     new ChatItem(101, 'Tom', '你好 我是一只老猫'),
   ]
   private lazyChatDataSource: ChatDataSource = new ChatDataSource();
-  // Navigation 路由 栈控制器 @Consume跨组件传递
-  @Consume('appPathStack') pathStack: NavPathStack;
+  // Navigation 路由 栈控制器 @Consumer跨组件传递
+  @Consumer('HomePathStack') pathStack: NavPathStack = new NavPathStack();
 
   // 路由参数
   pageParam: Map<string, string> = new Map();
@@ -49,7 +54,7 @@ export struct ChatEntryPage {
   }
 
   build() {
-    // NavDestination() {
+    NavDestination() {
       Column() {
         Stack() {
           Text(this.message)
@@ -58,7 +63,6 @@ export struct ChatEntryPage {
           Row() {
             Image($r("app.media.mouse")).width(34).height(34).margin({ left: 16 })
               .onClick(() => {
-                // 头像
                 ToastUtil.showToast(this.getUIContext(), '头像')
               })
           }.width('100%')
@@ -69,7 +73,7 @@ export struct ChatEntryPage {
             ListItem() {
               ChatItemComponent({ model: item })
             }.width('100%').onClick(() => {
-              NavigationHelper.startPage(this.pathStack, PAGE_USER_INFO, { "key": "value", "userName": item.from })
+              NavigationUtil.startPage(this.pathStack, PAGE_USER_INFO, { "key": "value", "userName": item.from })
             })
           }, (item: ChatItem, index: number) => {
             return JSON.stringify(item) + index
@@ -87,9 +91,7 @@ export struct ChatEntryPage {
               this.lazyChatDataSource.pushData(new ChatItem(101, 'Tom', `来自老猫Tom的消息: ${Math.random() * 1000}`))
               Log.warn(`lazyChatDataSource: ${JSON.stringify(this.lazyChatDataSource)}`)
               this.input = ''
-              // 收起键盘
               this.getUIContext().getFocusController().clearFocus()
-              // 列表滑动到底部
               this.scrollToLastItem()
             })
         }.width('100%').height(50).backgroundColor(Color.Blue)
@@ -97,13 +99,11 @@ export struct ChatEntryPage {
       .height('100%')
       .width('100%')
     }
-    // .title("聊天")
-    // .onReady((context: NavDestinationContext) => {
-    //   // 从参数中获取 页面栈
-    //   this.pathStack = context.pathStack
-    //   // 从参数中获取 路由参数
-    //   this.pageParam = context.pathInfo.param as Map<string, string>
-    //   Log.info(`pageParam: ${JSON.stringify(this.pageParam)}`)
-    // })
-  // }
+    .title('聊天')
+    .onReady((context: NavDestinationContext) => {
+      this.pathStack = context.pathStack
+      this.pageParam = context.pathInfo.param as Map<string, string>
+      Log.info(`ChatEntryPage pageParam: ${JSON.stringify(this.pageParam)}`)
+    })
+  }
 }

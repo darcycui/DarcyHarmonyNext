@@ -14,9 +14,9 @@ import { ArrayUtil, BaseUseCase } from 'static_library_common';
 import { Log } from 'static_library_common';
 import { HexUtil } from 'static_library_common';
 import { DarcyIMDatabase, SessionRecordEntity } from 'library_database';
-import { ECCExchangeHelper, EncryptUtil } from 'library_crypto';
-import { HKDF1 } from '../chain/HKDF1';
-import { ChainKey } from '../chain/ChainKey';
+import { ECCExchangeUtil, EncryptUtil } from 'library_crypto';
+import { HKDF1 } from 'library_crypto/src/main/ets/x3dh/chain/HKDF1';
+import { ChainKey } from 'library_crypto/src/main/ets/x3dh/chain/ChainKey';
 
 /**
  * Alice DH 棘轮初始化入参
@@ -66,19 +66,19 @@ export class InitAliceDHRatchetUseCase extends BaseUseCase<InitAliceDHRatchetPar
     Log.warn(`$localUserId DH 棘轮步进开始`);
 
     // 生成新的本地临时密钥对
-    const localEphemeralKey = await ECCExchangeHelper.generateKeyPair();
+    const localEphemeralKey = await ECCExchangeUtil.generateKeyPair();
     if (localEphemeralKey == null) {
       throw new Error('生成本地临时密钥对 localEphemeralKey 失败');
     }
-    const newLocalEphemeralPrivateKey = ECCExchangeHelper.getKeyBytes(localEphemeralKey?.priKey);
-    const newLocalEphemeralPublicKey = ECCExchangeHelper.getKeyBytes(localEphemeralKey?.pubKey);
+    const newLocalEphemeralPrivateKey = ECCExchangeUtil.getKeyBytes(localEphemeralKey?.priKey);
+    const newLocalEphemeralPublicKey = ECCExchangeUtil.getKeyBytes(localEphemeralKey?.pubKey);
 
     EncryptUtil.log(`$localUserId 本地新公钥:`, newLocalEphemeralPublicKey);
     EncryptUtil.log(`$localUserId DH 新私钥:`, newLocalEphemeralPrivateKey);
     Log.log(`$localUserId DH 公钥: ${bobSignedPreKey}`);
 
     // 计算 DH 共享密钥
-    const sendingNewDHSharedSecret = await ECCExchangeHelper.getSharedSecretByUintArrays(
+    const sendingNewDHSharedSecret = await ECCExchangeUtil.getSharedSecretByUintArrays(
       newLocalEphemeralPrivateKey,
       HexUtil.hexToBytes(bobSignedPreKey),
     );

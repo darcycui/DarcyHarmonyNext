@@ -1,15 +1,20 @@
 import { Log } from 'static_library_common';
-import { ChatEntryPage } from './main/chat/ChatEntryPage';
-import { ContactPage } from './main/contact/ContractPage';
-import { StartPage } from './StartPage';
+import { ConversationListPage } from './main/conversation/ConversationListPage';
+import { ContactPage } from './main/contact/ContactPage';
+import { MinePage } from './main/mine/MinePage';
+
+@Builder
+export function NavigationBuilder() {
+  Index()
+}
 
 @Entry
-@Component
+@ComponentV2
 struct Index {
-  @State message: string = 'This is contract page';
-  @State currentIndex: number = 2;
-  // navigation路由控制器 @Provide跨页面传递
-  @Provide('appPathStack') pathStack: NavPathStack = new NavPathStack();
+  @Local message: string = 'This is contract page';
+  @Local currentIndex: number = 1;
+  // navigation路由控制器 @Provider跨页面传递
+  @Consumer('HomePathStack') pathStack: NavPathStack = new NavPathStack();
 
   // 自定义 TabContent
   @Builder
@@ -26,11 +31,10 @@ struct Index {
   }
 
   build() {
-    Navigation(this.pathStack) {
-
+    NavDestination() {
       Tabs({ barPosition: BarPosition.End, index: this.currentIndex }) {
         TabContent() {
-          ChatEntryPage()
+          ConversationListPage()
         }.tabBar(this.tabBuilder(0, $r("app.string.tab_bar_title_chat"), $r('app.media.yes'), $r('app.media.no')))
 
         TabContent() {
@@ -38,8 +42,8 @@ struct Index {
         }.tabBar(this.tabBuilder(1, $r("app.string.tab_bar_title_contract"), $r('app.media.yes'), $r('app.media.no')))
 
         TabContent() {
-          StartPage()
-        }.tabBar(this.tabBuilder(2, $r('app.string.tab_bar_title_me'), $r('app.media.yes'), $r('app.media.no')))
+          MinePage()
+        }.tabBar(this.tabBuilder(2, $r("app.string.tab_bar_title_me"), $r('app.media.yes'), $r('app.media.no')))
       }
       .scrollable(true)
       .barMode(BarMode.Fixed)
@@ -50,10 +54,9 @@ struct Index {
     }
     .width('100%')
     .height('100%')
-    .hideTitleBar(true)
-    .hideToolBar(true)
-    .mode(NavigationMode.Stack)
-
+    .onReady((context: NavDestinationContext) => {
+      this.pathStack = context.pathStack
+    })
   }
 
   pageName = "IndexPage"

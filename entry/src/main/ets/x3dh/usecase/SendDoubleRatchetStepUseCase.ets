@@ -14,8 +14,8 @@ import { Log } from 'static_library_common';
 import { HexUtil } from 'static_library_common';
 import { DarcyIMDatabase, SessionRecordEntity } from 'library_database';
 import { EncryptUtil } from 'library_crypto';
-import { MessageKey } from '../model/MessageKey';
-import { ChainKey } from '../chain/ChainKey';
+import { MessageKey } from 'library_crypto/src/main/ets/x3dh/model/MessageKey';
+import { ChainKey } from 'library_crypto/src/main/ets/x3dh/chain/ChainKey';
 
 /**
  * 发送 Double Ratchet 步进入参

@@ -1,4 +1,4 @@
-import { func, func2, Log, NavigationHelper, StaticMainPage } from 'static_library_common';
+import { func, func2, Log, NavigationUtil, StaticMainPage } from 'static_library_common';
 import { PAGE_STATIC_INNER } from '../../PageName';
 import { getResourceString } from '../../../utils/ResourceUtil';
 import { RouterHelper } from 'static_library_common/src/main/ets/utils/RouterHelper';
@@ -30,7 +30,7 @@ struct StaticLibraryPage {
           .margin({ bottom: 10 })
           .onClick(() => {
             // 跳转到静态库页面
-            NavigationHelper.startPage(this.pathStack, PAGE_STATIC_INNER, { 'keyHello': 'Hello World' })
+            NavigationUtil.startPage(this.pathStack, PAGE_STATIC_INNER, { 'keyHello': 'Hello World' })
           })
         // 引用static库中的图片
         Image($r("app.media.static_icon"))

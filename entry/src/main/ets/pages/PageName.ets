@@ -1,3 +1,4 @@
+export let PAGE_HOME = "pages/HomePage";
 export let PAGE_INDEX = "pages/Index";
 export let PAGE_START = "pages/StartPage";
 export let PAGE_START_OTHER = "pages/entry/other/OtherStartPage";
@@ -137,3 +138,8 @@ export let PAGE_REPEAT_VIRTUAL_LIST = "pages/entry/render_control/RepeatVirtualS
 export let PAGE_LOGIN = "pages/static/login/LoginPage";
 export let PAGE_REGISTER = "pages/static/login/RegisterPage";
 export let PAGE_USER_INFO = "pages/main/chat/UserInfoPage";
+export let PAGE_CHAT_ENTRY = "pages/main/chat/ChatEntryPage";
+export let PAGE_CONVERSATION_LIST = "pages/main/conversation/ConversationListPage";
+export let PAGE_APPLY_FRIEND = "pages/main/contact/ApplyFriendPage";
+export let PAGE_ACCEPT_FRIEND = "pages/main/contact/AcceptFriendPage";
+export let PAGE_MINE = "pages/main/mine/MinePage";

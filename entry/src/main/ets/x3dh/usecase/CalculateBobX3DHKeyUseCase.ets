@@ -12,7 +12,7 @@ import { ArrayUtil, BaseUseCase } from 'static_library_common';
 import { Log } from 'static_library_common';
 import { HexUtil } from 'static_library_common';
 import { DarcyIMDatabase } from 'library_database';
-import { ECCExchangeHelper, HKDFUtil, EncryptUtil } from 'library_crypto';
+import { ECCExchangeUtil, HKDFUtil, EncryptUtil } from 'library_crypto';
 
 /**
  * Bob X3DH 密钥计算入参
@@ -92,10 +92,10 @@ export class CalculateBobX3DHKeyUseCase extends BaseUseCase<CalculateBobX3DHKeyP
     Log.log(`$bobUserId aliceEphemeralPublic ${HexUtil.bytesToHex(aliceEphemeralPublic)}`);
 
     // 计算 4 个 DH 共享密钥
-    const dh1 = await ECCExchangeHelper.getSharedSecretByUintArrays(bobIdentityPrivateKey, aliceIdentityPublic);
-    const dh2 = await ECCExchangeHelper.getSharedSecretByUintArrays(bobIdentityPrivateKey, aliceEphemeralPublic);
-    const dh3 = await ECCExchangeHelper.getSharedSecretByUintArrays(bobSignedPreKeyPrivateKey, aliceEphemeralPublic);
-    const dh4 = await ECCExchangeHelper.getSharedSecretByUintArrays(bobOneTimePreKeyPrivateKey, aliceEphemeralPublic);
+    const dh1 = await ECCExchangeUtil.getSharedSecretByUintArrays(bobIdentityPrivateKey, aliceIdentityPublic);
+    const dh2 = await ECCExchangeUtil.getSharedSecretByUintArrays(bobIdentityPrivateKey, aliceEphemeralPublic);
+    const dh3 = await ECCExchangeUtil.getSharedSecretByUintArrays(bobSignedPreKeyPrivateKey, aliceEphemeralPublic);
+    const dh4 = await ECCExchangeUtil.getSharedSecretByUintArrays(bobOneTimePreKeyPrivateKey, aliceEphemeralPublic);
 
     // 拼接并派生 X3DH 密钥
     const sharedSecret = EncryptUtil.appendArrays(dh1, dh2, dh3, dh4);

@@ -1,5 +1,5 @@
 import { JSON } from "@kit.ArkTS"
-import { Log, NavigationHelper, ToastUtil } from "static_library_common"
+import { Log, NavigationUtil, ToastUtil } from "static_library_common"
 import { PAGE_APPLY_FRIEND, PAGE_ACCEPT_FRIEND } from "../../PageName"
 
 @ComponentV2
@@ -22,7 +22,7 @@ export struct ContactPage {
   ]
 
   // Navigation 路由栈控制器
-  @Consumer('appPathStack') pathStack: NavPathStack = new NavPathStack();
+  @Consumer('HomePathStack') pathStack: NavPathStack = new NavPathStack();
 
   build() {
     Column() {
@@ -33,7 +33,7 @@ export struct ContactPage {
           .fontSize(22)
           .margin({ left: 16 })
           .onClick(() => {
-            NavigationHelper.startPage(this.pathStack, PAGE_ACCEPT_FRIEND)
+            NavigationUtil.startPage(this.pathStack, PAGE_ACCEPT_FRIEND)
           })
 
         Text('联系人')
@@ -48,7 +48,7 @@ export struct ContactPage {
           .fontWeight(FontWeight.Bold)
           .margin({ right: 16 })
           .onClick(() => {
-            NavigationHelper.startPage(this.pathStack, PAGE_APPLY_FRIEND)
+            NavigationUtil.startPage(this.pathStack, PAGE_APPLY_FRIEND)
           })
       }
       .width('100%')
