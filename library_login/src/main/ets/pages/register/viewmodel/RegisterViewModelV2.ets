@@ -24,38 +24,33 @@
  *     → ViewModel 方法委托 Reducer 修改 state
  *     → Reducer 原地修改 @Trace 属性触发 UI 重渲染
  */
-import { common } from '@kit.AbilityKit';
 import { BaseViewModel, Log } from 'static_library_common';
 import RegisterState from '../state/RegisterState';
 import RegisterReducer from '../reducer/RegisterReducer';
-import { RegisterParams, RegisterUseCase, DeleteUserUseCase, DeleteUserParams } from '../usecase/RegisterUseCase';
+import { DeleteUserParams, DeleteUserUseCase, RegisterParams, RegisterUseCase } from '../usecase/RegisterUseCase';
 import { RegisterRepository } from '../repository/RegisterRepository';
 import {
+  DeleteUserIntent,
   DoRegisterIntent,
   RegisterIntent,
   UpdateEmailIntent,
   UpdateNicknameIntent,
   UpdatePhoneIntent,
   UpdateRegisterPasswordIntent,
-  UpdateRegisterUserNameIntent,
-  DeleteUserIntent
+  UpdateRegisterUserNameIntent
 } from '../intent/RegisterIntent';
-import { DarcyIMDatabase, IdentityKeyDao,
-  IdentityKeyEntity,
-  OneTimePreKeyDao,
-  OneTimePreKeyEntity,
-  SignedPreKeyDao,
-  SignedPreKeyEntity } from 'library_database';
+import { DarcyIMDatabase, IdentityKeyEntity, OneTimePreKeyEntity, SignedPreKeyEntity } from 'library_database';
 import { GenerateIdentityKeyUseCase } from '../../../x3dh/usecase/GenerateIdentityKeyUseCase';
 import { GenerateSignedPreKeyUseCase } from '../../../x3dh/usecase/GenerateSignedPreKeyUseCase';
 import { GenerateOneTimePreKeyUseCase } from '../../../x3dh/usecase/GenerateOneTimePreKeyUseCase';
 import { PushX3DHKeysUseCase } from '../../../x3dh/usecase/PushX3DHKeysUseCase';
 import { X3DHPushKeysRepository } from '../../../x3dh/repository/X3DHPushKeysRepository';
 import ErrorUtil from 'static_library_common/src/main/ets/utils/ErrorUtil';
-import { OneTimePreKeyInputDTO, RegisterResponse, TokenManager } from 'library_network';
+import { OneTimePreKeyInputDTO, TokenManager } from 'library_network';
 import { ServerDHExchangeUseCase } from '../../../dh/usecase/ServerDHExchangeUseCase';
 import { ServerDHExchangeRepository } from '../../../dh/repository/ServerDHExchangeRepository';
 import { UserManager } from '../../../storage/memory/UserManager';
+import { ServerDHSecretManager } from 'library_crypto';
 
 @ObservedV2
 export default class RegisterViewModelV2 extends BaseViewModel {
@@ -196,6 +191,8 @@ export default class RegisterViewModelV2 extends BaseViewModel {
       if (result) {
         Log.info(`[RegisterViewModelV2] 删除用户成功: ${JSON.stringify(result)}`);
         await UserManager.clearUser();
+        await TokenManager.clearToken()
+        await ServerDHSecretManager.clearDHSecret()
       } else {
         Log.error(`[RegisterViewModelV2] 删除用户失败: ${JSON.stringify(result)}`);
       }
@@ -251,7 +248,7 @@ export default class RegisterViewModelV2 extends BaseViewModel {
         publicKey: oneTimePreKey.publicKey
       }));
 
-      return [identityKey, signedPreKey, oneTimePreKeyList];
+      return [identityKey, signedPreKey, oneTimePreKeyDTOList];
     } catch (err) {
       Log.error(`[RegisterViewModelV2] X3DH 密钥持久化失败: ${ErrorUtil.getErrorMessage(err)}`);
       throw new Error(`[RegisterViewModelV2] X3DH 密钥持久化失败: ${JSON.stringify(err)}`)

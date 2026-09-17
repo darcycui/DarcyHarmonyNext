@@ -17,7 +17,7 @@
  * ```
  */
 import { BaseUseCase, HexUtil, Log, UUIDUtil } from 'static_library_common';
-import { DHExchangeUtil } from 'library_crypto';
+import { ECCExchangeUtil } from 'library_crypto';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { DarcyIMDatabase, SignedPreKeyDao, SignedPreKeyEntity } from 'library_database';
 
@@ -54,14 +54,14 @@ export class GenerateSignedPreKeyUseCase extends BaseUseCase<GenerateSignedPreKe
     }
 
     // 2. 生成 X25519 密钥对
-    const keyPair: cryptoFramework.KeyPair | null = await DHExchangeUtil.generateKeyPair();
+    const keyPair: cryptoFramework.KeyPair | null = await ECCExchangeUtil.generateKeyPair();
     if (keyPair == null) {
       throw new Error('生成已签名预密钥对失败');
     }
 
     // 3. 提取公私钥字节并编码为十六进制
-    const pubKeyBytes: Uint8Array = DHExchangeUtil.getKeyBytes(keyPair.pubKey);
-    const priKeyBytes: Uint8Array = DHExchangeUtil.getKeyBytes(keyPair.priKey);
+    const pubKeyBytes: Uint8Array = ECCExchangeUtil.getKeyBytes(keyPair.pubKey);
+    const priKeyBytes: Uint8Array = ECCExchangeUtil.getKeyBytes(keyPair.priKey);
     if (pubKeyBytes.length === 0 || priKeyBytes.length === 0) {
       throw new Error('获取密钥字节失败');
     }

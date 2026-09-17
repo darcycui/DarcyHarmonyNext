@@ -12,7 +12,7 @@ export { HiLog } from './src/main/ets/utils/HiLog'
 
 export { RouterHelper } from './src/main/ets/utils/RouterHelper'
 
-export { NavigationUtil as NavigationHelper } from './src/main/ets/utils/NavigationUtil'
+export { NavigationUtil } from './src/main/ets/utils/NavigationUtil'
 
 export { AbilityUtil } from './src/main/ets/utils/AbilityUtil'
 
@@ -36,10 +36,12 @@ export { BaseAbilityState } from './src/main/ets/base/BaseAbilityState'
 
 export { ObjectUtil } from './src/main/ets/utils/ObjectUtil'
 
+export { UUIDUtil } from './src/main/ets/utils/UUIDUtil'
+
 export { Contexts } from './src/main/ets/utils/Contexts'
 
 // TODO 导出函数 在Index.ets导出文件中声明
-export { func, func2 } from './src/main/ets/utils/Log'
+export { func, func2 } from './src/main/ets/utils/Functions'
 
 /**
  * base 模块统一导出入口

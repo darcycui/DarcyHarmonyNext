@@ -16,7 +16,7 @@
  * ```
  */
 import { BaseUseCase, HexUtil } from 'static_library_common';
-import { DHExchangeUtil } from 'library_crypto';
+import { ECCExchangeUtil } from 'library_crypto';
 import { DHExchangeResponse } from 'library_network';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { ServerDHExchangeRepository } from '../repository/ServerDHExchangeRepository';
@@ -50,13 +50,13 @@ export class ServerDHExchangeUseCase extends BaseUseCase<ServerDHExchangeParams,
     }
 
     // 2. 生成 X25519 密钥对
-    const keyPair: cryptoFramework.KeyPair | null = await DHExchangeUtil.generateKeyPair();
+    const keyPair: cryptoFramework.KeyPair | null = await ECCExchangeUtil.generateKeyPair();
     if (keyPair == null) {
       throw new Error('生成 DH 密钥对失败');
     }
 
     // 3. 提取公钥字节并编码为 hex
-    const pubKeyBytes: Uint8Array = DHExchangeUtil.getKeyBytes(keyPair.pubKey);
+    const pubKeyBytes: Uint8Array = ECCExchangeUtil.getKeyBytes(keyPair.pubKey);
     if (pubKeyBytes.length <= 0) {
       throw new Error('获取公钥字节失败');
     }
@@ -80,13 +80,13 @@ export class ServerDHExchangeUseCase extends BaseUseCase<ServerDHExchangeParams,
     // 6. 解码服务端公钥（Hex → Uint8Array → PubKey）
     const serverPubKeyHex = PUBLIC_KEY_X509_PREFIX + response.publicKey;
     const serverPubKeyBytes: Uint8Array = HexUtil.hexToBytes(serverPubKeyHex);
-    const serverPubKey: cryptoFramework.PubKey | null = DHExchangeUtil.createPubKey(serverPubKeyBytes);
+    const serverPubKey: cryptoFramework.PubKey | null = ECCExchangeUtil.createPubKey(serverPubKeyBytes);
     if (serverPubKey == null) {
       throw new Error('还原服务端公钥失败');
     }
 
     // 7. 协商共享密钥
-    const sharedSecret: Uint8Array | null = await DHExchangeUtil.agreeSharedSecret(
+    const sharedSecret: Uint8Array | null = await ECCExchangeUtil.getSharedSecretByPriKeyAndPubKey(
       keyPair.priKey,
       serverPubKey
     );

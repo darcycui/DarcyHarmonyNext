@@ -24,8 +24,6 @@ export { GenerateOneTimePreKeyUseCase,
 // ---------- X3DH Keys Pull ----------
 export { X3DHKeysRepository } from './src/main/ets/x3dh/repository/X3DHKeysRepository'
 
-export { PullX3DHKeysUseCase, PullX3DHKeysParams } from './src/main/ets/x3dh/usecase/PullX3DHKeysUseCase'
-
 // ---------- X3DH Keys Push ----------
 export { X3DHPushKeysRepository } from './src/main/ets/x3dh/repository/X3DHPushKeysRepository'
 
@@ -70,4 +68,4 @@ export { default as RegisterViewModelV2 } from './src/main/ets/pages/register/vi
 // ---------- Utils ----------
 export { AppInfo } from './src/main/ets/utils/AppInfo'
 
-// export { UserManager } from './src/main/ets/storage/memory/UserManager'
+export { UserManager } from './src/main/ets/storage/memory/UserManager'
