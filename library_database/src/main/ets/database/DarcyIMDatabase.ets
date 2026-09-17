@@ -1,8 +1,11 @@
 import { relationalStore } from '@kit.ArkData';
 import { common } from '@kit.AbilityKit';
 import { IdentityKeyDao } from './daos/IdentityKeyDao';
+import { MessageReadStatusDao } from './daos/MessageReadStatusDao';
 import { OneTimePreKeyDao } from './daos/OneTimePreKeyDao';
+import { SessionRecordDao } from './daos/SessionRecordDao';
 import { SignedPreKeyDao } from './daos/SignedPreKeyDao';
+import { SkippedMessageKeyDao } from './daos/SkippedMessageKeyDao';
 import { Contexts } from 'static_library_common';
 import ErrorUtil from 'static_library_common/src/main/ets/utils/ErrorUtil';
 
@@ -47,6 +50,52 @@ const CREATE_SIGNED_PRE_KEY_TABLE_SQL: string =
   'private_key TEXT NOT NULL, ' +
   'public_key TEXT NOT NULL, ' +
   'signature TEXT NOT NULL' +
+  ')';
+
+const CREATE_SESSION_RECORD_TABLE_SQL: string =
+  'CREATE TABLE IF NOT EXISTS session_record (' +
+  'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+  'local_user_id INTEGER NOT NULL, ' +
+  'remote_user_id INTEGER NOT NULL, ' +
+  'remote_identity_key TEXT NOT NULL, ' +
+  'remote_dh_key TEXT NOT NULL, ' +
+  'local_ephemeral_private_key TEXT NOT NULL, ' +
+  'local_ephemeral_public_key TEXT NOT NULL, ' +
+  'root_key TEXT NOT NULL, ' +
+  'sending_chain_key TEXT NOT NULL, ' +
+  'receiving_chain_key TEXT NOT NULL, ' +
+  'receiving_chain_index INTEGER NOT NULL, ' +
+  'n INTEGER NOT NULL, ' +
+  'pn INTEGER NOT NULL, ' +
+  'created_time TEXT NOT NULL, ' +
+  'updated_time TEXT NOT NULL' +
+  ')';
+
+const CREATE_MESSAGE_READ_STATUS_TABLE_SQL: string =
+  'CREATE TABLE IF NOT EXISTS message_read_status (' +
+  'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+  'msg_id TEXT NOT NULL, ' +
+  'user_id INTEGER NOT NULL, ' +
+  'target_id INTEGER NOT NULL, ' +
+  'is_read INTEGER NOT NULL, ' +
+  'message_type INTEGER NOT NULL, ' +
+  'read_time TEXT NOT NULL, ' +
+  'created_time TEXT NOT NULL, ' +
+  'updated_time TEXT NOT NULL' +
+  ')';
+
+const CREATE_SKIPPED_MESSAGE_KEY_TABLE_SQL: string =
+  'CREATE TABLE IF NOT EXISTS skipped_message_key (' +
+  'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+  'user_id INTEGER NOT NULL, ' +
+  'target_id INTEGER NOT NULL, ' +
+  'msg_id TEXT NOT NULL, ' +
+  'dh_public_key TEXT NOT NULL, ' +
+  'chain_index INTEGER NOT NULL, ' +
+  'message_key TEXT NOT NULL, ' +
+  'mac_key TEXT NOT NULL, ' +
+  'iv TEXT NOT NULL, ' +
+  'created_time TEXT NOT NULL' +
   ')';
 
 // ══════════════════════════════════════════════
@@ -110,6 +159,9 @@ export class DarcyIMDatabase {
       await this.rdbStore.executeSql(CREATE_IDENTITY_KEY_TABLE_SQL);
       await this.rdbStore.executeSql(CREATE_ONE_TIME_PRE_KEY_TABLE_SQL);
       await this.rdbStore.executeSql(CREATE_SIGNED_PRE_KEY_TABLE_SQL);
+      await this.rdbStore.executeSql(CREATE_SESSION_RECORD_TABLE_SQL);
+      await this.rdbStore.executeSql(CREATE_MESSAGE_READ_STATUS_TABLE_SQL);
+      await this.rdbStore.executeSql(CREATE_SKIPPED_MESSAGE_KEY_TABLE_SQL);
     } catch (err) {
       throw new Error('DarcyIMDatabase 数据库初始化失败: ' + ErrorUtil.getErrorMessage(err));
     }
@@ -148,5 +200,26 @@ export class DarcyIMDatabase {
    */
   getSignedPreKeyDao(): SignedPreKeyDao {
     return new SignedPreKeyDao(this.getRdbStore());
+  }
+
+  /**
+   * 获取 SessionRecordDao 实例
+   */
+  getSessionRecordDao(): SessionRecordDao {
+    return new SessionRecordDao(this.getRdbStore());
+  }
+
+  /**
+   * 获取 MessageReadStatusDao 实例
+   */
+  getMessageReadStatusDao(): MessageReadStatusDao {
+    return new MessageReadStatusDao(this.getRdbStore());
+  }
+
+  /**
+   * 获取 SkippedMessageKeyDao 实例
+   */
+  getSkippedMessageKeyDao(): SkippedMessageKeyDao {
+    return new SkippedMessageKeyDao(this.getRdbStore());
   }
 }
