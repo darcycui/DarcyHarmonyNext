@@ -5,7 +5,7 @@
 import { cryptoFramework } from '@kit.CryptoArchitectureKit'
 import { Log } from 'static_library_common'
 
-export class ECCExchangeHelper {
+export class ECCExchangeUtil {
   private static readonly KEY_ALG = 'X25519'
 
   /**
@@ -14,7 +14,7 @@ export class ECCExchangeHelper {
    */
   static async generateKeyPair(): Promise<cryptoFramework.KeyPair | null> {
     try {
-      let keyGen = cryptoFramework.createAsyKeyGenerator(ECCExchangeHelper.KEY_ALG)
+      let keyGen = cryptoFramework.createAsyKeyGenerator(ECCExchangeUtil.KEY_ALG)
       let keyPair = await keyGen.generateKeyPair()
       return keyPair
     } catch (error) {
@@ -29,7 +29,7 @@ export class ECCExchangeHelper {
    */
   static generateKeyPairSync(): cryptoFramework.KeyPair | null {
     try {
-      let keyGen = cryptoFramework.createAsyKeyGenerator(ECCExchangeHelper.KEY_ALG)
+      let keyGen = cryptoFramework.createAsyKeyGenerator(ECCExchangeUtil.KEY_ALG)
       let keyPair = keyGen.generateKeyPairSync()
       return keyPair
     } catch (error) {
@@ -59,7 +59,7 @@ export class ECCExchangeHelper {
    */
   static createPubKey(pubKeyBytes: Uint8Array): cryptoFramework.PubKey | null {
     try {
-      let keyGen = cryptoFramework.createAsyKeyGenerator(ECCExchangeHelper.KEY_ALG)
+      let keyGen = cryptoFramework.createAsyKeyGenerator(ECCExchangeUtil.KEY_ALG)
       let pubKeyBlob: cryptoFramework.DataBlob = { data: pubKeyBytes }
       let keyPair = keyGen.convertKeySync(pubKeyBlob, null)
       if (keyPair == null) {
@@ -80,7 +80,7 @@ export class ECCExchangeHelper {
    */
   static createPriKey(priKeyBytes: Uint8Array): cryptoFramework.PriKey | null {
     try {
-      let keyGen = cryptoFramework.createAsyKeyGenerator(ECCExchangeHelper.KEY_ALG)
+      let keyGen = cryptoFramework.createAsyKeyGenerator(ECCExchangeUtil.KEY_ALG)
       let priKeyBlob: cryptoFramework.DataBlob = { data: priKeyBytes }
       let keyPair = keyGen.convertKeySync(null, priKeyBlob)
       if (keyPair == null) {
@@ -102,7 +102,7 @@ export class ECCExchangeHelper {
    */
   static createKeyPair(pubKeyBytes: Uint8Array, priKeyBytes: Uint8Array): cryptoFramework.KeyPair | null {
     try {
-      let keyGen = cryptoFramework.createAsyKeyGenerator(ECCExchangeHelper.KEY_ALG)
+      let keyGen = cryptoFramework.createAsyKeyGenerator(ECCExchangeUtil.KEY_ALG)
       let pubKeyBlob: cryptoFramework.DataBlob = { data: pubKeyBytes }
       let priKeyBlob: cryptoFramework.DataBlob = { data: priKeyBytes }
       let keyPair = keyGen.convertKeySync(pubKeyBlob, priKeyBlob)
@@ -131,7 +131,7 @@ export class ECCExchangeHelper {
     pubKey: cryptoFramework.PubKey
   ): Promise<Uint8Array> {
     try {
-      let keyAgreement = cryptoFramework.createKeyAgreement(ECCExchangeHelper.KEY_ALG)
+      let keyAgreement = cryptoFramework.createKeyAgreement(ECCExchangeUtil.KEY_ALG)
       let sharedSecret: cryptoFramework.DataBlob =
         await keyAgreement.generateSecret(priKey, pubKey)
       Log.log('DHExchangeUtil.getSharedSecret 成功')
@@ -146,13 +146,13 @@ export class ECCExchangeHelper {
     priKeyHex: Uint8Array,
     pubKeyHex: Uint8Array
   ): Promise<Uint8Array> {
-    const priKey = ECCExchangeHelper.createPriKey(priKeyHex)
-    const peerPubKey = ECCExchangeHelper.createPubKey(pubKeyHex)
+    const priKey = ECCExchangeUtil.createPriKey(priKeyHex)
+    const peerPubKey = ECCExchangeUtil.createPubKey(pubKeyHex)
     Log.log('DHExchangeUtil.getSharedSecret 成功')
     if (priKey == null || peerPubKey == null) {
       Log.error('DHExchangeUtil.getSharedSecret 错误: priKey or peerPubKey is null')
       return new Uint8Array()
     }
-    return await ECCExchangeHelper.getSharedSecretByPriKeyAndPubKey(priKey, peerPubKey)
+    return await ECCExchangeUtil.getSharedSecretByPriKeyAndPubKey(priKey, peerPubKey)
   }
 }

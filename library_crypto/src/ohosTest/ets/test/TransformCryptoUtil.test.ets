@@ -17,7 +17,7 @@
  */
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 import { Log } from 'static_library_common';
-import { TransformCryptoUtil } from '../../../../Index';
+import { TransportCipherUtil } from '../../../../Index';
 
 export default function transformCryptoUtilTest() {
   describe('TransformCryptoUtilTest', () => {
@@ -42,7 +42,7 @@ export default function transformCryptoUtilTest() {
     // ==================== 同步加解密测试 ====================
 
     it('encryptSync_should_contain_iv_ciphertext_tag', 0, () => {
-      const result = TransformCryptoUtil.encryptSync(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
+      const result = TransportCipherUtil.encryptSync(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
       // 输出格式: [IV(12)] + [密文(5)] + [AuthTag(16)] = 33 字节
       expect(result.length).assertEqual(12 + PLAINTEXT_HELLO.length + 16)
       // 前 12 字节应为原始 IV
@@ -52,8 +52,8 @@ export default function transformCryptoUtilTest() {
     })
 
     it('encryptSync_decryptSync_roundtrip_restores_plaintext', 0, () => {
-      const encrypted = TransformCryptoUtil.encryptSync(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
-      const decrypted = TransformCryptoUtil.decryptSync(encrypted, KEY_32_BYTES, EMPTY_AAD)
+      const encrypted = TransportCipherUtil.encryptSync(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
+      const decrypted = TransportCipherUtil.decryptSync(encrypted, KEY_32_BYTES, EMPTY_AAD)
       expect(decrypted.length).assertEqual(PLAINTEXT_HELLO.length)
       for (let i = 0; i < PLAINTEXT_HELLO.length; i++) {
         expect(decrypted[i]).assertEqual(PLAINTEXT_HELLO[i])
@@ -61,35 +61,35 @@ export default function transformCryptoUtilTest() {
     })
 
     it('decryptSync_wrong_key_returns_empty', 0, () => {
-      const encrypted = TransformCryptoUtil.encryptSync(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
+      const encrypted = TransportCipherUtil.encryptSync(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
       const wrongKey: Uint8Array = new Uint8Array(32)
       for (let i = 0; i < 32; i++) {
         wrongKey[i] = 0xFF
       }
-      const decrypted = TransformCryptoUtil.decryptSync(encrypted, wrongKey, EMPTY_AAD)
+      const decrypted = TransportCipherUtil.decryptSync(encrypted, wrongKey, EMPTY_AAD)
       expect(decrypted.length).assertEqual(0)
     })
 
     it('decryptSync_tampered_ciphertext_returns_empty', 0, () => {
-      const encrypted = TransformCryptoUtil.encryptSync(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
+      const encrypted = TransportCipherUtil.encryptSync(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
       // 篡改密文区域中的一个字节
       const tampered = encrypted.slice(0) // 复制
       tampered[14] = tampered[14] ^ 0xFF // 翻转一个字节
-      const decrypted = TransformCryptoUtil.decryptSync(tampered, KEY_32_BYTES, EMPTY_AAD)
+      const decrypted = TransportCipherUtil.decryptSync(tampered, KEY_32_BYTES, EMPTY_AAD)
       expect(decrypted.length).assertEqual(0)
     })
 
     it('decryptSync_insufficient_length_returns_empty', 0, () => {
       // 数据长度 < IV(12) + Tag(16) = 28
       const tooShort: Uint8Array = new Uint8Array(10)
-      const decrypted = TransformCryptoUtil.decryptSync(tooShort, KEY_32_BYTES, EMPTY_AAD)
+      const decrypted = TransportCipherUtil.decryptSync(tooShort, KEY_32_BYTES, EMPTY_AAD)
       expect(decrypted.length).assertEqual(0)
     })
 
     it('encryptSync_decryptSync_with_aad_roundtrip_restores_plaintext', 0, () => {
-      const encrypted = TransformCryptoUtil.encryptSync(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, AAD_SAMPLE)
+      const encrypted = TransportCipherUtil.encryptSync(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, AAD_SAMPLE)
       expect(encrypted.length).assertEqual(12 + PLAINTEXT_HELLO.length + 16)
-      const decrypted = TransformCryptoUtil.decryptSync(encrypted, KEY_32_BYTES, AAD_SAMPLE)
+      const decrypted = TransportCipherUtil.decryptSync(encrypted, KEY_32_BYTES, AAD_SAMPLE)
       expect(decrypted.length).assertEqual(PLAINTEXT_HELLO.length)
       for (let i = 0; i < PLAINTEXT_HELLO.length; i++) {
         expect(decrypted[i]).assertEqual(PLAINTEXT_HELLO[i])
@@ -97,21 +97,21 @@ export default function transformCryptoUtilTest() {
     })
 
     it('decryptSync_aad_mismatch_returns_empty', 0, () => {
-      const encrypted = TransformCryptoUtil.encryptSync(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, AAD_SAMPLE)
-      const decrypted = TransformCryptoUtil.decryptSync(encrypted, KEY_32_BYTES, EMPTY_AAD)
+      const encrypted = TransportCipherUtil.encryptSync(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, AAD_SAMPLE)
+      const decrypted = TransportCipherUtil.decryptSync(encrypted, KEY_32_BYTES, EMPTY_AAD)
       expect(decrypted.length).assertEqual(0)
     })
 
     // ==================== 异步加解密测试 ====================
 
     it('encrypt_async_should_have_correct_length', 0, async () => {
-      const result = await TransformCryptoUtil.encrypt(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
+      const result = await TransportCipherUtil.encrypt(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
       expect(result.length).assertEqual(12 + PLAINTEXT_HELLO.length + 16)
     })
 
     it('encrypt_async_decrypt_async_roundtrip_restores_plaintext', 0, async () => {
-      const encrypted = await TransformCryptoUtil.encrypt(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
-      const decrypted = await TransformCryptoUtil.decrypt(encrypted, KEY_32_BYTES, EMPTY_AAD)
+      const encrypted = await TransportCipherUtil.encrypt(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
+      const decrypted = await TransportCipherUtil.decrypt(encrypted, KEY_32_BYTES, EMPTY_AAD)
       expect(decrypted.length).assertEqual(PLAINTEXT_HELLO.length)
       for (let i = 0; i < PLAINTEXT_HELLO.length; i++) {
         expect(decrypted[i]).assertEqual(PLAINTEXT_HELLO[i])
@@ -119,12 +119,12 @@ export default function transformCryptoUtilTest() {
     })
 
     it('decrypt_async_wrong_key_returns_empty', 0, async () => {
-      const encrypted = await TransformCryptoUtil.encrypt(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
+      const encrypted = await TransportCipherUtil.encrypt(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
       const wrongKey: Uint8Array = new Uint8Array(32)
       for (let i = 0; i < 32; i++) {
         wrongKey[i] = 0xFF
       }
-      const decrypted = await TransformCryptoUtil.decrypt(encrypted, wrongKey, EMPTY_AAD)
+      const decrypted = await TransportCipherUtil.decrypt(encrypted, wrongKey, EMPTY_AAD)
       expect(decrypted.length).assertEqual(0)
     })
 
@@ -132,9 +132,9 @@ export default function transformCryptoUtilTest() {
 
     it('encryptSync_decryptSync_empty_data_roundtrip_succeeds', 0, () => {
       const emptyData: Uint8Array = new Uint8Array(0)
-      const encrypted = TransformCryptoUtil.encryptSync(emptyData, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
+      const encrypted = TransportCipherUtil.encryptSync(emptyData, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
       expect(encrypted.length).assertEqual(12 + 0 + 16) // IV(12) + empty(0) + tag(16)
-      const decrypted = TransformCryptoUtil.decryptSync(encrypted, KEY_32_BYTES, EMPTY_AAD)
+      const decrypted = TransportCipherUtil.decryptSync(encrypted, KEY_32_BYTES, EMPTY_AAD)
       expect(decrypted.length).assertEqual(0)
     })
 
@@ -143,9 +143,9 @@ export default function transformCryptoUtilTest() {
       for (let i = 0; i < largeData.length; i++) {
         largeData[i] = i % 256
       }
-      const encrypted = TransformCryptoUtil.encryptSync(largeData, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
+      const encrypted = TransportCipherUtil.encryptSync(largeData, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
       expect(encrypted.length).assertEqual(12 + largeData.length + 16)
-      const decrypted = TransformCryptoUtil.decryptSync(encrypted, KEY_32_BYTES, EMPTY_AAD)
+      const decrypted = TransportCipherUtil.decryptSync(encrypted, KEY_32_BYTES, EMPTY_AAD)
       expect(decrypted.length).assertEqual(largeData.length)
       for (let i = 0; i < largeData.length; i++) {
         expect(decrypted[i]).assertEqual(largeData[i])
@@ -154,16 +154,16 @@ export default function transformCryptoUtilTest() {
 
     it('roundtrip_sync_async_cross_verification_consistent', 0, async () => {
       // 同步加密 → 异步解密
-      const encryptedSync = TransformCryptoUtil.encryptSync(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
-      const decryptedAsync = await TransformCryptoUtil.decrypt(encryptedSync, KEY_32_BYTES, EMPTY_AAD)
+      const encryptedSync = TransportCipherUtil.encryptSync(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
+      const decryptedAsync = await TransportCipherUtil.decrypt(encryptedSync, KEY_32_BYTES, EMPTY_AAD)
       expect(decryptedAsync.length).assertEqual(PLAINTEXT_HELLO.length)
       for (let i = 0; i < PLAINTEXT_HELLO.length; i++) {
         expect(decryptedAsync[i]).assertEqual(PLAINTEXT_HELLO[i])
       }
 
       // 异步加密 → 同步解密
-      const encryptedAsync = await TransformCryptoUtil.encrypt(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
-      const decryptedSync = TransformCryptoUtil.decryptSync(encryptedAsync, KEY_32_BYTES, EMPTY_AAD)
+      const encryptedAsync = await TransportCipherUtil.encrypt(PLAINTEXT_HELLO, KEY_32_BYTES, IV_12_BYTES, EMPTY_AAD)
+      const decryptedSync = TransportCipherUtil.decryptSync(encryptedAsync, KEY_32_BYTES, EMPTY_AAD)
       expect(decryptedSync.length).assertEqual(PLAINTEXT_HELLO.length)
       for (let i = 0; i < PLAINTEXT_HELLO.length; i++) {
         expect(decryptedSync[i]).assertEqual(PLAINTEXT_HELLO[i])
@@ -177,20 +177,20 @@ export default function transformCryptoUtilTest() {
         keyA[i] = i
         keyB[i] = 0xFF - i
       }
-      const encryptedA = TransformCryptoUtil.encryptSync(PLAINTEXT_HELLO, keyA, IV_12_BYTES, EMPTY_AAD)
-      const encryptedB = TransformCryptoUtil.encryptSync(PLAINTEXT_HELLO, keyB, IV_12_BYTES, EMPTY_AAD)
+      const encryptedA = TransportCipherUtil.encryptSync(PLAINTEXT_HELLO, keyA, IV_12_BYTES, EMPTY_AAD)
+      const encryptedB = TransportCipherUtil.encryptSync(PLAINTEXT_HELLO, keyB, IV_12_BYTES, EMPTY_AAD)
       // 只要长度相等即可（密文段不同、tag 不同，但 IV 相同）
       expect(encryptedA.length).assertEqual(encryptedB.length)
       // 通过解密验证密钥A的密文只能用密钥A解密
-      const decryptedA = TransformCryptoUtil.decryptSync(encryptedA, keyA, EMPTY_AAD)
+      const decryptedA = TransportCipherUtil.decryptSync(encryptedA, keyA, EMPTY_AAD)
       expect(decryptedA.length).assertEqual(PLAINTEXT_HELLO.length)
-      const decryptedB = TransformCryptoUtil.decryptSync(encryptedB, keyB, EMPTY_AAD)
+      const decryptedB = TransportCipherUtil.decryptSync(encryptedB, keyB, EMPTY_AAD)
       expect(decryptedB.length).assertEqual(PLAINTEXT_HELLO.length)
     })
 
     it('decryptSync_empty_input_returns_empty', 0, () => {
       const emptyInput: Uint8Array = new Uint8Array(0)
-      const result = TransformCryptoUtil.decryptSync(emptyInput, KEY_32_BYTES, EMPTY_AAD)
+      const result = TransportCipherUtil.decryptSync(emptyInput, KEY_32_BYTES, EMPTY_AAD)
       expect(result.length).assertEqual(0)
     })
   })

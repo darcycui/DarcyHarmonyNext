@@ -7,7 +7,7 @@
 // ============================================================
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 // 库内相对导入（测试文件位于库自身包内，不能 import 'library_crypto' 自引用，否则类型退化为 any）
-import { DHExchangeUtil } from '../../../main/ets/utils/DHExchangeUtil';
+import { ECCExchangeUtil } from '../../../main/ets/utils/ECCExchangeUtil';
 
 /**
  * 判断两个字节数组内容是否完全一致
@@ -41,66 +41,66 @@ export default function testDHExchangeUtil() {
     // ===================== 密钥对生成 =====================
 
     it('异步生成X25519密钥对_非空', 0, async () => {
-      let keyPair = await DHExchangeUtil.generateKeyPair();
+      let keyPair = await ECCExchangeUtil.generateKeyPair();
       expect(keyPair !== null).assertTrue();
     });
 
     it('同步生成X25519密钥对_非空', 0, () => {
-      let keyPair = DHExchangeUtil.generateKeyPairSync();
+      let keyPair = ECCExchangeUtil.generateKeyPairSync();
       expect(keyPair !== null).assertTrue();
     });
 
     // ===================== 密钥编解码还原 =====================
 
     it('公钥字节编码_非空DER数据', 0, () => {
-      let keyPair = DHExchangeUtil.generateKeyPairSync();
+      let keyPair = ECCExchangeUtil.generateKeyPairSync();
       expect(keyPair !== null).assertTrue();
       if (keyPair !== null) {
-        let pubBytes = DHExchangeUtil.getKeyBytes(keyPair.pubKey);
+        let pubBytes = ECCExchangeUtil.getKeyBytes(keyPair.pubKey);
         expect(pubBytes.length > 0).assertTrue();
       }
     });
 
     it('私钥字节编码_非空DER数据', 0, () => {
-      let keyPair = DHExchangeUtil.generateKeyPairSync();
+      let keyPair = ECCExchangeUtil.generateKeyPairSync();
       expect(keyPair !== null).assertTrue();
       if (keyPair !== null) {
-        let priBytes = DHExchangeUtil.getKeyBytes(keyPair.priKey);
+        let priBytes = ECCExchangeUtil.getKeyBytes(keyPair.priKey);
         expect(priBytes.length > 0).assertTrue();
       }
     });
 
     it('公钥还原_字节转公钥对象成功', 0, () => {
-      let keyPair = DHExchangeUtil.generateKeyPairSync();
+      let keyPair = ECCExchangeUtil.generateKeyPairSync();
       expect(keyPair !== null).assertTrue();
       if (keyPair !== null) {
-        let pubBytes = DHExchangeUtil.getKeyBytes(keyPair.pubKey);
-        let restored = DHExchangeUtil.createPubKey(pubBytes);
+        let pubBytes = ECCExchangeUtil.getKeyBytes(keyPair.pubKey);
+        let restored = ECCExchangeUtil.createPubKey(pubBytes);
         expect(restored !== null).assertTrue();
       }
     });
 
     it('密钥对还原_公钥私钥字节转密钥对成功', 0, () => {
-      let keyPair = DHExchangeUtil.generateKeyPairSync();
+      let keyPair = ECCExchangeUtil.generateKeyPairSync();
       expect(keyPair !== null).assertTrue();
       if (keyPair !== null) {
-        let pubBytes = DHExchangeUtil.getKeyBytes(keyPair.pubKey);
-        let priBytes = DHExchangeUtil.getKeyBytes(keyPair.priKey);
-        let restored = DHExchangeUtil.createKeyPair(pubBytes, priBytes);
+        let pubBytes = ECCExchangeUtil.getKeyBytes(keyPair.pubKey);
+        let priBytes = ECCExchangeUtil.getKeyBytes(keyPair.priKey);
+        let restored = ECCExchangeUtil.createKeyPair(pubBytes, priBytes);
         expect(restored !== null).assertTrue();
       }
     });
 
     it('公钥还原_非法字节返回空', 0, () => {
       let invalidBytes = new Uint8Array([1, 2, 3]);
-      let restored = DHExchangeUtil.createPubKey(invalidBytes);
+      let restored = ECCExchangeUtil.createPubKey(invalidBytes);
       expect(restored === null).assertTrue();
     });
 
     it('密钥对还原_非法字节返回空', 0, () => {
       let invalidPub = new Uint8Array([1, 2, 3]);
       let invalidPri = new Uint8Array([4, 5, 6]);
-      let restored = DHExchangeUtil.createKeyPair(invalidPub, invalidPri);
+      let restored = ECCExchangeUtil.createKeyPair(invalidPub, invalidPri);
       expect(restored === null).assertTrue();
     });
 
@@ -108,18 +108,18 @@ export default function testDHExchangeUtil() {
 
     it('DH密钥协商_双端共享密钥一致', 0, async () => {
       // Alice 生成密钥对
-      let aliceKeyPair = await DHExchangeUtil.generateKeyPair();
+      let aliceKeyPair = await ECCExchangeUtil.generateKeyPair();
       expect(aliceKeyPair !== null).assertTrue();
       // Bob 生成密钥对
-      let bobKeyPair = await DHExchangeUtil.generateKeyPair();
+      let bobKeyPair = await ECCExchangeUtil.generateKeyPair();
       expect(bobKeyPair !== null).assertTrue();
 
       if (aliceKeyPair !== null && bobKeyPair !== null) {
         // Alice 用 Bob 的公钥协商
-        let aliceSecret = await DHExchangeUtil.agreeSharedSecret(aliceKeyPair.priKey, bobKeyPair.pubKey);
+        let aliceSecret = await ECCExchangeUtil.getSharedSecretByUintArrays(aliceKeyPair.priKey, bobKeyPair.pubKey);
         expect(aliceSecret !== null).assertTrue();
         // Bob 用 Alice 的公钥协商
-        let bobSecret = await DHExchangeUtil.agreeSharedSecret(bobKeyPair.priKey, aliceKeyPair.pubKey);
+        let bobSecret = await ECCExchangeUtil.getSharedSecretByUintArrays(bobKeyPair.priKey, aliceKeyPair.pubKey);
         expect(bobSecret !== null).assertTrue();
 
         if (aliceSecret !== null && bobSecret !== null) {
@@ -133,14 +133,14 @@ export default function testDHExchangeUtil() {
     });
 
     it('DH密钥协商_同一密钥对两次协商结果一致', 0, async () => {
-      let aliceKeyPair = await DHExchangeUtil.generateKeyPair();
-      let bobKeyPair = await DHExchangeUtil.generateKeyPair();
+      let aliceKeyPair = await ECCExchangeUtil.generateKeyPair();
+      let bobKeyPair = await ECCExchangeUtil.generateKeyPair();
       expect(aliceKeyPair !== null).assertTrue();
       expect(bobKeyPair !== null).assertTrue();
 
       if (aliceKeyPair !== null && bobKeyPair !== null) {
-        let secret1 = await DHExchangeUtil.agreeSharedSecret(aliceKeyPair.priKey, bobKeyPair.pubKey);
-        let secret2 = await DHExchangeUtil.agreeSharedSecret(aliceKeyPair.priKey, bobKeyPair.pubKey);
+        let secret1 = await ECCExchangeUtil.getSharedSecretByUintArrays(aliceKeyPair.priKey, bobKeyPair.pubKey);
+        let secret2 = await ECCExchangeUtil.getSharedSecretByUintArrays(aliceKeyPair.priKey, bobKeyPair.pubKey);
         expect(secret1 !== null).assertTrue();
         expect(secret2 !== null).assertTrue();
         if (secret1 !== null && secret2 !== null) {

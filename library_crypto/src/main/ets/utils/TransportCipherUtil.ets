@@ -18,7 +18,7 @@ class EncryptedData {
   tag: Uint8Array = new Uint8Array()
 }
 
-export class TransformCryptoUtil {
+export class TransportCipherUtil {
   private static readonly AES_ALG = 'AES256|GCM'
   private static readonly KEY_ALG = 'AES256'
   private static readonly IV_LENGTH = 12
@@ -30,7 +30,7 @@ export class TransformCryptoUtil {
   static getIV(): Uint8Array {
     try {
       const rand = cryptoFramework.createRandom()
-      return rand.generateRandomSync(TransformCryptoUtil.IV_LENGTH).data // 12 字节
+      return rand.generateRandomSync(TransportCipherUtil.IV_LENGTH).data // 12 字节
     } catch (error) {
       ErrorUtil.logError(error)
     }
@@ -42,7 +42,7 @@ export class TransformCryptoUtil {
    */
   private static convertKey(keyData: Uint8Array): cryptoFramework.SymKey {
     let symKeyBlob: cryptoFramework.DataBlob = { data: keyData }
-    let aesGenerator = cryptoFramework.createSymKeyGenerator(TransformCryptoUtil.KEY_ALG)
+    let aesGenerator = cryptoFramework.createSymKeyGenerator(TransportCipherUtil.KEY_ALG)
     return aesGenerator.convertKeySync(symKeyBlob)
   }
 
@@ -61,13 +61,13 @@ export class TransformCryptoUtil {
    * 从完整数据中分离 IV、密文、AuthTag
    */
   private static splitAll(data: Uint8Array): EncryptedData | null {
-    if (data.length < TransformCryptoUtil.IV_LENGTH + TransformCryptoUtil.TAG_LENGTH) {
+    if (data.length < TransportCipherUtil.IV_LENGTH + TransportCipherUtil.TAG_LENGTH) {
       return null
     }
     let result = new EncryptedData()
-    result.iv = data.slice(0, TransformCryptoUtil.IV_LENGTH)
-    result.tag = data.slice(data.length - TransformCryptoUtil.TAG_LENGTH)
-    result.cipherText = data.slice(TransformCryptoUtil.IV_LENGTH, data.length - TransformCryptoUtil.TAG_LENGTH)
+    result.iv = data.slice(0, TransportCipherUtil.IV_LENGTH)
+    result.tag = data.slice(data.length - TransportCipherUtil.TAG_LENGTH)
+    result.cipherText = data.slice(TransportCipherUtil.IV_LENGTH, data.length - TransportCipherUtil.TAG_LENGTH)
     return result
   }
 
@@ -83,29 +83,28 @@ export class TransformCryptoUtil {
    */
   static async encrypt(data: Uint8Array, key: Uint8Array, iv: Uint8Array, aad: Uint8Array): Promise<Uint8Array> {
     try {
-      let symKey = TransformCryptoUtil.convertKey(key)
-
+      Log.log('TransformCryptoUtil.encryptSync 加密')
+      Log.log(`加密key: ${HexUtil.bytesToHex(key)}`)
+      Log.log(`加密IV: ${HexUtil.bytesToHex(iv)}`)
+      Log.log(`加密aad: ${HexUtil.bytesToHex(aad)}`)
+      let symKey = TransportCipherUtil.convertKey(key)
       let gcmParams: cryptoFramework.GcmParamsSpec = {
         iv: { data: iv },
         aad: { data: aad },
-        authTag: { data: new Uint8Array(TransformCryptoUtil.TAG_LENGTH) },
+        authTag: { data: new Uint8Array(TransportCipherUtil.TAG_LENGTH) },
         algName: 'GcmParamsSpec'
       }
-
-      let cipher = cryptoFramework.createCipher(TransformCryptoUtil.AES_ALG)
+      let cipher = cryptoFramework.createCipher(TransportCipherUtil.AES_ALG)
       await cipher.init(cryptoFramework.CryptoMode.ENCRYPT_MODE, symKey, gcmParams)
-
       let plainText: cryptoFramework.DataBlob = { data: data }
       let cipherData = await cipher.update(plainText)
-
       let tagData = await cipher.doFinal(null)
       if (tagData == null) {
         Log.error('CryptoUtil.encrypt: authTag is null')
         return new Uint8Array()
       }
-
       let cipherBytes = cipherData != null ? cipherData.data : new Uint8Array()
-      return TransformCryptoUtil.concatAll(iv, cipherBytes, tagData.data)
+      return TransportCipherUtil.concatAll(iv, cipherBytes, tagData.data)
     } catch (error) {
       Log.error(`CryptoUtil.encrypt 异常: ${JSON.stringify(error)}`)
       return new Uint8Array()
@@ -121,29 +120,28 @@ export class TransformCryptoUtil {
    */
   static async decrypt(data: Uint8Array, key: Uint8Array, aad: Uint8Array): Promise<Uint8Array> {
     try {
-      let parts = TransformCryptoUtil.splitAll(data)
+      Log.log('TransformCryptoUtil.decryptSync 解密')
+      Log.log(`解密key: ${HexUtil.bytesToHex(key)}`)
+      Log.log(`解密aad: ${HexUtil.bytesToHex(aad)}`)
+      // Log.log(`解密data: ${HexUtil.bytesToHex(data)}`)
+      let parts = TransportCipherUtil.splitAll(data)
       if (parts == null) {
         Log.error('TransformCryptoUtil.decrypt 异常: 数据长度不足')
         return new Uint8Array()
       }
-
-      let symKey = TransformCryptoUtil.convertKey(key)
-
+      Log.log(`解密IV: ${HexUtil.bytesToHex(parts.iv)}`)
+      let symKey = TransportCipherUtil.convertKey(key)
       let gcmParams: cryptoFramework.GcmParamsSpec = {
         iv: { data: parts.iv },
         aad: { data: aad },
         authTag: { data: parts.tag },
         algName: 'GcmParamsSpec'
       }
-
-      let decoder = cryptoFramework.createCipher(TransformCryptoUtil.AES_ALG)
+      let decoder = cryptoFramework.createCipher(TransportCipherUtil.AES_ALG)
       await decoder.init(cryptoFramework.CryptoMode.DECRYPT_MODE, symKey, gcmParams)
-
       let cipherText: cryptoFramework.DataBlob = { data: parts.cipherText }
       let plainData = await decoder.update(cipherText)
-
       await decoder.doFinal(null)
-
       return plainData != null ? plainData.data : new Uint8Array()
     } catch (error) {
       Log.error(`CryptoUtil.decrypt 异常: ${JSON.stringify(error)}`)
@@ -166,31 +164,26 @@ export class TransformCryptoUtil {
       Log.log('TransformCryptoUtil.encryptSync 加密')
       Log.log(`加密key: ${HexUtil.bytesToHex(key)}`)
       Log.log(`加密IV: ${HexUtil.bytesToHex(iv)}`)
-      Log.log(`加密aad: ${HexUtil.bytesToHex(aad)}`)
+      // Log.log(`加密aad: ${HexUtil.bytesToHex(aad)}`)
       // Log.log(`加密data: ${HexUtil.bytesToHex(data)}`)
-      let symKey = TransformCryptoUtil.convertKey(key)
-
+      let symKey = TransportCipherUtil.convertKey(key)
       let gcmParams: cryptoFramework.GcmParamsSpec = {
         iv: { data: iv },
         aad: { data: aad },
-        authTag: { data: new Uint8Array(TransformCryptoUtil.TAG_LENGTH) },
+        authTag: { data: new Uint8Array(TransportCipherUtil.TAG_LENGTH) },
         algName: 'GcmParamsSpec'
       }
-
-      let cipher = cryptoFramework.createCipher(TransformCryptoUtil.AES_ALG)
+      let cipher = cryptoFramework.createCipher(TransportCipherUtil.AES_ALG)
       cipher.initSync(cryptoFramework.CryptoMode.ENCRYPT_MODE, symKey, gcmParams)
-
       let plainText: cryptoFramework.DataBlob = { data: data }
       let cipherData = cipher.updateSync(plainText)
-
       let tagData = cipher.doFinalSync(null)
       if (tagData == null) {
         Log.error('TransformCryptoUtil.encryptSync: authTag is null')
         return new Uint8Array()
       }
-
       let cipherBytes = cipherData != null ? cipherData.data : new Uint8Array()
-      return TransformCryptoUtil.concatAll(iv, cipherBytes, tagData.data)
+      return TransportCipherUtil.concatAll(iv, cipherBytes, tagData.data)
     } catch (error) {
       Log.error(`TransformCryptoUtil.encryptSync 异常: ${ErrorUtil.getErrorMessage(error)}`)
       return new Uint8Array()
@@ -210,30 +203,24 @@ export class TransformCryptoUtil {
       Log.log(`解密key: ${HexUtil.bytesToHex(key)}`)
       Log.log(`解密aad: ${HexUtil.bytesToHex(aad)}`)
       // Log.log(`解密data: ${HexUtil.bytesToHex(data)}`)
-      let parts = TransformCryptoUtil.splitAll(data)
+      let parts = TransportCipherUtil.splitAll(data)
       if (parts == null) {
         Log.error('TransformCryptoUtil.decryptSync 异常: 数据长度不足')
         return new Uint8Array()
       }
       Log.log(`解密IV: ${HexUtil.bytesToHex(parts.iv)}`)
-
-      let symKey = TransformCryptoUtil.convertKey(key)
-
+      let symKey = TransportCipherUtil.convertKey(key)
       let gcmParams: cryptoFramework.GcmParamsSpec = {
         iv: { data: parts.iv },
         aad: { data: aad },
         authTag: { data: parts.tag },
         algName: 'GcmParamsSpec'
       }
-
-      let decoder = cryptoFramework.createCipher(TransformCryptoUtil.AES_ALG)
+      let decoder = cryptoFramework.createCipher(TransportCipherUtil.AES_ALG)
       decoder.initSync(cryptoFramework.CryptoMode.DECRYPT_MODE, symKey, gcmParams)
-
       let cipherText: cryptoFramework.DataBlob = { data: parts.cipherText }
       let plainData = decoder.updateSync(cipherText)
-
       decoder.doFinalSync(null)
-
       return plainData != null ? plainData.data : new Uint8Array()
     } catch (error) {
       Log.error(`TransformCryptoUtil.decryptSync 异常: ${ErrorUtil.getErrorMessage(error)}`)
