@@ -1,17 +1,19 @@
 import { buffer } from "@kit.ArkTS";
+import ErrorUtil from "./ErrorUtil";
 
 export class HexUtil {
-
   /**
    * 将 Uint8Array 转换为十六进制字符串
    * @param data - 二进制数据
    * @returns 十六进制字符串
    */
   static bytesToHex(data: Uint8Array): string {
-    let hex = '';
-    for (let i = 0; i < data.length; i++) {
-      hex += data[i].toString(16).padStart(2, '0')
-    }
+    let hex = ''
+    // try {
+      hex = buffer.from(data).toString('hex');
+    // } catch (error) {
+    //   ErrorUtil.logError(error)
+    // }
     return hex;
   }
 
@@ -21,13 +23,7 @@ export class HexUtil {
    * @returns Uint8Array 字节数组
    */
   static hexToBytes(hex: string): Uint8Array {
-    const len = hex.length;
-    const byteCount = len / 2;
-    const bytes = new Uint8Array(byteCount);
-    for (let i = 0; i < byteCount; i++) {
-      const index = i * 2;
-      bytes[i] = parseInt(hex.substring(index, index + 2), 16);
-    }
+    const bytes = new Uint8Array(buffer.from(hex, 'hex').buffer);
     return bytes;
   }
 }

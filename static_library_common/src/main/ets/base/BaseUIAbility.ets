@@ -45,10 +45,18 @@ export abstract class BaseUIAbility extends UIAbility {
     }
     // 检查是否有localStorage
     if (this.getLocalStorage() == null) {
-      windowStage.loadContent(this.getInitPageName(), callback)
+      if (this.getInitContentByName().length > 0) {
+        windowStage.loadContentByName(this.getInitContentByName(), callback)
+      } else {
+        windowStage.loadContent(this.getInitPageName(), callback)
+      }
     } else {
       HiLog.warn(`${this.TAG} LocalStorage 传递给Page`)
-      windowStage.loadContent(this.getInitPageName(), this.getLocalStorage(), callback)
+      if (this.getInitContentByName().length > 0) {
+        windowStage.loadContentByName(this.getInitContentByName(), this.getLocalStorage(), callback)
+      } else {
+        windowStage.loadContent(this.getInitPageName(), this.getLocalStorage(), callback)
+      }
     }
     // 保存 UIContext
     let window = windowStage.getMainWindow()
@@ -111,7 +119,8 @@ export abstract class BaseUIAbility extends UIAbility {
     HiLog.info(this.TAG + 'Ability onConfigurationUpdate ' + JSON.stringify(newConfig))
   }
 
-  onContinue(wantParam: Record<string, Object>): AbilityConstant.OnContinueResult | Promise<AbilityConstant.OnContinueResult> {
+  onContinue(
+    wantParam: Record<string, Object>): AbilityConstant.OnContinueResult | Promise<AbilityConstant.OnContinueResult> {
     return super.onContinue(wantParam)
   }
 
@@ -121,6 +130,10 @@ export abstract class BaseUIAbility extends UIAbility {
   }
 
   abstract getInitPageName(): string
+
+  getInitContentByName(): string {
+    return ''
+  }
 
   abstract getLocalStorage(): LocalStorage | null
 }
