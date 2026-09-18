@@ -12,7 +12,7 @@ import { ArrayUtil, BaseUseCase } from 'static_library_common';
 import { Log } from 'static_library_common';
 import { HexUtil } from 'static_library_common';
 import { DarcyIMDatabase } from 'library_database';
-import { ECCExchangeUtil, HKDFUtil, EncryptUtil } from 'library_crypto';
+import { ECCExchangeUtil, HKDF1, EncryptUtil } from 'library_crypto';
 
 /**
  * Bob X3DH 密钥计算入参
@@ -99,7 +99,7 @@ export class CalculateBobX3DHKeyUseCase extends BaseUseCase<CalculateBobX3DHKeyP
 
     // 拼接并派生 X3DH 密钥
     const sharedSecret = EncryptUtil.appendArrays(dh1, dh2, dh3, dh4);
-    const hkdf = new HKDFUtil();
+    const hkdf = new HKDF1();
     const x3DHKey = hkdf.deriveSecrets(
       sharedSecret,
       new Uint8Array(32),

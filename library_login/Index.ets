@@ -21,9 +21,6 @@ export { GenerateSignedPreKeyUseCase,
 export { GenerateOneTimePreKeyUseCase,
   GenerateOneTimePreKeyParams } from './src/main/ets/x3dh/usecase/GenerateOneTimePreKeyUseCase'
 
-// ---------- X3DH Keys Pull ----------
-export { X3DHKeysRepository } from './src/main/ets/x3dh/repository/X3DHKeysRepository'
-
 // ---------- X3DH Keys Push ----------
 export { X3DHPushKeysRepository } from './src/main/ets/x3dh/repository/X3DHPushKeysRepository'
 

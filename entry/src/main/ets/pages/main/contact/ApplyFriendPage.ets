@@ -1,7 +1,7 @@
 import { Log, NavigationUtil, ToastUtil } from 'static_library_common';
 import { UserItemBean } from '../../../models/ui/im/UserItemBean';
 import { UserManager } from 'library_login';
-import ContactViewModel from './viewmodel/ContactViewModel';
+import ApplyFriendViewModel from './viewmodel/ApplyFriendViewModel';
 import { ApplyFriendIntent, SearchUserIntent } from './intent/ContactIntent';
 
 // darcyRefactor: 定义页面路由函数 @Builder
@@ -15,7 +15,7 @@ struct ApplyFriendPage {
   @Local searchText: string = '13800138000'
   @Local searchResults: Array<UserItemBean> = []
   pathStack: NavPathStack = new NavPathStack();
-  @Local viewModel: ContactViewModel = new ContactViewModel();
+  @Local viewModel: ApplyFriendViewModel = new ApplyFriendViewModel();
 
   // 搜索用户（调用 ViewModel）
   private async searchUser(): Promise<void> {

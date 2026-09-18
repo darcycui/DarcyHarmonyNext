@@ -15,7 +15,7 @@ import { ArrayUtil, BaseUseCase } from 'static_library_common';
 import { Log } from 'static_library_common';
 import { HexUtil } from 'static_library_common';
 import { DarcyIMDatabase, IdentityKeyEntity } from 'library_database';
-import { ECCExchangeUtil, HKDFUtil, EncryptUtil } from 'library_crypto';
+import { ECCExchangeUtil, EncryptUtil, HKDF1 } from 'library_crypto';
 import { X3DHKeysPullResponse } from 'library_network';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 
@@ -109,7 +109,7 @@ export class CalculateAliceX3DHKeyUseCase extends BaseUseCase<CalculateAliceX3DH
 
     // 拼接并派生 X3DH 密钥
     const sharedSecret = EncryptUtil.appendArrays(dh1, dh2, dh3, dh4);
-    const hkdf = new HKDFUtil();
+    const hkdf = new HKDF1();
     const x3DHKey = hkdf.deriveSecrets(
       sharedSecret,
       new Uint8Array(32),

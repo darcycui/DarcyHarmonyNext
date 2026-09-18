@@ -10,5 +10,6 @@
     "library_network": "file:../library_network",
     "library_crypto": "file:../library_crypto",
     "library_database": "file:../library_database",
+    "entry": "file:../entry"
   }
 }

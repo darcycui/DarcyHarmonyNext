@@ -17,7 +17,7 @@
  */
 import { BaseUseCase } from 'static_library_common';
 import { X3DHKeysPullResponse } from 'library_network';
-import { X3DHKeysRepository } from 'library_login/src/main/ets/x3dh/repository/X3DHKeysRepository';
+import { X3DHPullKeysRepository } from '../repository/X3DHPullKeysRepository';
 
 /**
  * 拉取 Bob 的 X3DH 密钥入参
@@ -35,9 +35,9 @@ export interface PullX3DHKeysParams {
  * 出参：X3DHKeysPullResponse（Bob 的密钥材料）
  */
 export class PullX3DHKeysUseCase extends BaseUseCase<PullX3DHKeysParams, X3DHKeysPullResponse> {
-  private repository: X3DHKeysRepository;
+  private repository: X3DHPullKeysRepository;
 
-  constructor(repository: X3DHKeysRepository) {
+  constructor(repository: X3DHPullKeysRepository) {
     super();
     this.repository = repository;
   }
@@ -52,7 +52,7 @@ export class PullX3DHKeysUseCase extends BaseUseCase<PullX3DHKeysParams, X3DHKey
     }
 
     // 2. 调用 Repository 拉取 Bob 的密钥
-    const bobKeys: X3DHKeysPullResponse = await this.repository.pullBobKeys(
+    const bobKeys: X3DHKeysPullResponse = await this.repository.pullX3DHBobKeys(
       params.aliceUserId,
       params.bobUserId
     );
