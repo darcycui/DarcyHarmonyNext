@@ -8,6 +8,9 @@ import { SignedPreKeyDao } from './daos/SignedPreKeyDao';
 import { SkippedMessageKeyDao } from './daos/SkippedMessageKeyDao';
 import { Contexts } from 'static_library_common';
 import ErrorUtil from 'static_library_common/src/main/ets/utils/ErrorUtil';
+import { ConversationDao } from './daos/ConversationDao';
+import { FriendshipUserDao } from './daos/FriendshipUserDao';
+import { PrivateMessageDao } from './daos/PrivateMessageDao';
 
 // ══════════════════════════════════════════════
 //  数据库配置（合并为单个数据库）
@@ -25,78 +28,78 @@ const STORE_CONFIG: relationalStore.StoreConfig = {
 
 const CREATE_IDENTITY_KEY_TABLE_SQL: string =
   'CREATE TABLE IF NOT EXISTS identity_key (' +
-  'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-  'key_id TEXT NOT NULL, ' +
-  'user_id INTEGER NOT NULL, ' +
-  'private_key TEXT NOT NULL, ' +
-  'public_key TEXT NOT NULL' +
-  ')';
+    'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+    'key_id TEXT NOT NULL, ' +
+    'user_id INTEGER NOT NULL, ' +
+    'private_key TEXT NOT NULL, ' +
+    'public_key TEXT NOT NULL' +
+    ')';
 
 const CREATE_ONE_TIME_PRE_KEY_TABLE_SQL: string =
   'CREATE TABLE IF NOT EXISTS one_time_pre_key (' +
-  'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-  'key_id TEXT NOT NULL, ' +
-  'user_id INTEGER NOT NULL, ' +
-  'private_key TEXT NOT NULL, ' +
-  'public_key TEXT NOT NULL' +
-  ')';
+    'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+    'key_id TEXT NOT NULL, ' +
+    'user_id INTEGER NOT NULL, ' +
+    'private_key TEXT NOT NULL, ' +
+    'public_key TEXT NOT NULL' +
+    ')';
 
 const CREATE_SIGNED_PRE_KEY_TABLE_SQL: string =
   'CREATE TABLE IF NOT EXISTS signed_pre_key (' +
-  'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-  'key_id TEXT NOT NULL, ' +
-  'identity_key_id TEXT NOT NULL, ' +
-  'user_id INTEGER NOT NULL, ' +
-  'private_key TEXT NOT NULL, ' +
-  'public_key TEXT NOT NULL, ' +
-  'signature TEXT NOT NULL' +
-  ')';
+    'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+    'key_id TEXT NOT NULL, ' +
+    'identity_key_id TEXT NOT NULL, ' +
+    'user_id INTEGER NOT NULL, ' +
+    'private_key TEXT NOT NULL, ' +
+    'public_key TEXT NOT NULL, ' +
+    'signature TEXT NOT NULL' +
+    ')';
 
 const CREATE_SESSION_RECORD_TABLE_SQL: string =
   'CREATE TABLE IF NOT EXISTS session_record (' +
-  'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-  'local_user_id INTEGER NOT NULL, ' +
-  'remote_user_id INTEGER NOT NULL, ' +
-  'remote_identity_key TEXT NOT NULL, ' +
-  'remote_dh_key TEXT NOT NULL, ' +
-  'local_ephemeral_private_key TEXT NOT NULL, ' +
-  'local_ephemeral_public_key TEXT NOT NULL, ' +
-  'root_key TEXT NOT NULL, ' +
-  'sending_chain_key TEXT NOT NULL, ' +
-  'receiving_chain_key TEXT NOT NULL, ' +
-  'receiving_chain_index INTEGER NOT NULL, ' +
-  'n INTEGER NOT NULL, ' +
-  'pn INTEGER NOT NULL, ' +
-  'created_time TEXT NOT NULL, ' +
-  'updated_time TEXT NOT NULL' +
-  ')';
+    'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+    'local_user_id INTEGER NOT NULL, ' +
+    'remote_user_id INTEGER NOT NULL, ' +
+    'remote_identity_key TEXT NOT NULL, ' +
+    'remote_dh_key TEXT NOT NULL, ' +
+    'local_ephemeral_private_key TEXT NOT NULL, ' +
+    'local_ephemeral_public_key TEXT NOT NULL, ' +
+    'root_key TEXT NOT NULL, ' +
+    'sending_chain_key TEXT NOT NULL, ' +
+    'receiving_chain_key TEXT NOT NULL, ' +
+    'receiving_chain_index INTEGER NOT NULL, ' +
+    'n INTEGER NOT NULL, ' +
+    'pn INTEGER NOT NULL, ' +
+    'created_time TEXT NOT NULL, ' +
+    'updated_time TEXT NOT NULL' +
+    ')';
 
 const CREATE_MESSAGE_READ_STATUS_TABLE_SQL: string =
   'CREATE TABLE IF NOT EXISTS message_read_status (' +
-  'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-  'msg_id TEXT NOT NULL, ' +
-  'user_id INTEGER NOT NULL, ' +
-  'target_id INTEGER NOT NULL, ' +
-  'is_read INTEGER NOT NULL, ' +
-  'message_type INTEGER NOT NULL, ' +
-  'read_time TEXT NOT NULL, ' +
-  'created_time TEXT NOT NULL, ' +
-  'updated_time TEXT NOT NULL' +
-  ')';
+    'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+    'msg_id TEXT NOT NULL, ' +
+    'user_id INTEGER NOT NULL, ' +
+    'target_id INTEGER NOT NULL, ' +
+    'is_read INTEGER NOT NULL, ' +
+    'message_type INTEGER NOT NULL, ' +
+    'read_time TEXT NOT NULL, ' +
+    'created_time TEXT NOT NULL, ' +
+    'updated_time TEXT NOT NULL' +
+    ')';
 
 const CREATE_SKIPPED_MESSAGE_KEY_TABLE_SQL: string =
   'CREATE TABLE IF NOT EXISTS skipped_message_key (' +
-  'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-  'user_id INTEGER NOT NULL, ' +
-  'target_id INTEGER NOT NULL, ' +
-  'msg_id TEXT NOT NULL, ' +
-  'dh_public_key TEXT NOT NULL, ' +
-  'chain_index INTEGER NOT NULL, ' +
-  'message_key TEXT NOT NULL, ' +
-  'mac_key TEXT NOT NULL, ' +
-  'iv TEXT NOT NULL, ' +
-  'created_time TEXT NOT NULL' +
-  ')';
+    'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+    'user_id INTEGER NOT NULL, ' +
+    'target_id INTEGER NOT NULL, ' +
+    'msg_id TEXT NOT NULL, ' +
+    'dh_public_key TEXT NOT NULL, ' +
+    'chain_index INTEGER NOT NULL, ' +
+    'message_key TEXT NOT NULL, ' +
+    'mac_key TEXT NOT NULL, ' +
+    'iv TEXT NOT NULL, ' +
+    'created_time TEXT NOT NULL' +
+    ')';
 
 // ══════════════════════════════════════════════
 //  DarcyIMDatabase  — 数据库管理器（单例）
@@ -104,9 +107,9 @@ const CREATE_SKIPPED_MESSAGE_KEY_TABLE_SQL: string =
 
 export class DarcyIMDatabase {
   private static instance: DarcyIMDatabase | null = null;
-
   /** 单个 RdbStore，供所有 DAO 共享 */
   private rdbStore: relationalStore.RdbStore | null = null;
+  private initPromise: Promise<void> | null = null;
   private context: common.Context;
 
   private constructor(context: common.Context) {
@@ -127,12 +130,12 @@ export class DarcyIMDatabase {
    * ```
    */
   static getInstance(context: common.Context = Contexts.getContext()): DarcyIMDatabase {
+    if (context == null) {
+      throw new Error('DarcyIMDatabase 首次调用 getInstance 时必须传入 context')
+    }
     if (DarcyIMDatabase.instance == null) {
-      if (context == null) {
-        throw new Error('DarcyIMDatabase 首次调用 getInstance 时必须传入 context')
-      }
       DarcyIMDatabase.instance = new DarcyIMDatabase(context)
-      DarcyIMDatabase.instance.initDatabase()
+      DarcyIMDatabase.instance.initPromise = DarcyIMDatabase.instance.initDatabase()
     }
     return DarcyIMDatabase.instance;
   }
@@ -170,7 +173,10 @@ export class DarcyIMDatabase {
   /**
    * 获取内部的 RdbStore 实例（若未初始化则抛出异常）
    */
-  private getRdbStore(): relationalStore.RdbStore {
+  private async getRdbStore(): Promise<relationalStore.RdbStore> {
+    if (this.initPromise !== null) {
+      await this.initPromise;
+    }
     if (this.rdbStore === null) {
       throw new Error('RdbStore 尚未初始化，请先调用 initDatabase 方法');
     }
@@ -184,42 +190,63 @@ export class DarcyIMDatabase {
   /**
    * 获取 IdentityKeyDao 实例
    */
-  getIdentityKeyDao(): IdentityKeyDao {
-    return new IdentityKeyDao(this.getRdbStore());
+  async getIdentityKeyDao(): Promise<IdentityKeyDao> {
+    return new IdentityKeyDao(await this.getRdbStore());
   }
 
   /**
    * 获取 OneTimePreKeyDao 实例
    */
-  getOneTimePreKeyDao(): OneTimePreKeyDao {
-    return new OneTimePreKeyDao(this.getRdbStore());
+  async getOneTimePreKeyDao(): Promise<OneTimePreKeyDao> {
+    return new OneTimePreKeyDao(await this.getRdbStore());
   }
 
   /**
    * 获取 SignedPreKeyDao 实例
    */
-  getSignedPreKeyDao(): SignedPreKeyDao {
-    return new SignedPreKeyDao(this.getRdbStore());
+  async getSignedPreKeyDao(): Promise<SignedPreKeyDao> {
+    return new SignedPreKeyDao(await this.getRdbStore());
   }
 
   /**
    * 获取 SessionRecordDao 实例
    */
-  getSessionRecordDao(): SessionRecordDao {
-    return new SessionRecordDao(this.getRdbStore());
+  async getSessionRecordDao(): Promise<SessionRecordDao> {
+    return new SessionRecordDao(await this.getRdbStore());
   }
 
   /**
    * 获取 MessageReadStatusDao 实例
    */
-  getMessageReadStatusDao(): MessageReadStatusDao {
-    return new MessageReadStatusDao(this.getRdbStore());
+  async getMessageReadStatusDao(): Promise<MessageReadStatusDao> {
+    return new MessageReadStatusDao(await this.getRdbStore());
   }
 
   /**
    * 获取 SkippedMessageKeyDao 实例
    */
-  getSkippedMessageKeyDao(): SkippedMessageKeyDao {
-    return new SkippedMessageKeyDao(this.getRdbStore());
+  async getSkippedMessageKeyDao(): Promise<SkippedMessageKeyDao> {
+    return new SkippedMessageKeyDao(await this.getRdbStore());
+  }
+
+  /**
+   * 获取 ConversationDao 实例
+   */
+  async getConversationDao(): Promise<ConversationDao> {
+    return new ConversationDao(await this.getRdbStore());
+  }
+
+  /**
+   * 获取 FriendshipUserDao 实例
+   */
+  async getFriendshipUserDao(): Promise<FriendshipUserDao> {
+    return new FriendshipUserDao(await this.getRdbStore());
+  }
+
+  /**
+   * 获取 PrivateMessageDao 实例
+   */
+  async getPrivateMessageDao(): Promise<PrivateMessageDao> {
+    return new PrivateMessageDao(await this.getRdbStore());
   }
 }

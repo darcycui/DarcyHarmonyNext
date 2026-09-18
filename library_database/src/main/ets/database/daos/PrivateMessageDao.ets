@@ -49,7 +49,7 @@ function rowToEntity(rs: relationalStore.ResultSet): PrivateMessageEntity {
       rs.getLong(rs.getColumnIndex(COL_USER_ID)),
       rs.getLong(rs.getColumnIndex(COL_TARGET_ID)),
       rs.getString(rs.getColumnIndex(COL_CONTENT)),
-      rs.getInt(rs.getColumnIndex(COL_MESSAGE_TYPE)),
+      rs.getLong(rs.getColumnIndex(COL_MESSAGE_TYPE)),
       rs.getString(rs.getColumnIndex(COL_CREATED_TIME)),
       rs.getString(rs.getColumnIndex(COL_UPDATED_TIME)),
       rs.getString(rs.getColumnIndex(COL_DH_PUBLIC_KEY)),
@@ -395,8 +395,8 @@ export class PrivateMessageDao {
       predicates.equalTo(COL_USER_ID, userId);
       predicates.equalTo(COL_TARGET_ID, targetId);
       predicates.orderByDesc(COL_CREATED_TIME);
-      predicates.offset(offset);
-      predicates.limit(limit);
+      predicates.offsetAs(offset);
+      predicates.limitAs(limit);
       const resultSet: relationalStore.ResultSet = await store.query(predicates, ALL_COLUMNS);
       return resultSetToEntityList(resultSet);
     } catch (err) {
