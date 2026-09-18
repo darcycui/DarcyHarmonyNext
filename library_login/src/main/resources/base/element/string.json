@@ -110,7 +110,7 @@
     },
     {
       "name": "login_failed",
-      "value": "登录失败"
+      "value": "Login Failed"
     },
     {
       "name": "delete_user",

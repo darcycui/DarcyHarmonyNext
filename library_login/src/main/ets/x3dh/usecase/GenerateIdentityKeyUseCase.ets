@@ -8,17 +8,11 @@
  *
  * 架构流向：
  *   ViewModel → GenerateIdentityKeyUseCase → IdentityKeyDao → database
- *
- * 使用示例：
- * ```typescript
- * const useCase = new GenerateIdentityKeyUseCase(identityKeyDao);
- * const entity = await useCase.execute({ userId: 123 });
- * ```
  */
 import { BaseUseCase, HexUtil, Log, UUIDUtil } from 'static_library_common';
 import { ECCExchangeUtil } from 'library_crypto';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
-import { DarcyIMDatabase, IdentityKeyDao, IdentityKeyEntity } from 'library_database';
+import { DarcyIMDatabase, IdentityKeyEntity } from 'library_database';
 
 /**
  * 生成身份密钥用例入参
@@ -34,12 +28,6 @@ export interface GenerateIdentityKeyParams {
  * 出参：IdentityKeyEntity（已持久化的身份密钥实体）
  */
 export class GenerateIdentityKeyUseCase extends BaseUseCase<GenerateIdentityKeyParams, IdentityKeyEntity> {
-  private darcyIMDatabase: DarcyIMDatabase;
-
-  constructor(darcyIMDatabase: DarcyIMDatabase) {
-    super();
-    this.darcyIMDatabase = darcyIMDatabase;
-  }
 
   async execute(params: GenerateIdentityKeyParams): Promise<IdentityKeyEntity> {
     // 1. 校验：userId 必须有效
@@ -73,7 +61,7 @@ export class GenerateIdentityKeyUseCase extends BaseUseCase<GenerateIdentityKeyP
       privateKeyHex,
       publicKeyHex,
     );
-    const identityKeyDao = this.darcyIMDatabase.getIdentityKeyDao()
+    const identityKeyDao = await DarcyIMDatabase.getInstance().getIdentityKeyDao()
     await identityKeyDao.insert(entity);
     Log.info(`[GenerateIdentityKeyUseCase] 身份密钥持久化成功, keyId=${keyId}`);
 

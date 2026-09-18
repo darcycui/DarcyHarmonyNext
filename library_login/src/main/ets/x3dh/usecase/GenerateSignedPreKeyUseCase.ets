@@ -9,17 +9,11 @@
  *
  * 架构流向：
  *   ViewModel → GenerateSignedPreKeyUseCase → SignedPreKeyDao → database
- *
- * 使用示例：
- * ```typescript
- * const useCase = new GenerateSignedPreKeyUseCase(signedPreKeyDao);
- * const entity = await useCase.execute({ userId: 123, identityKeyId: 'ik-001' });
- * ```
  */
 import { BaseUseCase, HexUtil, Log, UUIDUtil } from 'static_library_common';
 import { ECCExchangeUtil } from 'library_crypto';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
-import { DarcyIMDatabase, SignedPreKeyDao, SignedPreKeyEntity } from 'library_database';
+import { DarcyIMDatabase, SignedPreKeyEntity } from 'library_database';
 
 /**
  * 生成已签名预密钥用例入参
@@ -37,12 +31,6 @@ export interface GenerateSignedPreKeyParams {
  * 出参：SignedPreKeyEntity（已持久化的已签名预密钥实体）
  */
 export class GenerateSignedPreKeyUseCase extends BaseUseCase<GenerateSignedPreKeyParams, SignedPreKeyEntity> {
-  private darcyIMDatabase: DarcyIMDatabase;
-
-  constructor(darcyIMDatabase: DarcyIMDatabase) {
-    super();
-    this.darcyIMDatabase = darcyIMDatabase;
-  }
 
   async execute(params: GenerateSignedPreKeyParams): Promise<SignedPreKeyEntity> {
     // 1. 校验参数
@@ -84,7 +72,7 @@ export class GenerateSignedPreKeyUseCase extends BaseUseCase<GenerateSignedPreKe
       publicKeyHex,
       signatureHex,
     );
-    const signedPreKeyDao = this.darcyIMDatabase.getSignedPreKeyDao()
+    const signedPreKeyDao = await DarcyIMDatabase.getInstance().getSignedPreKeyDao()
     await signedPreKeyDao.insert(entity);
     Log.info(`[GenerateSignedPreKeyUseCase] 已签名预密钥持久化成功, keyId=${keyId}`);
 

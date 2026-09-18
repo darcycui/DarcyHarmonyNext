@@ -8,17 +8,11 @@
  *
  * 架构流向：
  *   ViewModel → GenerateOneTimePreKeyUseCase → OneTimePreKeyDao → database
- *
- * 使用示例：
- * ```typescript
- * const useCase = new GenerateOneTimePreKeyUseCase(oneTimePreKeyDao);
- * const entity = await useCase.execute({ userId: 123 });
- * ```
  */
 import { BaseUseCase, HexUtil, Log, UUIDUtil } from 'static_library_common';
 import { ECCExchangeUtil } from 'library_crypto';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
-import { DarcyIMDatabase, OneTimePreKeyDao, OneTimePreKeyEntity } from 'library_database';
+import { DarcyIMDatabase, OneTimePreKeyEntity } from 'library_database';
 
 /**
  * 生成一次性预密钥用例入参
@@ -34,12 +28,6 @@ export interface GenerateOneTimePreKeyParams {
  * 出参：OneTimePreKeyEntity（已持久化的一次性预密钥实体）
  */
 export class GenerateOneTimePreKeyUseCase extends BaseUseCase<GenerateOneTimePreKeyParams, OneTimePreKeyEntity[]> {
-  private darcyIMDatabase: DarcyIMDatabase;
-
-  constructor(darcyIMDatabase: DarcyIMDatabase) {
-    super();
-    this.darcyIMDatabase = darcyIMDatabase;
-  }
 
   async execute(params: GenerateOneTimePreKeyParams): Promise<OneTimePreKeyEntity[]> {
     // 1. 校验：userId 必须有效
@@ -76,7 +64,7 @@ export class GenerateOneTimePreKeyUseCase extends BaseUseCase<GenerateOneTimePre
       );
       entityList.push(entity);
     }
-    const oneTimePreKeyDao = this.darcyIMDatabase.getOneTimePreKeyDao()
+    const oneTimePreKeyDao = await DarcyIMDatabase.getInstance().getOneTimePreKeyDao()
     Log.info(`[GenerateOneTimePreKeyUseCase] 一次性预密钥持久化成功`);
     await oneTimePreKeyDao.insertBatch(entityList);
 

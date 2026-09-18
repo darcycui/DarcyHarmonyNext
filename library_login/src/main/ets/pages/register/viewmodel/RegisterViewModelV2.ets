@@ -39,7 +39,7 @@ import {
   UpdateRegisterPasswordIntent,
   UpdateRegisterUserNameIntent
 } from '../intent/RegisterIntent';
-import { DarcyIMDatabase, IdentityKeyEntity, OneTimePreKeyEntity, SignedPreKeyEntity } from 'library_database';
+import { IdentityKeyEntity, OneTimePreKeyEntity, SignedPreKeyEntity } from 'library_database';
 import { GenerateIdentityKeyUseCase } from '../../../x3dh/usecase/GenerateIdentityKeyUseCase';
 import { GenerateSignedPreKeyUseCase } from '../../../x3dh/usecase/GenerateSignedPreKeyUseCase';
 import { GenerateOneTimePreKeyUseCase } from '../../../x3dh/usecase/GenerateOneTimePreKeyUseCase';
@@ -65,13 +65,12 @@ export default class RegisterViewModelV2 extends BaseViewModel {
   private deleteUserUseCase: DeleteUserUseCase = new DeleteUserUseCase(new RegisterRepository());
   /** DH 密钥交换用例 */
   private serverDHExchangeUseCase: ServerDHExchangeUseCase = new ServerDHExchangeUseCase(new ServerDHExchangeRepository());
-  private darcyImDatabase: DarcyIMDatabase = DarcyIMDatabase.getInstance();
   /** X3DH 身份密钥生成用例 */
-  private generateIdentityKeyUseCase: GenerateIdentityKeyUseCase = new GenerateIdentityKeyUseCase(this.darcyImDatabase);
+  private generateIdentityKeyUseCase: GenerateIdentityKeyUseCase = new GenerateIdentityKeyUseCase();
   /** X3DH 预签名密钥生成用例 */
-  private generateSignedPreKeyUseCase: GenerateSignedPreKeyUseCase = new GenerateSignedPreKeyUseCase(this.darcyImDatabase);
+  private generateSignedPreKeyUseCase: GenerateSignedPreKeyUseCase = new GenerateSignedPreKeyUseCase();
   /** X3DH 一次性预密钥生成用例 */
-  private generateOneTimePreKeyUseCase: GenerateOneTimePreKeyUseCase = new GenerateOneTimePreKeyUseCase(this.darcyImDatabase);
+  private generateOneTimePreKeyUseCase: GenerateOneTimePreKeyUseCase = new GenerateOneTimePreKeyUseCase();
   /** X3DH 密钥推送用例 */
   private pushX3DHKeysUseCase: PushX3DHKeysUseCase = new PushX3DHKeysUseCase(new X3DHPushKeysRepository());
 
