@@ -184,12 +184,12 @@ ohpm install
 - 路由：新增代码禁止使用 **旧 Router** （只允许已有代码使用，如 StartPage 菜单中绝大多数按钮的跳转）。
 - 路由：统一使用 工具类 NavigationHelper 示例代码：`NavigationHelper.startPage(this.pathStack, 'pages/static/login/LoginPage', {}, true, false)`
 - 代码采用MVI框架：Model-View-Intent，禁止使用其他框架，如MVVM、MVC等
-- MVI框架包含 Intent State Reducer ViewModel UseCase View
+- MVI框架包含 Intent State Reducer ViewModel UseCase Repository View
   - UI交互行为包装为 Intent 发送给 ViewModel
   - ViewModel 持有State，并通过 UseCase 处理业务逻辑，生成 State
   - ViewModel 通过 Reducer 更新 State
   - View 通过 State 更新 UI
-  - 数据流向为：ViewModel-->Reducer-->State
+  - 数据流向为：ViewModel-->UseCase-->Repository-->Reducer-->State
 
 ### 已知坑
 
