@@ -7,14 +7,18 @@
  * @Trace     - 标记属性为可观察，属性变化时触发关联组件重渲染
  */
 import { IState, ScreenState } from 'static_library_common';
-import { UserResponse } from 'library_network';
+import { UserResponse, ApplyFriendResponse } from 'library_network';
 
 @ObservedV2
-export default class ContactState implements IState {
+export default class ApplyFriendState implements IState {
   /** 屏幕状态（加载中/错误/成功等） */
   @Trace screenState: ScreenState = new ScreenState();
   /** 搜索手机号 */
   @Trace searchPhone: string = '';
   /** 搜索结果列表 */
   @Trace searchResults: UserResponse[] = [];
+  /** 我发出的好友请求列表 */
+  @Trace sentFriendRequests: ApplyFriendResponse[] = [];
+  /** 是否显示已发送的好友请求列表（true=已发送，false=搜索用户） */
+  @Trace showSentRequests: boolean = false;
 }

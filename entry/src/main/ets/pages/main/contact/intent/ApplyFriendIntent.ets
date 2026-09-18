@@ -7,6 +7,7 @@
  * ─── 使用示例 ───────────────────────────────────
  *   dispatch(new SearchUserIntent('13800001111'))
  *   dispatch(new ApplyFriendIntent(1, 2))
+ *   dispatch(new QuerySentFriendRequestsIntent())
  */
 import { IIntent } from 'static_library_common';
 
@@ -37,4 +38,16 @@ export class ApplyFriendIntent extends ContactIntent {
     this.fromUserId = fromUserId;
     this.toUserId = toUserId;
   }
+}
+
+/**
+ * 查询我发出的好友请求 Intent
+ */
+export class QuerySentFriendRequestsIntent extends ContactIntent {
+}
+
+/**
+ * 切换视图模式 Intent（搜索用户 ↔ 已发送的好友请求）
+ */
+export class ToggleViewModeIntent extends ContactIntent {
 }

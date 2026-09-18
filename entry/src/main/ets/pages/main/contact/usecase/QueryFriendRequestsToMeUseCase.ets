@@ -31,7 +31,7 @@ export interface QueryFriendRequestsParams {
  * 入参：QueryFriendRequestsParams
  * 出参：ApplyFriendResponse[]
  */
-export class QueryFriendRequestsUseCase extends BaseUseCase<QueryFriendRequestsParams, ApplyFriendResponse[]> {
+export class QueryFriendRequestsToMeUseCase extends BaseUseCase<QueryFriendRequestsParams, ApplyFriendResponse[]> {
   private repository: ContactRepository;
 
   constructor(repository: ContactRepository) {

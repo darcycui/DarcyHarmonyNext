@@ -11,14 +11,16 @@
  */
 import { BaseViewModel, Log, ScreenPhase, HexUtil } from 'static_library_common';
 import { UserResponse, ApplyFriendResponse } from 'library_network';
-import ContactState from '../state/ContactState';
-import ContactReducer from '../reducer/ContactReducer';
+import ApplyFriendState from '../state/ApplyFriendState';
+import ApplyFriendReducer from '../reducer/ApplyFriendReducer';
 import { SearchUserUseCase, SearchUserParams } from '../usecase/SearchUserUseCase';
 import { ApplyFriendUseCase, ApplyFriendParams } from '../usecase/ApplyFriendUseCase';
+import { QueryFriendRequestsFromMeUseCase, QueryFriendRequestsFromMeParams } from '../usecase/QueryFriendRequestsFromMeUseCase';
 import { ContactRepository } from '../repository/ContactRepository';
 import {
-  ContactIntent, SearchUserIntent, ApplyFriendIntent
-} from '../intent/ContactIntent';
+  ContactIntent, SearchUserIntent, ApplyFriendIntent,
+  QuerySentFriendRequestsIntent, ToggleViewModeIntent
+} from '../intent/ApplyFriendIntent';
 import { PullX3DHKeysUseCase, PullX3DHKeysParams } from '../../../../x3dh/usecase/PullX3DHKeysUseCase';
 import { CalculateAliceX3DHKeyUseCase, CalculateAliceX3DHKeyParams } from '../../../../x3dh/usecase/CalculateAliceX3DHKeyUseCase';
 import { SaveAliceSessionRecordUseCase, SaveAliceSessionRecordParams } from '../../../../x3dh/usecase/SaveAliceSessionRecordUseCase';
@@ -27,18 +29,20 @@ import { X3DHPullKeysRepository } from '../../../../x3dh/repository/X3DHPullKeys
 import { AliceHelloRepository } from '../../../../x3dh/repository/AliceHelloRepository';
 import { DarcyIMDatabase } from 'library_database';
 import { ECCExchangeUtil } from 'library_crypto';
+import { UserManager } from 'library_login';
 
 @ObservedV2
 export default class ApplyFriendViewModel extends BaseViewModel {
   // ─── 页面统一状态对象（@Trace 实现细粒度刷新） ────────
 
   /** 统一状态 */
-  @Trace state: ContactState = new ContactState();
+  @Trace state: ApplyFriendState = new ApplyFriendState();
 
   // ─── 依赖注入 ──
   private repository: ContactRepository = new ContactRepository();
   private searchUserUseCase: SearchUserUseCase = new SearchUserUseCase(this.repository);
   private applyFriendUseCase: ApplyFriendUseCase = new ApplyFriendUseCase(this.repository);
+  private querySentFriendRequestsUseCase: QueryFriendRequestsFromMeUseCase = new QueryFriendRequestsFromMeUseCase(this.repository);
   private pullX3DHKeysUseCase: PullX3DHKeysUseCase = new PullX3DHKeysUseCase(new X3DHPullKeysRepository());
   private calculateAliceX3DHKeyUseCase: CalculateAliceX3DHKeyUseCase = new CalculateAliceX3DHKeyUseCase();
   private saveAliceSessionRecordUseCase: SaveAliceSessionRecordUseCase = new SaveAliceSessionRecordUseCase();
@@ -46,7 +50,7 @@ export default class ApplyFriendViewModel extends BaseViewModel {
   private identityKeyDao = DarcyIMDatabase.getInstance().getIdentityKeyDao();
 
   // ─── Reducer（负责状态修改） ──────────────────────
-  private reducer: ContactReducer = new ContactReducer();
+  private reducer: ApplyFriendReducer = new ApplyFriendReducer();
 
   // ─── MVI dispatch 模式（统一入口） ────────────
   /**
@@ -60,6 +64,10 @@ export default class ApplyFriendViewModel extends BaseViewModel {
       await this.searchUser(intent.phone);
     } else if (intent instanceof ApplyFriendIntent) {
       await this.applyFriend(intent.fromUserId, intent.toUserId);
+    } else if (intent instanceof QuerySentFriendRequestsIntent) {
+      await this.querySentFriendRequests();
+    } else if (intent instanceof ToggleViewModeIntent) {
+      this.toggleViewMode();
     } else {
       Log.warn(`[ContactViewModel] 未处理的 Intent: ${intent}`);
     }
@@ -165,6 +173,28 @@ export default class ApplyFriendViewModel extends BaseViewModel {
    */
   updateSearchPhone(value: string): void {
     this.reducer.updateSearchPhone(this.state, value);
+  }
+
+  /**
+   * 查询我发出的好友请求列表
+   */
+  async querySentFriendRequests(): Promise<void> {
+    await this.safeLoad(this.state.screenState, async () => {
+      const currentUserId = await UserManager.getUserID();
+      Log.info(`[ApplyFriendViewModel] 查询我发出的好友请求: fromUserId=${currentUserId}`);
+      const params: QueryFriendRequestsFromMeParams = { fromUserId: currentUserId };
+      const result: ApplyFriendResponse[] = await this.querySentFriendRequestsUseCase.execute(params);
+      Log.info(`[ApplyFriendViewModel] 查询我发出的好友请求成功: ${result.length} 条`);
+      this.reducer.setSentFriendRequests(this.state, result);
+      this.reducer.setShowSentRequests(this.state, true);
+    });
+  }
+
+  /**
+   * 切换视图模式（搜索用户 ↔ 已发送的好友请求）
+   */
+  toggleViewMode(): void {
+    this.reducer.toggleViewMode(this.state);
   }
 
   /**

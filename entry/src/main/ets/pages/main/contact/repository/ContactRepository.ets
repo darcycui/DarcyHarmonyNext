@@ -17,6 +17,7 @@ import {
   UserResponse,
   FriendRequestCreateRequestDTO,
   FriendRequestQueryToRequestDTO,
+  FriendRequestQueryFromRequestDTO,
   FriendRequestActionRequestDTO,
   ApplyFriendResponse
 } from 'library_network';
@@ -139,6 +140,47 @@ export class ContactRepository extends BaseRepository {
     return this.safeCall(async () => {
       const dto: FriendRequestQueryToRequestDTO = new FriendRequestQueryToRequestDTO({ toUserId });
       const url: string = Urls.QUERY_FRIEND_TO_URL;
+      const body: string = JSON.stringify(dto);
+
+      const holder: QueryFriendRequestsResponseHolder = new QueryFriendRequestsResponseHolder();
+
+      await new Promise<void>((resolve: () => void): void => {
+        HttpHelper.doPost<ApplyFriendResponse[]>(
+          url,
+          body,
+          (data: HttpResultEntity<ApplyFriendResponse[]>): void => {
+            if (data.result != null && data.result != undefined && data.error_code === 0) {
+              holder.data = data.result;
+            } else {
+              holder.errorMessage = data.reason || '查询好友请求失败';
+            }
+            resolve();
+          },
+          (error: HttpResultEntity<HttpErrorEntity>): void => {
+            holder.errorMessage = error.result?.message || '网络请求失败';
+            resolve();
+          },
+          HttpCertHelper.getCertPath()
+        );
+      });
+
+      if (holder.errorMessage) {
+        throw new Error(holder.errorMessage);
+      }
+      return holder.data;
+    });
+  }
+
+  /**
+   * 查询我发出的好友请求
+   *
+   * @param fromUserId - 当前用户 ID
+   * @returns 好友请求列表
+   */
+  async queryFriendRequestsFromMe(fromUserId: number): Promise<ApplyFriendResponse[]> {
+    return this.safeCall(async () => {
+      const dto: FriendRequestQueryFromRequestDTO = new FriendRequestQueryFromRequestDTO({ fromUserId });
+      const url: string = Urls.QUERY_FRIEND_FROM_URL;
       const body: string = JSON.stringify(dto);
 
       const holder: QueryFriendRequestsResponseHolder = new QueryFriendRequestsResponseHolder();

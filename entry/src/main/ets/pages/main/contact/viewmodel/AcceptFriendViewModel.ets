@@ -19,7 +19,7 @@ import { BaseViewModel, Log, ScreenPhase, HexUtil } from 'static_library_common'
 import { ApplyFriendResponse } from 'library_network';
 import AcceptFriendState from '../state/AcceptFriendState';
 import AcceptFriendReducer from '../reducer/AcceptFriendReducer';
-import { QueryFriendRequestsUseCase, QueryFriendRequestsParams } from '../usecase/QueryFriendRequestsUseCase';
+import { QueryFriendRequestsToMeUseCase, QueryFriendRequestsParams } from '../usecase/QueryFriendRequestsToMeUseCase';
 import { AcceptFriendRequestUseCase, AcceptFriendRequestParams } from '../usecase/AcceptFriendRequestUseCase';
 import { ContactRepository } from '../repository/ContactRepository';
 import {
@@ -40,7 +40,7 @@ export default class AcceptFriendViewModel extends BaseViewModel {
 
   // ─── 依赖注入 ──
   private repository: ContactRepository = new ContactRepository();
-  private queryFriendRequestsUseCase: QueryFriendRequestsUseCase = new QueryFriendRequestsUseCase(this.repository);
+  private queryFriendRequestsUseCase: QueryFriendRequestsToMeUseCase = new QueryFriendRequestsToMeUseCase(this.repository);
   private acceptFriendRequestUseCase: AcceptFriendRequestUseCase = new AcceptFriendRequestUseCase(this.repository);
   private pullAliceHelloUseCase: PullAliceHelloUseCase = new PullAliceHelloUseCase(new AliceHelloRepository());
   private calculateBobX3DHKeyUseCase: CalculateBobX3DHKeyUseCase = new CalculateBobX3DHKeyUseCase();
@@ -86,6 +86,7 @@ export default class AcceptFriendViewModel extends BaseViewModel {
       const result: ApplyFriendResponse[] = await this.queryFriendRequestsUseCase.execute(params);
       Log.info(`[AcceptFriendViewModel] 查询好友请求成功: ${result.length} 条`);
       this.reducer.setFriendRequests(this.state, result);
+      this.state.screenState.phase = ScreenPhase.SUCCESS;
     });
   }
 
@@ -143,9 +144,8 @@ export default class AcceptFriendViewModel extends BaseViewModel {
       await this.acceptFriendRequestUseCase.execute(acceptParams);
       Log.info(`[AcceptFriendViewModel] 同意好友请求成功`);
 
-      // 5. 从列表中移除已处理的请求
-      this.reducer.removeFriendRequest(this.state, friendRequestId);
-      this.state.screenState.phase = ScreenPhase.SUCCESS;
+      // 5. 刷新好友请求列表;
+      await this.queryFriendRequests();
     });
   }
 
