@@ -33,9 +33,9 @@ export interface SendDoubleRatchetStepParams {
  * 返回 MessageKey（包含消息加密所需的所有密钥材料）
  */
 export class SendDoubleRatchetStepUseCase extends BaseUseCase<SendDoubleRatchetStepParams, MessageKey> {
-  private sessionRecordDao = DarcyIMDatabase.getInstance().getSessionRecordDao();
 
   async execute(params: SendDoubleRatchetStepParams): Promise<MessageKey> {
+    const sessionRecordDao = await DarcyIMDatabase.getInstance().getSessionRecordDao();
     const localUserId = params.localUserId;
     const remoteUserId = params.remoteUserId;
 
@@ -48,7 +48,7 @@ export class SendDoubleRatchetStepUseCase extends BaseUseCase<SendDoubleRatchetS
     }
 
     // 获取会话记录
-    const sessionRecord = await this.sessionRecordDao.getByUserPair(localUserId, remoteUserId);
+    const sessionRecord = await sessionRecordDao.getByUserPair(localUserId, remoteUserId);
     if (!sessionRecord) {
       throw new Error('sessionRecord 不存在');
     }
@@ -81,7 +81,7 @@ export class SendDoubleRatchetStepUseCase extends BaseUseCase<SendDoubleRatchetS
     EncryptUtil.log(`$localUserId 发送链密钥:`, newSendingChainKey.getKey());
 
     // 更新会话记录
-    await this.sessionRecordDao.update(
+    await sessionRecordDao.update(
       new SessionRecordEntity(
         sessionRecord.id,
         sessionRecord.localUserId,

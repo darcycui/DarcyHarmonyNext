@@ -47,7 +47,6 @@ export default class ApplyFriendViewModel extends BaseViewModel {
   private calculateAliceX3DHKeyUseCase: CalculateAliceX3DHKeyUseCase = new CalculateAliceX3DHKeyUseCase();
   private saveAliceSessionRecordUseCase: SaveAliceSessionRecordUseCase = new SaveAliceSessionRecordUseCase();
   private pushAliceHelloUseCase: PushAliceHelloUseCase = new PushAliceHelloUseCase(new AliceHelloRepository());
-  private identityKeyDao = DarcyIMDatabase.getInstance().getIdentityKeyDao();
 
   // ─── Reducer（负责状态修改） ──────────────────────
   private reducer: ApplyFriendReducer = new ApplyFriendReducer();
@@ -139,7 +138,8 @@ export default class ApplyFriendViewModel extends BaseViewModel {
 
       // 4. 获取 Alice 身份公钥
       Log.info(`[ApplyFriendViewModel] 4. 获取 Alice 身份公钥`);
-      const identityKeys = await this.identityKeyDao.getByUserId(fromUserId);
+      const identityKeyDao = await DarcyIMDatabase.getInstance().getIdentityKeyDao();
+      const identityKeys = await identityKeyDao.getByUserId(fromUserId);
       if (!identityKeys || identityKeys.length === 0) {
         throw new Error('Alice 身份密钥不存在');
       }

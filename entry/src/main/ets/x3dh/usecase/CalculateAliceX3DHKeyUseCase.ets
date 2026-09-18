@@ -50,9 +50,9 @@ export interface CalculateAliceX3DHKeyResult {
  * - aliceEphemeralKey: { privateKey: Uint8Array, publicKey: Uint8Array }
  */
 export class CalculateAliceX3DHKeyUseCase extends BaseUseCase<CalculateAliceX3DHKeyParams, CalculateAliceX3DHKeyResult> {
-  private identityKeyDao = DarcyIMDatabase.getInstance().getIdentityKeyDao();
 
   async execute(params: CalculateAliceX3DHKeyParams): Promise<CalculateAliceX3DHKeyResult> {
+    const identityKeyDao = await DarcyIMDatabase.getInstance().getIdentityKeyDao();
     const aliceUserId = params.aliceUserId;
     const bobUserId = params.bobUserId;
     const bobKeysStr = params.bobKeys;
@@ -75,7 +75,7 @@ export class CalculateAliceX3DHKeyUseCase extends BaseUseCase<CalculateAliceX3DH
     }
 
     // 获取 Alice 身份私钥
-    const identityKeys = await this.identityKeyDao.getByUserId(aliceUserId);
+    const identityKeys = await identityKeyDao.getByUserId(aliceUserId);
     if (identityKeys.length === 0) {
       throw new Error('aliceIdentityPrivateKey 不存在');
     }

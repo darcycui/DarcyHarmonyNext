@@ -36,9 +36,9 @@ export interface InitAliceDHRatchetParams {
  * 返回 boolean：是否成功
  */
 export class InitAliceDHRatchetUseCase extends BaseUseCase<InitAliceDHRatchetParams, boolean> {
-  private sessionRecordDao = DarcyIMDatabase.getInstance().getSessionRecordDao();
 
   async execute(params: InitAliceDHRatchetParams): Promise<boolean> {
+    const sessionRecordDao = await DarcyIMDatabase.getInstance().getSessionRecordDao();
     const localUserId = params.aliceUserId;
     const remoteUserId = params.bobUserId;
     const bobSignedPreKey = params.bobSignedPreKey;
@@ -55,7 +55,7 @@ export class InitAliceDHRatchetUseCase extends BaseUseCase<InitAliceDHRatchetPar
     }
 
     // 获取会话记录
-    const sessionRecord = await this.sessionRecordDao.getByUserPair(localUserId, remoteUserId);
+    const sessionRecord = await sessionRecordDao.getByUserPair(localUserId, remoteUserId);
     if (!sessionRecord) {
       throw new Error('sessionRecord 不存在');
     }
@@ -105,7 +105,7 @@ export class InitAliceDHRatchetUseCase extends BaseUseCase<InitAliceDHRatchetPar
     EncryptUtil.log(`$localUserId 发送链密钥:`, sendingChain.getKey());
 
     // 更新会话记录
-    const updatedCount = await this.sessionRecordDao.update(
+    const updatedCount = await sessionRecordDao.update(
       new SessionRecordEntity(
         sessionRecord.id,
         sessionRecord.localUserId,

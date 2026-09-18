@@ -20,7 +20,9 @@ import { Log } from 'static_library_common';
 import { HexUtil } from 'static_library_common';
 import {
   DarcyIMDatabase,
+  SessionRecordDao,
   SessionRecordEntity,
+  SkippedMessageKeyDao,
   SkippedMessageKeyEntity,
 } from 'library_database';
 import { ECCExchangeUtil, EncryptUtil } from 'library_crypto';
@@ -52,10 +54,12 @@ export interface ReceiveDoubleRatchetStepParams {
  * 返回 MessageKey（包含消息解密所需的所有密钥材料）
  */
 export class ReceiveDoubleRatchetStepUseCase extends BaseUseCase<ReceiveDoubleRatchetStepParams, MessageKey> {
-  private sessionRecordDao = DarcyIMDatabase.getInstance().getSessionRecordDao();
-  private skippedMessageKeyDao = DarcyIMDatabase.getInstance().getSkippedMessageKeyDao();
+  private sessionRecordDao!: SessionRecordDao;
+  private skippedMessageKeyDao!: SkippedMessageKeyDao;
 
   async execute(params: ReceiveDoubleRatchetStepParams): Promise<MessageKey> {
+    this.sessionRecordDao = await DarcyIMDatabase.getInstance().getSessionRecordDao();
+    this.skippedMessageKeyDao = await DarcyIMDatabase.getInstance().getSkippedMessageKeyDao();
     const localUserId = params.localUserId;
     const remoteUserId = params.remoteUserId;
     const remoteDHKey = params.remoteDHKey;

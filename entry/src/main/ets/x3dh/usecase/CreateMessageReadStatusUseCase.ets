@@ -27,9 +27,9 @@ export interface CreateMessageReadStatusParams {
  * 返回 MessageReadStatusEntity
  */
 export class CreateMessageReadStatusUseCase extends BaseUseCase<CreateMessageReadStatusParams, MessageReadStatusEntity> {
-  private messageReadStatusDao = DarcyIMDatabase.getInstance().getMessageReadStatusDao();
 
   async execute(params: CreateMessageReadStatusParams): Promise<MessageReadStatusEntity> {
+    const messageReadStatusDao = await DarcyIMDatabase.getInstance().getMessageReadStatusDao();
     const stompMessageStr = params.stompMessage;
 
     // 校验参数
@@ -55,16 +55,16 @@ export class CreateMessageReadStatusUseCase extends BaseUseCase<CreateMessageRea
     );
 
     // 先删除已有记录（同一用户同一消息）
-    const existingList = await this.messageReadStatusDao.getByUserId(messageReadStatus.userId);
+    const existingList = await messageReadStatusDao.getByUserId(messageReadStatus.userId);
     for (const existing of existingList) {
       if (existing.msgId === messageReadStatus.msgId) {
-        await this.messageReadStatusDao.deleteById(existing.id);
+        await messageReadStatusDao.deleteById(existing.id);
         break;
       }
     }
 
     // 插入新记录
-    await this.messageReadStatusDao.insert(messageReadStatus);
+    await messageReadStatusDao.insert(messageReadStatus);
 
     Log.log(`创建消息已读状态成功: msgId=${messageReadStatus.msgId}, userId=${messageReadStatus.userId}`);
     return messageReadStatus;

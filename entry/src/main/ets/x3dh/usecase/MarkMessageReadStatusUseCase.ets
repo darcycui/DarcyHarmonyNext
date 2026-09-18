@@ -27,9 +27,9 @@ export interface MarkMessageReadStatusParams {
  * 返回 MessageReadStatusEntity[]
  */
 export class MarkMessageReadStatusUseCase extends BaseUseCase<MarkMessageReadStatusParams, MessageReadStatusEntity[]> {
-  private messageReadStatusDao = DarcyIMDatabase.getInstance().getMessageReadStatusDao();
 
   async execute(params: MarkMessageReadStatusParams): Promise<MessageReadStatusEntity[]> {
+    const messageReadStatusDao = await DarcyIMDatabase.getInstance().getMessageReadStatusDao();
     const responseStr = params.messageReadStatusResponse;
 
     // 校验参数
@@ -51,12 +51,12 @@ export class MarkMessageReadStatusUseCase extends BaseUseCase<MarkMessageReadSta
 
     for (const msgId of msgIds) {
       // 查询是否已存在记录
-      const existingList = await this.messageReadStatusDao.getByUserId(userId);
+      const existingList = await messageReadStatusDao.getByUserId(userId);
       const existing = existingList.find((item) => item.msgId === msgId);
 
       if (existing) {
         // 更新为已读
-        await this.messageReadStatusDao.markAsRead(msgId, userId, now);
+        await messageReadStatusDao.markAsRead(msgId, userId, now);
       } else {
         // 插入新的已读记录
         const entity = new MessageReadStatusEntity(
@@ -70,14 +70,14 @@ export class MarkMessageReadStatusUseCase extends BaseUseCase<MarkMessageReadSta
           now,
           now,
         );
-        await this.messageReadStatusDao.insert(entity);
+        await messageReadStatusDao.insert(entity);
       }
     }
 
     // 查询返回更新后的列表
     const readList: MessageReadStatusEntity[] = [];
     for (const msgId of msgIds) {
-      const list = await this.messageReadStatusDao.getByUserId(userId);
+      const list = await messageReadStatusDao.getByUserId(userId);
       const found = list.find((item) => item.msgId === msgId);
       if (found) {
         readList.push(found);

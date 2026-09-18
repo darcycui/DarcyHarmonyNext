@@ -36,11 +36,11 @@ export interface SaveBobSessionRecordParams {
  * 返回 boolean：是否成功
  */
 export class SaveBobSessionRecordUseCase extends BaseUseCase<SaveBobSessionRecordParams, boolean> {
-  private identityKeyDao = DarcyIMDatabase.getInstance().getIdentityKeyDao();
-  private signedPreKeyDao = DarcyIMDatabase.getInstance().getSignedPreKeyDao();
-  private sessionRecordDao = DarcyIMDatabase.getInstance().getSessionRecordDao();
 
   async execute(params: SaveBobSessionRecordParams): Promise<boolean> {
+    const identityKeyDao = await DarcyIMDatabase.getInstance().getIdentityKeyDao();
+    const signedPreKeyDao = await DarcyIMDatabase.getInstance().getSignedPreKeyDao();
+    const sessionRecordDao = await DarcyIMDatabase.getInstance().getSessionRecordDao();
     try {
       const localUserId = params.localUserId;
       const remoteUserId = params.remoteUserId;
@@ -56,12 +56,12 @@ export class SaveBobSessionRecordUseCase extends BaseUseCase<SaveBobSessionRecor
       if (!aliceEphemeralKey) throw new Error('aliceEphemeralKey 不能为空');
 
       // 获取 Bob 本地密钥
-      const identityKeys = await this.identityKeyDao.getByUserId(localUserId);
+      const identityKeys = await identityKeyDao.getByUserId(localUserId);
       if (identityKeys.length === 0) {
         throw new Error('bobIdentityKey 不存在');
       }
 
-      const signedPreKeys = await this.signedPreKeyDao.getByUserId(localUserId);
+      const signedPreKeys = await signedPreKeyDao.getByUserId(localUserId);
       if (signedPreKeys.length === 0) {
         throw new Error('bobSignedPreKey 不存在');
       }
@@ -73,13 +73,13 @@ export class SaveBobSessionRecordUseCase extends BaseUseCase<SaveBobSessionRecor
       const K2 = pairBob[1]; // 发送链密钥
 
       // 删除旧记录
-      const existing = await this.sessionRecordDao.getByUserPair(localUserId, remoteUserId);
+      const existing = await sessionRecordDao.getByUserPair(localUserId, remoteUserId);
       if (existing) {
-        await this.sessionRecordDao.deleteById(existing.id);
+        await sessionRecordDao.deleteById(existing.id);
       }
 
       // 插入新会话记录
-      await this.sessionRecordDao.insert(
+      await sessionRecordDao.insert(
         new SessionRecordEntity(
           undefined,
           localUserId,

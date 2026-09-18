@@ -34,11 +34,11 @@ export interface CalculateBobX3DHKeyParams {
  * 返回 Uint8Array：x3DHKey (64 字节)
  */
 export class CalculateBobX3DHKeyUseCase extends BaseUseCase<CalculateBobX3DHKeyParams, Uint8Array> {
-  private identityKeyDao = DarcyIMDatabase.getInstance().getIdentityKeyDao();
-  private signedPreKeyDao = DarcyIMDatabase.getInstance().getSignedPreKeyDao();
-  private oneTimePreKeyDao = DarcyIMDatabase.getInstance().getOneTimePreKeyDao();
 
   async execute(params: CalculateBobX3DHKeyParams): Promise<Uint8Array> {
+    const identityKeyDao = await DarcyIMDatabase.getInstance().getIdentityKeyDao();
+    const signedPreKeyDao = await DarcyIMDatabase.getInstance().getSignedPreKeyDao();
+    const oneTimePreKeyDao = await DarcyIMDatabase.getInstance().getOneTimePreKeyDao();
     const bobUserId = params.bobUserId;
     const aliceIdentityKey = params.aliceIdentityKey;
     const aliceEphemeralKey = params.aliceEphemeralKey;
@@ -59,7 +59,7 @@ export class CalculateBobX3DHKeyUseCase extends BaseUseCase<CalculateBobX3DHKeyP
     }
 
     // 获取 Bob 本地密钥
-    const identityKeys = await this.identityKeyDao.getByUserId(bobUserId);
+    const identityKeys = await identityKeyDao.getByUserId(bobUserId);
     if (identityKeys.length === 0) {
       throw new Error('bobIdentityKey 不存在');
     }
@@ -68,7 +68,7 @@ export class CalculateBobX3DHKeyUseCase extends BaseUseCase<CalculateBobX3DHKeyP
     const bobIdentityPublicKey = HexUtil.hexToBytes(bobIdentityKey.publicKey);
     Log.log(`$bobUserId bobIdentityPublic ${HexUtil.bytesToHex(bobIdentityPublicKey)}`);
 
-    const signedPreKeys = await this.signedPreKeyDao.getByUserId(bobUserId);
+    const signedPreKeys = await signedPreKeyDao.getByUserId(bobUserId);
     if (signedPreKeys.length === 0) {
       throw new Error('bobSignedPreKey 不存在');
     }
@@ -77,7 +77,7 @@ export class CalculateBobX3DHKeyUseCase extends BaseUseCase<CalculateBobX3DHKeyP
     const bobSignedPreKeyPublicKey = HexUtil.hexToBytes(bobSignedPreKey.publicKey);
     Log.log(`$bobUserId bobSignedPreKeyPublic ${HexUtil.bytesToHex(bobSignedPreKeyPublicKey)}`);
 
-    const oneTimePreKey = await this.oneTimePreKeyDao.getByKeyId(bobOneTimePreKeyId);
+    const oneTimePreKey = await oneTimePreKeyDao.getByKeyId(bobOneTimePreKeyId);
     if (oneTimePreKey == null) {
       throw new Error('bobOneTimePreKey 不存在');
     }

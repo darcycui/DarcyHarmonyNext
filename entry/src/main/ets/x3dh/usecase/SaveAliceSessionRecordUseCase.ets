@@ -40,9 +40,9 @@ export interface SaveAliceSessionRecordParams {
  * 返回 boolean：是否成功
  */
 export class SaveAliceSessionRecordUseCase extends BaseUseCase<SaveAliceSessionRecordParams, boolean> {
-  private sessionRecordDao = DarcyIMDatabase.getInstance().getSessionRecordDao();
 
   async execute(params: SaveAliceSessionRecordParams): Promise<boolean> {
+    const sessionRecordDao = await DarcyIMDatabase.getInstance().getSessionRecordDao();
     try {
       const localUserId = params.aliceUserId;
       const remoteUserId = params.bobUserId;
@@ -67,13 +67,13 @@ export class SaveAliceSessionRecordUseCase extends BaseUseCase<SaveAliceSessionR
       const K2 = pairAlice[1]; // 接收链密钥
 
       // 删除旧记录
-      const existing = await this.sessionRecordDao.getByUserPair(localUserId, remoteUserId);
+      const existing = await sessionRecordDao.getByUserPair(localUserId, remoteUserId);
       if (existing) {
-        await this.sessionRecordDao.deleteById(existing.id);
+        await sessionRecordDao.deleteById(existing.id);
       }
 
       // 插入新会话记录
-      await this.sessionRecordDao.insert(
+      await sessionRecordDao.insert(
         new SessionRecordEntity(
           undefined,
           localUserId,
