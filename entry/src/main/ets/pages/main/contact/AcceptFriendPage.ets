@@ -1,5 +1,7 @@
 import { Log, ToastUtil } from 'static_library_common';
-import { FriendsItemBean } from '../../../models/ui/im/FriendsItemBean';
+import { ApplyFriendResponse } from 'library_network';
+import AcceptFriendViewModel from './viewmodel/AcceptFriendViewModel';
+import { AcceptFriendIntent } from './intent/AcceptFriendIntent';
 
 // darcyRefactor: 定义页面路由函数 @Builder
 @Builder
@@ -7,37 +9,58 @@ export function NavigationBuilder() {
   AcceptFriendPage()
 }
 
-@Component
+@ComponentV2
 struct AcceptFriendPage {
-  @State friendRequests: Array<FriendsItemBean> = [
-    new FriendsItemBean(2001, '王五', '五哥', '', 28, 1),
-    new FriendsItemBean(2002, '赵六', '六弟', '', 35, 1),
-    new FriendsItemBean(2003, '钱七', '七妹', '', 22, 0),
-  ]
+  pathStack: NavPathStack = new NavPathStack();
+  @Local viewModel: AcceptFriendViewModel = new AcceptFriendViewModel();
 
-  // 模拟同意好友申请
-  private acceptRequest(friend: FriendsItemBean): void {
-    ToastUtil.showToast(this.getUIContext(), `已同意 ${friend.name} 的好友申请`)
-    this.friendRequests = this.friendRequests.filter((item: FriendsItemBean) => item.id !== friend.id)
+  // 同意好友申请（调用 ViewModel）
+  private async acceptRequest(friend: ApplyFriendResponse): Promise<void> {
+    ToastUtil.showToast(this.getUIContext(), `正在同意 ${friend.fromUser.username} 的好友申请...`)
+    await this.viewModel.dispatch(new AcceptFriendIntent(friend.id, friend.fromUser.id));
+    if (!this.viewModel.state.screenState.isError) {
+      ToastUtil.showToast(this.getUIContext(), `已同意 ${friend.fromUser.username} 的好友申请`)
+    } else {
+      ToastUtil.showToast(this.getUIContext(), `同意失败: ${this.viewModel.state.screenState.errorMessage}`)
+    }
   }
 
-  // 模拟拒绝好友申请
-  private rejectRequest(friend: FriendsItemBean): void {
-    ToastUtil.showToast(this.getUIContext(), `已拒绝 ${friend.name} 的好友申请`)
-    this.friendRequests = this.friendRequests.filter((item: FriendsItemBean) => item.id !== friend.id)
+  // 拒绝好友申请（暂未实现）
+  private rejectRequest(friend: ApplyFriendResponse): void {
+    ToastUtil.showToast(this.getUIContext(), `已拒绝 ${friend.fromUser.username} 的好友申请`)
   }
 
   build() {
     NavDestination() {
       Column() {
-        if (this.friendRequests.length === 0) {
+        // 加载状态
+        if (this.viewModel.state.screenState.isLoadingPhase) {
+          LoadingProgress()
+            .width(48)
+            .height(48)
+            .margin({ top: 100 })
+        }
+
+        // 错误信息
+        if (this.viewModel.state.screenState.isError) {
+          Text(this.viewModel.state.screenState.errorMessage)
+            .fontSize(14)
+            .fontColor(Color.Red)
+            .textAlign(TextAlign.Center)
+            .width('100%')
+            .padding(16)
+        }
+
+        // 好友请求列表
+        if (!this.viewModel.state.screenState.isLoadingPhase &&
+          this.viewModel.state.friendRequests.length === 0) {
           Text('暂无好友申请')
             .fontSize(16)
             .fontColor(Color.Gray)
             .margin({ top: 100 })
         } else {
           List() {
-            ForEach(this.friendRequests, (item: FriendsItemBean, index: number) => {
+            ForEach(this.viewModel.state.friendRequests, (item: ApplyFriendResponse, index: number) => {
               ListItem() {
                 Row() {
                   // 头像
@@ -47,14 +70,20 @@ struct AcceptFriendPage {
                     .borderRadius(24)
 
                   Column() {
-                    Text(item.name)
+                    Text(item.fromUser.username || item.fromUser.nickname || '未知用户')
                       .fontSize(16)
                       .fontWeight(FontWeight.Bold)
                       .fontColor(Color.Black)
-                    Text(`ID: ${item.id}`)
+                    Text(`ID: ${item.fromUser.id}`)
                       .fontSize(12)
                       .fontColor(Color.Gray)
                       .margin({ top: 4 })
+                    if (item.greeting) {
+                      Text(item.greeting)
+                        .fontSize(12)
+                        .fontColor(Color.Gray)
+                        .margin({ top: 2 })
+                    }
                   }
                   .alignItems(HorizontalAlign.Start)
                   .margin({ left: 12 })
@@ -81,7 +110,7 @@ struct AcceptFriendPage {
                 .height(72)
                 .padding({ left: 16, right: 16 })
               }
-            }, (item: FriendsItemBean, index: number) => `${item.id}_${index}`)
+            }, (item: ApplyFriendResponse, index: number) => `${item.id}_${index}`)
           }
           .width('100%')
           .layoutWeight(1)
@@ -94,7 +123,7 @@ struct AcceptFriendPage {
     }
     .title('好友申请')
     .onReady((context: NavDestinationContext) => {
-      // 从参数中获取路由栈
+      this.pathStack = context.pathStack
     })
   }
 
