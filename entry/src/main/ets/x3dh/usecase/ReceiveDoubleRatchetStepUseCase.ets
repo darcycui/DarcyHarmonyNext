@@ -264,8 +264,8 @@ export class ReceiveDoubleRatchetStepUseCase extends BaseUseCase<ReceiveDoubleRa
     if (localEphemeralKey == null) {
       throw new Error('本地 ephemeral key 生成失败');
     }
-    const newLocalEphemeralPrivateKey = (ECCExchangeUtil.getKeyBytes(localEphemeralKey!.priKey));
-    const newLocalEphemeralPublicKey = (ECCExchangeUtil.getKeyBytes(localEphemeralKey!.pubKey));
+    const newLocalEphemeralPrivateKey = (ECCExchangeUtil.getPriKeyBytes(localEphemeralKey!.priKey));
+    const newLocalEphemeralPublicKey = (ECCExchangeUtil.getPubKeyBytes(localEphemeralKey!.pubKey));
 
     EncryptUtil.log(`$localUserId 本地新公钥:`, newLocalEphemeralPublicKey);
     EncryptUtil.log(`$localUserId DH 新私钥:`, newLocalEphemeralPrivateKey);

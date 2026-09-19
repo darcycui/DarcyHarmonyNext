@@ -19,6 +19,4 @@ export default class ApplyFriendState implements IState {
   @Trace searchResults: UserResponse[] = [];
   /** 我发出的好友请求列表 */
   @Trace sentFriendRequests: ApplyFriendResponse[] = [];
-  /** 是否显示已发送的好友请求列表（true=已发送，false=搜索用户） */
-  @Trace showSentRequests: boolean = false;
 }

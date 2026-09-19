@@ -45,9 +45,3 @@ export class ApplyFriendIntent extends ContactIntent {
  */
 export class QuerySentFriendRequestsIntent extends ContactIntent {
 }
-
-/**
- * 切换视图模式 Intent（搜索用户 ↔ 已发送的好友请求）
- */
-export class ToggleViewModeIntent extends ContactIntent {
-}

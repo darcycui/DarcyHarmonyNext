@@ -10,7 +10,7 @@
  *   ViewModel → GenerateOneTimePreKeyUseCase → OneTimePreKeyDao → database
  */
 import { BaseUseCase, HexUtil, Log, UUIDUtil } from 'static_library_common';
-import { ECCExchangeUtil } from 'library_crypto';
+import { ECCExchangeUtil, KeyUtil } from 'library_crypto';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { DarcyIMDatabase, OneTimePreKeyEntity } from 'library_database';
 
@@ -42,8 +42,8 @@ export class GenerateOneTimePreKeyUseCase extends BaseUseCase<GenerateOneTimePre
     }
 
     // 3. 提取公私钥字节并编码为十六进制
-    const pubKeyBytes: Uint8Array = ECCExchangeUtil.getKeyBytes(keyPair.pubKey);
-    const priKeyBytes: Uint8Array = ECCExchangeUtil.getKeyBytes(keyPair.priKey);
+    const pubKeyBytes: Uint8Array = ECCExchangeUtil.getPubKeyBytes(keyPair.pubKey);
+    const priKeyBytes: Uint8Array = ECCExchangeUtil.getPriKeyBytes(keyPair.priKey);
     if (pubKeyBytes.length === 0 || priKeyBytes.length === 0) {
       throw new Error('获取密钥字节失败');
     }
@@ -53,7 +53,7 @@ export class GenerateOneTimePreKeyUseCase extends BaseUseCase<GenerateOneTimePre
     // 5. 创建实体并插入数据库
     const entityList: OneTimePreKeyEntity[] = [];
     for (let index = 0; index < 100; index++) {
-      // 4. 再循环内生成唯一密钥标识
+      // 4. 在循环内生成 keyId
       const keyId: string = UUIDUtil.generateOneTimePreKeyId();
       const entity = new OneTimePreKeyEntity(
         undefined,
@@ -66,6 +66,7 @@ export class GenerateOneTimePreKeyUseCase extends BaseUseCase<GenerateOneTimePre
     }
     const oneTimePreKeyDao = await DarcyIMDatabase.getInstance().getOneTimePreKeyDao()
     Log.info(`[GenerateOneTimePreKeyUseCase] 一次性预密钥持久化成功`);
+    await oneTimePreKeyDao.deleteByUserId(params.userId);
     await oneTimePreKeyDao.insertBatch(entityList);
 
     // 6. 从数据库中查询刚插入的记录并返回

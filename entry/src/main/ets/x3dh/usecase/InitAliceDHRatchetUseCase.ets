@@ -70,8 +70,8 @@ export class InitAliceDHRatchetUseCase extends BaseUseCase<InitAliceDHRatchetPar
     if (localEphemeralKey == null) {
       throw new Error('生成本地临时密钥对 localEphemeralKey 失败');
     }
-    const newLocalEphemeralPrivateKey = ECCExchangeUtil.getKeyBytes(localEphemeralKey?.priKey);
-    const newLocalEphemeralPublicKey = ECCExchangeUtil.getKeyBytes(localEphemeralKey?.pubKey);
+    const newLocalEphemeralPrivateKey = ECCExchangeUtil.getPriKeyBytes(localEphemeralKey?.priKey);
+    const newLocalEphemeralPublicKey = ECCExchangeUtil.getPubKeyBytes(localEphemeralKey?.pubKey);
 
     EncryptUtil.log(`$localUserId 本地新公钥:`, newLocalEphemeralPublicKey);
     EncryptUtil.log(`$localUserId DH 新私钥:`, newLocalEphemeralPrivateKey);

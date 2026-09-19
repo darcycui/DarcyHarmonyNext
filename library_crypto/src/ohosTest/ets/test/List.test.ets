@@ -3,7 +3,7 @@
 // 说明：HAR 无法独立运行仪器化测试（无 HAP 可安装），
 // 本套件由宿主 HAP（entry）的 src/ohosTest/ets/test/List.test.ets 导入并执行。
 // ============================================================
-import testDHExchangeUtil from './DHExchangeUtil.test';
+import testDHExchangeUtil from './ECCExchangeUtil.test';
 import transformCryptoUtilTest from './TransformCryptoUtil.test';
 import messageCipherTest from './MessageCipher.test';
 

@@ -11,7 +11,7 @@
  *   ViewModel → GenerateSignedPreKeyUseCase → SignedPreKeyDao → database
  */
 import { BaseUseCase, HexUtil, Log, UUIDUtil } from 'static_library_common';
-import { ECCExchangeUtil } from 'library_crypto';
+import { ECCExchangeUtil, KeyUtil } from 'library_crypto';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { DarcyIMDatabase, SignedPreKeyEntity } from 'library_database';
 
@@ -48,8 +48,8 @@ export class GenerateSignedPreKeyUseCase extends BaseUseCase<GenerateSignedPreKe
     }
 
     // 3. 提取公私钥字节并编码为十六进制
-    const pubKeyBytes: Uint8Array = ECCExchangeUtil.getKeyBytes(keyPair.pubKey);
-    const priKeyBytes: Uint8Array = ECCExchangeUtil.getKeyBytes(keyPair.priKey);
+    const pubKeyBytes: Uint8Array = ECCExchangeUtil.getPubKeyBytes(keyPair.pubKey);
+    const priKeyBytes: Uint8Array = ECCExchangeUtil.getPriKeyBytes(keyPair.priKey);
     if (pubKeyBytes.length === 0 || priKeyBytes.length === 0) {
       throw new Error('获取密钥字节失败');
     }
@@ -73,6 +73,7 @@ export class GenerateSignedPreKeyUseCase extends BaseUseCase<GenerateSignedPreKe
       signatureHex,
     );
     const signedPreKeyDao = await DarcyIMDatabase.getInstance().getSignedPreKeyDao()
+    await signedPreKeyDao.deleteByUserId(params.userId);
     await signedPreKeyDao.insert(entity);
     Log.info(`[GenerateSignedPreKeyUseCase] 已签名预密钥持久化成功, keyId=${keyId}`);
 

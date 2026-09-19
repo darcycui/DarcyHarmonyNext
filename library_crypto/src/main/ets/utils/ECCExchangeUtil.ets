@@ -4,6 +4,7 @@
  */
 import { cryptoFramework } from '@kit.CryptoArchitectureKit'
 import { Log } from 'static_library_common'
+import { KeyUtil } from './KeyUtil'
 
 export class ECCExchangeUtil {
   private static readonly KEY_ALG = 'X25519'
@@ -43,11 +44,27 @@ export class ECCExchangeUtil {
    * @param key - X25519 密钥
    * @returns 密钥的 DER 编码字节数组，异常时返回空数组
    */
-  static getKeyBytes(key: cryptoFramework.Key): Uint8Array {
+  static getPubKeyBytes(key: cryptoFramework.PubKey): Uint8Array {
     try {
-      return key.getEncoded().data
+      const bytes = key.getEncoded().data
+      return KeyUtil.removePublicKeyArrayPrefix(bytes)
     } catch (error) {
       Log.error(`DHExchangeUtil.getKeyBytes 异常: ${JSON.stringify(error)}`)
+      return new Uint8Array()
+    }
+  }
+
+  /**
+   * 密钥字节数组
+   * @param key - X25519 密钥
+   * @returns 密钥的 DER 编码字节数组，异常时返回空数组
+   */
+  static getPriKeyBytes(key: cryptoFramework.PriKey): Uint8Array {
+    try {
+      const bytes = key.getEncoded().data
+      return KeyUtil.removePrivateKeyArrayPrefix(bytes)
+    } catch (error) {
+      Log.error(`DHExchangeUtil.getPriKeyBytes 异常: ${JSON.stringify(error)}`)
       return new Uint8Array()
     }
   }
@@ -59,8 +76,9 @@ export class ECCExchangeUtil {
    */
   static createPubKey(pubKeyBytes: Uint8Array): cryptoFramework.PubKey | null {
     try {
+      const pubKeyBytesWithPrefix = KeyUtil.addPublicKeyArrayPrefix(pubKeyBytes)
       let keyGen = cryptoFramework.createAsyKeyGenerator(ECCExchangeUtil.KEY_ALG)
-      let pubKeyBlob: cryptoFramework.DataBlob = { data: pubKeyBytes }
+      let pubKeyBlob: cryptoFramework.DataBlob = { data: pubKeyBytesWithPrefix }
       let keyPair = keyGen.convertKeySync(pubKeyBlob, null)
       if (keyPair == null) {
         Log.error('DHExchangeUtil.createPubKey: keyPair is null')
@@ -80,8 +98,9 @@ export class ECCExchangeUtil {
    */
   static createPriKey(priKeyBytes: Uint8Array): cryptoFramework.PriKey | null {
     try {
+      const priKeyBytesWithPrefix = KeyUtil.addPrivateKeyArrayPrefix(priKeyBytes)
       let keyGen = cryptoFramework.createAsyKeyGenerator(ECCExchangeUtil.KEY_ALG)
-      let priKeyBlob: cryptoFramework.DataBlob = { data: priKeyBytes }
+      let priKeyBlob: cryptoFramework.DataBlob = { data: priKeyBytesWithPrefix }
       let keyPair = keyGen.convertKeySync(null, priKeyBlob)
       if (keyPair == null) {
         Log.error('DHExchangeUtil.createPriKey: keyPair is null')
@@ -102,9 +121,11 @@ export class ECCExchangeUtil {
    */
   static createKeyPair(pubKeyBytes: Uint8Array, priKeyBytes: Uint8Array): cryptoFramework.KeyPair | null {
     try {
+      const pubKeyBytesWithPrefix = KeyUtil.addPublicKeyArrayPrefix(pubKeyBytes)
+      const priKeyBytesWithPrefix = KeyUtil.addPrivateKeyArrayPrefix(priKeyBytes)
       let keyGen = cryptoFramework.createAsyKeyGenerator(ECCExchangeUtil.KEY_ALG)
-      let pubKeyBlob: cryptoFramework.DataBlob = { data: pubKeyBytes }
-      let priKeyBlob: cryptoFramework.DataBlob = { data: priKeyBytes }
+      let pubKeyBlob: cryptoFramework.DataBlob = { data: pubKeyBytesWithPrefix }
+      let priKeyBlob: cryptoFramework.DataBlob = { data: priKeyBytesWithPrefix }
       let keyPair = keyGen.convertKeySync(pubKeyBlob, priKeyBlob)
       return keyPair
     } catch (error) {

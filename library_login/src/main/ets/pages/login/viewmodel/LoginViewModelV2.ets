@@ -45,6 +45,7 @@ import { ServerDHExchangeUseCase } from '../../../dh/usecase/ServerDHExchangeUse
 import { ServerDHExchangeRepository } from '../../../dh/repository/ServerDHExchangeRepository';
 import { LoginResponse, TokenManager } from 'library_network';
 import { UserManager } from '../../../storage/memory/UserManager';
+import { ServerDHSecretManager } from 'library_crypto';
 
 @ObservedV2
 export default class LoginViewModelV2 extends BaseViewModel {
@@ -102,7 +103,9 @@ export default class LoginViewModelV2 extends BaseViewModel {
    * 使用 BaseViewModel.safeLoad 统一管理 loading/error 状态
    */
   async doLogin(): Promise<void> {
-
+    await UserManager.clearUser()
+    await TokenManager.clearToken()
+    await ServerDHSecretManager.clearDHSecret()
     await this.safeLoad(this.state.screenState, async () => {
       const params: LoginParams = {
         userName: this.state.phone,

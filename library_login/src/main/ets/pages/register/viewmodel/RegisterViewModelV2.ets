@@ -148,9 +148,12 @@ export default class RegisterViewModelV2 extends BaseViewModel {
 
   /**
    * 执行注册
-   * 使用 BaseViewModel.safeLoad 统一管理 loading/error 状态
+   * 使用 BaseViewModel.safeLoad 捕获可能存在的异常
    */
   async doRegister(): Promise<void> {
+    await UserManager.clearUser()
+    await TokenManager.clearToken()
+    await ServerDHSecretManager.clearDHSecret()
     await this.safeLoad(this.state.screenState, async (): Promise<void> => {
       const params: RegisterParams = {
         userName: this.state.userName,
@@ -175,7 +178,7 @@ export default class RegisterViewModelV2 extends BaseViewModel {
 
   /**
    * 执行删除用户
-   * 使用 BaseViewModel.safeLoad 统一管理 loading/error 状态
+   * 使用 BaseViewModel.safeLoad 捕获可能存在的异常
    */
   async doDeleteUser(): Promise<void> {
     await this.safeLoad(this.state.screenState, async (): Promise<void> => {

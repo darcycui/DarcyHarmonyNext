@@ -54,25 +54,6 @@ export default class ApplyFriendReducer implements IReducer {
   }
 
   /**
-   * 切换视图模式（搜索用户 ↔ 已发送的好友请求）
-   *
-   * @param state - ContactState 实例
-   */
-  toggleViewMode(state: ApplyFriendState): void {
-    state.showSentRequests = !state.showSentRequests;
-  }
-
-  /**
-   * 设置是否显示已发送的好友请求
-   *
-   * @param state - ContactState 实例
-   * @param show - 是否显示
-   */
-  setShowSentRequests(state: ApplyFriendState, show: boolean): void {
-    state.showSentRequests = show;
-  }
-
-  /**
    * 清空所有字段
    *
    * @param state - ContactState 实例
@@ -81,6 +62,5 @@ export default class ApplyFriendReducer implements IReducer {
     state.searchPhone = '';
     state.searchResults = [];
     state.sentFriendRequests = [];
-    state.showSentRequests = false;
   }
 }

@@ -19,7 +19,7 @@ import { QueryFriendRequestsFromMeUseCase, QueryFriendRequestsFromMeParams } fro
 import { ContactRepository } from '../repository/ContactRepository';
 import {
   ContactIntent, SearchUserIntent, ApplyFriendIntent,
-  QuerySentFriendRequestsIntent, ToggleViewModeIntent
+  QuerySentFriendRequestsIntent
 } from '../intent/ApplyFriendIntent';
 import { PullX3DHKeysUseCase, PullX3DHKeysParams } from '../../../../x3dh/usecase/PullX3DHKeysUseCase';
 import { CalculateAliceX3DHKeyUseCase, CalculateAliceX3DHKeyParams } from '../../../../x3dh/usecase/CalculateAliceX3DHKeyUseCase';
@@ -63,10 +63,9 @@ export default class ApplyFriendViewModel extends BaseViewModel {
       await this.searchUser(intent.phone);
     } else if (intent instanceof ApplyFriendIntent) {
       await this.applyFriend(intent.fromUserId, intent.toUserId);
+      await this.dispatch(new QuerySentFriendRequestsIntent());
     } else if (intent instanceof QuerySentFriendRequestsIntent) {
       await this.querySentFriendRequests();
-    } else if (intent instanceof ToggleViewModeIntent) {
-      this.toggleViewMode();
     } else {
       Log.warn(`[ContactViewModel] 未处理的 Intent: ${intent}`);
     }
@@ -125,8 +124,8 @@ export default class ApplyFriendViewModel extends BaseViewModel {
         aliceUserId: fromUserId,
         bobUserId: toUserId,
         aliceX3DHKey: HexUtil.bytesToHex(x3DHKey),
-        aliceEphemeralPrivateKey: HexUtil.bytesToHex(ECCExchangeUtil.getKeyBytes(aliceEphemeralKey.priKey)),
-        aliceEphemeralPublicKey: HexUtil.bytesToHex(ECCExchangeUtil.getKeyBytes(aliceEphemeralKey.pubKey)),
+        aliceEphemeralPrivateKey: HexUtil.bytesToHex(ECCExchangeUtil.getPriKeyBytes(aliceEphemeralKey.priKey)),
+        aliceEphemeralPublicKey: HexUtil.bytesToHex(ECCExchangeUtil.getPubKeyBytes(aliceEphemeralKey.pubKey)),
         bobSignedPreKey: bobKeys.signedPreKey,
         bobIdentityKey: bobKeys.identityKey,
       };
@@ -151,7 +150,7 @@ export default class ApplyFriendViewModel extends BaseViewModel {
         aliceUserId: fromUserId,
         bobUserId: toUserId,
         aliceIdentityKey: aliceIdentityPublicKey,
-        aliceEphemeralKey: HexUtil.bytesToHex(ECCExchangeUtil.getKeyBytes(aliceEphemeralKey.pubKey)),
+        aliceEphemeralKey: HexUtil.bytesToHex(ECCExchangeUtil.getPubKeyBytes(aliceEphemeralKey.pubKey)),
         bobOneTimePreKeyId: bobKeys.oneTimePreKeyId,
       };
       await this.pushAliceHelloUseCase.execute(pushParams);
@@ -186,15 +185,7 @@ export default class ApplyFriendViewModel extends BaseViewModel {
       const result: ApplyFriendResponse[] = await this.querySentFriendRequestsUseCase.execute(params);
       Log.info(`[ApplyFriendViewModel] 查询我发出的好友请求成功: ${result.length} 条`);
       this.reducer.setSentFriendRequests(this.state, result);
-      this.reducer.setShowSentRequests(this.state, true);
     });
-  }
-
-  /**
-   * 切换视图模式（搜索用户 ↔ 已发送的好友请求）
-   */
-  toggleViewMode(): void {
-    this.reducer.toggleViewMode(this.state);
   }
 
   /**

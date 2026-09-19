@@ -4,8 +4,7 @@ import { UserItemBean } from '../../../models/ui/im/UserItemBean';
 import { UserManager } from 'library_login';
 import ApplyFriendViewModel from './viewmodel/ApplyFriendViewModel';
 import {
-  ApplyFriendIntent, SearchUserIntent,
-  QuerySentFriendRequestsIntent, ToggleViewModeIntent
+  ApplyFriendIntent, SearchUserIntent, QuerySentFriendRequestsIntent,
 } from './intent/ApplyFriendIntent';
 
 // darcyRefactor: 定义页面路由函数 @Builder
@@ -16,7 +15,7 @@ export function NavigationBuilder() {
 
 @ComponentV2
 struct ApplyFriendPage {
-  @Local searchText: string = '13800138000'
+  @Local searchText: string = '155000111222'
   @Local searchResults: Array<UserItemBean> = []
   pathStack: NavPathStack = new NavPathStack();
   @Local viewModel: ApplyFriendViewModel = new ApplyFriendViewModel();
@@ -55,24 +54,25 @@ struct ApplyFriendPage {
   }
 
   // 切换到已发送的好友请求列表
-  private async showSentRequests(): Promise<void> {
+  private async querySentRequests(): Promise<void> {
     await this.viewModel.dispatch(new QuerySentFriendRequestsIntent());
-  }
-
-  // 切换到搜索用户视图
-  private switchToSearchView(): void {
-    this.viewModel.dispatch(new ToggleViewModeIntent());
   }
 
   // 获取好友请求状态文本
   private getStatusText(status: number): string {
     switch (status) {
-      case 1: return '等待中'
-      case 2: return '已接受'
-      case 3: return '已拒绝'
-      case 4: return '已忽略'
-      case 5: return '已过期'
-      default: return '未知'
+      case 1:
+        return '等待中'
+      case 2:
+        return '已接受'
+      case 3:
+        return '已拒绝'
+      case 4:
+        return '已忽略'
+      case 5:
+        return '已过期'
+      default:
+        return '未知'
     }
   }
 
@@ -98,24 +98,6 @@ struct ApplyFriendPage {
         .width('100%')
         .padding(16)
 
-        // 视图切换按钮
-        Row() {
-          Button(this.viewModel.state.showSentRequests ? '搜索用户' : '已发送的申请')
-            .fontSize(13)
-            .height(32)
-            .backgroundColor(this.viewModel.state.showSentRequests ? '#1E90FF' : '#FF6347')
-            .onClick(() => {
-              if (this.viewModel.state.showSentRequests) {
-                this.switchToSearchView()
-              } else {
-                this.showSentRequests()
-              }
-            })
-        }
-        .width('100%')
-        .padding({ left: 16, right: 16, bottom: 8 })
-        .justifyContent(FlexAlign.Start)
-
         // 加载状态
         if (this.viewModel.state.screenState.isLoadingPhase) {
           LoadingProgress()
@@ -133,14 +115,23 @@ struct ApplyFriendPage {
             .padding(16)
         }
 
-        // 内容区域（互斥显示）
-        if (this.viewModel.state.showSentRequests) {
-          // 已发送的好友请求列表
-          this.SentFriendRequestsList()
-        } else {
-          // 搜索结果列表
-          this.SearchResultList()
-        }
+        Button('搜索结果')
+          .width('auto')
+          .fontSize(14)
+          .padding(8)
+          .alignSelf(ItemAlign.Start)
+          .margin({ left: 16 })
+        // 搜索结果列表
+        this.SearchResultList()
+
+        // 已发送的好友请求列表
+        Button('已发送的申请')
+          .width('auto')
+          .fontSize(14)
+          .padding(8)
+          .alignSelf(ItemAlign.Start)
+          .margin({ left: 16, top: 16 })
+        this.SentFriendRequestsList()
       }
       .width('100%')
       .height('100%')
@@ -192,7 +183,7 @@ struct ApplyFriendPage {
       }, (item: UserItemBean, index: number) => `${item.id}_${index}`)
     }
     .width('100%')
-    .layoutWeight(1)
+    .height('auto')
     .divider({ color: Color.Gray, strokeWidth: 0.5, startMargin: 76 })
     .scrollBar(BarState.Off)
   }
@@ -256,15 +247,20 @@ struct ApplyFriendPage {
 
   // 生命周期日志
   pageName = 'ApplyFriendPage'
+
   aboutToAppear(): void {
     Log.log(`-->${this.pageName} aboutToAppear`)
+    this.querySentRequests()
   }
+
   onPageShow(): void {
     Log.debug(`-->${this.pageName} onPageShow`)
   }
+
   onPageHide(): void {
     Log.warn(`-->${this.pageName} onPageHide`)
   }
+
   aboutToDisappear(): void {
     Log.error(`-->${this.pageName} aboutToDisappear`)
   }

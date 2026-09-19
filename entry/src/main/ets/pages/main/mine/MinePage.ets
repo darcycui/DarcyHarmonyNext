@@ -1,3 +1,5 @@
+import { UserManager } from 'library_login';
+import { UserResponse } from 'library_network';
 import { Log, NavigationUtil, ToastUtil } from 'static_library_common';
 import { UserItemBean } from '../../../models/ui/im/UserItemBean';
 import { PAGE_LOGIN, PAGE_START } from '../../PageName';
@@ -12,15 +14,7 @@ export function MineBuilder() {
 export struct MinePage {
   @Consumer('HomePathStack') pathStack: NavPathStack = new NavPathStack();
   // 模拟用户信息
-  @Local userInfo: UserItemBean = new UserItemBean(
-    10086,
-    '',
-    'Darcy',
-    'DarcyCH',
-    '13800000000',
-    18,
-    ''
-  )
+  @Local userInfo: UserResponse = UserManager.getUserSync()
 
   // 模拟退出登录
   private logout(): void {
@@ -43,14 +37,14 @@ export struct MinePage {
           })
 
         // 用户名
-        Text(this.userInfo.name)
+        Text(this.userInfo.username)
           .fontSize(22)
           .fontWeight(FontWeight.Bold)
           .fontColor(Color.Black)
           .margin({ top: 20 })
 
         // 昵称
-        Text(`昵称：${this.userInfo.nickName as string}`)
+        Text(`昵称：${this.userInfo.nickname as string}`)
           .fontSize(16)
           .fontColor(Color.Gray)
           .margin({ top: 8 })

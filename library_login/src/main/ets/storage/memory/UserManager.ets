@@ -41,4 +41,8 @@ export class UserManager {
   static async clearUser(): Promise<void> {
     await UserManager.setUser(new UserResponse())
   }
+
+  static getUserSync(): UserResponse {
+    return UserManager.user
+  }
 }

@@ -12,7 +12,7 @@
  *   View 层不直接调用 ViewModel 方法，统一通过 dispatch 发送 Intent
  */
 import { common } from '@kit.AbilityKit';
-import { RouterHelper, ScreenPhase } from 'static_library_common';
+import { NavigationUtil, RouterHelper, ScreenPhase, ToastUtil } from 'static_library_common';
 
 import RegisterViewModelV2 from './viewmodel/RegisterViewModelV2';
 import {
@@ -43,6 +43,11 @@ struct RegisterPage {
    * 获取 UIAbilityContext
    */
   private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+
+  /**
+   * navigation 控制器
+   */
+  @Consumer('HomePathStack') pathStack: NavPathStack = new NavPathStack();
 
   /**
    * 页面初始化生命周期
@@ -170,6 +175,13 @@ struct RegisterPage {
           .onClick(async () => {
             // 通过 dispatch 发送注册 Intent（MVI 统一入口）
             await this.viewModel.dispatch(new DoRegisterIntent());
+            // 登录成功后跳转主页
+            if (this.viewModel.state.screenState.is(ScreenPhase.SUCCESS)) {
+              ToastUtil.showToast(this.getUIContext(), $r('app.string.login_success'))
+              NavigationUtil.startPage(this.pathStack, 'pages/Index')
+            } else {
+              ToastUtil.showToast(this.getUIContext(), $r('app.string.login_failed'))
+            }
           })
 
         // ── 删除用户按钮 ──

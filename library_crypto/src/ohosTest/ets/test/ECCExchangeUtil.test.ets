@@ -56,7 +56,7 @@ export default function testDHExchangeUtil() {
       let keyPair = ECCExchangeUtil.generateKeyPairSync();
       expect(keyPair !== null).assertTrue();
       if (keyPair !== null) {
-        let pubBytes = ECCExchangeUtil.getKeyBytes(keyPair.pubKey);
+        let pubBytes = ECCExchangeUtil.getPubKeyBytes(keyPair.pubKey);
         expect(pubBytes.length > 0).assertTrue();
       }
     });
@@ -65,7 +65,7 @@ export default function testDHExchangeUtil() {
       let keyPair = ECCExchangeUtil.generateKeyPairSync();
       expect(keyPair !== null).assertTrue();
       if (keyPair !== null) {
-        let priBytes = ECCExchangeUtil.getKeyBytes(keyPair.priKey);
+        let priBytes = ECCExchangeUtil.getPriKeyBytes(keyPair.priKey);
         expect(priBytes.length > 0).assertTrue();
       }
     });
@@ -74,7 +74,7 @@ export default function testDHExchangeUtil() {
       let keyPair = ECCExchangeUtil.generateKeyPairSync();
       expect(keyPair !== null).assertTrue();
       if (keyPair !== null) {
-        let pubBytes = ECCExchangeUtil.getKeyBytes(keyPair.pubKey);
+        let pubBytes = ECCExchangeUtil.getPubKeyBytes(keyPair.pubKey);
         let restored = ECCExchangeUtil.createPubKey(pubBytes);
         expect(restored !== null).assertTrue();
       }
@@ -84,8 +84,8 @@ export default function testDHExchangeUtil() {
       let keyPair = ECCExchangeUtil.generateKeyPairSync();
       expect(keyPair !== null).assertTrue();
       if (keyPair !== null) {
-        let pubBytes = ECCExchangeUtil.getKeyBytes(keyPair.pubKey);
-        let priBytes = ECCExchangeUtil.getKeyBytes(keyPair.priKey);
+        let pubBytes = ECCExchangeUtil.getPubKeyBytes(keyPair.pubKey);
+        let priBytes = ECCExchangeUtil.getPriKeyBytes(keyPair.priKey);
         let restored = ECCExchangeUtil.createKeyPair(pubBytes, priBytes);
         expect(restored !== null).assertTrue();
       }
@@ -116,10 +116,10 @@ export default function testDHExchangeUtil() {
 
       if (aliceKeyPair !== null && bobKeyPair !== null) {
         // Alice 用 Bob 的公钥协商
-        let aliceSecret = await ECCExchangeUtil.getSharedSecretByUintArrays(aliceKeyPair.priKey, bobKeyPair.pubKey);
+        let aliceSecret = await ECCExchangeUtil.getSharedSecretByPriKeyAndPubKey(aliceKeyPair.priKey, bobKeyPair.pubKey);
         expect(aliceSecret !== null).assertTrue();
         // Bob 用 Alice 的公钥协商
-        let bobSecret = await ECCExchangeUtil.getSharedSecretByUintArrays(bobKeyPair.priKey, aliceKeyPair.pubKey);
+        let bobSecret = await ECCExchangeUtil.getSharedSecretByPriKeyAndPubKey(bobKeyPair.priKey, aliceKeyPair.pubKey);
         expect(bobSecret !== null).assertTrue();
 
         if (aliceSecret !== null && bobSecret !== null) {
@@ -139,8 +139,8 @@ export default function testDHExchangeUtil() {
       expect(bobKeyPair !== null).assertTrue();
 
       if (aliceKeyPair !== null && bobKeyPair !== null) {
-        let secret1 = await ECCExchangeUtil.getSharedSecretByUintArrays(aliceKeyPair.priKey, bobKeyPair.pubKey);
-        let secret2 = await ECCExchangeUtil.getSharedSecretByUintArrays(aliceKeyPair.priKey, bobKeyPair.pubKey);
+        let secret1 = await ECCExchangeUtil.getSharedSecretByPriKeyAndPubKey(aliceKeyPair.priKey, bobKeyPair.pubKey);
+        let secret2 = await ECCExchangeUtil.getSharedSecretByPriKeyAndPubKey(aliceKeyPair.priKey, bobKeyPair.pubKey);
         expect(secret1 !== null).assertTrue();
         expect(secret2 !== null).assertTrue();
         if (secret1 !== null && secret2 !== null) {

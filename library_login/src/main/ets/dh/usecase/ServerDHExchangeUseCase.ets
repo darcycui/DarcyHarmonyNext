@@ -16,7 +16,7 @@
  * ```
  */
 import { BaseUseCase, HexUtil } from 'static_library_common';
-import { ECCExchangeUtil } from 'library_crypto';
+import { ECCExchangeUtil, KeyUtil } from 'library_crypto';
 import { DHExchangeResponse } from 'library_network';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { ServerDHExchangeRepository } from '../repository/ServerDHExchangeRepository';
@@ -56,20 +56,16 @@ export class ServerDHExchangeUseCase extends BaseUseCase<ServerDHExchangeParams,
     }
 
     // 3. 提取公钥字节并编码为 hex
-    const pubKeyBytes: Uint8Array = ECCExchangeUtil.getKeyBytes(keyPair.pubKey);
+    const pubKeyBytes: Uint8Array = ECCExchangeUtil.getPubKeyBytes(keyPair.pubKey);
     if (pubKeyBytes.length <= 0) {
       throw new Error('获取公钥字节失败');
     }
     // 移除 X509 前缀
-    const publicKeyHex: string = HexUtil.bytesToHex(pubKeyBytes);
-    const PUBLIC_KEY_X509_PREFIX = "302a300506032b656e032100"
-    const prefixLength = PUBLIC_KEY_X509_PREFIX.length
-    const publicKeyHexWithoutPrefix: string = publicKeyHex.substring(prefixLength);
 
     // 4. 调用服务端 DH 交换接口
     const response: DHExchangeResponse = await this.repository.doExchange(
       params.userId,
-      publicKeyHexWithoutPrefix
+      HexUtil.bytesToHex(pubKeyBytes)
     );
 
     // 5. 校验响应中的服务端公钥
@@ -78,9 +74,8 @@ export class ServerDHExchangeUseCase extends BaseUseCase<ServerDHExchangeParams,
     }
 
     // 6. 解码服务端公钥（Hex → Uint8Array → PubKey）
-    const serverPubKeyHex = PUBLIC_KEY_X509_PREFIX + response.publicKey;
-    const serverPubKeyBytes: Uint8Array = HexUtil.hexToBytes(serverPubKeyHex);
-    const serverPubKey: cryptoFramework.PubKey | null = ECCExchangeUtil.createPubKey(serverPubKeyBytes);
+    // 添加 X509 前缀
+    const serverPubKey: cryptoFramework.PubKey | null = ECCExchangeUtil.createPubKey(HexUtil.hexToBytes(response.publicKey));
     if (serverPubKey == null) {
       throw new Error('还原服务端公钥失败');
     }

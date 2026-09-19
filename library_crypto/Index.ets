@@ -5,6 +5,7 @@
 
 // ---------- 加解密工具 ----------
 export { TransportCipherUtil } from './src/main/ets/utils/TransportCipherUtil'
+
 export { MessageCipher } from './src/main/ets/utils/MessageCipher'
 
 // ---------- DH 密钥交换工具 ----------
@@ -21,3 +22,5 @@ export { HKDF1 } from './src/main/ets//x3dh/chain/HKDF1'
 export { EncryptUtil } from './src/main/ets/utils/EncryptUtil'
 
 export { ChainKey } from './src/main/ets/x3dh/chain/ChainKey'
+
+export { KeyUtil } from './src/main/ets/utils/KeyUtil'

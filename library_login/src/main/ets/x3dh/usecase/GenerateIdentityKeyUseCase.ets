@@ -10,7 +10,7 @@
  *   ViewModel → GenerateIdentityKeyUseCase → IdentityKeyDao → database
  */
 import { BaseUseCase, HexUtil, Log, UUIDUtil } from 'static_library_common';
-import { ECCExchangeUtil } from 'library_crypto';
+import { ECCExchangeUtil, KeyUtil } from 'library_crypto';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { DarcyIMDatabase, IdentityKeyEntity } from 'library_database';
 
@@ -42,8 +42,8 @@ export class GenerateIdentityKeyUseCase extends BaseUseCase<GenerateIdentityKeyP
     }
 
     // 3. 提取公私钥字节并编码为十六进制
-    const pubKeyBytes: Uint8Array = ECCExchangeUtil.getKeyBytes(keyPair.pubKey);
-    const priKeyBytes: Uint8Array = ECCExchangeUtil.getKeyBytes(keyPair.priKey);
+    const pubKeyBytes: Uint8Array = ECCExchangeUtil.getPubKeyBytes(keyPair.pubKey);
+    const priKeyBytes: Uint8Array = ECCExchangeUtil.getPriKeyBytes(keyPair.priKey);
     if (pubKeyBytes.length === 0 || priKeyBytes.length === 0) {
       throw new Error('获取密钥字节失败');
     }
@@ -62,6 +62,7 @@ export class GenerateIdentityKeyUseCase extends BaseUseCase<GenerateIdentityKeyP
       publicKeyHex,
     );
     const identityKeyDao = await DarcyIMDatabase.getInstance().getIdentityKeyDao()
+    await identityKeyDao.deleteByUserId(params.userId);
     await identityKeyDao.insert(entity);
     Log.info(`[GenerateIdentityKeyUseCase] 身份密钥持久化成功, keyId=${keyId}`);
 
