@@ -148,11 +148,4 @@ export default class TodoListViewModelV2 extends BaseViewModel {
 
   // ─── 生命周期 ─────────────────────────────────────────
 
-  /**
-   * 页面初始化加载
-   * 由 aboutToAppear 调用
-   */
-  protected async doLoad(): Promise<void> {
-    await this.loadTasks();
-  }
 }

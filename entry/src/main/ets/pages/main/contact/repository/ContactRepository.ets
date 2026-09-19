@@ -13,6 +13,8 @@ import {
   HttpCertHelper,
   HttpErrorEntity,
   HttpResultEntity,
+  CommonRequestDTO,
+  FriendshipResponse,
   UserQueryPhoneRequestDTO,
   UserResponse,
   FriendRequestCreateRequestDTO,
@@ -42,6 +44,11 @@ class QueryFriendRequestsResponseHolder extends ResponseHolder<ApplyFriendRespon
  * 同意好友请求响应容器
  */
 class AcceptFriendResponseHolder extends ResponseHolder<ApplyFriendResponse> {}
+
+/**
+ * 获取好友列表响应容器
+ */
+class FetchFriendsResponseHolder extends ResponseHolder<FriendshipResponse[]> {}
 
 export class ContactRepository extends BaseRepository {
   /**
@@ -235,6 +242,47 @@ export class ContactRepository extends BaseRepository {
               holder.data = data.result;
             } else {
               holder.errorMessage = data.reason || '同意好友请求失败';
+            }
+            resolve();
+          },
+          (error: HttpResultEntity<HttpErrorEntity>): void => {
+            holder.errorMessage = error.result?.message || '网络请求失败';
+            resolve();
+          },
+          HttpCertHelper.getCertPath()
+        );
+      });
+
+      if (holder.errorMessage) {
+        throw new Error(holder.errorMessage);
+      }
+      return holder.data;
+    });
+  }
+
+  /**
+   * 获取当前用户的好友列表
+   *
+   * @param userId - 当前用户 ID
+   * @returns 好友列表
+   */
+  async fetchFriends(userId: number): Promise<FriendshipResponse[]> {
+    return this.safeCall(async () => {
+      const dto: CommonRequestDTO = new CommonRequestDTO({ userId });
+      const url: string = Urls.QUERY_FRIENDSHIP_LIST_URL;
+      const body: string = JSON.stringify(dto);
+
+      const holder: FetchFriendsResponseHolder = new FetchFriendsResponseHolder();
+
+      await new Promise<void>((resolve: () => void): void => {
+        HttpHelper.doPost<FriendshipResponse[]>(
+          url,
+          body,
+          (data: HttpResultEntity<FriendshipResponse[]>): void => {
+            if (data.result != null && data.result != undefined && data.error_code === 0) {
+              holder.data = data.result;
+            } else {
+              holder.errorMessage = data.reason || '获取好友列表失败';
             }
             resolve();
           },

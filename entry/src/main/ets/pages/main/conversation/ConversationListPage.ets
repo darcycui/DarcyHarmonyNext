@@ -107,7 +107,7 @@ export struct ConversationListPage {
   pageName = 'ConversationListPage'
   aboutToAppear(): void {
     Log.log(`-->${this.pageName} aboutToAppear`)
-    this.viewModel.onInit();
+    this.viewModel.dispatch(new FetchConversationListIntent());
   }
   onPageShow(): void {
     Log.debug(`-->${this.pageName} onPageShow`)

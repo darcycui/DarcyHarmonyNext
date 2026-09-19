@@ -69,13 +69,6 @@ export default class AcceptFriendViewModel extends BaseViewModel {
   // ─── 业务方法 ────────────────────────────────────
 
   /**
-   * 页面初始化加载好友请求列表
-   */
-  protected async doLoad(): Promise<void> {
-    await this.queryFriendRequests();
-  }
-
-  /**
    * 查询发给我的好友请求
    */
   async queryFriendRequests(): Promise<void> {

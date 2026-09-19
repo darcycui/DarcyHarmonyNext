@@ -39,7 +39,7 @@ export class KeyUtil {
 
   /**
    * 公钥移除 X.509 前缀
-   * @param pubKeyArray 带前缀的完整公钥数据（58 字节）或原始公钥数据（32 字节）
+   * @param pubKeyArray 带前缀的完整公钥数据（44 字节）或原始公钥数据（32 字节）
    * @returns 去除前缀后的原始公钥数据（32 字节）
    */
   static removePublicKeyArrayPrefix(pubKeyArray: Uint8Array): Uint8Array {
@@ -60,7 +60,7 @@ export class KeyUtil {
   /**
    * 公钥添加 X.509 前缀
    * @param pubKeyArray 原始公钥数据（32 字节）
-   * @returns 添加前缀后的完整公钥数据（58 字节）
+   * @returns 添加前缀后的完整公钥数据（44 字节）
    */
   static addPublicKeyArrayPrefix(pubKeyArray: Uint8Array): Uint8Array {
     if (!pubKeyArray || pubKeyArray.length === 0) {
@@ -87,7 +87,7 @@ export class KeyUtil {
 
   /**
    * 私钥移除 PKCS#8 前缀
-   * @param priKeyArray 带前缀的完整私钥数据（64 字节）或原始私钥数据（32 字节）
+   * @param priKeyArray 带前缀的完整私钥数据（48 字节）或原始私钥数据（32 字节）
    * @returns 去除前缀后的原始私钥数据（32 字节）
    */
   static removePrivateKeyArrayPrefix(priKeyArray: Uint8Array): Uint8Array {
@@ -108,7 +108,7 @@ export class KeyUtil {
   /**
    * 私钥添加 PKCS#8 前缀
    * @param priKeyArray 原始私钥数据（32 字节）
-   * @returns 添加前缀后的完整私钥数据（64 字节）
+   * @returns 添加前缀后的完整私钥数据（48 字节）
    */
   static addPrivateKeyArrayPrefix(priKeyArray: Uint8Array): Uint8Array {
     if (!priKeyArray || priKeyArray.length === 0) {

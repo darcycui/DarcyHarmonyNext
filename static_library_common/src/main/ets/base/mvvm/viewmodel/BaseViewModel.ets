@@ -72,15 +72,6 @@ export abstract class BaseViewModel {
       return;
     }
     this._initialized = true;
-    await this.doLoad();
-  }
-
-  /**
-   * 页面实际的加载逻辑
-   * 子类重写以提供具体的数据加载行为
-   */
-  protected async doLoad(): Promise<void> {
-    // 默认空实现，子类按需覆盖
   }
 
   // ─── 状态管理工具方法 ─────────────────────────────────────
@@ -129,8 +120,5 @@ export abstract class BaseViewModel {
    * @param intent  意图标识（建议用静态常量定义在子类中）
    * @param payload 可选参数
    */
-  dispatch(intent: string, payload?: object): void {
-    // 基类默认空实现，子类重写以支持 Intent 模式
-    Log.warn(`[BaseViewModel] dispatch 未实现: intent=${intent}`);
-  }
+  abstract dispatch(intent: string, payload?: object): void
 }
