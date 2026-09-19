@@ -6,6 +6,24 @@ import { FetchFriendsIntent, CreateConversationIntent } from './intent/ContactIn
 
 @ComponentV2
 export struct ContactPage {
+  @Param activeTabIndex: number = 0
+  @Local selfTabIndex: number = 1
+
+  @Monitor('activeTabIndex')
+  onActiveTabIndexChange(monitor: IMonitor) {
+    Log.log(`触发ContactPage activeTabIndex`)
+    monitor.dirty.forEach((path: string) => {
+      Log.log(`path=${path}`)
+      Log.log(`changed from ${monitor.value(path)?.before} to ${monitor.value(path)?.now}`)
+    })
+    if (this.activeTabIndex !== this.selfTabIndex) {
+      Log.log('ContactPage 无需刷新')
+      return
+    }
+    Log.warn('ContactPage 需要刷新')
+    this.viewModel.dispatch(new FetchFriendsIntent())
+  }
+
   @Local viewModel: ContactViewModel = new ContactViewModel();
 
   // Navigation 路由栈控制器

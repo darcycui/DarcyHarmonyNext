@@ -12,6 +12,24 @@ export function ConversationListBuilder() {
 
 @ComponentV2
 export struct ConversationListPage {
+  @Param activeTabIndex: number = 0
+  @Local selfTabIndex: number = 0
+
+  @Monitor('activeTabIndex')
+  onActiveTabIndexChange(monitor: IMonitor) {
+    Log.log(`触发ConversationListPage activeTabIndex`)
+    monitor.dirty.forEach((path: string) => {
+      Log.log(`path=${path}`)
+      Log.log(`changed from ${monitor.value(path)?.before} to ${monitor.value(path)?.now}`)
+    })
+    if (this.activeTabIndex !== this.selfTabIndex) {
+      Log.log('ConversationListPage 无需刷新')
+      return
+    }
+    Log.warn('ConversationListPage 需要刷新')
+    this.viewModel.dispatch(new FetchConversationListIntent())
+  }
+
   @Local viewModel: ConversationListViewModel = new ConversationListViewModel();
 
   // Navigation 路由栈控制器

@@ -12,6 +12,23 @@ export function MineBuilder() {
 
 @ComponentV2
 export struct MinePage {
+  @Param activeTabIndex: number = 0
+  @Local selfTabIndex: number = 2
+
+  @Monitor('activeTabIndex')
+  onActiveTabIndexChange(monitor: IMonitor) {
+    Log.log(`触发MinePage activeTabIndex`)
+    monitor.dirty.forEach((path: string) => {
+      Log.log(`path=${path}`)
+      Log.log(`changed from ${monitor.value(path)?.before} to ${monitor.value(path)?.now}`)
+    })
+    if (this.activeTabIndex !== this.selfTabIndex) {
+      Log.log('MinePage 无需刷新')
+      return
+    }
+    Log.warn('MinePage 需要刷新')
+  }
+
   @Consumer('HomePathStack') pathStack: NavPathStack = new NavPathStack();
   // 模拟用户信息
   @Local userInfo: UserResponse = UserManager.getUserSync()

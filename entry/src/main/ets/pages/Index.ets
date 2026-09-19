@@ -34,15 +34,16 @@ struct Index {
     NavDestination() {
       Tabs({ barPosition: BarPosition.End, index: this.currentIndex }) {
         TabContent() {
-          ConversationListPage()
+          ConversationListPage({ activeTabIndex: this.currentIndex }
+          )
         }.tabBar(this.tabBuilder(0, $r("app.string.tab_bar_title_chat"), $r('app.media.yes'), $r('app.media.no')))
 
         TabContent() {
-          ContactPage()
+          ContactPage( { activeTabIndex: this.currentIndex } )
         }.tabBar(this.tabBuilder(1, $r("app.string.tab_bar_title_contract"), $r('app.media.yes'), $r('app.media.no')))
 
         TabContent() {
-          MinePage()
+          MinePage( { activeTabIndex: this.currentIndex } )
         }.tabBar(this.tabBuilder(2, $r("app.string.tab_bar_title_me"), $r('app.media.yes'), $r('app.media.no')))
       }
       .scrollable(true)
@@ -60,6 +61,7 @@ struct Index {
   }
 
   pageName = "IndexPage"
+
   // 生命周期方法
   onPageShow(): void {
     Log.debug(`-->${this.pageName} onPageShow`)
