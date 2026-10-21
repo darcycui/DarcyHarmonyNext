@@ -32,13 +32,16 @@ struct BuilderPage {
       // 引用传递 对象字面量 1个参数 TODO 改变状态 可以刷新
       this.showTextValueBuilderQuote({
         message: this.message,
-        other: '' // TODO 所有属性都得赋值 计时该属性有默认值
+        other: '' // TODO 所有属性都得赋值 即使该属性有默认值
       })
       // 引用传递 对象字面量 2个参数 TODO 改变状态 不能刷新
-      this.showTextValueBuilderQuote2({
-        message: this.message,
-        other: ''
-      }, { count: this.count })
+      this.showTextValueBuilderQuote2(
+        {
+          message: this.message,
+          other: ''
+        },
+        { count: this.count }
+      )
       Button('改变messageA').width('100%').onClick(() => {
         this.message += 'A'
         this.count += 100

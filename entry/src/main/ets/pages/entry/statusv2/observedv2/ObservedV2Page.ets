@@ -44,7 +44,7 @@ struct ObservedV2Page {
         Text(`OuterAge=${this.outClass.outAge}`)
           .textAlign(TextAlign.Start)
           .width('100%')
-        // 直接属性 为被@Track 不改变
+        // 直接属性 未被@Track 不改变
         Text(`outName=${this.getName()}`)
           .textAlign(TextAlign.Start)
           .width('100%')
