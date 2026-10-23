@@ -10,7 +10,7 @@ import { HttpInterceptorManager } from './interceptor/HttpInterceptorManager';
 import ErrorUtil from 'static_library_common/src/main/ets/utils/ErrorUtil';
 
 export class HttpHelper {
-  private static readonly BASE_HTTP_URL_TEST: string = "http://192.168.0.110:7443"
+  private static readonly BASE_HTTP_URL_TEST: string = "http://192.168.0.107:7443"
   private static readonly BASE_HTTP_URL_RELEASE: string = "https://darcycui.com.cn"
   static readonly BASE_HTTP_URL: string = HttpHelper.BASE_HTTP_URL_TEST
   // static readonly BASE_HTTP_URL: string = HttpHelper.BASE_HTTP_URL_RELEASE
