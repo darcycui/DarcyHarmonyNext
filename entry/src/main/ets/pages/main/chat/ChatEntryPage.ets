@@ -1,7 +1,9 @@
-import { Log, NavigationUtil, RouterHelper, ToastUtil } from 'static_library_common';
+import { Log, NavigationUtil, ToastUtil } from 'static_library_common';
 import { ChatItem } from '../../../models/ui/im/ChatItem';
 import { ChatItemComponent } from './views/ChatItemComponent';
 import { ChatDataSource } from './datasource/ChatDataSource';
+import ChatEntryViewModel from './viewmodel/ChatEntryViewModel';
+import { LoadChatMessagesIntent, SendChatMessageIntent } from './intent/ChatIntent';
 import { window } from '@kit.ArkUI';
 import { PAGE_USER_INFO } from '../../PageName';
 
@@ -21,10 +23,7 @@ export struct ChatEntryPage {
   @Local keyboardHeight: number = 0;
   @Local input: string = '';
   @Local private message: string = '消息';
-  @Local private chatList: Array<ChatItem> = [
-    new ChatItem(200, 'Jerry', '你好 我是一只小老鼠'),
-    new ChatItem(101, 'Tom', '你好 我是一只老猫'),
-  ]
+  @Local viewModel: ChatEntryViewModel = new ChatEntryViewModel();
   private lazyChatDataSource: ChatDataSource = new ChatDataSource();
   // Navigation 路由 栈控制器 @Consumer跨组件传递
   @Consumer('HomePathStack') pathStack: NavPathStack = new NavPathStack();
@@ -33,9 +32,18 @@ export struct ChatEntryPage {
   pageParam: Map<string, string> = new Map();
   private scroller: Scroller = new Scroller()
 
+  @Monitor('viewModel.state.messages')
+  onMessagesChange(monitor: IMonitor) {
+    monitor.dirty.forEach((path: string) => {
+      Log.log(`ChatEntryPage messages changed: ${path}`)
+    })
+    this.lazyChatDataSource.reloadData(this.viewModel.state.messages)
+    this.scrollToLastItem()
+  }
+
   aboutToAppear(): void {
-    this.lazyChatDataSource.pushData(new ChatItem(200, 'Jerry', '你好 我是一只小老鼠'))
-    this.lazyChatDataSource.pushData(new ChatItem(101, 'Tom', '你好 我是一只老猫'))
+    Log.log(`-->ChatEntryPage aboutToAppear`)
+    this.viewModel.dispatch(new LoadChatMessagesIntent())
     // 监听软键盘弹出、收起
     let currentWindow = window.getLastWindow(this.getUIContext().getHostContext())
     currentWindow.then(window => {
@@ -51,6 +59,21 @@ export struct ChatEntryPage {
 
   private scrollToLastItem() {
     this.scroller.scrollEdge(Edge.Bottom)
+  }
+
+  private async sendMessage(): Promise<void> {
+    const content: string = this.input.trim()
+    if (content.length === 0) {
+      ToastUtil.showToast(this.getUIContext(), '请输入发送内容')
+      return
+    }
+    await this.viewModel.dispatch(new SendChatMessageIntent(content))
+    if (this.viewModel.state.screenState.isError) {
+      ToastUtil.showToast(this.getUIContext(), `发送失败: ${this.viewModel.state.screenState.errorMessage}`)
+      return
+    }
+    this.input = ''
+    this.getUIContext().getFocusController().clearFocus()
   }
 
   build() {
@@ -88,11 +111,7 @@ export struct ChatEntryPage {
             .layoutWeight(1)
           Button('发送').fontSize(20).fontColor(Color.Black).margin({ right: 16 })
             .onClick(() => {
-              this.lazyChatDataSource.pushData(new ChatItem(101, 'Tom', `来自老猫Tom的消息: ${Math.random() * 1000}`))
-              Log.warn(`lazyChatDataSource: ${JSON.stringify(this.lazyChatDataSource)}`)
-              this.input = ''
-              this.getUIContext().getFocusController().clearFocus()
-              this.scrollToLastItem()
+              this.sendMessage()
             })
         }.width('100%').height(50).backgroundColor(Color.Blue)
       }
@@ -105,5 +124,17 @@ export struct ChatEntryPage {
       this.pageParam = context.pathInfo.param as Map<string, string>
       Log.info(`ChatEntryPage pageParam: ${JSON.stringify(this.pageParam)}`)
     })
+  }
+
+  onPageShow(): void {
+    Log.debug(`-->ChatEntryPage onPageShow`)
+  }
+
+  onPageHide(): void {
+    Log.warn(`-->ChatEntryPage onPageHide`)
+  }
+
+  aboutToDisappear(): void {
+    Log.error(`-->ChatEntryPage aboutToDisappear`)
   }
 }

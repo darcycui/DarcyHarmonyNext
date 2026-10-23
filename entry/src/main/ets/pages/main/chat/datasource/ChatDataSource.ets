@@ -6,4 +6,9 @@ export class ChatDataSource extends BasicDataSource<ChatItem> {
     this.dataArray.push(item);
     this.notifyDataAdd(this.dataArray.length - 1);
   }
+
+  public reloadData(items: ChatItem[]): void {
+    this.dataArray = items.slice();
+    this.notifyDataReload();
+  }
 }
