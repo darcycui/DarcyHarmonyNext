@@ -14,9 +14,9 @@ import {
   HttpErrorEntity,
   HttpResultEntity,
   LoginRequestDTO,
-  LoginResponse
+  LoginResponse,
+  Urls
 } from 'library_network';
-import { Urls } from '../../../http/Urls';
 import { ServerDHExchangeUseCase } from '../../../dh/usecase/ServerDHExchangeUseCase';
 import { ServerDHExchangeRepository } from '../../../dh/repository/ServerDHExchangeRepository';
 

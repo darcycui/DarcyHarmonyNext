@@ -8,8 +8,7 @@
  *   ServerDHExchangeUseCase → ServerDHExchangeRepository → httpHelper.doPost
  */
 import { BaseRepository } from 'static_library_common';
-import { DHExchangeRequestDTO, DHExchangeResponse, HttpHelper, HttpErrorEntity, HttpResultEntity } from 'library_network';
-import { Urls } from '../../http/Urls';
+import { DHExchangeRequestDTO, DHExchangeResponse, HttpHelper, HttpErrorEntity, HttpResultEntity, Urls } from 'library_network';
 
 /**
  * DH 交换响应数据容器——用于在异步回调间安全传递数据

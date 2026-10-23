@@ -3,9 +3,6 @@
 // 鸿蒙Next静态库(HAR) - 登录注册模块
 // ============================================================
 
-// ---------- HTTP Utils ----------
-export { Urls } from './src/main/ets/http/Urls'
-
 // ---------- DH Key Exchange ----------
 export { ServerDHExchangeRepository } from './src/main/ets/dh/repository/ServerDHExchangeRepository'
 

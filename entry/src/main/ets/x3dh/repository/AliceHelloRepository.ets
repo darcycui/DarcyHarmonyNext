@@ -15,9 +15,9 @@ import {
   X3DHAliceHelloPullResponse,
   HttpHelper,
   HttpErrorEntity,
-  HttpResultEntity
+  HttpResultEntity,
+  Urls
 } from 'library_network';
-import { Urls } from 'library_login/src/main/ets/http/Urls';
 
 /**
  * Alice Hello 推送响应数据容器——用于在异步回调间安全传递数据

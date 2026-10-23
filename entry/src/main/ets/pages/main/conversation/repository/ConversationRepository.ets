@@ -15,9 +15,9 @@ import {
   HttpResultEntity,
   CommonRequestDTO,
   ConversationCreateRequestDTO,
-  ConversationResponse
+  ConversationResponse,
+  Urls
 } from 'library_network';
-import { Urls } from 'library_login';
 
 /**
  * 获取会话列表响应容器

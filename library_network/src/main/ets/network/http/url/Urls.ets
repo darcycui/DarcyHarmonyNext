@@ -1,4 +1,4 @@
-import { HttpHelper } from "library_network"
+import { HttpHelper } from '../HttpHelper'
 
 export class Urls {
   static LOGIN_URL = `${HttpHelper.BASE_HTTP_URL}/api/login`

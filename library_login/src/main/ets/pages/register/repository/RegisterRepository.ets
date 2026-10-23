@@ -16,9 +16,9 @@ import {
   RegisterRequestDTO,
   RegisterResponse,
   DeleteUserRequestDTO,
-  StringResponse
+  StringResponse,
+  Urls
 } from 'library_network';
-import { Urls } from '../../../http/Urls';
 import { ServerDHExchangeUseCase } from '../../../dh/usecase/ServerDHExchangeUseCase';
 import { ServerDHExchangeRepository } from '../../../dh/repository/ServerDHExchangeRepository';
 import { Available } from '@kit.BasicServicesKit';

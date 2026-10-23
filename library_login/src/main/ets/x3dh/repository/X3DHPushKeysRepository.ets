@@ -16,9 +16,9 @@ import {
   HttpHelper,
   HttpResultEntity,
   HttpErrorEntity,
-  OneTimePreKeyInputDTO
+  OneTimePreKeyInputDTO,
+  Urls
 } from 'library_network';
-import { Urls } from '../../http/Urls';
 
 /**
  * X3DH 密钥推送响应数据容器——用于在异步回调间安全传递数据

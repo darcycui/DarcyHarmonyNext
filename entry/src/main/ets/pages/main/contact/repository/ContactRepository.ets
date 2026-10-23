@@ -21,9 +21,9 @@ import {
   FriendRequestQueryToRequestDTO,
   FriendRequestQueryFromRequestDTO,
   FriendRequestActionRequestDTO,
-  ApplyFriendResponse
+  ApplyFriendResponse,
+  Urls
 } from 'library_network';
-import { Urls } from 'library_login';
 
 /**
  * 搜索用户响应容器

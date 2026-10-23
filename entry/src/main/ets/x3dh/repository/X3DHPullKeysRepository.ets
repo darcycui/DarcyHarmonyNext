@@ -13,9 +13,9 @@ import {
   X3DHKeysPullResponse,
   HttpHelper,
   HttpErrorEntity,
-  HttpResultEntity
+  HttpResultEntity,
+  Urls
 } from 'library_network';
-import { Urls } from 'library_login/src/main/ets/http/Urls';
 
 /**
  * X3DH 密钥拉取响应数据容器——用于在异步回调间安全传递数据

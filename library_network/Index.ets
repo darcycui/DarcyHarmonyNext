@@ -5,6 +5,7 @@
 
 // ---------- HTTP ----------
 export { HttpHelper } from './src/main/ets/network/http/HttpHelper'
+export { Urls } from './src/main/ets/network/http/url/Urls'
 export { TokenManager } from './src/main/ets/storage/memory/TokenManager'
 
 // ---------- Models (基础) ----------

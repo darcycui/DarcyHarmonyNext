@@ -4,7 +4,6 @@ $dst = "C:\Users\DarcyCH\Documents\Harmony\DarcyHarmonyNext\library_login"
 
 $files = @(
     "src\main\ets\abilitystage\LoginAbilityStage.ets",
-    "src\main\ets\http\Urls.ets",
     "src\main\ets\pages\dh\repository\ServerDHExchangeRepository.ets",
     "src\main\ets\pages\dh\usecase\ServerDHExchangeUseCase.ets",
     "src\main\ets\pages\login\LoginIndex.ets",
